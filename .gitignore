@@ -1,0 +1,9 @@
+!/public/template
+/public
+/tmp
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/.bundle
+/log
+!/log/.keep
+/db/schema.rb

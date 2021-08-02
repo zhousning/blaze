@@ -1,0 +1,69 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @pdt_sum, :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @pdt_sum.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@pdt_sum.errors.count, "error")} prohibited this buyer from being saved:"
+            %ul
+              - @pdt_sum.errors.full_messages.each do |msg|
+                %li= msg
+      
+        .form-group.row
+          = f.label Setting.pdt_sums.inflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inflow, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.outflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :outflow, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.inmud, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inmud, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.outmud, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :outmud, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.mst, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mst, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.power, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :power, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.mdflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mdflow, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.mdrcy, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mdrcy, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.pdt_sums.mdsell, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mdsell, :class => "form-control rounded-0" 
+          
+      
+      
+      
+      
+      
+        .form-group.row
+          .col-3.offset-3
+            = f.submit '保存', :class => "button  button-small button-action"
+        -#
+          .col-3.offset-1
+            = link_to '返回', pdt_sums_path, :class => "button button-small  button-caution"

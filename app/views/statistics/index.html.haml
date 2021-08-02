@@ -1,0 +1,49 @@
+- provide(:title, t('.title'))
+
+- content_for :main_body do
+  .container-fluid.p-0
+    .row
+      .col-md-12
+        %table.text-center.table-striped.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable"}
+          %thead
+            %tr
+              %th{:scope => "col"} #
+            
+              %th.w-75{:scope => "col"}
+                = Setting.statistics.title
+              -#
+                %th{:scope => "col"}
+                  = Setting.statistics.xtitle
+                %th{:scope => "col"}
+                  = Setting.statistics.ytitle
+                  %th{:scope => "col"}
+                    = Setting.statistics.legend
+                %th{:scope => "col"}
+                  = Setting.statistics.data
+              %th{:scope => "col"}
+                设置
+          %tbody
+            - @statistics.each_with_index do |statistic, index|
+              %tr
+                %td{:scope => "row"}
+                  = index+1
+              
+                %td
+                  = statistic.title
+                -#
+                  %td
+                    = statistic.xtitle
+                  %td
+                    = statistic.ytitle
+                    %td
+                      = statistic.legend
+                  %td
+                    = statistic.data
+                %td
+                  .container-fluid
+                    .row.justify-content-center
+                      = link_to "编辑", edit_statistic_path(statistic), :class => "button button-highlight button-small mr-1" 
+                      = link_to "图表",  statistic_path(statistic), :class => "button button-primary button-small mr-1" 
+                      = link_to "删除",  statistic, :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+
+= render "layouts/control_panel"

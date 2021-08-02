@@ -1,0 +1,55 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-8.offset-2
+              .card-body
+                .container-fluid
+                  .row
+                  <% @attrs.each do |attr| %>
+                    .col-md-6.mb-3.mr-3
+                      = Setting.<%= @mpu %>.<%= attr %>
+                      = @<%= @mu %>.<%= attr %>
+                  <% end %>
+                  .row
+                  <% @one_enclosure.each do |e| %>
+                    .col-md-6
+                      = image_tag @<%= @mu %>.<%= e %>_url, :class => "w-100"
+                  <% end %>
+                  .row
+                  <% if @enclosure %>
+                    - @<%= @mu %>.enclosures.each do |e|
+                      .col-md-6
+                        = image_tag e.file_url(:small_width), :class => "w-100"
+                  <% end %>
+                  .row
+                  <% @one_attachment.each do |a| %>
+                    .col-md-6
+                      - unless @<%= @mu %>.<%= a %>.blank?
+                        = link_to URI.decode(File.basename(@<%= @mu %>.<%= a %>_url)), download_append_<%= @mu %>_path(@<%= @mu %>.id)
+                  <% end %>
+                  <% if @attachment %>
+                  .row
+                    - @<%= @mu %>.attachments.each_with_index do |e, i|
+                      .col-md-12
+                        = link_to File.basename(e.file_url), download_attachment_<%= @mu %>_path(@<%= @mu %>.id, :number => i, :ft => '')
+                  <% end %>
+                  .row
+                  <% @fields.each do |field, value| %>
+                    - @<%= @mu %>.<%= field.pluralize %>.each do |<%= field %>|
+                      <% value['attr'].each do |attr| %> 
+                      .col-md-2
+                        = <%= field %>.<%= attr %>
+                      <% end %>
+                  <% end %>
+      = render "layouts/bootstrap/card"

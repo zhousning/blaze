@@ -1,0 +1,49 @@
+.nested-fields.nestd-item
+  .form-group
+    .field.d-inline
+    
+      .form-group.row
+        = f.label Setting.pdt_sums.inflow, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :inflow, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.outflow, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :outflow, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.inmud, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :inmud, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.outmud, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :outmud, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.mst, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mst, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.power, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :power, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.mdflow, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mdflow, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.mdrcy, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mdrcy, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.pdt_sums.mdsell, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mdsell, :class => "form-control"
+        

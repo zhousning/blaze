@@ -1,0 +1,59 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @inf_qlty, :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @inf_qlty.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@inf_qlty.errors.count, "error")} prohibited this buyer from being saved:"
+            %ul
+              - @inf_qlty.errors.full_messages.each do |msg|
+                %li= msg
+      
+        .form-group.row
+          = f.label Setting.inf_qlties.bod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :bod, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.inf_qlties.cod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :cod, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.inf_qlties.ss, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :ss, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.inf_qlties.nhn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :nhn, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.inf_qlties.tn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :tn, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.inf_qlties.tp, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :tp, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.inf_qlties.ph, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :ph, :class => "form-control rounded-0" 
+          
+      
+      
+      
+      
+      
+        .form-group.row
+          .col-3.offset-3
+            = f.submit '保存', :class => "button  button-small button-action"
+        -#
+          .col-3.offset-1
+            = link_to '返回', inf_qlties_path, :class => "button button-small  button-caution"
