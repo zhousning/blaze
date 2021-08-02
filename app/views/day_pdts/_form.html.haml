@@ -1,7 +1,7 @@
 .container-fluid
   .row.justify-content-sm-center
     .col-sm-12
-      = form_for @day_pdt, :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+      = form_for @day_pdt, :url => "/factories/#{idencode(@factory.id)}/day_pdts/#{@day_pdt.id ? idencode(@day_pdt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
         - if @day_pdt.errors.any?
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
@@ -66,21 +66,21 @@
             = f.label Setting.eff_qlties.label, :class => "col-3  text-right col-form-label"
             .col-9
               .row
-                = f.fields_for :eff_qlties do |eff_qlty|
+                = f.fields_for :eff_qlty do |eff_qlty|
                   = render 'eff_qlty_fields', f: eff_qlty 
       
           .form-group.row
             = f.label Setting.sed_qlties.label, :class => "col-3  text-right col-form-label"
             .col-9
               .row
-                = f.fields_for :sed_qlties do |sed_qlty|
+                = f.fields_for :sed_qlty do |sed_qlty|
                   = render 'sed_qlty_fields', f: sed_qlty 
       
           .form-group.row
             = f.label Setting.pdt_sums.label, :class => "col-3  text-right col-form-label"
             .col-9
               .row
-                = f.fields_for :pdt_sums do |pdt_sum|
+                = f.fields_for :pdt_sum do |pdt_sum|
                   = render 'pdt_sum_fields', f: pdt_sum 
       
         .form-group.row

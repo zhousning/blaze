@@ -12,6 +12,7 @@ class CreateFactories < ActiveRecord::Migration
     
       t.string :lat,  null: false, default: Setting.systems.default_str
     
+      t.string :design,  null: false, default: Setting.systems.default_str
 
     
       t.string :logo,  null: false, default: Setting.systems.default_str

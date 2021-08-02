@@ -4,6 +4,7 @@ class RolifyCreateRoles < ActiveRecord::Migration
       t.string :name, :null => false, :default => ""
       t.string :level, :null => false, :default => ""
       t.references :resource, :polymorphic => true
+      t.references :department
 
       t.timestamps
     end
@@ -17,6 +18,5 @@ class RolifyCreateRoles < ActiveRecord::Migration
     add_index(:roles, [ :name, :resource_type, :resource_id ])
     add_index(:users_roles, [ :user_id, :role_id ])
 
-    t.references :department
   end
 end

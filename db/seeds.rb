@@ -20,5 +20,10 @@ user.roles << role
 
 AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email, :password => Setting.admins.password, :password_confirmation => Setting.admins.password)
 
-User.create!(:phone => "15763703188", :password => "15763703188", :password_confirmation => "15763703188")
+@user = User.create!(:phone => "15763703188", :password => "15763703188", :password_confirmation => "15763703188")
 
+@company = Company.create!(:area => "曲阜", :name => "曲阜污水处理厂")
+@qufu_one_fct = Factory.create!(:area => "曲阜", :name => "曲阜第一污水处理厂", :company => @company)
+@qufu_thd_fct = Factory.create!(:area => "曲阜", :name => "曲阜第三污水处理厂", :company => @company)
+@user.factories << @qufu_one_fct
+@user.factories << @qufu_thd_fct

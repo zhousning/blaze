@@ -41,44 +41,7 @@ class ApplicationController < ActionController::Base
     exist
   end
 
-  def find_cpt_dep_user(user)
-    CptDepUser.where(:user_id => user.id)
-  end
 
-  def save_cpt_dep_user(cpt, dep, user)
-    CptDepUser.create(:cpt_id => cpt.idnumber, :dep_id => dep.idnumber, :user_id => user.id)
-  end
-  
-  def delete_cpt_dep_user(cpt, dep, user)
-    CptDepUser.where(:cpt_id => cpt.idnumber, :dep_id => dep.idnumber, :user_id => user.id).delete_all
-  end
-
-  def certs(handle_cert, category)
-    @cert_ctgs = CertCtg.where(:category => category)
-    certships = handle_cert.cert_ships
-    @my_ctgs = Hash.new
-    certships.each do |d|
-      @my_ctgs[d.cert_ctg_id] = d.level
-    end
-    puts ",,,,,,,,,,,,"
-    puts handle_cert
-    puts certships
-    puts "8888888888888"
-    puts @my_ctgs
-    puts ",,,,,,,,,,,,"
-  end
-
-  def hash_cert(certs) 
-    cert_hash = Hash.new
-    certs.each do |d|
-      next unless d =~ /,/
-      cert_level = d.split(",")
-      cert = cert_level[0]
-      level = cert_level[1]
-      cert_hash[cert] = level
-    end
-    cert_hash
-  end
 
   protected
 
@@ -109,4 +72,11 @@ class ApplicationController < ActionController::Base
       Digest::MD5.hexdigest(value) unless value.blank?
     end
 
+    def idencode(value)
+      (value.to_i*99 + 4933)*3 
+    end
+
+    def iddecode(value)
+      (value.to_i/3 - 4933)/99 
+    end
 end

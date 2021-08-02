@@ -1500,6 +1500,7 @@ development:
     area: 地区
     name: 名称
     info: 简介
+    design: 设计处理水量
     lnt: 经度
     lat: 维度
   departments:

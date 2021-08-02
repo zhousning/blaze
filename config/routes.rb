@@ -105,6 +105,11 @@ Rails.application.routes.draw do
     get :download_append, :on => :member
     post :parse_excel, :on => :collection
     get :xls_download, :on => :collection
+    resources :day_pdts do
+      get :download_append, :on => :member
+      post :parse_excel, :on => :collection
+      get :xls_download, :on => :collection
+    end
   end
   resources :departments do
     get :download_append, :on => :member
@@ -127,11 +132,6 @@ Rails.application.routes.draw do
     get :xls_download, :on => :collection
   end
   resources :inf_qlties do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-  end
-  resources :day_pdts do
     get :download_append, :on => :member
     post :parse_excel, :on => :collection
     get :xls_download, :on => :collection

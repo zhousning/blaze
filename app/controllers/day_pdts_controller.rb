@@ -3,42 +3,39 @@ class DayPdtsController < ApplicationController
   before_filter :authenticate_user!
   #load_and_authorize_resource
 
-   
+
   def index
     @day_pdt = DayPdt.new
-   
-    @day_pdts = DayPdt.all
-   
+    @factory = my_factory
+
+    @day_pdts = @factory.day_pdts if @factory
   end
    
 
    
   def show
-   
-    @day_pdt = DayPdt.find(params[:id])
-   
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
   end
    
 
    
   def new
+    @factory = my_factory
     @day_pdt = DayPdt.new
     
     @day_pdt.build_inf_qlty
-    
     @day_pdt.build_eff_qlty
-    
     @day_pdt.build_sed_qlty
-    
     @day_pdt.build_pdt_sum
     
   end
    
-
-   
   def create
+    @factory = my_factory
     @day_pdt = DayPdt.new(day_pdt_params)
-     
+    @day_pdt.factory = @factory
+
     if @day_pdt.save
       redirect_to :action => :index
     else
@@ -49,19 +46,18 @@ class DayPdtsController < ApplicationController
 
    
   def edit
-   
-    @day_pdt = DayPdt.find(params[:id])
-   
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
   end
    
 
    
   def update
-   
-    @day_pdt = DayPdt.find(params[:id])
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
    
     if @day_pdt.update(day_pdt_params)
-      redirect_to day_pdt_path(@day_pdt) 
+      redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
     else
       render :edit
     end
@@ -70,19 +66,14 @@ class DayPdtsController < ApplicationController
 
    
   def destroy
-   
-    @day_pdt = DayPdt.find(params[:id])
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
    
     @day_pdt.destroy
     redirect_to :action => :index
   end
    
 
-  
-
-  
-
-  
   def xls_download
     send_file File.join(Rails.root, "public", "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
@@ -136,8 +127,6 @@ class DayPdtsController < ApplicationController
       [:id, :file, :_destroy]
     end
   
-  
-  
     def inf_qlty_params
       [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph ,:_destroy]
     end
@@ -154,5 +143,9 @@ class DayPdtsController < ApplicationController
       [:id, :inflow, :outflow, :inmud, :outmud, :mst, :power, :mdflow, :mdrcy, :mdsell ,:_destroy]
     end
   
+    def my_factory
+      @factory = current_user.factories.find(iddecode(params[:factory_id]))
+    end
+   
 end
 

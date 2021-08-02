@@ -32,4 +32,11 @@ module ApplicationHelper
     result.html_safe
   end
 
+  def idencode(value)
+    (value.to_i*99 + 4933)*3 
+  end
+
+  def iddecode(value)
+    (value.to_i/3 - 4933)/99 
+  end
 end
