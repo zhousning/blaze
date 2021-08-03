@@ -62,6 +62,28 @@ class DayPdtsController < ApplicationController
       render :edit
     end
   end
+
+  def upreport
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+    @eff = @day_pdt.eff_qlty
+    @inf = @day_pdt.inf_qlty
+    @sed = @day_pdt.sed_qlty
+    @pdt_sum = @day_pdt.pdt_sum
+
+    @day_pdt_rpt = DayPdtRpt.new(
+      :factory => @factory,
+      :day_pdt => @day_pdt,
+      :name => @day_pdt.name, :pdt_date => @day_pdt.pdt_date, :weather => @day_pdt.weather, :temper => @day_pdt.temper, 
+      :inf_qlty_bod => @inf.bod, :inf_qlty_cod => @inf.cod, :inf_qlty_ss => @inf.ss, :inf_qlty_nhn => @inf.nhn, :inf_qlty_tn => @inf.tn, :inf_qlty_tp => @inf.tp, :inf_qlty_ph => @inf.ph, 
+      :eff_qlty_bod => @eff.bod, :eff_qlty_cod => @eff.cod, :eff_qlty_ss => @eff.ss, :eff_qlty_nhn => @eff.nhn, :eff_qlty_tn => @eff.tn, :eff_qlty_tp => @eff.tp, :eff_qlty_ph => @eff.ph, :eff_qlty_fecal => @eff.fecal,
+      :sed_qlty_bod => @sed.bod, :sed_qlty_cod => @sed.cod, :sed_qlty_ss => @sed.ss, :sed_qlty_nhn => @sed.nhn, :sed_qlty_tn => @sed.tn, :sed_qlty_tp => @sed.tp, :sed_qlty_ph => @sed.ph, 
+      :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell
+    )
+
+    @day_pdt.complete if @day_pdt_rpt.save
+    redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+  end
    
 
    

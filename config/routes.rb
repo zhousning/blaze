@@ -19,22 +19,22 @@ Rails.application.routes.draw do
     #end
   end
 
-  resources :users, :only => []  do
-    get :center, :on => :collection
-    get :alipay_return, :on => :collection
-    post :alipay_notify, :on => :collection
-    get :mobile_authc_new, :on => :member
-    post :mobile_authc_create, :on => :member
-    get :mobile_authc_status, :on => :member
-  end
+  #resources :users, :only => []  do
+  #  get :center, :on => :collection
+  #  get :alipay_return, :on => :collection
+  #  post :alipay_notify, :on => :collection
+  #  get :mobile_authc_new, :on => :member
+  #  post :mobile_authc_create, :on => :member
+  #  get :mobile_authc_status, :on => :member
+  #end
 
   resources :roles
 
-  resources :accounts, :only => [:edit, :update] do
-    get :recharge, :on => :collection 
-    get :info, :on => :collection
-    get :status, :on => :collection
-  end
+  #resources :accounts, :only => [:edit, :update] do
+  #  get :recharge, :on => :collection 
+  #  get :info, :on => :collection
+  #  get :status, :on => :collection
+  #end
 
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
@@ -49,22 +49,39 @@ Rails.application.routes.draw do
     get :produce, :on => :member
   end
 
-  resources :nlps do
-    collection do
-      post 'analyze'
-    end
-  end
+  #resources :nlps do
+  #  collection do
+  #    post 'analyze'
+  #  end
+  #end
+  #resources :ocrs do
+  #  post :analyze, :on => :collection
+  #end
 
-  resources :notices
-  resources :articles do
-    get :export, :on => :collection
-    get :main_image, :on => :member
-    get :detail_image, :on => :member
-  end
+  #resources :notices
+  #resources :articles do
+  #  get :export, :on => :collection
+  #  get :main_image, :on => :member
+  #  get :detail_image, :on => :member
+  #end
 
-  resources :ocrs do
-    post :analyze, :on => :collection
-  end
+  #resources :systems, :only => [] do
+  #  get :send_confirm_code, :on => :collection
+  #end
+  #
+  #resources :orders, :only => [:new, :create] do
+  #  get :pay, :on => :collection
+  #  get :alipay_return, :on => :collection
+  #  post :alipay_notify, :on => :collection
+  #end
+
+  #resources :tasks, :only => [] do
+  #  get :invite, :on => :collection
+  #end
+
+  #resources :spiders do
+  #  get :start, :on => :member
+  #end
 
   resources :statistics do
     get :line, :on => :member
@@ -74,24 +91,6 @@ Rails.application.routes.draw do
     get :bar, :on => :member
     get :area, :on => :member
     get :scatter, :on => :member
-  end
-
-  resources :systems, :only => [] do
-    get :send_confirm_code, :on => :collection
-  end
-  
-  resources :orders, :only => [:new, :create] do
-    get :pay, :on => :collection
-    get :alipay_return, :on => :collection
-    post :alipay_notify, :on => :collection
-  end
-
-  resources :tasks, :only => [] do
-    get :invite, :on => :collection
-  end
-
-  resources :spiders do
-    get :start, :on => :member
   end
 
   resources :selectors
@@ -108,6 +107,11 @@ Rails.application.routes.draw do
     resources :day_pdts do
       get :download_append, :on => :member
       post :parse_excel, :on => :collection
+      get :xls_download, :on => :collection
+      get :upreport, :on => :member
+    end
+    resources :day_pdt_rpts do
+      get :download_append, :on => :member
       get :xls_download, :on => :collection
     end
   end

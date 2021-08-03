@@ -25,6 +25,14 @@ class DayPdt < ActiveRecord::Base
   has_one :sed_qlty
   accepts_nested_attributes_for :sed_qlty, allow_destroy: true
 
+  has_one :day_pdt_rpt
+  accepts_nested_attributes_for :sed_qlty, allow_destroy: true
 
+  def onging 
+    update_attribute :state, Setting.day_pdts.ongoing
+  end
 
+  def complete 
+    update_attribute :state, Setting.day_pdts.complete
+  end
 end

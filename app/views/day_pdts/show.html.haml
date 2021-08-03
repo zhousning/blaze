@@ -9,6 +9,7 @@
           = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
           = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+          = link_to "上报",  upreport_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-primary button-small mr-1" 
       - content_for :card_body do
         .container-fluid
           .row

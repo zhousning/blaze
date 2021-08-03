@@ -1112,7 +1112,7 @@ defaults:
     btn_show: 详情
     btn_delete: 删除
     btn_save: 保存
-    company_name: 梁山水务牛盾仓储管理系统
+    company_name: 山东公用水务集团生产运营分析系统
     nav_item1: 首页
     nav_item2: 招标公告
     nav_item3: 中标公告
@@ -1554,6 +1554,47 @@ development:
     weather: 天气
     temper: 气温
     desc: 其他说明
+    ongoing: 0
+    ongoing_t: "填报中" 
+    complete: 1
+    complete_t: "已上报" 
+  day_pdt_rpts:
+    label: 生产运营日报表
+    name: 名称
+    pdt_date: 日期
+    weather: 天气
+    temper: 温度
+    inf_qlty_bod: 进水BOD
+    inf_qlty_cod: 进水COD
+    inf_qlty_ss: 进水SS
+    inf_qlty_nhn: 进水氨氮
+    inf_qlty_tn: 进水TN
+    inf_qlty_tp: 进水TP
+    inf_qlty_ph: 进水PH
+    eff_qlty_bod: 出水BOD
+    eff_qlty_cod: 出水COD
+    eff_qlty_ss: 出水SS
+    eff_qlty_nhn: 出水氨氮
+    eff_qlty_tn: 出水TN
+    eff_qlty_tp: 出水TP
+    eff_qlty_ph: 出水PH
+    eff_qlty_fecal: 出水粪大肠菌群
+    sed_qlty_bod: 二沉池BOD
+    sed_qlty_cod: 二沉池COD
+    sed_qlty_ss: 二沉池SS
+    sed_qlty_nhn: 二沉池氨氮
+    sed_qlty_tn: 二沉池TN
+    sed_qlty_tp: 二沉池TP
+    sed_qlty_ph: 二沉池PH
+    inflow: 进水量
+    outflow: 出水量
+    inmud: 进泥量
+    outmud: 出泥量
+    mst: 污泥含水率
+    power: 耗电量
+    mdflow: 中水量
+    mdrcy: 中水回用量
+    mdsell: 中水销售水量
 test:
   admins: *104
   users: *105

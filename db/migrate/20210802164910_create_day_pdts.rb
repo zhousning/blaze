@@ -15,10 +15,8 @@ class CreateDayPdts < ActiveRecord::Migration
       t.text :desc
     
 
+      t.integer :state,  null: false, default: Setting.systems.default_num 
     
-
-    
-
     
       t.references :factory
     

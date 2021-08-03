@@ -122,7 +122,7 @@ gem 'activeadmin_blaze_theme'
 gem 'newrelic_rpm'
 
 #gem 'alipay', '~> 0.12.0'
-gem 'alipay', :git=>'https://github.com/zhousning/alipay.git'
+#gem 'alipay', :git=>'https://github.com/zhousning/alipay.git'
 
 #gem 'wx_pay'
 
@@ -154,7 +154,7 @@ gem "parsley-rails"
 #
 gem 'deep_cloneable', '~> 3.0.0'
 
-gem 'chinese_pinyin'
+#gem 'chinese_pinyin'
 
 #gem 'rack-cors', :require => 'rack/cors'
 
