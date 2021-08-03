@@ -48,9 +48,9 @@
                       %td
                         .container-fluid
                           .row.justify-content-center
-                            = link_to "编辑", edit_<%= @mu %>_path(<%= @mu %>), :class => "button button-highlight button-small mr-1" 
-                            = link_to "详情",  <%= @mu %>_path(<%= @mu %>), :class => "button button-primary button-small mr-1" 
-                            = link_to "删除",  <%= @mu  %>, :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+                            = link_to "编辑", edit_<%= @mu %>_path(idencode(<%= @mu %>.id)), :class => "button button-highlight button-small mr-1" 
+                            = link_to "详情",  <%= @mu %>_path(idencode(<%= @mu %>.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "删除",  <%= @mu  %>_path(idencode(<%= @mu  %>.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
       = render "layouts/bootstrap/card"
 
 <% if @upload %>
@@ -76,7 +76,6 @@
               = submit_tag '保存', :class => "btn btn-primary btn-parse-submit " 
 <% end %>
 
-<% if @upload %>
 #newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
   .modal-dialog
     .modal-content
@@ -85,4 +84,3 @@
           %span{"aria-hidden" => "true"} x 
       .modal-body
         = render 'form'
-<% end %>

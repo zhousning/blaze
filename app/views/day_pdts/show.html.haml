@@ -7,7 +7,7 @@
       - content_for :card_header do
         %h5
           = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
-          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+          = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
       - content_for :card_body do
         .container-fluid
@@ -43,120 +43,106 @@
                   
                   .row
                   
-                  .row
-                  
                     - @day_pdt.enclosures.each do |e|
                       .col-md-6
                         = image_tag e.file_url(:small_width), :class => "w-100"
                   
                   .row
+                    .col-md-2
+                      = @day_pdt.inf_qlty.bod
+                     
+                    .col-md-2
+                      = @day_pdt.inf_qlty.cod
+                     
+                    .col-md-2
+                      = @day_pdt.inf_qlty.ss
+                     
+                    .col-md-2
+                      = @day_pdt.inf_qlty.nhn
+                     
+                    .col-md-2
+                      = @day_pdt.inf_qlty.tn
+                     
+                    .col-md-2
+                      = @day_pdt.inf_qlty.tp
+                     
+                    .col-md-2
+                      = @day_pdt.inf_qlty.ph
+                    
                   
+                    .col-md-2
+                      = @day_pdt.eff_qlty.bod
+                     
+                    .col-md-2
+                      = @day_pdt.eff_qlty.cod
+                     
+                    .col-md-2
+                      = @day_pdt.eff_qlty.ss
+                     
+                    .col-md-2
+                      = @day_pdt.eff_qlty.nhn
+                     
+                    .col-md-2
+                      = @day_pdt.eff_qlty.tn
+                     
+                    .col-md-2
+                      = @day_pdt.eff_qlty.tp
+                     
+                    .col-md-2
+                      = @day_pdt.eff_qlty.ph
+                     
+                    .col-md-2
+                      = @day_pdt.eff_qlty.fecal
+                    
                   
-                  .row
+                    .col-md-2
+                      = @day_pdt.sed_qlty.bod
+                     
+                    .col-md-2
+                      = @day_pdt.sed_qlty.cod
+                     
+                    .col-md-2
+                      = @day_pdt.sed_qlty.ss
+                     
+                    .col-md-2
+                      = @day_pdt.sed_qlty.nhn
+                     
+                    .col-md-2
+                      = @day_pdt.sed_qlty.tn
+                     
+                    .col-md-2
+                      = @day_pdt.sed_qlty.tp
+                     
+                    .col-md-2
+                      = @day_pdt.sed_qlty.ph
+                    
                   
-                    - @day_pdt.inf_qlties.each do |inf_qlty|
-                       
-                      .col-md-2
-                        = inf_qlty.bod
-                       
-                      .col-md-2
-                        = inf_qlty.cod
-                       
-                      .col-md-2
-                        = inf_qlty.ss
-                       
-                      .col-md-2
-                        = inf_qlty.nhn
-                       
-                      .col-md-2
-                        = inf_qlty.tn
-                       
-                      .col-md-2
-                        = inf_qlty.tp
-                       
-                      .col-md-2
-                        = inf_qlty.ph
-                      
-                  
-                    - @day_pdt.eff_qlties.each do |eff_qlty|
-                       
-                      .col-md-2
-                        = eff_qlty.bod
-                       
-                      .col-md-2
-                        = eff_qlty.cod
-                       
-                      .col-md-2
-                        = eff_qlty.ss
-                       
-                      .col-md-2
-                        = eff_qlty.nhn
-                       
-                      .col-md-2
-                        = eff_qlty.tn
-                       
-                      .col-md-2
-                        = eff_qlty.tp
-                       
-                      .col-md-2
-                        = eff_qlty.ph
-                       
-                      .col-md-2
-                        = eff_qlty.fecal
-                      
-                  
-                    - @day_pdt.sed_qlties.each do |sed_qlty|
-                       
-                      .col-md-2
-                        = sed_qlty.bod
-                       
-                      .col-md-2
-                        = sed_qlty.cod
-                       
-                      .col-md-2
-                        = sed_qlty.ss
-                       
-                      .col-md-2
-                        = sed_qlty.nhn
-                       
-                      .col-md-2
-                        = sed_qlty.tn
-                       
-                      .col-md-2
-                        = sed_qlty.tp
-                       
-                      .col-md-2
-                        = sed_qlty.ph
-                      
-                  
-                    - @day_pdt.pdt_sums.each do |pdt_sum|
-                       
-                      .col-md-2
-                        = pdt_sum.inflow
-                       
-                      .col-md-2
-                        = pdt_sum.outflow
-                       
-                      .col-md-2
-                        = pdt_sum.inmud
-                       
-                      .col-md-2
-                        = pdt_sum.outmud
-                       
-                      .col-md-2
-                        = pdt_sum.mst
-                       
-                      .col-md-2
-                        = pdt_sum.power
-                       
-                      .col-md-2
-                        = pdt_sum.mdflow
-                       
-                      .col-md-2
-                        = pdt_sum.mdrcy
-                       
-                      .col-md-2
-                        = pdt_sum.mdsell
+                    .col-md-2
+                      = @day_pdt.pdt_sum.inflow
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.outflow
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.inmud
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.outmud
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.mst
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.power
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.mdflow
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.mdrcy
+                     
+                    .col-md-2
+                      = @day_pdt.pdt_sum.mdsell
                       
                   
       = render "layouts/bootstrap/card"

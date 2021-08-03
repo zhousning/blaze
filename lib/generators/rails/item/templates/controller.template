@@ -17,9 +17,9 @@ class <%= @mpc %>Controller < ApplicationController
   <% if @show %> 
   def show
   <% if @current_user %> 
-    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => params[:id]).first
+    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => iddecode(params[:id])).first
   <% else %> 
-    @<%= @mu %> = <%= @mc %>.find(params[:id])
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
   <% end %> 
   end
   <% end %> 
@@ -50,9 +50,9 @@ class <%= @mpc %>Controller < ApplicationController
   <% if @edit %> 
   def edit
   <% if @current_user %> 
-    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => params[:id]).first
+    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => iddecode(params[:id])).first
   <% else %> 
-    @<%= @mu %> = <%= @mc %>.find(params[:id])
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
   <% end %> 
   end
   <% end %> 
@@ -60,12 +60,12 @@ class <%= @mpc %>Controller < ApplicationController
   <% if @edit %> 
   def update
   <% if @current_user %> 
-    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => params[:id]).first
+    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => iddecode(params[:id])).first
   <% else %> 
-    @<%= @mu %> = <%= @mc %>.find(params[:id])
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
   <% end %> 
     if @<%= @mu %>.update(<%= @mu %>_params)
-      redirect_to <%= @mu %>_path(@<%= @mu %>) 
+      redirect_to <%= @mu %>_path(idencode(@<%= @mu %>.id)) 
     else
       render :edit
     end
@@ -75,9 +75,9 @@ class <%= @mpc %>Controller < ApplicationController
   <% if @index %> 
   def destroy
   <% if @current_user %> 
-    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => params[:id]).first
+    @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => iddecode(params[:id])).first
   <% else %> 
-    @<%= @mu %> = <%= @mc %>.find(params[:id])
+    @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
   <% end %> 
     @<%= @mu %>.destroy
     redirect_to :action => :index
@@ -87,9 +87,9 @@ class <%= @mpc %>Controller < ApplicationController
   <% if @attachment %>
     def download_attachment 
     <% if @current_user %> 
-      @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => params[:id]).first
+      @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => iddecode(params[:id])).first
     <% else %> 
-      @<%= @mu %> = <%= @mc %>.find(params[:id])
+      @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
     <% end %> 
       @attachment_id = params[:number].to_i
       @attachment = @<%= @mu %>.attachments[@attachment_id]
@@ -103,9 +103,9 @@ class <%= @mpc %>Controller < ApplicationController
   <% @one_attachment.each do |att| %>
     def download_append
     <% if @current_user %> 
-      @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => params[:id]).first
+      @<%= @mu %> = <%= @mc %>.where(:user => current_user, :id => iddecode(params[:id])).first
     <% else %> 
-      @<%= @mu %> = <%= @mc %>.find(params[:id])
+      @<%= @mu %> = <%= @mc %>.find(iddecode(params[:id]))
     <% end %> 
       @<%= att %> = @<%= @mu %>.<%= att %>_url
 
