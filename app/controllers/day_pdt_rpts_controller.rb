@@ -21,6 +21,29 @@ class DayPdtRptsController < ApplicationController
   end
    
 
+  def produce_report 
+    @factory = my_factory
+   
+    @day_pdt_rpt = @factory.day_pdt_rpts.find(iddecode(params[:id]))
+
+    respond_to do |format|
+      format.json{ render :json => 
+        {
+          :categories => [
+            {:source => "COD", :'进水' => @day_pdt_rpt.inf_qlty_cod, :'出水' => @day_pdt_rpt.eff_qlty_cod},
+            {:source => "BOD", :'进水' => @day_pdt_rpt.inf_qlty_bod, :'出水' => @day_pdt_rpt.eff_qlty_bod},
+            {:source => "TN", :'进水' => @day_pdt_rpt.inf_qlty_tn, :'出水' => @day_pdt_rpt.eff_qlty_tn},
+            {:source => "TP", :'进水' => @day_pdt_rpt.inf_qlty_tp, :'出水' => @day_pdt_rpt.eff_qlty_tp},
+            {:source => "NH3-N", :'进水' => @day_pdt_rpt.inf_qlty_nhn, :'出水' => @day_pdt_rpt.eff_qlty_nhn},
+            {:source => "PH", :'进水' => @day_pdt_rpt.inf_qlty_ph, :'出水' => @day_pdt_rpt.eff_qlty_ph}
+          ]
+        }.to_json}
+      #format.json{ render :json => 
+      #  {
+      #    :categories => [{:source => "进水", :COD => @day_pdt_rpt.inf_qlty_cod, :BOD => @day_pdt_rpt.inf_qlty_bod, :TN => @day_pdt_rpt.inf_qlty_tn, :TP => @day_pdt_rpt.inf_qlty_tp, :'NH3-N' => @day_pdt_rpt.inf_qlty_nhn}, {:source => "出水", :COD => @day_pdt_rpt.eff_qlty_cod, :BOD => @day_pdt_rpt.eff_qlty_bod, :TN =>  @day_pdt_rpt.eff_qlty_tn, :TP => @day_pdt_rpt.eff_qlty_tp, :'NH3-N' => @day_pdt_rpt.eff_qlty_nhn}]
+      #  }.to_json}
+    end
+  end
    
   #def new
   #  @day_pdt_rpt = DayPdtRpt.new

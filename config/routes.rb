@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       get :upreport, :on => :member
     end
     resources :day_pdt_rpts do
+      get :produce_report, :on => :member
       get :download_append, :on => :member
       get :xls_download, :on => :collection
     end

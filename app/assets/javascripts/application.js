@@ -22,8 +22,6 @@
 //= require bootstrap-table/locale/bootstrap-table-zh-CN
 //= require cocoon
 //= require kindeditor
-//= require Chart.bundle 
-//= require chartkick 
 //= require select2
 //= require select2_locale_zh-CN
 
