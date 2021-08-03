@@ -195,10 +195,15 @@
 
 
 #newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
-  .modal-dialog.modal-xl
+  .modal-dialog.modal-xl.modal-dialog-centered
     .modal-content
       .modal-header
+        %h3#day-pdt-rpt-header.modal-title.text-center
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} x 
       .modal-body
-        #chart-ctn{:style => "width: 600px;height:400px;"}
+        .row
+          .col-8
+            #chart-ctn{:style => "width: 800px;height:400px;"}
+          .col-4.d-flex.align-items-center.justify-content-center
+            #day-pdt-rpt-ctn

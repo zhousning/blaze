@@ -36,12 +36,23 @@ class DayPdtRptsController < ApplicationController
             {:source => "TP", :'进水' => @day_pdt_rpt.inf_qlty_tp, :'出水' => @day_pdt_rpt.eff_qlty_tp},
             {:source => "NH3-N", :'进水' => @day_pdt_rpt.inf_qlty_nhn, :'出水' => @day_pdt_rpt.eff_qlty_nhn},
             {:source => "PH", :'进水' => @day_pdt_rpt.inf_qlty_ph, :'出水' => @day_pdt_rpt.eff_qlty_ph}
-          ]
+          ],
+          :info => {
+            :inflow => @day_pdt_rpt.inflow, 
+            :outflow => @day_pdt_rpt.outflow, 
+            :inmud => @day_pdt_rpt.inmud, 
+            :outmud => @day_pdt_rpt.outmud, 
+            :mst => @day_pdt_rpt.mst, 
+            :power => @day_pdt_rpt.power, 
+            :mdflow => @day_pdt_rpt.mdflow, 
+            :mdrcy => @day_pdt_rpt.mdrcy, 
+            :mdsell => @day_pdt_rpt.mdsell,
+            :name => @day_pdt_rpt.name, 
+            :pdt_date => @day_pdt_rpt.pdt_date, 
+            :weather => @day_pdt_rpt.weather, 
+            :temper => @day_pdt_rpt.temper
+          }
         }.to_json}
-      #format.json{ render :json => 
-      #  {
-      #    :categories => [{:source => "进水", :COD => @day_pdt_rpt.inf_qlty_cod, :BOD => @day_pdt_rpt.inf_qlty_bod, :TN => @day_pdt_rpt.inf_qlty_tn, :TP => @day_pdt_rpt.inf_qlty_tp, :'NH3-N' => @day_pdt_rpt.inf_qlty_nhn}, {:source => "出水", :COD => @day_pdt_rpt.eff_qlty_cod, :BOD => @day_pdt_rpt.eff_qlty_bod, :TN =>  @day_pdt_rpt.eff_qlty_tn, :TP => @day_pdt_rpt.eff_qlty_tp, :'NH3-N' => @day_pdt_rpt.eff_qlty_nhn}]
-      #  }.to_json}
     end
   end
    
@@ -104,7 +115,6 @@ class DayPdtRptsController < ApplicationController
   def xls_download
     send_file File.join(Rails.root, "public", "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
-  
   
   
 
