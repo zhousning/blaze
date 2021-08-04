@@ -112,9 +112,17 @@ Rails.application.routes.draw do
     end
     resources :day_pdt_rpts do
       get :produce_report, :on => :member
+      get :sglfct_statistic, :on => :collection
+      get :mtlfct_statistic, :on => :collection
       get :download_append, :on => :member
       get :xls_download, :on => :collection
     end
+  end
+  resources :day_pdt_rpts, :only => [] do
+    get :sglfct_statistic, :on => :collection
+    get :mtlfct_statistic, :on => :collection
+    get :sglfct_stc_cau, :on => :collection
+    get :mtlfct_stc_cau, :on => :collection
   end
   resources :departments do
     get :download_append, :on => :member

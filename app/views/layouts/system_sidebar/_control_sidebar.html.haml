@@ -1,6 +1,10 @@
 .card.border-0.rounded-0
   .card-body.p-0
     %ul#sidebar-lists.list-group.list-group-flush
+      = link_to sglfct_statistic_day_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+        单厂多指标
+      = link_to mtlfct_statistic_day_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+        多厂单指标
       - current_user.factories.each do |fct|
         = link_to factory_day_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
           = fct.name

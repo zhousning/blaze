@@ -1555,9 +1555,9 @@ development:
     temper: 气温
     desc: 其他说明
     ongoing: 0
-    ongoing_t: "填报中" 
+    ongoing_t: 填报中
     complete: 1
-    complete_t: "已上报" 
+    complete_t: 已上报
   day_pdt_rpts:
     label: 生产运营日报表
     name: 名称
@@ -1595,6 +1595,31 @@ development:
     mdflow: 中水量
     mdrcy: 中水回用量
     mdsell: 中水销售水量
+  quota:
+    label: 指标
+    name: 名称
+    code: 编码
+    ctg: 分类
+    inflow_c: '0'
+    inflow_t: '进水' 
+    outflow_c: '1'
+    outflow_t: '出水' 
+    cod: 0
+    bod: 1
+    ss:  2
+    nhn: 3
+    tn:  4
+    tp:  5
+    ph:  6
+    inflow: 7 
+    outflow: 8
+    inmud:  9
+    outmud: 10
+    mst:  11
+    power:  12
+    mdflow: 13
+    mdrcy:  14
+    mdsell: 15
 test:
   admins: *104
   users: *105

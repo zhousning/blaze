@@ -20,6 +20,32 @@ class DayPdtRptsController < ApplicationController
     @day_pdt_rpt = @factory.day_pdt_rpts.find(iddecode(params[:id]))
   end
    
+  def sglfct_statistic
+    @factories = current_user.factories
+    @quotas = Quota.where(:ctg => 0)
+  end
+
+  def mtlfct_statistic
+  end
+
+  def sglfct_stc_cau
+    @factory = my_factory
+   
+    _start = params[:start]
+    _end = params[:end]
+    _flow = params[:end] 
+    _qcodes = params[:qcodes]
+
+    _qcodes.split(",").each do |code|
+    end
+
+    @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end])
+    @day_pdt_rpts.each do |rpt|
+    end
+  end
+
+  def mtlfct_stc_cau
+  end
 
   def produce_report 
     @factory = my_factory
