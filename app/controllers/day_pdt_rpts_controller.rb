@@ -28,19 +28,102 @@ class DayPdtRptsController < ApplicationController
   def mtlfct_statistic
   end
 
+  def quota_hash 
+    {
+      Setting.quota.cod     => Setting.inf_qlties.cod,
+      Setting.quota.bod     => Setting.inf_qlties.bod,
+      Setting.quota.ss      => Setting.inf_qlties.ss ,
+      Setting.quota.nhn     => Setting.inf_qlties.nhn,
+      Setting.quota.tn      => Setting.inf_qlties.tn ,
+      Setting.quota.tp      => Setting.inf_qlties.tp ,
+      Setting.quota.ph      => Setting.inf_qlties.ph ,
+      Setting.quota.inflow  => Setting.day_pdt_rpts.inflow,
+      Setting.quota.outflow => Setting.day_pdt_rpts.outflow,
+      Setting.quota.inmud   => Setting.day_pdt_rpts.inmud ,
+      Setting.quota.outmud  => Setting.day_pdt_rpts.outmud,
+      Setting.quota.mst     => Setting.day_pdt_rpts.mst   ,
+      Setting.quota.power   => Setting.day_pdt_rpts.power  ,
+      Setting.quota.mdflow  => Setting.day_pdt_rpts.mdflow,
+      Setting.quota.mdrcy   => Setting.day_pdt_rpts.mdrcy ,
+      Setting.quota.mdsell  => Setting.day_pdt_rpts.mdsell
+    }
+  end
+
+  def assay
+    [Setting.quota.cod, Setting.quota.bod, Setting.quota.ss, Setting.quota.nhn, Setting.quota.tn, Setting.quota.tp, Setting.quota.ph] 
+  end
+
   def sglfct_stc_cau
     @factory = my_factory
    
     _start = params[:start]
     _end = params[:end]
-    _flow = params[:end] 
-    _qcodes = params[:qcodes]
+    _flow = params[:flow] 
+    _qcodes = params[:qcodes].split(",")
+    quota_h = quota_hash
 
-    _qcodes.split(",").each do |code|
+    series = []
+    dimensions = ['date']
+    _qcodes.each do |code|
+      if assay.include?(code)
+        series << {type: 'line'}
+        dimensions << quota_h[code]
+      end
     end
 
     @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end])
+    categories = []
     @day_pdt_rpts.each do |rpt|
+      ctg_hash = {'date': rpt.pdt_date}
+      if _flow == Setting.quota.inflow_c
+        _qcodes.each do |code|
+          if code == Setting.quota.cod 
+            ctg_hash[quota_h[code]] = rpt.inf_qlty_cod
+          elsif code == Setting.quota.bod 
+            ctg_hash[quota_h[code]] = rpt.inf_qlty_bod
+          elsif code == Setting.quota.ss  
+            ctg_hash[quota_h[code]] = rpt.inf_qlty_ss
+          elsif code == Setting.quota.nhn 
+            ctg_hash[quota_h[code]] = rpt.inf_qlty_nhn
+          elsif code == Setting.quota.tn  
+            ctg_hash[quota_h[code]] = rpt.inf_qlty_tn
+          elsif code == Setting.quota.tp  
+            ctg_hash[quota_h[code]] = rpt.inf_qlty_tp
+          elsif code == Setting.quota.ph  
+            ctg_hash[quota_h[code]] = rpt.inf_qlty_ph
+          end
+        end
+      elsif _flow == Setting.quota.outflow_c
+        _qcodes.each do |code|
+          if code == Setting.quota.cod 
+            ctg_hash[quota_h[code]] = rpt.eff_qlty_cod
+          elsif code == Setting.quota.bod 
+            ctg_hash[quota_h[code]] = rpt.eff_qlty_bod
+          elsif code == Setting.quota.ss  
+            ctg_hash[quota_h[code]] = rpt.eff_qlty_ss
+          elsif code == Setting.quota.nhn 
+            ctg_hash[quota_h[code]] = rpt.eff_qlty_nhn
+          elsif code == Setting.quota.tn  
+            ctg_hash[quota_h[code]] = rpt.eff_qlty_tn
+          elsif code == Setting.quota.tp  
+            ctg_hash[quota_h[code]] = rpt.eff_qlty_tp
+          elsif code == Setting.quota.ph  
+            ctg_hash[quota_h[code]] = rpt.eff_qlty_ph
+          end
+        end
+      end
+      categories << ctg_hash
+    end
+
+    puts categories
+    respond_to do |format|
+      format.json{ render :json => 
+        {
+          :categories => categories, 
+          :series => series,
+          :dimensions => dimensions
+        }
+      }
     end
   end
 

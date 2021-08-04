@@ -1539,13 +1539,13 @@ development:
     fecal: 出水粪大肠菌群数
   inf_qlties:
     label: 进水水质
-    bod: BOD5
-    cod: COD
-    ss: SS
-    nhn: NH3N
-    tn: TN
-    tp: TP
-    ph: PH
+    bod: "BOD5"
+    cod: "COD"
+    ss: "SS"
+    nhn: "NH3N"
+    tn: "TN"
+    tp: "TP"
+    ph: "PH"
   day_pdts:
     label: 生产运营数据
     pdt_date: 日期
@@ -1604,22 +1604,22 @@ development:
     inflow_t: '进水' 
     outflow_c: '1'
     outflow_t: '出水' 
-    cod: 0
-    bod: 1
-    ss:  2
-    nhn: 3
-    tn:  4
-    tp:  5
-    ph:  6
-    inflow: 7 
-    outflow: 8
-    inmud:  9
-    outmud: 10
-    mst:  11
-    power:  12
-    mdflow: 13
-    mdrcy:  14
-    mdsell: 15
+    cod: '0'
+    bod: '1'
+    ss: '2'
+    nhn: '3'
+    tn: '4'
+    tp: '5'
+    ph: '6'
+    inflow: '7'
+    outflow: '8'
+    inmud: '9'
+    outmud: '10'
+    mst: ' 11'
+    power: '12'
+    mdflow: '13'
+    mdrcy: '14'
+    mdsell: '15'
 test:
   admins: *104
   users: *105

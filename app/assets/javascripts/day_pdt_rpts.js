@@ -8,13 +8,12 @@ $(".day_pdt_rpts").ready(function() {
       xAxis: {type: 'category'},
       yAxis: {},
       series: [
-        {type: 'line'},
-        {type: 'line'}
       ]
     };
     myChart.setOption(option);
 
     $("#sglfct-statistic-search").on('click', function(e) {
+      //$("#chart-statistic-ctn").html("");
       myChart.showLoading();
 
       var factory_id = $("#fcts").val();
@@ -25,18 +24,23 @@ $(".day_pdt_rpts").ready(function() {
       $.each($("input[name='qcodes']:checked"),function(){
         qcodes += $(this).val() + ","
       });
-      var obj = {fct: fct, start: start, end: end, flow: flow, qcodes: qcodes}
+      var obj = {factory_id: factory_id, start: start, end: end, flow: flow, qcodes: qcodes}
 
       var url = "/day_pdt_rpts/sglfct_stc_cau";
       $.get(url, obj).done(function (data) {
         myChart.hideLoading();
 
         myChart.setOption({
+          legend: {},
+          tooltip: {},
+          xAxis: {type: 'category'},
+          yAxis: {},
+          series: data.series,
           dataset: {
-            dimensions: ['date', '进水', '出水'],
+            dimensions: data.dimensions,
             source: data.categories 
           },
-        });
+        }, true);
       });
     });
 
@@ -58,10 +62,10 @@ $(".day_pdt_rpts").ready(function() {
         {type: 'bar'}
       ]
     };
-    myChart.showLoading();
     myChart.setOption(option);
 
     $("#day-pdt-rpt-table").on('click', 'button', function(e) {
+      myChart.showLoading();
       $('#newModal').modal();
       var that = e.target
       var data_fct = that.dataset['fct'];

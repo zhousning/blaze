@@ -4,9 +4,9 @@ class CreateQuota < ActiveRecord::Migration
     
       t.string :name,  null: false, default: Setting.systems.default_str
     
-      t.integer :code,  null: false, default: Setting.systems.default_num 
+      t.string :code,  null: false, default: Setting.systems.default_str
     
-      t.integer :ctg,  null: false, default: Setting.systems.default_num 
+      t.string :ctg,  null: false, default: Setting.systems.default_str
     
 
     
