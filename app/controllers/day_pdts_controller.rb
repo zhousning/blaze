@@ -34,6 +34,7 @@ class DayPdtsController < ApplicationController
   def create
     @factory = my_factory
     @day_pdt = DayPdt.new(day_pdt_params)
+    @day_pdt.name = @day_pdt.pdt_date.to_s + @factory.name + "生产运营报表"
     @day_pdt.factory = @factory
 
     if @day_pdt.save

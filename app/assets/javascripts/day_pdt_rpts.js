@@ -155,7 +155,9 @@ function chartSet(clickBtn, chart, title) {
     var end = $("#end").val();
     var qcodes = "";
 
-    $.each($("input[name='qcodes']:checked"),function(){
+    var check_boxes = $($(that).parent().siblings()[0]).find("input[name='qcodes']:checked");
+
+    $.each(check_boxes, function(){
       qcodes += $(this).val() + ","
     });
 
@@ -167,7 +169,7 @@ function chartSet(clickBtn, chart, title) {
       console.log(data);
       var new_Option = newOption(title, data.series, data.dimensions, data.categories)
       console.log( new_Option);
-      chart.setOption(new_Option);
+      chart.setOption(new_Option, true);
     });
   })
 }

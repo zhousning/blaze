@@ -34,9 +34,9 @@
                     %th{:scope => "col"} #
                   
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.name
-                    %th{:scope => "col"}
                       = Setting.day_pdt_rpts.pdt_date
+                    %th{:scope => "col"}
+                      = Setting.day_pdt_rpts.name
                     -#
                       %th{:scope => "col"}
                         = Setting.day_pdt_rpts.weather
@@ -112,9 +112,9 @@
                         = index+1
                     
                       %td
-                        = day_pdt_rpt.name
-                      %td
                         = day_pdt_rpt.pdt_date
+                      %td
+                        = day_pdt_rpt.name
                       -#
                         %td
                           = day_pdt_rpt.weather
