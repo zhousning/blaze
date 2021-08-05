@@ -20,7 +20,7 @@ class DayPdtRptsController < ApplicationController
    
   def sglfct_statistic
     @factories = current_user.factories
-    @quotas = Quota.where(:ctg => 0)
+    quotas
   end
 
   def mtlfct_statistic
@@ -29,13 +29,14 @@ class DayPdtRptsController < ApplicationController
 
   def sglfct_stc_cau
     @factory = my_factory
-    assay = my_assay
+    search_type = params[:search_type]
+    assay = my_assay(search_type)
    
     _start = params[:start]
     _end = params[:end]
-    _flow = params[:flow] 
     _qcodes = params[:qcodes].split(",")
     quota_h = quota_hash
+    analysis_result = Hash.new 
 
     series = []
     dimensions = ['date']
@@ -45,61 +46,59 @@ class DayPdtRptsController < ApplicationController
         dimensions << quota_h[code]
       end
     end
+    analysis_result[series] = series
+    analysis_result[dimensions] = dimensions
 
     @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
 
-    sum_inflow = @day_pdt_rpts.sum(:inflow)
-    sum_outflow = @day_pdt_rpts.sum(:outflow)
-    sum_power = @day_pdt_rpts.sum(:power)
+    if type == Setting.quota.cms
 
-    categories = []
-    @day_pdt_rpts.each do |rpt|
-      ctg_hash = {'date': rpt.pdt_date}
+      inflow_categories = []
+      outflow_categories = []
+      @day_pdt_rpts.each do |rpt|
+        inflow_ctg_hash = {'date': rpt.pdt_date}
+        outflow_ctg_hash = {'date': rpt.pdt_date}
 
-      if _flow == Setting.quota.inflow_c
         _qcodes.each do |code|
-          inf_quota(ctg_hash, quota_h, code, rpt) unless other_quota(ctg_hash, quota_h, code, rpt)
+          inf_quota(inflow_ctg_hash, quota_h, code, rpt) unless other_quota(inflow_ctg_hash, quota_h, code, rpt)
         end
-      elsif _flow == Setting.quota.outflow_c
+
         _qcodes.each do |code|
-          eff_quota(ctg_hash, quota_h, code, rpt) unless other_quota(ctg_hash, quota_h, code, rpt)
+          eff_quota(outflow_ctg_hash, quota_h, code, rpt) unless other_quota(outflow_ctg_hash, quota_h, code, rpt)
         end
+
+        inflow_categories << inflow_ctg_hash
+        outflow_categories << outflow_ctg_hash
       end
-      categories << ctg_hash
+
+      analysis_result['inflow_categories'] = inflow_categories
+      analysis_result['outflow_categories'] = outflow_categories
+
+      sum_inflow = @day_pdt_rpts.sum(:inflow)
+      sum_outflow = @day_pdt_rpts.sum(:outflow)
+      analysis_result['sum_inflow '] = [gauge('进水总量', sum_inflow)]
+      analysis_result['sum_outflow'] = [gauge('出水总量', sum_outflow)]
+    else
+      categories = []
+      @day_pdt_rpts.each do |rpt|
+        ctg_hash = {'date': rpt.pdt_date}
+
+        _qcodes.each do |code|
+          other_quota(ctg_hash, quota_h, code, rpt)
+        end
+
+        categories << ctg_hash
+      end
+      analysis_result['categories'] = categories
+    end
+
+    if type == Setting.quota.ctg_power
+      sum_power = @day_pdt_rpts.sum(:power)
+      analysis_result['sum_power'] = [gauge('总电量', sum_power)]
     end
 
     respond_to do |format|
-      format.json{ render :json => 
-        {
-          :categories => categories, 
-          :series => series,
-          :dimensions => dimensions,
-          :sum_inflow => [{
-            name: '进水总量',
-            type: 'gauge',
-            data: [{
-                value: sum_inflow,
-                name: '进水总量'
-            }]
-          }],
-          :sum_outflow => [{
-            name: '出水总量',
-            type: 'gauge',
-            data: [{
-                value: sum_outflow,
-                name: '出水总量'
-            }]
-          }],
-          :sum_power => [{
-            name: '总电量',
-            type: 'gauge',
-            data: [{
-                value: sum_power,
-                name: '总电量'
-            }]
-          }]
-        }
-      }
+      format.json{ render :json => analysis_result}
     end
   end
 
@@ -231,34 +230,51 @@ class DayPdtRptsController < ApplicationController
     end
   
     def quota_hash 
-      {
-        Setting.quota.cod     => Setting.inf_qlties.cod,
-        Setting.quota.bod     => Setting.inf_qlties.bod,
-        Setting.quota.ss      => Setting.inf_qlties.ss ,
-        Setting.quota.nhn     => Setting.inf_qlties.nhn,
-        Setting.quota.tn      => Setting.inf_qlties.tn ,
-        Setting.quota.tp      => Setting.inf_qlties.tp ,
-        Setting.quota.ph      => Setting.inf_qlties.ph ,
-        Setting.quota.inflow  => Setting.day_pdt_rpts.inflow,
-        Setting.quota.outflow => Setting.day_pdt_rpts.outflow,
-        Setting.quota.inmud   => Setting.day_pdt_rpts.inmud ,
-        Setting.quota.outmud  => Setting.day_pdt_rpts.outmud,
-        Setting.quota.mst     => Setting.day_pdt_rpts.mst   ,
-        Setting.quota.power   => Setting.day_pdt_rpts.power  ,
-        Setting.quota.mdflow  => Setting.day_pdt_rpts.mdflow,
-        Setting.quota.mdrcy   => Setting.day_pdt_rpts.mdrcy ,
-        Setting.quota.mdsell  => Setting.day_pdt_rpts.mdsell
-      }
+      quota_hash = Hash.new
+      quotas = Quota.all
+      quotas.each do |q|
+        quota_hash[q.code] = q.name
+      end
+      quota_hash
     end
 
-    def my_assay
-      quotas = Quota.where(:ctg => Setting.quota.ctg_one)
+    def my_assay(type)
+      quotas = nil
+      if type == Setting.quota.ctg_cms 
+        quotas = Quota.where(:ctg => [Setting.quota.ctg_cms, Setting.quota.ctg_flow])
+      elsif type == Setting.quota.ctg_mud 
+        quotas = Quota.where(:ctg => [Setting.quota.ctg_cms, Setting.quota.ctg_flow])
+      elsif type == Setting.quota.ctg_power
+        quotas = Quota.where(:ctg => Setting.quota.ctg_power)
+      elsif type == Setting.quota.ctg_md
+        quotas = Quota.where(:ctg => Setting.quota.ctg_md)
+      end
       quota_arr = []
       quotas.each do |q|
         quota_arr << q.code
       end
       quota_arr
     end
+
+    def quotas 
+      @quota_flows = Quota.where(:ctg => Setting.quota.ctg_flow)
+      @quota_cms = Quota.where(:ctg => Setting.quota.ctg_cms) 
+      @quota_muds = Quota.where(:ctg => Setting.quota.ctg_mud) 
+      @quota_powers = Quota.where(:ctg => Setting.quota.ctg_power)
+      @quota_mds = Quota.where(:ctg => Setting.quota.ctg_md)
+    end
+
+    def gauge(name, value)
+      {
+        name: name,
+        type: 'gauge',
+        data: [{
+            value: value,
+            name: name 
+        }]
+      }
+    end
+
 end
   # 
   #def create

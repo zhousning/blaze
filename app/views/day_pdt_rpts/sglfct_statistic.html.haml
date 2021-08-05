@@ -14,52 +14,93 @@
             %span
               一
             = date_field_tag 'end', nil, class: 'form-control ml-1'
-          %li.list-group-item.border-0.d-flex.flex-row
-            .form-check.form-check-inline
-              = radio_button_tag 'flow', Setting.quota.inflow_c, true, class: "form-check-input"
 
-              = label_tag Setting.quota.inflow_t, nil, :class => "form-check-label"
-            .form-check.form-check-inline
-              = radio_button_tag 'flow', Setting.quota.outflow_c, false, class: "form-check-input"
-
-              = label_tag Setting.quota.outflow_t, nil, :class => "form-check-label"
-
-          %li.list-group-item.border-0
-            %button#sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
-              查询 
-
-        %ul.list-group.list-group-horizontal
-          %li.list-group-item
-            - @quotas.each do |q|
-              %label.checkbox-inline.mr-5
-                = check_box_tag 'qcodes', q.code, nil, {array: true} 
-                = q.name
-        -#
-          %h5
-            = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
-            %button.button.button-primary.button-small{:type => "button"}
-              查看
-
-          -#
-            = link_to xls_download_factories_day_pdt_rpts_path(idencode(@factory.id)), :class => "button button-royal pull-right button-small mr-1" do
-              下载表格模板
-
-          -#
-            = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
-              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
-            %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
-              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
       - content_for :card_body do
         .container-fluid
           .row
-            .col-12.d-flex.justify-content-center
-              #chart-statistic-ctn{:style => "width: 1000px;height:400px;"}
-          .row
-            .col-4.d-flex.justify-content-center
-              #chart-inflow-ctn{:style => "width: 300px;height:300px;"}
-            .col-4.d-flex.justify-content-center
-              #chart-outflow-ctn{:style => "width: 300px;height:300px;"}
-            .col-4.d-flex.justify-content-center
-              #chart-power-ctn{:style => "width: 300px;height:300px;"}
+            .col-12
+              .card.w-100
+                .card-header.bg-white
+                  %ul.nav.nav-tabs{:role => "tablist"}
+                    %li.nav-item
+                      %a.nav-link.active{"data-toggle" => "tab", :href => "#home", :role => "tab"}
+                        水质分析
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#profile", :role => "tab"}
+                        污泥分析
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#messages", :role => "tab"}
+                        能耗分析
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#settings", :role => "tab"}
+                        中水分析
+                .card-body
+                  .tab-content.text-center
+                    #home.tab-pane.active{:role => "tabpanel"}
+                      %ul.list-group.list-group-horizontal
+                        %li.list-group-item
+                          - @quota_cms.each do |q|
+                            %label.checkbox-inline.mr-5
+                              = check_box_tag 'qcodes', q.code, nil, {array: true} 
+                              = q.name
+                          - @quota_flows.each do |q|
+                            %label.checkbox-inline.mr-5
+                              = check_box_tag 'qcodes', q.code, nil, {array: true} 
+                              = q.name
+                        %li.list-group-item.border-0
+                          %button#sglfct-statistic-search.button.button-primary.button-small{:type => "button", :'data-type' => Setting.quota.ctg_cms}
+                            查询 
+                      .row
+                        .col-12.d-flex.justify-content-center
+                          #chart-statistic-inflow-ctn{:style => "width: 1000px;height:400px;"}
+                        .col-12.d-flex.justify-content-center
+                          #chart-statistic-outflow-ctn{:style => "width: 1000px;height:400px;"}
+                      .row
+                        .col-4.d-flex.justify-content-center
+                          #chart-inflow-ctn{:style => "width: 300px;height:300px;"}
+                        .col-4.d-flex.justify-content-center
+                          #chart-outflow-ctn{:style => "width: 300px;height:300px;"}
+                    #profile.tab-pane{:role => "tabpanel"}
+                      .col-12.d-flex.justify-content-center
+                        #chart-statistic-mud-ctn{:style => "width: 1000px;height:400px;"}
+                     
+                    #messages.tab-pane{:role => "tabpanel"}
+                      .row
+                        .col-12.d-flex.justify-content-center
+                          #chart-statistic-power-ctn{:style => "width: 1000px;height:400px;"}
+                        .col-4.d-flex.justify-content-center
+                          #chart-power-ctn{:style => "width: 300px;height:300px;"}
+                    #settings.tab-pane{:role => "tabpanel"}
+                      .row
+                        .col-12.d-flex.justify-content-center
+                          #chart-statistic-md-ctn{:style => "width: 1000px;height:400px;"}
 
       = render "layouts/bootstrap/card"
+
+-#
+  %h5
+    = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+    %button.button.button-primary.button-small{:type => "button"}
+      查看
+
+  -#
+    = link_to xls_download_factories_day_pdt_rpts_path(idencode(@factory.id)), :class => "button button-royal pull-right button-small mr-1" do
+      下载表格模板
+
+  -#
+    = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+      = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+    %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+      = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+
+  -#
+    %li.list-group-item.border-0.d-flex.flex-row
+      .form-check.form-check-inline
+        = radio_button_tag 'flow', Setting.quota.inflow_c, true, class: "form-check-input"
+
+        = label_tag Setting.quota.inflow_t, nil, :class => "form-check-label"
+      .form-check.form-check-inline
+        = radio_button_tag 'flow', Setting.quota.outflow_c, false, class: "form-check-input"
+
+        = label_tag Setting.quota.outflow_t, nil, :class => "form-check-label"
+

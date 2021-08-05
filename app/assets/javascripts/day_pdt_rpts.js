@@ -1,52 +1,36 @@
 $(".day_pdt_rpts").ready(function() {
 
   if ($(".day_pdt_rpts.sglfct_statistic").length > 0) {
-    var myChart = echarts.init(document.getElementById('chart-statistic-ctn'));
+    var stcInflow = echarts.init(document.getElementById('chart-statistic-inflow-ctn'));
+    var stcOutflow = echarts.init(document.getElementById('chart-statistic-outflow-ctn'));
+    var stcMud = echarts.init(document.getElementById('chart-statistic-mud-ctn'));
+    var stcPower = echarts.init(document.getElementById('chart-statistic-power-ctn'));
+    var stcMd = echarts.init(document.getElementById('chart-statistic-md-ctn'));
+
     var inflowChart = echarts.init(document.getElementById('chart-inflow-ctn'));
     var outflowChart = echarts.init(document.getElementById('chart-outflow-ctn'));
     var powerChart = echarts.init(document.getElementById('chart-power-ctn'));
 
-    var gauge_option = {
-      tooltip: {},
-      series: [{
-        type: 'gauge',
-        data: [{
-            value: 50,
-            name: ''
-        }]
-      }]
-    }
-
-    var option = {
-      legend: {},
-      tooltip: {},
-      xAxis: {type: 'category'},
-      yAxis: {},
-      series: []
-    }
-
-    myChart.setOption(option);
-    inflowChart.setOption(gauge_option); 
-    outflowChart.setOption(gauge_option);
-    powerChart.setOption(gauge_option);
-    
     $("#sglfct-statistic-search").on('click', function(e) {
-      myChart.showLoading();
+      stcInflow.showLoading();
+      stcOutflow.showLoading();
 
+      var that = e.target
+      var search_type = that.dataset['type'];
       var factory_id = $("#fcts").val();
       var start = $("#start").val();
       var end = $("#end").val();
-      var flow = $("input[name='flow']:checked").val();
       var qcodes = "";
 
       $.each($("input[name='qcodes']:checked"),function(){
         qcodes += $(this).val() + ","
       });
 
-      var obj = {factory_id: factory_id, start: start, end: end, flow: flow, qcodes: qcodes}
+      var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type}
       var url = "/day_pdt_rpts/sglfct_stc_cau";
       $.get(url, obj).done(function (data) {
-        myChart.hideLoading();
+        stcInflow.hideLoading();
+        stcOutflow.hideLoading();
         
         var inflowOption = {
           series: data.sum_inflow
@@ -60,7 +44,10 @@ $(".day_pdt_rpts").ready(function() {
           series: data.sum_power
         }
 
-        var myOption = {
+        var stcInflowOption = {
+          title: {
+            text: '进水水质'
+          },
           legend: {},
           tooltip: {},
           xAxis: {type: 'category'},
@@ -82,14 +69,44 @@ $(".day_pdt_rpts").ready(function() {
           series: data.series,
           dataset: {
             dimensions: data.dimensions,
-            source: data.categories 
+            source: data.inflow_categories 
           },
         }
 
+        var stcOutflowOption = {
+          title: {
+            text: '出水水质'
+          },
+          legend: {},
+          tooltip: {},
+          xAxis: {type: 'category'},
+          yAxis: {},
+          dataZoom: [
+            {            
+              type: 'slider',
+              show: true,
+              xAxisIndex: [0],
+              startValue: '0'
+            },
+            {            
+              type: 'slider',
+              show: true,
+              yAxisIndex: [0],
+              startValue: '0'
+            }
+          ],
+          series: data.series,
+          dataset: {
+            dimensions: data.dimensions,
+            source: data.outflow_categories 
+          },
+        }
+
+        stcInflow.setOption(stcInflowOption, true);
+        stcOutflow.setOption(stcOutflowOption, true);
         inflowChart.setOption(inflowOption); 
         outflowChart.setOption(outflowOption);
         powerChart.setOption(powerOption);
-        myChart.setOption(myOption, true);
       });
     });
 

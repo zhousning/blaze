@@ -1600,7 +1600,11 @@ development:
     name: 名称
     code: 编码
     ctg: 分类
-    ctg_one: '0'
+    ctg_cms: '0'
+    ctg_flow: '1'
+    ctg_mud: '2'
+    ctg_power: '3'
+    ctg_md: '4'
     inflow_c: '0'
     inflow_t: '进水' 
     outflow_c: '1'
