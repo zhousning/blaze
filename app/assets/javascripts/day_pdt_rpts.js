@@ -35,6 +35,20 @@ $(".day_pdt_rpts").ready(function() {
           tooltip: {},
           xAxis: {type: 'category'},
           yAxis: {},
+          dataZoom: [
+            {            
+              type: 'slider',
+              show: true,
+              xAxisIndex: [0],
+              startValue: '0'
+            },
+            {            
+              type: 'slider',
+              show: true,
+              yAxisIndex: [0],
+              startValue: '0'
+            }
+          ],
           series: data.series,
           dataset: {
             dimensions: data.dimensions,

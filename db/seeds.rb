@@ -28,6 +28,17 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @user.factories << @qufu_one_fct
 @user.factories << @qufu_thd_fct
 
+100.times.each do |t|
+  DayPdtRpt.create!(
+    :factory => @qufu_one_fct,
+    :name => Faker::Name.name, :pdt_date => Faker::Date.unique.between(from: '2021-05-01', to: '2021-9-25') , :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
+    :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
+    :eff_qlty_bod => Faker::Number.within(range: 10..100), :eff_qlty_cod => Faker::Number.within(range: 10..100), :eff_qlty_ss => Faker::Number.within(range: 10..100), :eff_qlty_nhn => Faker::Number.within(range: 10..100), :eff_qlty_tn => Faker::Number.within(range: 10..100), :eff_qlty_tp => Faker::Number.within(range: 10..100), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..100),  
+    :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 
+    :inflow => Faker::Number.within(range: 10..100), :outflow => Faker::Number.within(range: 10..100), :inmud => Faker::Number.within(range: 10..100), :outmud => Faker::Number.within(range: 10..100), :mst => Faker::Number.within(range: 10..100), :power => Faker::Number.within(range: 10..100), :mdflow => Faker::Number.within(range: 10..100), :mdrcy => Faker::Number.within(range: 10..100), :mdsell => Faker::Number.within(range: 10..100)
+  )
+end
+
 Quota.create!(:ctg => '0', :code => Setting.quota.cod,     :name => Setting.inf_qlties.cod)
 Quota.create!(:ctg => '0', :code => Setting.quota.bod,     :name => Setting.inf_qlties.bod)
 Quota.create!(:ctg => '0', :code => Setting.quota.ss,      :name => Setting.inf_qlties.ss)
@@ -45,6 +56,7 @@ Quota.create!(:ctg => '0', :code => Setting.quota.mdflow , :name => Setting.day_
 Quota.create!(:ctg => '0', :code => Setting.quota.mdrcy  , :name => Setting.day_pdt_rpts.mdrcy   )
 Quota.create!(:ctg => '0', :code => Setting.quota.mdsell , :name => Setting.day_pdt_rpts.mdsell  )
 #Quota.create!(:ctg => , :code => , :name => )
+
 
 
 

@@ -175,4 +175,6 @@ gem 'sablon'
 gem 'caracal'
 
 
+gem 'faker', '~> 2.0'
+
 #gem 'prawn' print pdf
