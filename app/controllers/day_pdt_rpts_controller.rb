@@ -47,6 +47,11 @@ class DayPdtRptsController < ApplicationController
     end
 
     @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+
+    sum_inflow = @day_pdt_rpts.sum(:inflow)
+    sum_outflow = @day_pdt_rpts.sum(:outflow)
+    sum_power = @day_pdt_rpts.sum(:power)
+
     categories = []
     @day_pdt_rpts.each do |rpt|
       ctg_hash = {'date': rpt.pdt_date}
@@ -63,14 +68,36 @@ class DayPdtRptsController < ApplicationController
       categories << ctg_hash
     end
 
-    puts categories
-
     respond_to do |format|
       format.json{ render :json => 
         {
           :categories => categories, 
           :series => series,
-          :dimensions => dimensions
+          :dimensions => dimensions,
+          :sum_inflow => [{
+            name: '进水总量',
+            type: 'gauge',
+            data: [{
+                value: sum_inflow,
+                name: '进水总量'
+            }]
+          }],
+          :sum_outflow => [{
+            name: '出水总量',
+            type: 'gauge',
+            data: [{
+                value: sum_outflow,
+                name: '出水总量'
+            }]
+          }],
+          :sum_power => [{
+            name: '总电量',
+            type: 'gauge',
+            data: [{
+                value: sum_power,
+                name: '总电量'
+            }]
+          }]
         }
       }
     end

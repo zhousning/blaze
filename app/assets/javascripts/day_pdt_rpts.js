@@ -2,18 +2,35 @@ $(".day_pdt_rpts").ready(function() {
 
   if ($(".day_pdt_rpts.sglfct_statistic").length > 0) {
     var myChart = echarts.init(document.getElementById('chart-statistic-ctn'));
-    option = {
+    var inflowChart = echarts.init(document.getElementById('chart-inflow-ctn'));
+    var outflowChart = echarts.init(document.getElementById('chart-outflow-ctn'));
+    var powerChart = echarts.init(document.getElementById('chart-power-ctn'));
+
+    var gauge_option = {
+      tooltip: {},
+      series: [{
+        type: 'gauge',
+        data: [{
+            value: 50,
+            name: ''
+        }]
+      }]
+    }
+
+    var option = {
       legend: {},
       tooltip: {},
       xAxis: {type: 'category'},
       yAxis: {},
-      series: [
-      ]
-    };
-    myChart.setOption(option);
+      series: []
+    }
 
+    myChart.setOption(option);
+    inflowChart.setOption(gauge_option); 
+    outflowChart.setOption(gauge_option);
+    powerChart.setOption(gauge_option);
+    
     $("#sglfct-statistic-search").on('click', function(e) {
-      //$("#chart-statistic-ctn").html("");
       myChart.showLoading();
 
       var factory_id = $("#fcts").val();
@@ -21,16 +38,29 @@ $(".day_pdt_rpts").ready(function() {
       var end = $("#end").val();
       var flow = $("input[name='flow']:checked").val();
       var qcodes = "";
+
       $.each($("input[name='qcodes']:checked"),function(){
         qcodes += $(this).val() + ","
       });
-      var obj = {factory_id: factory_id, start: start, end: end, flow: flow, qcodes: qcodes}
 
+      var obj = {factory_id: factory_id, start: start, end: end, flow: flow, qcodes: qcodes}
       var url = "/day_pdt_rpts/sglfct_stc_cau";
       $.get(url, obj).done(function (data) {
         myChart.hideLoading();
+        
+        var inflowOption = {
+          series: data.sum_inflow
+        }
 
-        myChart.setOption({
+        var outflowOption = {
+          series: data.sum_outflow
+        }
+
+        var powerOption = {
+          series: data.sum_power
+        }
+
+        var myOption = {
           legend: {},
           tooltip: {},
           xAxis: {type: 'category'},
@@ -54,7 +84,12 @@ $(".day_pdt_rpts").ready(function() {
             dimensions: data.dimensions,
             source: data.categories 
           },
-        }, true);
+        }
+
+        inflowChart.setOption(inflowOption); 
+        outflowChart.setOption(outflowOption);
+        powerChart.setOption(powerOption);
+        myChart.setOption(myOption, true);
       });
     });
 
@@ -117,5 +152,4 @@ $(".day_pdt_rpts").ready(function() {
   }
 
 });
-
 
