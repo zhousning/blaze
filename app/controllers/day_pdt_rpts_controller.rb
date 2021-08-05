@@ -46,12 +46,12 @@ class DayPdtRptsController < ApplicationController
         dimensions << quota_h[code]
       end
     end
-    analysis_result[series] = series
-    analysis_result[dimensions] = dimensions
+    analysis_result['series'] = series
+    analysis_result['dimensions'] = dimensions
 
     @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
 
-    if type == Setting.quota.cms
+    if search_type == Setting.quota.ctg_cms
 
       inflow_categories = []
       outflow_categories = []
@@ -92,13 +92,14 @@ class DayPdtRptsController < ApplicationController
       analysis_result['categories'] = categories
     end
 
-    if type == Setting.quota.ctg_power
+    if search_type == Setting.quota.ctg_power
       sum_power = @day_pdt_rpts.sum(:power)
       analysis_result['sum_power'] = [gauge('总电量', sum_power)]
     end
 
+    puts analysis_result
     respond_to do |format|
-      format.json{ render :json => analysis_result}
+      format.json{ render :json => analysis_result.to_json}
     end
   end
 
@@ -243,7 +244,7 @@ class DayPdtRptsController < ApplicationController
       if type == Setting.quota.ctg_cms 
         quotas = Quota.where(:ctg => [Setting.quota.ctg_cms, Setting.quota.ctg_flow])
       elsif type == Setting.quota.ctg_mud 
-        quotas = Quota.where(:ctg => [Setting.quota.ctg_cms, Setting.quota.ctg_flow])
+        quotas = Quota.where(:ctg => [Setting.quota.ctg_mud, Setting.quota.ctg_flow])
       elsif type == Setting.quota.ctg_power
         quotas = Quota.where(:ctg => Setting.quota.ctg_power)
       elsif type == Setting.quota.ctg_md
@@ -276,51 +277,5 @@ class DayPdtRptsController < ApplicationController
     end
 
 end
-  # 
-  #def create
-  #  @day_pdt_rpt = DayPdtRpt.new(day_pdt_rpt_params)
-  #   
-  #  @day_pdt_rpt.user = current_user
-  #   
-  #  if @day_pdt_rpt.save
-  #    redirect_to :action => :index
-  #  else
-  #    render :new
-  #  end
-  #end
-   
-
-   
-  #def edit
-  # 
-  #  @day_pdt_rpt = DayPdtRpt.where(:user => current_user, :id => iddecode(params[:id])).first
-  # 
-  #end
-  # 
-
-  # 
-  #def update
-  # 
-  #  @day_pdt_rpt = DayPdtRpt.where(:user => current_user, :id => iddecode(params[:id])).first
-  # 
-  #  if @day_pdt_rpt.update(day_pdt_rpt_params)
-  #    redirect_to day_pdt_rpt_path(idencode(@day_pdt_rpt.id)) 
-  #  else
-  #    render :edit
-  #  end
-  #end
-  # 
-
-  # 
-  #def destroy
-  # 
-  #  @day_pdt_rpt = DayPdtRpt.where(:user => current_user, :id => iddecode(params[:id])).first
-  # 
-  #  @day_pdt_rpt.destroy
-  #  redirect_to :action => :index
-  #end
-   
-
-  
 
   
