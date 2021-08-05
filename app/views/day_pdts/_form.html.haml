@@ -11,6 +11,10 @@
               - @day_pdt.errors.full_messages.each do |msg|
                 %li= msg
       
+        .row
+          .col-sm-6.offset-3
+            = f.fields_for :inf_qlty do |inf_qlty|
+              = render 'inf_qlty_fields', f: inf_qlty 
         .form-group.row
           = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
           .col-sm-6
@@ -55,12 +59,6 @@
       
       
       
-        .form-group.row
-          = f.label Setting.inf_qlties.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :inf_qlty do |inf_qlty|
-                = render 'inf_qlty_fields', f: inf_qlty 
       
           .form-group.row
             = f.label Setting.eff_qlties.label, :class => "col-3  text-right col-form-label"
