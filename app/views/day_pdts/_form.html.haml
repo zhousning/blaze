@@ -12,78 +12,62 @@
                 %li= msg
       
         .row
-          .col-sm-6.offset-3
+          .col-sm-12
+            %h2.text-center
+              = image_tag "gykg.jpg"
+              = @factory.name + "运营数据"
+          .col-sm-6.offset-3.p-5.border
+            .row
+              .col-6
+                .form-group.row
+                  = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.date_field :pdt_date, :class => "form-control rounded-0" , :required => true
+              .col-6
+                .form-group.row
+                  = f.label Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.text_field :signer, :class => "form-control rounded-0" , :required => true
+              .col-6
+                .form-group.row
+                  = f.label Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.text_field :weather, :class => "form-control rounded-0" 
+              .col-6
+                .form-group.row
+                  = f.label Setting.day_pdts.temper, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.number_field :temper, :class => "form-control rounded-0" 
             = f.fields_for :inf_qlty do |inf_qlty|
               = render 'inf_qlty_fields', f: inf_qlty 
-        .form-group.row
-          = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.date_field :pdt_date, :class => "form-control rounded-0" , :required => true
+
+            = f.fields_for :eff_qlty do |eff_qlty|
+              = render 'eff_qlty_fields', f: eff_qlty 
+
+            = f.fields_for :sed_qlty do |sed_qlty|
+              = render 'sed_qlty_fields', f: sed_qlty 
+      
+            = f.fields_for :pdt_sum do |pdt_sum|
+              = render 'pdt_sum_fields', f: pdt_sum 
+
           
-        .form-group.row
-          = f.label Setting.day_pdts.name, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_field :name, :class => "form-control rounded-0" , :required => true
           
-        .form-group.row
-          = f.label Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_field :signer, :class => "form-control rounded-0" , :required => true
-          
-        .form-group.row
-          = f.label Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_field :weather, :class => "form-control rounded-0" 
-          
-        .form-group.row
-          = f.label Setting.day_pdts.temper, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.number_field :temper, :class => "form-control rounded-0" 
-          
-        .form-group.row
-          = f.label Setting.day_pdts.desc, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_area :desc, :class => "form-control rounded-0", :rows => "20" 
-          
+            .form-group.row.my-3
+              .col-sm-12
+                = f.text_area :desc, :class => "form-control rounded-0", :rows => "10", :placeholder => "其他说明" 
+              
       
       
       
-        .form-group.row
-          = f.label "附图", :class => "col-3 text-right col-form-label col-form-label"
-          .col-9
-            .row
-              = f.fields_for :enclosures do |enclosure|
-                = render 'enclosure_fields', f: enclosure
-              .links
-                = link_to_add_association "添加文件", f, :enclosures, :class => "button button-small button-primary"
+            .form-group.row
+              .col-9
+                .row
+                  = f.fields_for :enclosures do |enclosure|
+                    = render 'enclosure_fields', f: enclosure
+                  .links
+                    = link_to_add_association "添加图片", f, :enclosures, :class => "button button-small button-primary"
       
       
-      
-      
-          .form-group.row
-            = f.label Setting.eff_qlties.label, :class => "col-3  text-right col-form-label"
-            .col-9
-              .row
-                = f.fields_for :eff_qlty do |eff_qlty|
-                  = render 'eff_qlty_fields', f: eff_qlty 
-      
-          .form-group.row
-            = f.label Setting.sed_qlties.label, :class => "col-3  text-right col-form-label"
-            .col-9
-              .row
-                = f.fields_for :sed_qlty do |sed_qlty|
-                  = render 'sed_qlty_fields', f: sed_qlty 
-      
-          .form-group.row
-            = f.label Setting.pdt_sums.label, :class => "col-3  text-right col-form-label"
-            .col-9
-              .row
-                = f.fields_for :pdt_sum do |pdt_sum|
-                  = render 'pdt_sum_fields', f: pdt_sum 
-      
-        .form-group.row
-          .col-3.offset-3
-            = f.submit '保存', :class => "button  button-small button-action"
-        -#
-          .col-3.offset-1
-            = link_to '返回', day_pdts_path, :class => "button button-small  button-caution"
+            .form-group.row
+              .col-3.offset-3
+                = f.submit '保存', :class => "button  button-small button-action"

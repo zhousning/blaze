@@ -45,8 +45,6 @@
                     %th{:scope => "col"}
                       = Setting.day_pdts.temper
                     %th{:scope => "col"}
-                      = Setting.day_pdts.desc
-                    %th{:scope => "col"}
                       设置
                 %tbody
                   - @day_pdts.each_with_index do |day_pdt, index|
@@ -64,8 +62,6 @@
                         = day_pdt.weather
                       %td
                         = day_pdt.temper
-                      %td
-                        = day_pdt.desc
                       %td
                         .container-fluid
                           .row.justify-content-center

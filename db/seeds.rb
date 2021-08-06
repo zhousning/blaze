@@ -29,9 +29,10 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @user.factories << @qufu_thd_fct
 
 100.times.each do |t|
+  pdt_date = Faker::Date.unique.between(from: '2021-05-01', to: '2021-9-25')
   DayPdtRpt.create!(
-    :factory => @qufu_one_fct,
-    :name => Faker::Name.name, :pdt_date => Faker::Date.unique.between(from: '2021-05-01', to: '2021-9-25') , :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
+    :factory => pdt_date.to_s + @qufu_one_fct.name + "生产运营数据",
+    :name => @qufu_one_fct.name, :pdt_date => pdt_date, :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
     :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
     :eff_qlty_bod => Faker::Number.within(range: 10..100), :eff_qlty_cod => Faker::Number.within(range: 10..100), :eff_qlty_ss => Faker::Number.within(range: 10..100), :eff_qlty_nhn => Faker::Number.within(range: 10..100), :eff_qlty_tn => Faker::Number.within(range: 10..100), :eff_qlty_tp => Faker::Number.within(range: 10..100), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..100),  
     :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 

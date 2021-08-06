@@ -1,44 +1,82 @@
-.nested-fields.nestd-item
-  .form-group
-    .field.d-inline
+%table.table-bordered.day-pdt-table
+  %caption.text-center
+    = Setting.eff_qlties.label
+  %tbody
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.eff_qlties.bod, :class => "text-center col-form-label"
+      %td.p-3.text-center
+        = f.number_field :bod, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label nil, Setting.eff_qlties.cod, :class => "text-center col-form-label"
+      %td.p-3.text-center
+        = f.number_field :cod, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label nil, Setting.eff_qlties.ss, :class => "text-center col-form-label"
+      %td.p-3.text-center
+        = f.number_field :ss, :class => "form-control", :required => true 
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.eff_qlties.nhn, :class => " text-center col-form-label"
+      %td.p-3.text-center
+        = f.number_field :nhn, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label nil, Setting.eff_qlties.tn, :class => " text-center col-form-label"
+      %td.p-3.text-center
+        = f.number_field :tn, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label nil, Setting.eff_qlties.tp, :class => " text-center col-form-label"
+      %td.p-3.text-center
+        = f.number_field :tp, :class => "form-control", :required => true 
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.eff_qlties.ph, :class => " text-center col-form-label"
+      %td.p-3.text-center
+        = f.number_field :ph, :class => "form-control"
+      %td.p-3.text-center{:colspan => "4"}
+        .form-group.row.mb-0
+          = f.label nil, Setting.eff_qlties.fecal, :class => "col-sm-4 text-left col-form-label"
+          .col-sm-4
+            = f.number_field :fecal, :class => "form-control" 
+
+-#        
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.bod, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :bod, :class => "form-control", :required => true 
     
-      .form-group.row
-        = f.label Setting.eff_qlties.bod, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :bod, :class => "form-control", :required => true 
-        
-      .form-group.row
-        = f.label Setting.eff_qlties.cod, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :cod, :class => "form-control", :required => true 
-        
-      .form-group.row
-        = f.label Setting.eff_qlties.ss, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :ss, :class => "form-control", :required => true 
-        
-      .form-group.row
-        = f.label Setting.eff_qlties.nhn, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :nhn, :class => "form-control", :required => true 
-        
-      .form-group.row
-        = f.label Setting.eff_qlties.tn, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :tn, :class => "form-control", :required => true 
-        
-      .form-group.row
-        = f.label Setting.eff_qlties.tp, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :tp, :class => "form-control", :required => true 
-        
-      .form-group.row
-        = f.label Setting.eff_qlties.ph, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :ph, :class => "form-control"
-        
-      .form-group.row
-        = f.label Setting.eff_qlties.fecal, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :fecal, :class => "form-control", :required => true 
-        
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.cod, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :cod, :class => "form-control", :required => true 
+    
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.ss, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :ss, :class => "form-control", :required => true 
+    
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.nhn, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :nhn, :class => "form-control", :required => true 
+    
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.tn, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :tn, :class => "form-control", :required => true 
+    
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.tp, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :tp, :class => "form-control", :required => true 
+    
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.ph, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :ph, :class => "form-control"
+    
+  .form-group.row
+    = f.label nil, Setting.eff_qlties.fecal, :class => "col-sm-5 text-center col-form-label"
+    .col-sm-7
+      = f.number_field :fecal, :class => "form-control", :required => true 
+    

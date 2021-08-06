@@ -2,14 +2,19 @@
   .card-body.p-0
     %ul#sidebar-lists.list-group.list-group-flush
       = link_to sglfct_statistic_day_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-        单厂多指标
-      = link_to mtlfct_statistic_day_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-        多厂单指标
-      - current_user.factories.each do |fct|
-        = link_to factory_day_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-          = fct.name
-        = link_to factory_day_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-          日报表 
+        指标分析
+      -#
+        = link_to mtlfct_statistic_day_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+          多厂单指标
+      - current_user.factories.each_with_index do |fct, index|
+        .card.border-0.rounded-0
+          .card-header
+            = fct.name
+          .card-body
+            = link_to factory_day_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0" do
+              生产运营数据
+            = link_to factory_day_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0" do
+              日报表 
       -#
         = link_to ocrs_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
           = fa_icon "diamond", text: "AI工具箱"
