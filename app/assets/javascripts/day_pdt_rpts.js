@@ -57,20 +57,6 @@ $(".day_pdt_rpts").ready(function() {
   if ($(".day_pdt_rpts.index").length > 0) {
 
     var myChart = echarts.init(document.getElementById('chart-ctn'));
-    option = {
-      title: {
-        text: '水质化验'
-      },
-      legend: {},
-      tooltip: {},
-      xAxis: {type: 'category'},
-      yAxis: {},
-      series: [
-        {type: 'bar'},
-        {type: 'bar'}
-      ]
-    };
-    myChart.setOption(option);
 
     $("#day-pdt-rpt-table").on('click', 'button', function(e) {
       myChart.showLoading();
@@ -81,7 +67,7 @@ $(".day_pdt_rpts").ready(function() {
       var url = "/factories/" + data_fct + "/day_pdt_rpts/" + data_rpt + "/produce_report";
       $.get(url).done(function (data) {
         myChart.hideLoading();
-        var header = data.info.pdt_date + data.info.name + "&nbsp&nbsp<small class='text-success'>" + data.info.weather + " | " + data.info.temper + "</small>"
+        var header = data.info.name + "&nbsp&nbsp<small class='text-success'>" + data.info.weather + " | " + data.info.temper + "℃</small>"
         $("#day-pdt-rpt-header").html(header);
 
         var rpt_table = "<table class='table table-bordered'>" +
@@ -99,12 +85,12 @@ $(".day_pdt_rpts").ready(function() {
         $("#day-pdt-rpt-ctn").html(rpt_table);
 
 
-        myChart.setOption({
-          dataset: {
-            dimensions: ['source', '进水', '出水'],
-            source: data.categories 
-          },
-        });
+        var title = '进出水水质';
+        var series = [{type: 'bar'}, {type: 'bar'}];
+        var dimensions = ['source', '进水', '出水'];
+
+        var new_Option = newOption(title, series, dimensions, data.categories)
+        myChart.setOption(new_Option);
       });
     });
 

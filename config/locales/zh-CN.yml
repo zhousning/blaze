@@ -6,15 +6,15 @@ zh-CN:
       long: "%B %d, %Y"
   layouts:
     application:
-      site_title: "梁山水务牛盾仓储管理系统"
+      site_title: "山东公用水务集团生产运营分析系统"
     application_control:
-      site_title: "梁山水务牛盾仓储管理系统"
+      site_title: "山东公用水务集团生产运营分析系统"
     application_mobile:
-      site_title: "梁山水务牛盾仓储管理系统"
+      site_title: "山东公用水务集团生产运营分析系统"
     application_home:
-      site_title: "梁山水务牛盾仓储管理系统"
+      site_title: "山东公用水务集团生产运营分析系统"
     application_no_header:
-      site_title: "梁山水务牛盾仓储管理系统"
+      site_title: "山东公用水务集团生产运营分析系统"
 
   home:
     index:
@@ -196,7 +196,7 @@ zh-CN:
   trees:
     index:
       title:
-        梁山水务牛盾仓储管理系统
+        山东公用水务集团生产运营分析系统
   pick_records:
     index:
       title:
@@ -623,3 +623,23 @@ zh-CN:
   ocrs:
     index:
       title: 人工智能工具箱 
+  day_pdts:
+    index:
+      title: 生产运营日数据 
+    new:
+      title: 添加生产运营日数据
+    edit:
+      title: 编辑生产运营日数据
+    show:
+      title: 生产运营日数据信息
+  day_pdt_rpts:
+    index:
+      title: 生产运营日报表
+    new:
+      title: 添加生产运营日报表
+    edit:
+      title: 编辑生产运营日报表
+    show:
+      title: 生产运营日报表信息
+    sglfct_statistic:
+      title: 数据立方
