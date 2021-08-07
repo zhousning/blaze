@@ -47,6 +47,7 @@ Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.nhn,     :na
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tn,      :name => Setting.inf_qlties.tn)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tp,      :name => Setting.inf_qlties.tp)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ph,      :name => Setting.inf_qlties.ph)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.fecal,    :name => Setting.eff_qlties.fecal)
 Quota.create!(:ctg => Setting.quota.ctg_flow, :code => Setting.quota.inflow , :name => Setting.day_pdt_rpts.inflow  )
 Quota.create!(:ctg => Setting.quota.ctg_flow, :code => Setting.quota.outflow, :name => Setting.day_pdt_rpts.outflow )
 Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.inmud  , :name => Setting.day_pdt_rpts.inmud   )

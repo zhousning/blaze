@@ -2,6 +2,8 @@ class DayPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
   #load_and_authorize_resource
+  
+  include MathCube
 
    
   def index
@@ -32,27 +34,37 @@ class DayPdtRptsController < ApplicationController
     search_type = params[:search_type]
     assay = my_assay(search_type)
    
-    _start = params[:start]
-    _end = params[:end]
-    _qcodes = params[:qcodes].split(",")
+    _start = Date.parse(params[:start])
+    _end = Date.parse(params[:end])
+    _qcodes = params[:qcodes].split(",").uniq
     quota_h = quota_hash
     analysis_result = Hash.new 
 
     series = []
+    real_codes = []
     dimensions = ['date']
     _qcodes.each do |code|
       if assay.include?(code)
         series << {type: 'line'}
         dimensions << quota_h[code]
+        real_codes << code
       end
     end
     analysis_result['series'] = series
     analysis_result['dimensions'] = dimensions
 
-    _start = [_start, _end].min()
-    _end = [_start, _end].max()
-    @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+    
+    #求总和和平均值
+    static_pools = static_sum(@factory.id, _start, _end)
+    static_pool = [] 
+    static_pools.each_pair do |k, v|
+      if real_codes.include?(v[:code])
+        static_pool << { :title => v[:title], :sum => v[:sum], :avg => v[:avg] } 
+      end
+    end
+    analysis_result['static_pool'] = static_pool
 
+    @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
     if search_type == Setting.quota.ctg_cms
 
       inflow_categories = []
@@ -76,10 +88,7 @@ class DayPdtRptsController < ApplicationController
       analysis_result['inflow_categories'] = inflow_categories
       analysis_result['outflow_categories'] = outflow_categories
 
-      sum_inflow = @day_pdt_rpts.sum(:inflow)
-      sum_outflow = @day_pdt_rpts.sum(:outflow)
-      analysis_result['sum_inflow '] = [gauge('进水总量', sum_inflow)]
-      analysis_result['sum_outflow'] = [gauge('出水总量', sum_outflow)]
+      #analysis_result['sum_power'] = [gauge('总电量', sum_power)]
     else
       categories = []
       @day_pdt_rpts.each do |rpt|
@@ -98,7 +107,6 @@ class DayPdtRptsController < ApplicationController
       sum_power = @day_pdt_rpts.sum(:power)
       analysis_result['sum_power'] = [gauge('总电量', sum_power)]
     end
-
     respond_to do |format|
       format.json{ render :json => analysis_result.to_json}
     end
@@ -228,6 +236,8 @@ class DayPdtRptsController < ApplicationController
         ctg_hash[quota_h[code]] = rpt.eff_qlty_tp
       elsif code == Setting.quota.ph  
         ctg_hash[quota_h[code]] = rpt.eff_qlty_ph
+      elsif code == Setting.quota.fecal
+        ctg_hash[quota_h[code]] = rpt.eff_qlty_fecal
       end
     end
   
@@ -243,7 +253,7 @@ class DayPdtRptsController < ApplicationController
     def my_assay(type)
       quotas = nil
       if type == Setting.quota.ctg_cms 
-        quotas = Quota.where(:ctg => [Setting.quota.ctg_cms, Setting.quota.ctg_flow])
+        quotas = Quota.where(:ctg => [Setting.quota.ctg_cms])
       elsif type == Setting.quota.ctg_mud 
         quotas = Quota.where(:ctg => [Setting.quota.ctg_mud, Setting.quota.ctg_flow])
       elsif type == Setting.quota.ctg_power

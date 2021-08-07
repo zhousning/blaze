@@ -51,11 +51,9 @@
                           #chart-statistic-inflow-ctn{:style => "width: 1000px;height:400px;"}
                         .col-12.d-flex.justify-content-center
                           #chart-statistic-outflow-ctn{:style => "width: 1000px;height:400px;"}
-                      .row
-                        .col-6.d-flex.justify-content-center
-                          #chart-inflow-ctn{:style => "width: 300px;height:300px;"}
-                        .col-6.d-flex.justify-content-center
-                          #chart-outflow-ctn{:style => "width: 300px;height:300px;"}
+                      .row.mt-5
+                        .col-12.d-flex.justify-content-center
+                          #chart-pool-cms-ctn
                     #profile.tab-pane{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
@@ -73,6 +71,9 @@
                       .row
                         .col-12.d-flex.justify-content-center.my-5
                           #chart-statistic-mud-ctn{:style => "width: 1000px;height:400px;"}
+                      .row.mt-5
+                        .col-12.d-flex.justify-content-center
+                          #chart-pool-mud-ctn
                      
                     #messages.tab-pane{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
@@ -87,8 +88,9 @@
                       .row
                         .col-12.d-flex.justify-content-center.my-5
                           #chart-statistic-power-ctn{:style => "width: 1000px;height:400px;"}
-                        .col-4.d-flex.justify-content-center
-                          #chart-power-ctn{:style => "width: 300px;height:300px;"}
+                      .row.mt-5
+                        .col-12.d-flex.justify-content-center
+                          #chart-pool-power-ctn
                     #settings.tab-pane{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
@@ -102,6 +104,9 @@
                       .row
                         .col-12.d-flex.justify-content-center.my-5
                           #chart-statistic-md-ctn{:style => "width: 1000px;height:400px;"}
+                      .row.mt-5
+                        .col-12.d-flex.justify-content-center
+                          #chart-pool-md-ctn
 
       = render "layouts/bootstrap/card"
 

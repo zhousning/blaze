@@ -7,13 +7,11 @@ $(".day_pdt_rpts").ready(function() {
     var stcPower = echarts.init(document.getElementById('chart-statistic-power-ctn'));
     var stcMd = echarts.init(document.getElementById('chart-statistic-md-ctn'));
 
-    //var inflowChart = echarts.init(document.getElementById('chart-inflow-ctn'));
-    //var outflowChart = echarts.init(document.getElementById('chart-outflow-ctn'));
     //var powerChart = echarts.init(document.getElementById('chart-power-ctn'));
 
-    chartSet('#sglfct-mud-search', stcMud, '污泥处理')
-    chartSet('#sglfct-power-search', stcPower, '能耗分析')
-    chartSet('#sglfct-md-search', stcMd, '中水处理')
+    chartSet('#sglfct-mud-search', stcMud, '污泥处理', "#chart-pool-mud-ctn")
+    chartSet('#sglfct-power-search', stcPower, '能耗分析', "#chart-pool-power-ctn")
+    chartSet('#sglfct-md-search', stcMd, '中水处理', "#chart-pool-md-ctn")
 
     $("#sglfct-statistic-search").on('click', function(e) {
       stcInflow.showLoading();
@@ -40,19 +38,17 @@ $(".day_pdt_rpts").ready(function() {
         
         var stcInflowOption = newOption('进水水质', data.series, data.dimensions, data.inflow_categories)
         var stcOutflowOption = newOption('出水水质', data.series, data.dimensions, data.outflow_categories)
-        //var inflowOption = { series: data.sum_inflow }
-        //var outflowOption = { series: data.sum_outflow }
 
         stcInflow.setOption(stcInflowOption, true);
         stcOutflow.setOption(stcOutflowOption, true);
-        //inflowChart.setOption(inflowOption); 
-        //outflowChart.setOption(outflowOption);
 
         //var powerOption = { series: data.sum_power }
         //powerChart.setOption(powerOption);
+        static_pool_set(data.static_pool, "#chart-pool-cms-ctn")
       });
     });
   }
+
 
   if ($(".day_pdt_rpts.index").length > 0) {
 
@@ -130,7 +126,7 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
   return new_Option
 }
 
-function chartSet(clickBtn, chart, title) {
+function chartSet(clickBtn, chart, title, ctnid) {
   $(clickBtn).on('click', function(e) {
     chart.showLoading();
 
@@ -152,10 +148,36 @@ function chartSet(clickBtn, chart, title) {
     $.get(url, obj).done(function (data) {
       chart.hideLoading();
       
-      console.log(data);
       var new_Option = newOption(title, data.series, data.dimensions, data.categories)
-      console.log( new_Option);
       chart.setOption(new_Option, true);
+
+      static_pool_set(data.static_pool, ctnid)
     });
   })
+}
+function static_pool_set(static_pool, ctnid) {
+  var pool_title = "";
+  var pool_sum = "";
+  var pool_avg = "";
+  $.each(static_pool, function(k, v) {
+    pool_title += "<td>" + v['title'] + "</td>";
+    pool_sum += "<td>" + v['sum'] + "</td>";
+    pool_avg += "<td>" + v['avg'] + "</td>";
+  })
+
+  var rpt_table = "<table class='table table-bordered'>" +
+    "<tr>" +
+      "<td></td>" + 
+      pool_title +
+    "</tr>" + 
+    "<tr>" +
+      "<td>总和" + "</td>" + 
+      pool_sum +
+    "</tr>" + 
+    "<tr>" +
+      "<td>平均值" + "</td>" + 
+      pool_avg +
+    "</tr>" + 
+    "</table>";
+  $(ctnid).html(rpt_table);
 }

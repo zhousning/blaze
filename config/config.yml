@@ -1625,6 +1625,7 @@ development:
     mdflow: '13'
     mdrcy: '14'
     mdsell: '15'
+    fecal: '16'
 test:
   admins: *104
   users: *105
