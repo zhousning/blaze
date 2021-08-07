@@ -49,6 +49,8 @@ class DayPdtRptsController < ApplicationController
     analysis_result['series'] = series
     analysis_result['dimensions'] = dimensions
 
+    _start = [_start, _end].min()
+    _end = [_start, _end].max()
     @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
 
     if search_type == Setting.quota.ctg_cms
@@ -97,7 +99,6 @@ class DayPdtRptsController < ApplicationController
       analysis_result['sum_power'] = [gauge('总电量', sum_power)]
     end
 
-    puts analysis_result
     respond_to do |format|
       format.json{ render :json => analysis_result.to_json}
     end
