@@ -149,6 +149,9 @@ Rails.application.routes.draw do
     post :parse_excel, :on => :collection
     get :xls_download, :on => :collection
   end
+  resources :level_ones do
+    get :download_append, :on => :member
+  end
   resources :flower
 
 end

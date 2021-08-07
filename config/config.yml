@@ -1508,44 +1508,44 @@ development:
     name: 名称
     info: 简介
   pdt_sums:
-    label: "日处理水量、日总耗电量"
-    inflow: "进水量(吨)"
-    outflow: "出水量(吨)"
-    inmud: "进泥量(m3)"
-    outmud: "出泥量(m3)"
-    mst: "污泥含水率(%)"
-    power: "耗电量(度)"
-    mdflow: "中水量(吨)"
-    mdrcy: "中水回用量(吨)"
-    mdsell: "中水销售水量(吨)"
+    label: 日处理水量、日总耗电量
+    inflow: 进水量(吨)
+    outflow: 出水量(吨)
+    inmud: 进泥量(m3)
+    outmud: 出泥量(m3)
+    mst: 污泥含水率(%)
+    power: 耗电量(度)
+    mdflow: 中水量(吨)
+    mdrcy: 中水回用量(吨)
+    mdsell: 中水销售水量(吨)
   sed_qlties:
-    label: "二沉池出水"
-    bod: "BOD5(mg/l)"
-    cod: "COD(mg/l)"
-    ss: "SS(mg/l)"
-    nhn: "NH3-N(mg/l)"
-    tn: "TN(mg/l)"
-    tp: "TP(mg/l)"
-    ph: "PH"
+    label: 二沉池出水
+    bod: BOD5(mg/l)
+    cod: COD(mg/l)
+    ss: SS(mg/l)
+    nhn: NH3-N(mg/l)
+    tn: TN(mg/l)
+    tp: TP(mg/l)
+    ph: PH
   eff_qlties:
-    label: "出水水质"
-    bod: "BOD5(mg/l)"
-    cod: "COD(mg/l)"
-    ss: "SS(mg/l)"
-    nhn: "NH3-N(mg/l)"
-    tn: "TN(mg/l)"
-    tp: "TP(mg/l)"
-    ph: "PH"
-    fecal: "粪大肠菌群数(个)"
+    label: 出水水质
+    bod: BOD5(mg/l)
+    cod: COD(mg/l)
+    ss: SS(mg/l)
+    nhn: NH3-N(mg/l)
+    tn: TN(mg/l)
+    tp: TP(mg/l)
+    ph: PH
+    fecal: 粪大肠菌群数(个/l)
   inf_qlties:
     label: 进水水质
-    bod: "BOD5(mg/l)"
-    cod: "COD(mg/l)"
-    ss: "SS(mg/l)"
-    nhn: "NH3-N(mg/l)"
-    tn: "TN(mg/l)"
-    tp: "TP(mg/l)"
-    ph: "PH"
+    bod: BOD5(mg/l)
+    cod: COD(mg/l)
+    ss: SS(mg/l)
+    nhn: NH3-N(mg/l)
+    tn: TN(mg/l)
+    tp: TP(mg/l)
+    ph: PH
   day_pdts:
     label: 生产运营数据
     pdt_date: 日期
@@ -1606,9 +1606,9 @@ development:
     ctg_power: '3'
     ctg_md: '4'
     inflow_c: '0'
-    inflow_t: '进水' 
+    inflow_t: 进水
     outflow_c: '1'
-    outflow_t: '出水' 
+    outflow_t: 出水
     cod: '0'
     bod: '1'
     ss: '2'
@@ -1620,12 +1620,27 @@ development:
     outflow: '8'
     inmud: '9'
     outmud: '10'
-    mst: ' 11'
+    mst: " 11"
     power: '12'
     mdflow: '13'
     mdrcy: '14'
     mdsell: '15'
     fecal: '16'
+  level_ones:
+    label: 一级A出水标准
+    bod: BOD5(mg/l)
+    cod: COD(50mg/l)
+    ss: SS(10mg/l)
+    nhn: NH3-N(5mg/l)
+    tn: TN(15mg/l)
+    tp: TP(mg/l)
+    fecal: 粪大肠菌群数(1000个/l)
+    cod_s: 50
+    ss_s: 10
+    nhn_s: 5 
+    tn_s: 15
+    fecal_s: 1000
+
 test:
   admins: *104
   users: *105

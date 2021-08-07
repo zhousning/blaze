@@ -31,29 +31,27 @@ class DayPdtRptsController < ApplicationController
 
   def sglfct_stc_cau
     @factory = my_factory
+    level_one = LevelOne.first
     search_type = params[:search_type]
-    assay = my_assay(search_type)
    
     _start = Date.parse(params[:start])
     _end = Date.parse(params[:end])
-    _qcodes = params[:qcodes].split(",").uniq
     quota_h = quota_hash
     analysis_result = Hash.new 
 
+    _qcodes = params[:qcodes].split(",")
+    assay = my_assay(search_type)
+    real_codes = _qcodes & assay 
+
     series = []
-    real_codes = []
     dimensions = ['date']
-    _qcodes.each do |code|
-      if assay.include?(code)
-        series << {type: 'line'}
-        dimensions << quota_h[code]
-        real_codes << code
-      end
+    real_codes.each do |code|
+      series << {type: 'line'}
+      dimensions << quota_h[code]
     end
     analysis_result['series'] = series
     analysis_result['dimensions'] = dimensions
 
-    
     #求总和和平均值
     static_pools = static_sum(@factory.id, _start, _end)
     static_pool = [] 
@@ -66,19 +64,18 @@ class DayPdtRptsController < ApplicationController
 
     @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
     if search_type == Setting.quota.ctg_cms
-
       inflow_categories = []
       outflow_categories = []
       @day_pdt_rpts.each do |rpt|
         inflow_ctg_hash = {'date': rpt.pdt_date}
         outflow_ctg_hash = {'date': rpt.pdt_date}
 
-        _qcodes.each do |code|
-          inf_quota(inflow_ctg_hash, quota_h, code, rpt) unless other_quota(inflow_ctg_hash, quota_h, code, rpt)
+        real_codes.each do |code|
+          inf_quota(inflow_ctg_hash, quota_h, code, rpt)
         end
 
-        _qcodes.each do |code|
-          eff_quota(outflow_ctg_hash, quota_h, code, rpt) unless other_quota(outflow_ctg_hash, quota_h, code, rpt)
+        real_qcodes.each do |code|
+          eff_quota(outflow_ctg_hash, quota_h, code, rpt)
         end
 
         inflow_categories << inflow_ctg_hash
@@ -94,7 +91,7 @@ class DayPdtRptsController < ApplicationController
       @day_pdt_rpts.each do |rpt|
         ctg_hash = {'date': rpt.pdt_date}
 
-        _qcodes.each do |code|
+        real_qcodes.each do |code|
           other_quota(ctg_hash, quota_h, code, rpt)
         end
 
@@ -107,8 +104,8 @@ class DayPdtRptsController < ApplicationController
       sum_power = @day_pdt_rpts.sum(:power)
       analysis_result['sum_power'] = [gauge('总电量', sum_power)]
     end
-    respond_to do |format|
-      format.json{ render :json => analysis_result.to_json}
+    respond_to do |f|
+      f.json{ render :json => analysis_result.to_json}
     end
   end
 
@@ -171,36 +168,25 @@ class DayPdtRptsController < ApplicationController
     end
    
     def other_quota(ctg_hash, quota_h, code, rpt)
-      flag = false
       if code == Setting.quota.inflow 
         ctg_hash[quota_h[code]] = rpt.inflow
-        flag = true 
       elsif code == Setting.quota.outflow
         ctg_hash[quota_h[code]] = rpt.outflow
-        flag = true 
       elsif code == Setting.quota.inmud  
         ctg_hash[quota_h[code]] = rpt.inmud
-        flag = true 
       elsif code == Setting.quota.outmud 
         ctg_hash[quota_h[code]] = rpt.outmud
-        flag = true 
       elsif code == Setting.quota.mst    
         ctg_hash[quota_h[code]] = rpt.mst
-        flag = true 
       elsif code == Setting.quota.power  
         ctg_hash[quota_h[code]] = rpt.power
-        flag = true 
       elsif code == Setting.quota.mdflow 
         ctg_hash[quota_h[code]] = rpt.mdflow
-        flag = true 
       elsif code == Setting.quota.mdrcy  
         ctg_hash[quota_h[code]] = rpt.mdrcy
-        flag = true 
       elsif code == Setting.quota.mdsell 
         ctg_hash[quota_h[code]] = rpt.mdsell
-        flag = true 
       end
-      flag
     end
 
     def inf_quota(ctg_hash, quota_h, code, rpt)
@@ -275,6 +261,7 @@ class DayPdtRptsController < ApplicationController
       @quota_powers = Quota.where(:ctg => Setting.quota.ctg_power)
       @quota_mds = Quota.where(:ctg => Setting.quota.ctg_md)
     end
+
 
     def gauge(name, value)
       {
