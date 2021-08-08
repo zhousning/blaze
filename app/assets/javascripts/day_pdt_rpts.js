@@ -64,10 +64,19 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
     title: {
       text: my_title 
     },
-    legend: {},
-    tooltip: {},
+    legend: { data: my_dimensions},
+    tooltip: { trigger: 'axis' },
     xAxis: {type: 'category'},
     yAxis: {},
+    toolbox: {
+      show: true,
+      feature: {
+         dataView: {readOnly: false},
+         magicType: {type: ['line', 'bar', 'pie']},
+         restore: {},
+         saveAsImage: {}
+      }
+    },
     dataZoom: [
       {            
         type: 'slider',
