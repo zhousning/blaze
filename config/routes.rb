@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     get :mtlfct_statistic, :on => :collection
     get :sglfct_stc_cau, :on => :collection
     get :mtlfct_stc_cau, :on => :collection
+    get :static_pool, :on => :collection
   end
   resources :departments do
     get :download_append, :on => :member

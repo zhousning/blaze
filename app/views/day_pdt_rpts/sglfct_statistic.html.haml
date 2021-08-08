@@ -36,7 +36,7 @@
                         中水分析
                 .card-body
                   .tab-content.text-center
-                    #home.tab-pane.active{:role => "tabpanel"}
+                    #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
                           - @quota_cms.each do |q|
@@ -44,17 +44,17 @@
                               = check_box_tag 'qcodes', q.code, nil, {array: true} 
                               = q.name
                         %li.list-group-item
-                          %button#sglfct-statistic-search.button.button-primary.button-small{:type => "button", :'data-type' => Setting.quota.ctg_cms}
+                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
                         .col-12.d-flex.justify-content-center.my-5
-                          #chart-statistic-inflow-ctn{:style => "width: 1000px;height:400px;"}
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 1000px;height:400px;"}
                         .col-12.d-flex.justify-content-center
-                          #chart-statistic-outflow-ctn{:style => "width: 1000px;height:400px;"}
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
                         .col-12.d-flex.justify-content-center
-                          #chart-pool-cms-ctn
-                    #profile.tab-pane{:role => "tabpanel"}
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
+                    #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
                           - @quota_flows.each do |q|
@@ -66,16 +66,16 @@
                               = check_box_tag 'qcodes', q.code, nil, {array: true} 
                               = q.name
                         %li.list-group-item
-                          %button#sglfct-mud-search.button.button-primary.button-small{:type => "button", :'data-type' => Setting.quota.ctg_mud}
+                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
-                        .col-12.d-flex.justify-content-center.my-5
-                          #chart-statistic-mud-ctn{:style => "width: 1000px;height:400px;"}
+                        .col-12.d-flex.justify-content-center
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
                         .col-12.d-flex.justify-content-center
-                          #chart-pool-mud-ctn
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
                      
-                    #messages.tab-pane{:role => "tabpanel"}
+                    #messages.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
                           - @quota_powers.each do |q|
@@ -83,15 +83,15 @@
                               = check_box_tag 'qcodes', q.code, nil, {array: true} 
                               = q.name
                         %li.list-group-item
-                          %button#sglfct-power-search.button.button-primary.button-small{:type => "button", :'data-type' => Setting.quota.ctg_power}
+                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
-                        .col-12.d-flex.justify-content-center.my-5
-                          #chart-statistic-power-ctn{:style => "width: 1000px;height:400px;"}
+                        .col-12.d-flex.justify-content-center
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
                         .col-12.d-flex.justify-content-center
-                          #chart-pool-power-ctn
-                    #settings.tab-pane{:role => "tabpanel"}
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
+                    #settings.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
                           - @quota_mds.each do |q|
@@ -99,14 +99,14 @@
                               = check_box_tag 'qcodes', q.code, nil, {array: true} 
                               = q.name
                         %li.list-group-item
-                          %button#sglfct-md-search.button.button-primary.button-small{:type => "button", :'data-type' => Setting.quota.ctg_md}
+                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
-                        .col-12.d-flex.justify-content-center.my-5
-                          #chart-statistic-md-ctn{:style => "width: 1000px;height:400px;"}
+                        .col-12.d-flex.justify-content-center
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
                         .col-12.d-flex.justify-content-center
-                          #chart-pool-md-ctn
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
 
       = render "layouts/bootstrap/card"
 

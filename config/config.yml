@@ -1599,6 +1599,9 @@ development:
     label: 指标
     name: 名称
     code: 编码
+    pos_inf: '0'
+    pos_eff: '1'
+    pos_sed: '2'
     ctg: 分类
     ctg_cms: '0'
     ctg_flow: '1'
@@ -1640,6 +1643,12 @@ development:
     nhn_s: 5 
     tn_s: 15
     fecal_s: 1000
+  charts:
+    line: '0'
+    bar: '1'
+    gauge: '2'
+    table: '3'
+
 
 test:
   admins: *104

@@ -31,18 +31,20 @@ class DayPdtRptsController < ApplicationController
 
   def sglfct_stc_cau
     @factory = my_factory
-    level_one = LevelOne.first
-    search_type = params[:search_type]
+    quota_h = quota_hash
    
     _start = Date.parse(params[:start])
     _end = Date.parse(params[:end])
-    quota_h = quota_hash
+    _pos = params[:pos_type]
     analysis_result = Hash.new 
 
+    #避免传递非当前分类中的数据
+    search_type = params[:search_type]
     _qcodes = params[:qcodes].split(",")
     assay = my_assay(search_type)
     real_codes = _qcodes & assay 
 
+    #图表配置项
     series = []
     dimensions = ['date']
     real_codes.each do |code|
@@ -52,61 +54,43 @@ class DayPdtRptsController < ApplicationController
     analysis_result['series'] = series
     analysis_result['dimensions'] = dimensions
 
-    #求总和和平均值
-    static_pools = static_sum(@factory.id, _start, _end)
-    static_pool = [] 
-    static_pools.each_pair do |k, v|
-      if real_codes.include?(v[:code])
-        static_pool << { :title => v[:title], :sum => v[:sum], :avg => v[:avg] } 
-      end
-    end
-    analysis_result['static_pool'] = static_pool
-
-    @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
-    if search_type == Setting.quota.ctg_cms
-      inflow_categories = []
-      outflow_categories = []
-      @day_pdt_rpts.each do |rpt|
-        inflow_ctg_hash = {'date': rpt.pdt_date}
-        outflow_ctg_hash = {'date': rpt.pdt_date}
-
-        real_codes.each do |code|
-          inf_quota(inflow_ctg_hash, quota_h, code, rpt)
-        end
-
-        real_qcodes.each do |code|
-          eff_quota(outflow_ctg_hash, quota_h, code, rpt)
-        end
-
-        inflow_categories << inflow_ctg_hash
-        outflow_categories << outflow_ctg_hash
-      end
-
-      analysis_result['inflow_categories'] = inflow_categories
-      analysis_result['outflow_categories'] = outflow_categories
-
-      #analysis_result['sum_power'] = [gauge('总电量', sum_power)]
-    else
-      categories = []
-      @day_pdt_rpts.each do |rpt|
-        ctg_hash = {'date': rpt.pdt_date}
-
-        real_qcodes.each do |code|
-          other_quota(ctg_hash, quota_h, code, rpt)
-        end
-
-        categories << ctg_hash
-      end
-      analysis_result['categories'] = categories
+    #图表数据
+    if @factory
+      @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+      analysis_result['categories'] = get_categories(real_codes, _pos, quota_h)
     end
 
-    if search_type == Setting.quota.ctg_power
-      sum_power = @day_pdt_rpts.sum(:power)
-      analysis_result['sum_power'] = [gauge('总电量', sum_power)]
-    end
     respond_to do |f|
       f.json{ render :json => analysis_result.to_json}
     end
+  end
+
+  #汇总统计数据
+  def static_pool
+    @factory = my_factory
+    search_type = params[:search_type]
+   
+    _start = Date.parse(params[:start])
+    _end = Date.parse(params[:end])
+
+    _qcodes = params[:qcodes].split(",")
+    assay = my_assay(search_type)
+    real_codes = _qcodes & assay 
+
+    analysis_result = Hash.new 
+    analysis_result['static_pool'] = get_static_pool(@factory.id, real_codes, _start, _end) if @factory
+
+    respond_to do |f|
+      f.json{ render :json => analysis_result.to_json}
+    end
+  end
+
+  def gauge_chart
+    #analysis_result['sum_power'] = [gauge('总电量', sum_power)]
+    #if search_type == Setting.quota.ctg_power
+    #  sum_power = @day_pdt_rpts.sum(:power)
+    #  analysis_result['sum_power'] = [gauge('总电量', sum_power)]
+    #end
   end
 
   def mtlfct_stc_cau
@@ -262,7 +246,40 @@ class DayPdtRptsController < ApplicationController
       @quota_mds = Quota.where(:ctg => Setting.quota.ctg_md)
     end
 
+    #求和和平均值
+    def get_static_pool(factory_id, real_codes, _start, _end)
+      static_pools = static_sum(factory_id, _start, _end)
+      static_pool = [] 
+      static_pools.each_pair do |k, v|
+        if real_codes.include?(v[:code])
+          static_pool << { :title => v[:title], :sum => v[:sum], :avg => v[:avg] } 
+        end
+      end
+      static_pool
+    end
 
+    #曲线数据
+    def get_categories(real_codes, pos, quota_h)
+      categories = []
+      @day_pdt_rpts.each do |rpt|
+        ctg_hash = {'date': rpt.pdt_date}
+
+        real_codes.each do |code|
+          if pos == Setting.quota.pos_inf
+            inf_quota(ctg_hash, quota_h, code, rpt)
+          elsif pos == Setting.quota.pos_eff
+            eff_quota(ctg_hash, quota_h, code, rpt)
+          elsif pos == Setting.quota.pos_other
+            other_quota(ctg_hash, quota_h, code, rpt)
+          end
+        end
+
+        categories << ctg_hash
+      end
+      categories
+    end
+
+    #仪表数据
     def gauge(name, value)
       {
         name: name,
@@ -275,5 +292,3 @@ class DayPdtRptsController < ApplicationController
     end
 
 end
-
-  
