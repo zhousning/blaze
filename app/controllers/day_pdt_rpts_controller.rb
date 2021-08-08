@@ -53,6 +53,7 @@ class DayPdtRptsController < ApplicationController
     end
     analysis_result['series'] = series
     analysis_result['dimensions'] = dimensions
+    analysis_result['title'] = get_title(_pos)
 
     #图表数据
     if @factory
@@ -256,6 +257,19 @@ class DayPdtRptsController < ApplicationController
         end
       end
       static_pool
+    end
+
+    def get_title(pos)
+      title = ''
+      if pos == Setting.quota.pos_inf
+        title = '进水水质'
+      elsif pos == Setting.quota.pos_eff
+        title = '出水水质'
+      elsif pos == Setting.quota.pos_sed
+        title = '二沉池出水水质'
+      elsif pos == Setting.quota.pos_other
+      end
+      title
     end
 
     #曲线数据

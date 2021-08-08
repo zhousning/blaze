@@ -1602,6 +1602,7 @@ development:
     pos_inf: '0'
     pos_eff: '1'
     pos_sed: '2'
+    pos_other: '3'
     ctg: 分类
     ctg_cms: '0'
     ctg_flow: '1'

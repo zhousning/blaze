@@ -129,7 +129,7 @@ function chartLine(that_chart, factory_id, start, end, qcodes, search_type, pos_
   $.get(url, obj).done(function (data) {
     chart.hideLoading();
     
-    var new_Option = newOption("", data.series, data.dimensions, data.categories)
+    var new_Option = newOption(data.title, data.series, data.dimensions, data.categories)
     chart.setOption(new_Option, true);
   });
 }
