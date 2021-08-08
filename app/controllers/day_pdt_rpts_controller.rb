@@ -28,6 +28,15 @@ class DayPdtRptsController < ApplicationController
   def mtlfct_statistic
   end
 
+  def compare_statistic
+    @factories = current_user.factories
+    quotas = Quota.all
+  end
+
+  def sglfct_compare_cau
+    @factory = my_factory
+    _quota = params[:quota]
+  end
 
   def sglfct_stc_cau
     @factory = my_factory
@@ -48,7 +57,7 @@ class DayPdtRptsController < ApplicationController
     series = []
     dimensions = ['date']
     real_codes.each do |code|
-      series << {type: 'line'}
+      series << {type: 'line', label: { show: true}}
       dimensions << quota_h[code]
     end
     analysis_result['series'] = series

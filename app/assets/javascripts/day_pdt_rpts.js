@@ -47,7 +47,7 @@ $(".day_pdt_rpts").ready(function() {
         $("#day-pdt-rpt-ctn").html(rpt_table);
 
         var title = '进出水水质';
-        var series = [{type: 'bar'}, {type: 'bar'}];
+        var series = [{type: 'bar', label: {show: true}}, {type: 'bar', label: {show: true}}];
         var dimensions = ['source', '进水', '出水'];
 
         var new_Option = newOption(title, series, dimensions, data.categories)

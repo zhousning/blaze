@@ -1649,7 +1649,31 @@ development:
     bar: '1'
     gauge: '2'
     table: '3'
-
+  months:
+    one: '1'
+    one_t: '一月'
+    two: '2'
+    two_t: '二月'
+    three: '3'
+    three_t: '三月'
+    four: '4'
+    four_t: '四月'
+    five: '5'
+    five_t: '五月'
+    six: '6'
+    six_t: '六月'
+    seven: '7'
+    seven_t: '七月'
+    eight: '8'
+    eight_t: '八月'
+    nine: '9'
+    nine_t: '九月'
+    ten: '10'
+    ten_t: '十月'
+    eleven: '11'
+    eleven_t: '十一月'
+    twelve: '12'
+    twelve_t: '十二月'
 
 test:
   admins: *104
