@@ -59,6 +59,7 @@ class DayPdtRptsController < ApplicationController
       series << {type: 'line'}
       dimensions << quota_hash[code][:name]
     end
+
     chart_config = {} 
 
     #图表数据
@@ -73,7 +74,7 @@ class DayPdtRptsController < ApplicationController
     end
   end
 
-  #雷达图 核心参数: search_type用于筛选出合法的指标code(化验、污泥、电耗、中水), pos_type用于区分标题(进水、出水、其他)
+  #雷达图 核心参数: search_type用于筛选出合法的指标code(化验、污泥、电耗、中水), pos_type用于区分标题,根据不同的位置获取不同的数据(进水、出水、其他)
   def radar_chart
     @factory = my_factory
 
@@ -97,18 +98,20 @@ class DayPdtRptsController < ApplicationController
     #图表数据
     if @factory
       @day_pdt_rpt = @factory.day_pdt_rpts.order('pdt_date desc').first
-      day_pdt_rpts = [@day_pdt_rpt]
+      day_pdt_rpts = @day_pdt_rpt ? [@day_pdt_rpt] : []
       datasets = get_datasets(day_pdt_rpts, real_codes, _pos) 
 
       chart_config = my_chart_config(_pos, series, dimensions, datasets)
 
-      if _pos == Setting.quota.pos_inf
-        chart_config['datasets'][0].each_pair do |k, v|
-          indicator << { name: k, max: v+10}
-        end
-      elsif _pos == Setting.quota.pos_eff
-        real_codes.each do |code|
-          indicator << { name: quota_hash[code][:name], max: quota_hash[code][:max]}
+      unless chart_config['datasets'].blank? 
+        if _pos == Setting.quota.pos_inf
+            chart_config['datasets'][0].each_pair do |k, v|
+              indicator << { name: k, max: v+10}
+            end
+        elsif _pos == Setting.quota.pos_eff
+          real_codes.each do |code|
+            indicator << { name: quota_hash[code][:name], max: quota_hash[code][:max]}
+          end
         end
       end
 

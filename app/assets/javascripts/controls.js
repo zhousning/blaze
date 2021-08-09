@@ -24,12 +24,12 @@ function chartRadar(that_chart, factory_id, search_type, pos_type){
   $.get(url, obj).done(function (data) {
     chart.hideLoading();
     
-    var new_Option = radarOption(data.title, data.series, data.dimensions, data.categories, data.indicator)
+    var new_Option = radarOption(data.title, data.series, data.dimensions, data.datasets, data.indicator)
     chart.setOption(new_Option, true);
   });
 }
 
-function radarOption(my_title, my_series, my_dimensions, my_categories, my_indicator) {
+function radarOption(my_title, my_series, my_dimensions, my_datasets, my_indicator) {
   option = {
     title: {
       text: my_title 
@@ -51,7 +51,7 @@ function radarOption(my_title, my_series, my_dimensions, my_categories, my_indic
     series: my_series,
     dataset: {
       dimensions: my_dimensions,
-      source: my_categories
+      source: my_datasets
     }
   }
   console.log(option);
