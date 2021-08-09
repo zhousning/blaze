@@ -40,7 +40,7 @@ $(".day_pdt_rpts").ready(function() {
         var series = [{type: 'bar', label: {show: true}}, {type: 'bar', label: {show: true}}];
         var dimensions = ['source', '进水', '出水'];
 
-        var new_Option = newOption(title, series, dimensions, data.categories)
+        var new_Option = newOption(title, series, dimensions, data.datasets)
         myChart.setOption(new_Option);
       });
     });
@@ -125,7 +125,7 @@ function chartLine(that_chart, factory_id, start, end, qcodes, search_type, pos_
   $.get(url, obj).done(function (data) {
     chart.hideLoading();
     
-    var new_Option = newOption(data.title, data.series, data.dimensions, data.categories)
+    var new_Option = newOption(data.title, data.series, data.dimensions, data.datasets)
     chart.setOption(new_Option, true);
   });
 }

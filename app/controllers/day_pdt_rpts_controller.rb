@@ -4,8 +4,8 @@ class DayPdtRptsController < ApplicationController
   #load_and_authorize_resource
   
   include MathCube
+  include QuotaConfig 
 
-   
   def index
     @day_pdt_rpt = DayPdtRpt.new
     @factory = my_factory
@@ -41,39 +41,92 @@ class DayPdtRptsController < ApplicationController
   #多折线图表
   def sglfct_stc_cau
     @factory = my_factory
-    quota_h = quota_hash
    
     _start = Date.parse(params[:start])
     _end = Date.parse(params[:end])
     _pos = params[:pos_type]
-    analysis_result = Hash.new 
 
     #避免传递非当前分类中的数据
     search_type = params[:search_type]
     _qcodes = params[:qcodes].split(",")
-    assay = my_assay(search_type)
-    real_codes = _qcodes & assay 
+    my_real_codes = my_real_codes(search_type)
+    real_codes = _qcodes & my_real_codes #查询哪些指标 
 
     #图表配置项
     series = []
     dimensions = ['date']
     real_codes.each do |code|
       series << {type: 'line'}
-      dimensions << quota_h[code][:name]
+      dimensions << quota_hash[code][:name]
     end
-    analysis_result['series'] = series
-    analysis_result['dimensions'] = dimensions
-    analysis_result['title'] = get_title(_pos)
+    chart_config = {} 
 
     #图表数据
     if @factory
       @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
-      analysis_result['categories'] = line_categories(@day_pdt_rpts, real_codes, _pos, quota_h)
+      datasets = get_datasets(@day_pdt_rpts, real_codes, _pos)
+      chart_config = my_chart_config(_pos, series, dimensions, datasets)
     end
 
     respond_to do |f|
-      f.json{ render :json => analysis_result.to_json}
+      f.json{ render :json => chart_config.to_json}
     end
+  end
+
+  #雷达图 核心参数: search_type用于筛选出合法的指标code(化验、污泥、电耗、中水), pos_type用于区分标题(进水、出水、其他)
+  def radar_chart
+    @factory = my_factory
+
+    _pos = params[:pos_type]
+
+    search_type = params[:search_type]
+    my_real_codes = my_real_codes(search_type)
+    real_codes = my_real_codes 
+
+    #图表配置项
+    series = []
+    series << {type: 'radar'}
+    dimensions = []
+    real_codes.each do |code|
+      dimensions << quota_hash[code][:name]
+    end
+
+    chart_config = {} 
+    indicator = []
+
+    #图表数据
+    if @factory
+      @day_pdt_rpt = @factory.day_pdt_rpts.order('pdt_date desc').first
+      day_pdt_rpts = [@day_pdt_rpt]
+      datasets = get_datasets(day_pdt_rpts, real_codes, _pos) 
+
+      chart_config = my_chart_config(_pos, series, dimensions, datasets)
+
+      if _pos == Setting.quota.pos_inf
+        chart_config['datasets'][0].each_pair do |k, v|
+          indicator << { name: k, max: v+10}
+        end
+      elsif _pos == Setting.quota.pos_eff
+        real_codes.each do |code|
+          indicator << { name: quota_hash[code][:name], max: quota_hash[code][:max]}
+        end
+      end
+
+      chart_config['indicator'] = indicator
+    end
+
+    respond_to do |f|
+      f.json{ render :json => chart_config.to_json}
+    end
+
+  end
+
+  def gauge_chart
+    #chart_config['sum_power'] = [gauge('总电量', sum_power)]
+    #if search_type == Setting.quota.ctg_power
+    #  sum_power = @day_pdt_rpts.sum(:power)
+    #  chart_config['sum_power'] = [gauge('总电量', sum_power)]
+    #end
   end
 
   #汇总统计数据,表格展示用
@@ -85,91 +138,15 @@ class DayPdtRptsController < ApplicationController
     _end = Date.parse(params[:end])
 
     _qcodes = params[:qcodes].split(",")
-    assay = my_assay(search_type)
-    real_codes = _qcodes & assay 
+    my_real_codes = my_real_codes(search_type)
+    real_codes = _qcodes & my_real_codes 
 
-    analysis_result = Hash.new 
-    analysis_result['static_pool'] = get_static_pool(@factory.id, real_codes, _start, _end) if @factory
-
-    respond_to do |f|
-      f.json{ render :json => analysis_result.to_json}
-    end
-  end
-
-  #雷达图 核心参数: search_type,pos_type
-  def radar_chart
-    @factory = my_factory
-    _pos = params[:pos_type]
-    quota_h = quota_hash
-    analysis_result = Hash.new 
-
-    search_type = params[:search_type]
-    assay = my_assay(search_type)
-    real_codes = assay 
-
-    #图表配置项
-    series = []
-    series << {type: 'radar'}
-    dimensions = []
-    real_codes.each do |code|
-      dimensions << quota_h[code][:name]
-    end
-
-
-    analysis_result['title'] = get_title(_pos)
-    analysis_result['series'] = series
-    analysis_result['dimensions'] = dimensions
-    indicator = []
-
-    #图表数据
-    if @factory
-      @day_pdt_rpt = @factory.day_pdt_rpts.order('pdt_date desc').first
-      analysis_result['categories'] = radar_categories(@day_pdt_rpt, real_codes, _pos, quota_h) 
-
-      if _pos == Setting.quota.pos_inf
-        analysis_result['categories'][0].each_pair do |k, v|
-          indicator << { name: k, max: v+10}
-        end
-      elsif _pos == Setting.quota.pos_eff
-        real_codes.each do |code|
-          indicator << { name: quota_h[code][:name], max: quota_h[code][:max]}
-        end
-      end
-
-      analysis_result['indicator'] = indicator
-    end
+    chart_config = Hash.new 
+    chart_config['static_pool'] = get_static_pool(@factory.id, real_codes, _start, _end) if @factory
 
     respond_to do |f|
-      f.json{ render :json => analysis_result.to_json}
+      f.json{ render :json => chart_config.to_json}
     end
-
-  end
-
-    def radar_categories(rpt, real_codes, pos, quota_h)
-      categories = []
-      ctg_hash = {}
-
-      real_codes.each do |code|
-        if pos == Setting.quota.pos_inf
-          inf_quota(ctg_hash, quota_h, code, rpt)
-        elsif pos == Setting.quota.pos_eff
-          eff_quota(ctg_hash, quota_h, code, rpt)
-        elsif pos == Setting.quota.pos_other
-          other_quota(ctg_hash, quota_h, code, rpt)
-        end
-      end
-
-      categories << ctg_hash
-
-      categories
-    end
-
-  def gauge_chart
-    #analysis_result['sum_power'] = [gauge('总电量', sum_power)]
-    #if search_type == Setting.quota.ctg_power
-    #  sum_power = @day_pdt_rpts.sum(:power)
-    #  analysis_result['sum_power'] = [gauge('总电量', sum_power)]
-    #end
   end
 
   def mtlfct_stc_cau
@@ -183,7 +160,7 @@ class DayPdtRptsController < ApplicationController
     respond_to do |format|
       format.json{ render :json => 
         {
-          :categories => [
+          :datasets => [
             {:source => "COD", :'进水' => @day_pdt_rpt.inf_qlty_cod, :'出水' => @day_pdt_rpt.eff_qlty_cod},
             {:source => "BOD", :'进水' => @day_pdt_rpt.inf_qlty_bod, :'出水' => @day_pdt_rpt.eff_qlty_bod},
             {:source => "TN", :'进水' => @day_pdt_rpt.inf_qlty_tn, :'出水' => @day_pdt_rpt.eff_qlty_tn},
@@ -230,146 +207,6 @@ class DayPdtRptsController < ApplicationController
       @factory = current_user.factories.find(iddecode(params[:factory_id]))
     end
    
-    def other_quota(ctg_hash, quota_h, code, rpt)
-      if code == Setting.quota.inflow 
-        ctg_hash[quota_h[code][:name]] = rpt.inflow
-      elsif code == Setting.quota.outflow
-        ctg_hash[quota_h[code][:name]] = rpt.outflow
-      elsif code == Setting.quota.inmud  
-        ctg_hash[quota_h[code][:name]] = rpt.inmud
-      elsif code == Setting.quota.outmud 
-        ctg_hash[quota_h[code][:name]] = rpt.outmud
-      elsif code == Setting.quota.mst    
-        ctg_hash[quota_h[code][:name]] = rpt.mst
-      elsif code == Setting.quota.power  
-        ctg_hash[quota_h[code][:name]] = rpt.power
-      elsif code == Setting.quota.mdflow 
-        ctg_hash[quota_h[code][:name]] = rpt.mdflow
-      elsif code == Setting.quota.mdrcy  
-        ctg_hash[quota_h[code][:name]] = rpt.mdrcy
-      elsif code == Setting.quota.mdsell 
-        ctg_hash[quota_h[code][:name]] = rpt.mdsell
-      end
-    end
-
-    def inf_quota(ctg_hash, quota_h, code, rpt)
-      if code == Setting.quota.cod 
-        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_cod
-      elsif code == Setting.quota.bod 
-        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_bod
-      elsif code == Setting.quota.ss  
-        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_ss
-      elsif code == Setting.quota.nhn 
-        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_nhn
-      elsif code == Setting.quota.tn  
-        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_tn
-      elsif code == Setting.quota.tp  
-        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_tp
-      elsif code == Setting.quota.ph  
-        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_ph
-      end
-    end
-
-    def eff_quota(ctg_hash, quota_h, code, rpt)
-      if code == Setting.quota.cod 
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_cod
-      elsif code == Setting.quota.bod 
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_bod
-      elsif code == Setting.quota.ss  
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_ss
-      elsif code == Setting.quota.nhn 
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_nhn
-      elsif code == Setting.quota.tn  
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_tn
-      elsif code == Setting.quota.tp  
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_tp
-      elsif code == Setting.quota.ph  
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_ph
-      elsif code == Setting.quota.fecal
-        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_fecal
-      end
-    end
-  
-    def quota_hash 
-      quota_hash = Hash.new
-      quotas = Quota.all
-      quotas.each do |q|
-        quota_hash[q.code] = {:name => q.name, :max => q.max }
-      end
-      quota_hash
-    end
-
-    def my_assay(type)
-      quotas = nil
-      if type == Setting.quota.ctg_cms 
-        quotas = Quota.where(:ctg => [Setting.quota.ctg_cms])
-      elsif type == Setting.quota.ctg_mud 
-        quotas = Quota.where(:ctg => [Setting.quota.ctg_mud, Setting.quota.ctg_flow])
-      elsif type == Setting.quota.ctg_power
-        quotas = Quota.where(:ctg => Setting.quota.ctg_power)
-      elsif type == Setting.quota.ctg_md
-        quotas = Quota.where(:ctg => Setting.quota.ctg_md)
-      end
-      quota_arr = []
-      quotas.each do |q|
-        quota_arr << q.code
-      end
-      quota_arr
-    end
-
-    def quotas 
-      @quota_flows = Quota.where(:ctg => Setting.quota.ctg_flow)
-      @quota_cms = Quota.where(:ctg => Setting.quota.ctg_cms) 
-      @quota_muds = Quota.where(:ctg => Setting.quota.ctg_mud) 
-      @quota_powers = Quota.where(:ctg => Setting.quota.ctg_power)
-      @quota_mds = Quota.where(:ctg => Setting.quota.ctg_md)
-    end
-
-    #求和和平均值
-    def get_static_pool(factory_id, real_codes, _start, _end)
-      static_pools = static_sum(factory_id, _start, _end)
-      static_pool = [] 
-      static_pools.each_pair do |k, v|
-        if real_codes.include?(v[:code])
-          static_pool << { :title => v[:title], :sum => v[:sum], :avg => v[:avg] } 
-        end
-      end
-      static_pool
-    end
-
-    def get_title(pos)
-      title = ''
-      if pos == Setting.quota.pos_inf
-        title = '进水水质'
-      elsif pos == Setting.quota.pos_eff
-        title = '出水水质'
-      elsif pos == Setting.quota.pos_sed
-        title = '二沉池出水水质'
-      elsif pos == Setting.quota.pos_other
-      end
-      title
-    end
-
-    #曲线数据
-    def line_categories(day_pdt_rpts, real_codes, pos, quota_h)
-      categories = []
-      day_pdt_rpts.each do |rpt|
-        ctg_hash = {'date': rpt.pdt_date}
-
-        real_codes.each do |code|
-          if pos == Setting.quota.pos_inf
-            inf_quota(ctg_hash, quota_h, code, rpt)
-          elsif pos == Setting.quota.pos_eff
-            eff_quota(ctg_hash, quota_h, code, rpt)
-          elsif pos == Setting.quota.pos_other
-            other_quota(ctg_hash, quota_h, code, rpt)
-          end
-        end
-
-        categories << ctg_hash
-      end
-      categories
-    end
 
     #仪表数据
     def gauge(name, value)
@@ -381,6 +218,57 @@ class DayPdtRptsController < ApplicationController
             name: name 
         }]
       }
+    end
+
+    #指标求和和平均值
+    #[
+    # { :title => 'cod', :sum => 20, :avg => 10 },
+    # { :title => 'bod', :sum => 20, :avg => 10 }
+    #]
+    #real_codes '1,2,3'
+    def get_static_pool(factory_id, real_codes, _start, _end)
+      static_pools = static_sum(factory_id, _start, _end)
+      static_pool = [] 
+      static_pools.each_pair do |k, v|
+        if real_codes.include?(v[:code])
+          static_pool << { :title => v[:title], :sum => v[:sum], :avg => v[:avg] } 
+        end
+      end
+      static_pool
+    end
+
+    #带日期数据
+    #[
+    # { :date => '2021-02-01', 'cod' => 2, 'bod' => 5 },
+    # { :date => '2021-02-02', 'cod' => 2, 'bod' => 5 },
+    #]
+    def get_datasets(day_pdt_rpts, real_codes, pos)
+      datasets = []
+      day_pdt_rpts.each do |rpt|
+        dataset_item = {'date': rpt.pdt_date}
+
+        real_codes.each do |code|
+          if pos == Setting.quota.pos_inf
+            inf_quota(dataset_item, code, rpt)
+          elsif pos == Setting.quota.pos_eff
+            eff_quota(dataset_item, code, rpt)
+          elsif pos == Setting.quota.pos_other
+            other_quota(dataset_item, code, rpt)
+          end
+        end
+
+        datasets << dataset_item
+      end
+      datasets
+    end
+
+    def my_chart_config(_pos, series, dimensions, datasets) 
+      chart_config = Hash.new 
+      chart_config['title'] = get_title(_pos)
+      chart_config['series'] = series
+      chart_config['dimensions'] = dimensions
+      chart_config['datasets'] = datasets
+      chart_config
     end
 
 end
