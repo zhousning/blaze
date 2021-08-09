@@ -125,6 +125,7 @@ Rails.application.routes.draw do
     get :mtlfct_stc_cau, :on => :collection
     get :static_pool, :on => :collection
     get :compare_statistic, :on => :collection
+    get :radar_chart, :on => :collection
   end
   resources :departments do
     get :download_append, :on => :member

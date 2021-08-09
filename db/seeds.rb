@@ -34,32 +34,32 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
     :factory => @qufu_one_fct,
     :name => pdt_date.to_s + @qufu_one_fct.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
     :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
-    :eff_qlty_bod => Faker::Number.within(range: 10..100), :eff_qlty_cod => Faker::Number.within(range: 10..100), :eff_qlty_ss => Faker::Number.within(range: 10..100), :eff_qlty_nhn => Faker::Number.within(range: 10..100), :eff_qlty_tn => Faker::Number.within(range: 10..100), :eff_qlty_tp => Faker::Number.within(range: 10..100), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..100),  
+    :eff_qlty_bod => Faker::Number.within(range: 1..10), :eff_qlty_cod => Faker::Number.within(range: 10..50), :eff_qlty_ss => Faker::Number.within(range: 1..10), :eff_qlty_nhn => Faker::Number.within(range: 1..5), :eff_qlty_tn => Faker::Number.within(range: 1..15), :eff_qlty_tp => format("%0.2f", Faker::Number.within(range: 0.1..0.5)), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..500),  
     :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 
     :inflow => Faker::Number.within(range: 10..100), :outflow => Faker::Number.within(range: 10..100), :inmud => Faker::Number.within(range: 10..100), :outmud => Faker::Number.within(range: 10..100), :mst => Faker::Number.within(range: 10..100), :power => Faker::Number.within(range: 10..100), :mdflow => Faker::Number.within(range: 10..100), :mdrcy => Faker::Number.within(range: 10..100), :mdsell => Faker::Number.within(range: 10..100)
   )
 end
 
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.cod,     :name => Setting.inf_qlties.cod)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.bod,     :name => Setting.inf_qlties.bod)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ss,      :name => Setting.inf_qlties.ss)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.nhn,     :name => Setting.inf_qlties.nhn)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tn,      :name => Setting.inf_qlties.tn)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tp,      :name => Setting.inf_qlties.tp)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ph,      :name => Setting.inf_qlties.ph)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.fecal,    :name => Setting.eff_qlties.fecal)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.cod,      :max => Setting.level_ones.cod_s, :name => Setting.inf_qlties.cod)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.bod,      :max => Setting.level_ones.bod_s, :name => Setting.inf_qlties.bod)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ss,       :max => Setting.level_ones.ss_s, :name => Setting.inf_qlties.ss)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.nhn,      :max => Setting.level_ones.nhn_s, :name => Setting.inf_qlties.nhn)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tn,       :max => Setting.level_ones.tn_s, :name => Setting.inf_qlties.tn)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tp,       :max => Setting.level_ones.tp_s, :name => Setting.inf_qlties.tp)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ph,       :max => Setting.level_ones.ph_s, :name => Setting.inf_qlties.ph)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.fecal,    :max => Setting.level_ones.fecal_s, :name => Setting.eff_qlties.fecal)
 Quota.create!(:ctg => Setting.quota.ctg_flow, :code => Setting.quota.inflow , :name => Setting.day_pdt_rpts.inflow  )
 Quota.create!(:ctg => Setting.quota.ctg_flow, :code => Setting.quota.outflow, :name => Setting.day_pdt_rpts.outflow )
-Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.inmud  , :name => Setting.day_pdt_rpts.inmud   )
-Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.outmud , :name => Setting.day_pdt_rpts.outmud  )
-Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.mst    , :name => Setting.day_pdt_rpts.mst     )
-Quota.create!(:ctg => Setting.quota.ctg_power, :code => Setting.quota.power  , :name => Setting.day_pdt_rpts.power   )
-Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdflow , :name => Setting.day_pdt_rpts.mdflow  )
-Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdrcy  , :name => Setting.day_pdt_rpts.mdrcy   )
-Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdsell , :name => Setting.day_pdt_rpts.mdsell  )
+Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.inmud  ,  :name => Setting.day_pdt_rpts.inmud   )
+Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.outmud ,  :name => Setting.day_pdt_rpts.outmud  )
+Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.mst    ,  :name => Setting.day_pdt_rpts.mst     )
+Quota.create!(:ctg => Setting.quota.ctg_power, :code => Setting.quota.power , :name => Setting.day_pdt_rpts.power   )
+Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdflow ,   :name => Setting.day_pdt_rpts.mdflow  )
+Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdrcy  ,   :name => Setting.day_pdt_rpts.mdrcy   )
+Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdsell ,   :name => Setting.day_pdt_rpts.mdsell  )
 #Quota.create!(:ctg => , :code => , :name => )
 
-LevelOne.create!( :cod => Setting.level_ones.cod, :ss => Setting.level_ones.ss, :nhn => Setting.level_ones.nhn, :tn => Setting.level_ones.tn, :tp => Setting.level_ones.tp, :fecal => Setting.level_ones.fecal )
+#LevelOne.create!( :cod => Setting.level_ones.cod_s, :ss => Setting.level_ones.ss_s, :nhn => Setting.level_ones.nhn_s, :tn => Setting.level_ones.tn_s, :tp => Setting.level_ones.tp_s, :fecal => Setting.level_ones.fecal_s, :bod => Setting.level_ones.bod_s)
 
 
 

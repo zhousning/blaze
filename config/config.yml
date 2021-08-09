@@ -1599,6 +1599,8 @@ development:
     label: 指标
     name: 名称
     code: 编码
+    max: 最大值
+    min: 最小值
     pos_inf: '0'
     pos_eff: '1'
     pos_sed: '2'
@@ -1638,17 +1640,22 @@ development:
     nhn: NH3-N(5mg/l)
     tn: TN(15mg/l)
     tp: TP(mg/l)
+    ph: PH
     fecal: 粪大肠菌群数(1000个/l)
+    bod_s: 10
     cod_s: 50
     ss_s: 10
     nhn_s: 5 
     tn_s: 15
+    tp_s: 0.5 
     fecal_s: 1000
+    ph_s: 14
   charts:
     line: '0'
     bar: '1'
     gauge: '2'
     table: '3'
+    radar: '4'
   months:
     one: '1'
     one_t: '一月'

@@ -7,12 +7,11 @@ class CreateQuota < ActiveRecord::Migration
       t.string :code,  null: false, default: Setting.systems.default_str
     
       t.string :ctg,  null: false, default: Setting.systems.default_str
-    
+      
+      t.float :max
 
+      t.float :min
     
-
-    
-
     
 
     

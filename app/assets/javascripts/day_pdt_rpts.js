@@ -1,20 +1,10 @@
 $(".day_pdt_rpts").ready(function() {
 
   if ($(".day_pdt_rpts.sglfct_statistic").length > 0) {
-    //var stcInflow = echarts.init(document.getElementById('chart-statistic-inflow-ctn'));
-    //var stcOutflow = echarts.init(document.getElementById('chart-statistic-outflow-ctn'));
-    //var stcMud = echarts.init(document.getElementById('chart-statistic-mud-ctn'));
-    //var stcPower = echarts.init(document.getElementById('chart-statistic-power-ctn'));
-    //var stcMd = echarts.init(document.getElementById('chart-statistic-md-ctn'));
-
-    //var powerChart = echarts.init(document.getElementById('chart-power-ctn'));
-
-    //chartSet('#sglfct-mud-search', stcMud, '污泥处理', "#chart-pool-mud-ctn")
-    //chartSet('#sglfct-power-search', stcPower, '能耗分析', "#chart-pool-power-ctn")
-    //chartSet('#sglfct-md-search', stcMd, '中水处理', "#chart-pool-md-ctn")
-    chartSet();
+    $(".sglfct-statistic-search").on('click', function(e) {
+      chartSet(e.target);
+    })
   }
-
 
   if ($(".day_pdt_rpts.index").length > 0) {
 
@@ -65,6 +55,7 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
       text: my_title 
     },
     legend: { data: my_dimensions},
+    label: { show: true },
     tooltip: { trigger: 'axis' },
     xAxis: {type: 'category'},
     yAxis: {},
@@ -100,33 +91,29 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
   return new_Option
 }
 
-function chartSet() {
-  $(".sglfct-statistic-search").on('click', function(e) {
+function chartSet(that_search) {
+  var factory_id = $("#fcts").val();
+  var start = $("#start").val();
+  var end = $("#end").val();
+  var qcodes = "";
 
-    var that_search = e.target;
-    var factory_id = $("#fcts").val();
-    var start = $("#start").val();
-    var end = $("#end").val();
-    var qcodes = "";
+  var chart_ctn = $(that_search).parents(".sglfct-chart-ctn")[0]
+  var check_boxes = $(chart_ctn).find("input[name='qcodes']:checked");
 
-    var chart_ctn = $(that_search).parents(".sglfct-chart-ctn")[0]
-    var check_boxes = $(chart_ctn).find("input[name='qcodes']:checked");
+  $.each(check_boxes, function(){
+    qcodes += $(this).val() + ","
+  });
 
-    $.each(check_boxes, function(){
-      qcodes += $(this).val() + ","
-    });
+  $(chart_ctn).find(".chart-statistic-ctn").each(function(index, that_chart) {
+    var chart_type = that_chart.dataset['chart'];
+    var search_type = that_chart.dataset['type'];
+    var pos_type = that_chart.dataset['pos'];
 
-    $(chart_ctn).find(".chart-statistic-ctn").each(function(index, that_chart) {
-      var chart_type = that_chart.dataset['chart'];
-      var search_type = that_chart.dataset['type'];
-      var pos_type = that_chart.dataset['pos'];
-
-      if (chart_type == '0') {
-        chartLine(that_chart, factory_id, start, end, qcodes, search_type, pos_type)
-      } else if (chart_type == '3') {
-        chartTable(that_chart, factory_id, start, end, qcodes, search_type)
-      }
-    })
+    if (chart_type == '0') {
+      chartLine(that_chart, factory_id, start, end, qcodes, search_type, pos_type)
+    } else if (chart_type == '3') {
+      chartTable(that_chart, factory_id, start, end, qcodes, search_type)
+    }
   })
 }
 

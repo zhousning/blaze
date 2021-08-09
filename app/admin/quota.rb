@@ -19,6 +19,8 @@ ActiveAdmin.register Quota  do
     column Setting.quota.name, :name
     column Setting.quota.code, :code
     column Setting.quota.ctg, :ctg
+    column Setting.quota.max, :max
+    column Setting.quota.min, :min
 
     column "创建时间", :created_at, :sortable=>:created_at do |f|
       f.created_at.strftime('%Y-%m-%d %H:%M:%S')
@@ -35,6 +37,8 @@ ActiveAdmin.register Quota  do
       f.input :name, :label => Setting.quota.name 
       f.input :code, :label => Setting.quota.code 
       f.input :ctg, :label => Setting.quota.ctg 
+      f.input :max, :label => Setting.quota.max 
+      f.input :min, :label => Setting.quota.min 
     end
     f.actions
   end
@@ -53,6 +57,12 @@ ActiveAdmin.register Quota  do
       end
       row Setting.quota.ctg do
         quota.ctg
+      end
+      row Setting.quota.max do
+        quota.max
+      end
+      row Setting.quota.min do
+        quota.min
       end
 
       row "创建时间" do

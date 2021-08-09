@@ -1,84 +1,59 @@
 $(".controls.index").ready(function() {
   if ($(".controls.index").length > 0) {
-      var initialLocaleCode = 'zh-cn';
-      var calendarEl = document.getElementById('control-calendar');
-
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-        },
-        themeSystem: 'bootstrap',
-        //initialDate: '2020-09-12',
-        locale: initialLocaleCode,
-        buttonIcons: true, // show the prev/next text
-        weekNumbers: true,
-        navLinks: true, // can click day/week names to navigate views
-        editable: true,
-        dayMaxEvents: true, // allow "more" link when too many events
-        events: gon.events
-        /*
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2020-09-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2020-09-07',
-            end: '2020-09-10'
-          },
-          {
-            groupId: 999,
-            title: 'Repeating Event',
-            start: '2020-09-09T16:00:00'
-          },
-          {
-            groupId: 999,
-            title: 'Repeating Event',
-            start: '2020-09-16T16:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2020-09-11',
-            end: '2020-09-13'
-          },
-          {
-            title: 'Meeting',
-            start: '2020-09-12T10:30:00',
-            end: '2020-09-12T12:30:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2020-09-12T12:00:00'
-          },
-          {
-            title: 'Meeting',
-            start: '2020-09-12T14:30:00'
-          },
-          {
-            title: 'Happy Hour',
-            start: '2020-09-12T17:30:00'
-          },
-          {
-            title: 'Dinner',
-            start: '2020-09-12T20:00:00'
-          },
-          {
-            title: 'Birthday Party',
-            start: '2020-09-13T07:00:00'
-          },
-          {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2020-09-28'
-          }
-        ]
-        */
-      });
-
-      calendar.render();
+    $(".chart-statistic-ctn").each(function(index, e) {
+      radarChartSet(e);
+    });
   }
 
 });
+
+function radarChartSet(that_chart) {
+  var chart_type = that_chart.dataset['chart'];
+  var search_type = that_chart.dataset['type'];
+  var pos_type = that_chart.dataset['pos'];
+  var factory_id = that_chart.dataset['fct'];
+
+  chartRadar(that_chart, factory_id, search_type, pos_type)
+}
+
+function chartRadar(that_chart, factory_id, search_type, pos_type){
+  var chart = echarts.init(that_chart);
+  chart.showLoading();
+  var obj = {factory_id: factory_id, search_type, pos_type}
+  var url = "/day_pdt_rpts/radar_chart";
+  $.get(url, obj).done(function (data) {
+    chart.hideLoading();
+    
+    var new_Option = radarOption(data.title, data.series, data.dimensions, data.categories, data.indicator)
+    chart.setOption(new_Option, true);
+  });
+}
+
+function radarOption(my_title, my_series, my_dimensions, my_categories, my_indicator) {
+  option = {
+    title: {
+      text: my_title 
+    },
+    legend: {
+      //data: [ '2015', '2016', '2017']
+    },
+    tooltip: {
+      show: true
+    },
+    radar: {
+      shape: 'circle',
+      indicator: my_indicator
+      //axisLabel:{ show:true, color:'#232', showMaxLabel: true},
+    },
+    label: {
+      show: true
+    },
+    series: my_series,
+    dataset: {
+      dimensions: my_dimensions,
+      source: my_categories
+    }
+  }
+  console.log(option);
+  return option;
+}

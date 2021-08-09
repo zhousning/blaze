@@ -3,5 +3,9 @@ class ControlsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @factories = current_user.factories
   end
+      
+      
+      
 end
