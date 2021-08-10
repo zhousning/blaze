@@ -4,6 +4,7 @@ class ControlsController < ApplicationController
 
   def index
     @factories = current_user.factories
+    @other_quotas = [Setting.quota.inflow, Setting.quota.outflow, Setting.quota.outmud, Setting.quota.power]
   end
       
       

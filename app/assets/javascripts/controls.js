@@ -3,6 +3,22 @@ $(".controls.index").ready(function() {
     $(".chart-statistic-ctn").each(function(index, e) {
       radarChartSet(e);
     });
+
+    $(".chart-gauge-ctn").each(function(index, that_chart) {
+      var qcode = that_chart.dataset['code'];
+      var factory_id = that_chart.dataset['fct'];
+      var chart = echarts.init(that_chart);
+      chart.showLoading();
+
+      var obj = {factory_id: factory_id, qcode: qcode }
+      var url = "/day_pdt_rpts/new_quota_chart";
+      $.get(url, obj).done(function (data) {
+        chart.hideLoading();
+        
+        var new_Option = gaugeOption(data.name, data.value, data.min, data.max, data.color)
+        chart.setOption(new_Option, true);
+      });
+    });
   }
 
 });
@@ -29,31 +45,3 @@ function chartRadar(that_chart, factory_id, search_type, pos_type, chart_type){
   });
 }
 
-function radarOption(my_title, my_series, my_dimensions, my_datasets, my_indicator) {
-  option = {
-    title: {
-      text: my_title 
-    },
-    legend: {
-      //data: [ '2015', '2016', '2017']
-    },
-    tooltip: {
-      show: true
-    },
-    radar: {
-      shape: 'circle',
-      indicator: my_indicator
-      //axisLabel:{ show:true, color:'#232', showMaxLabel: true},
-    },
-    label: {
-      show: true
-    },
-    series: my_series,
-    dataset: {
-      dimensions: my_dimensions,
-      source: my_datasets
-    }
-  }
-  console.log(option);
-  return option;
-}

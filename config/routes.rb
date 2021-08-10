@@ -126,6 +126,7 @@ Rails.application.routes.draw do
     get :static_pool, :on => :collection
     get :compare_statistic, :on => :collection
     get :radar_chart, :on => :collection
+    get :new_quota_chart, :on => :collection
   end
   resources :departments do
     get :download_append, :on => :member

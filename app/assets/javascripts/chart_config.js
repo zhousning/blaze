@@ -1,3 +1,79 @@
+function gaugeOption(name, value, min, max, color) {
+  option = {
+    tooltip: {
+        formatter: '{b} : {c}'
+    },
+    series: [{
+        name: name,
+        type: 'gauge',
+        min: min,
+        max: max,
+        itemStyle: {
+          color: color 
+        },
+        axisLine: {
+          lineStyle: {
+             width: 5 
+          }
+        },
+        progress: {
+            show: true,
+            width: 5 
+        },
+        splitLine: {
+          length: 6,
+          lineStyle: {
+            width: 2,
+            color: '#999'
+          }
+        },
+        axisLabel: {
+          distance: 10,
+          color: '#999',
+          fontSize: 10 
+        },
+        detail: {
+            valueAnimation: true,
+            formatter: '{value}',
+            offsetCenter: [0, '60%']
+        },
+        data: [{
+            value: value,
+            name: name 
+        }]
+    }]
+  };
+  return option
+}
+
+function radarOption(my_title, my_series, my_dimensions, my_datasets, my_indicator) {
+  option = {
+    title: {
+      text: my_title 
+    },
+    legend: {
+      //data: [ '2015', '2016', '2017']
+    },
+    tooltip: {
+      show: true
+    },
+    radar: {
+      shape: 'circle',
+      indicator: my_indicator
+      //axisLabel:{ show:true, color:'#232', showMaxLabel: true},
+    },
+    label: {
+      show: true
+    },
+    series: my_series,
+    dataset: {
+      dimensions: my_dimensions,
+      source: my_datasets
+    }
+  }
+  return option;
+}
+
 function newOption(my_title, my_series, my_dimensions, my_source) {
   var new_Option = {
     title: {
@@ -37,7 +113,6 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
       source: my_source  
     }
   }
-  return new_Option
 }
 
 

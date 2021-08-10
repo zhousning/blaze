@@ -25,9 +25,9 @@
                               .chart-statistic-ctn{:'data-chart' => Setting.charts.radar, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 500px;height:400px;", :'data-fct' => idencode(fct.id)}
                             .col-6.d-flex.justify-content-center
                               .chart-statistic-ctn{:'data-chart' => Setting.charts.radar, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 500px;height:400px;", :'data-fct' => idencode(fct.id)}
-                          -#
-                            .row.mt-5
-                              .col-12.d-flex.justify-content-center
-                                .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
+                          .row.mt-5
+                            - @other_quotas.each do |quota|
+                              .col-3
+                                .chart-gauge-ctn{:'data-chart' => Setting.charts.gauge, :'data-code' => quota, :'data-fct' => idencode(fct.id), :style => "width: 300px;height:300px;"}
 
       = render "layouts/bootstrap/card"

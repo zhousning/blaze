@@ -97,7 +97,36 @@ class DayPdtRptsController < ApplicationController
 
   end
 
-  def gauge_chart
+  def new_quota_chart
+    qcode = params[:qcode]
+    result = {}
+
+    @factory = my_factory
+    if @factory
+      @day_pdt_rpt = @factory.day_pdt_rpts.order('pdt_date desc').first
+      result = single_quota(qcode, @day_pdt_rpt)
+    end
+
+    respond_to do |f|
+      f.json{ render :json => result.to_json}
+    end
+  end
+
+  def single_quota(qcode, day_pdt_rpt)
+    result = {}
+    if qcode == Setting.quota.inflow
+      result = gauge(Setting.day_pdt_rpts.inflow, day_pdt_rpt.inflow, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.inflow + 50).to_i, '#597cd5')
+    elsif qcode == Setting.quota.outflow
+      result = gauge(Setting.day_pdt_rpts.outflow, day_pdt_rpt.outflow, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.outflow + 50).to_i, '#597cd5')
+    elsif qcode == Setting.quota.outmud
+      result = gauge(Setting.day_pdt_rpts.outmud, day_pdt_rpt.outmud, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.outmud + 50).to_i, '#597cd5')
+    elsif qcode == Setting.quota.power
+      result = gauge(Setting.day_pdt_rpts.power, day_pdt_rpt.power, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.power + 50).to_i, '#597cd5')
+    end
+    result
+  end
+
+  def power_chart
     #chart_config['sum_power'] = [gauge('总电量', sum_power)]
     #if search_type == Setting.quota.ctg_power
     #  sum_power = @day_pdt_rpts.sum(:power)
@@ -185,14 +214,13 @@ class DayPdtRptsController < ApplicationController
    
 
     #仪表数据
-    def gauge(name, value)
+    def gauge(name, value,min, max, color)
       {
         name: name,
-        type: 'gauge',
-        data: [{
-            value: value,
-            name: name 
-        }]
+        min: min,
+        max: max,
+        color: color,
+        value: value
       }
     end
 
