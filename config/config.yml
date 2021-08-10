@@ -1656,6 +1656,11 @@ development:
     gauge: '2'
     table: '3'
     radar: '4'
+    line_t: 'line'
+    bar_t: 'bar'
+    gauge_t: 'gauge'
+    table_t: 'table'
+    radar_t: 'radar'
   months:
     one: '1'
     one_t: '一月'

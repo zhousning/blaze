@@ -13,13 +13,13 @@ function radarChartSet(that_chart) {
   var pos_type = that_chart.dataset['pos'];
   var factory_id = that_chart.dataset['fct'];
 
-  chartRadar(that_chart, factory_id, search_type, pos_type)
+  chartRadar(that_chart, factory_id, search_type, pos_type, chart_type)
 }
 
-function chartRadar(that_chart, factory_id, search_type, pos_type){
+function chartRadar(that_chart, factory_id, search_type, pos_type, chart_type){
   var chart = echarts.init(that_chart);
   chart.showLoading();
-  var obj = {factory_id: factory_id, search_type, pos_type}
+  var obj = {factory_id: factory_id, search_type: search_type, pos_type: pos_type, chart_type: chart_type }
   var url = "/day_pdt_rpts/radar_chart";
   $.get(url, obj).done(function (data) {
     chart.hideLoading();

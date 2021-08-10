@@ -1,0 +1,96 @@
+function newOption(my_title, my_series, my_dimensions, my_source) {
+  var new_Option = {
+    title: {
+      text: my_title 
+    },
+    legend: { data: my_dimensions},
+    label: { show: true },
+    tooltip: { trigger: 'axis' },
+    xAxis: {type: 'category'},
+    yAxis: {},
+    toolbox: {
+      show: true,
+      feature: {
+         dataView: {readOnly: false},
+         magicType: {type: ['line', 'bar']},
+         restore: {},
+         saveAsImage: {}
+      }
+    },
+    dataZoom: [
+      {            
+        type: 'slider',
+        show: true,
+        xAxisIndex: [0],
+        startValue: '0'
+      },
+      {            
+        type: 'slider',
+        show: true,
+        yAxisIndex: [0],
+        startValue: '0'
+      }
+    ],
+    series: my_series,
+    dataset: {
+      dimensions: my_dimensions,
+      source: my_source  
+    }
+  }
+  return new_Option
+}
+
+
+//取特定时期的数据
+function periodChartConfig(url, that_chart, factory_id, start, end, qcodes){
+  var chart_type = that_chart.dataset['chart'];
+  var search_type = that_chart.dataset['type'];
+  var pos_type = that_chart.dataset['pos'];
+
+  var chart = echarts.init(that_chart);
+  chart.showLoading();
+  var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type, pos_type: pos_type, chart_type: chart_type}
+  $.get(url, obj).done(function (data) {
+    chart.hideLoading();
+    
+    var new_Option = newOption(data.title, data.series, data.dimensions, data.datasets)
+    chart.setOption(new_Option, true);
+  });
+}
+
+//search_type 当前页面的checkbox
+function chartTable(ctnid, factory_id, start, end, qcodes, search_type){
+  var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type}
+  var url = "/day_pdt_rpts/static_pool";
+
+  $.get(url, obj).done(function (data) {
+    dataSummary(data.static_pool, ctnid)
+  });
+}
+
+function dataSummary(static_pool, ctnid) {
+  var pool_title = "";
+  var pool_sum = "";
+  var pool_avg = "";
+  $.each(static_pool, function(k, v) {
+    pool_title += "<td>" + v['title'] + "</td>";
+    pool_sum += "<td>" + v['sum'] + "</td>";
+    pool_avg += "<td>" + v['avg'] + "</td>";
+  })
+
+  var rpt_table = "<table class='table table-bordered'>" +
+    "<tr>" +
+      "<td></td>" + 
+      pool_title +
+    "</tr>" + 
+    "<tr>" +
+      "<td>总和" + "</td>" + 
+      pool_sum +
+    "</tr>" + 
+    "<tr>" +
+      "<td>平均值" + "</td>" + 
+      pool_avg +
+    "</tr>" + 
+    "</table>";
+  $(ctnid).html(rpt_table);
+}
