@@ -24,7 +24,6 @@ module ChartConfig
     #图表数据
     day_pdt_rpts = @day_pdt_rpt ? [@day_pdt_rpt] : []
     datasets = get_datasets(have_date, day_pdt_rpts, real_codes, pos_type) 
-    puts datasets
     chart_config = my_chart_config(pos_type, series, dimensions, datasets)
 
     chart_config
