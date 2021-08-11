@@ -128,7 +128,7 @@ gem 'newrelic_rpm'
 
 #gem 'lazy_high_charts'
 
-gem "chartkick"
+#gem "chartkick"
 
 gem 'groupdate'
 

@@ -1,4 +1,7 @@
 module ChartConfig
+  def my_factory
+    @factory = current_user.factories.find(iddecode(params[:factory_id]))
+  end
   #雷达图 核心参数: search_type用于筛选出合法的指标code(化验、污泥、电耗、中水), pos_type用于区分标题,根据不同的位置获取不同的数据(进水、出水、其他), qcodes指标代码('1,2,3')
 
   #获取某一天的分类指标数据化验(cod、bod、tn)、污泥(inmud、outmud)等

@@ -113,6 +113,7 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
       source: my_source  
     }
   }
+  return new_Option;
 }
 
 

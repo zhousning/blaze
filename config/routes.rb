@@ -117,6 +117,12 @@ Rails.application.routes.draw do
       get :download_append, :on => :member
       get :xls_download, :on => :collection
     end
+    resources :analyses, :only => [] do
+      get :month_compare, :on => :collection
+    end
+  end
+  resources :analyses, :only => [] do
+    get :compare, :on => :collection
   end
   resources :day_pdt_rpts, :only => [] do
     get :sglfct_statistic, :on => :collection
@@ -124,7 +130,6 @@ Rails.application.routes.draw do
     get :sglfct_stc_cau, :on => :collection
     get :mtlfct_stc_cau, :on => :collection
     get :static_pool, :on => :collection
-    get :compare_statistic, :on => :collection
     get :radar_chart, :on => :collection
     get :new_quota_chart, :on => :collection
   end

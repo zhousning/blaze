@@ -10,9 +10,9 @@
           %li.list-group-item.pl-0.border-0
             = select_tag "fcts", options_for_my_factory(@factories), :include_blank=>false, :class=>"form-control"
           %li.list-group-item.pl-0.border-0
-            = select_tag "quota", options_for_quotas, :include_blank=>false, :class=>"form-control"
+            = select_tag "qcodes", options_for_quotas, :include_blank=>false, :class=>"form-control"
           %li.list-group-item.pl-0.border-0
-            = select_tag "quota", options_for_years, :include_blank=>false, :class=>"form-control"
+            = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
 
       - content_for :card_body do
         .container-fluid
@@ -48,9 +48,9 @@
                             查询 
                       .row
                         .col-12.d-flex.justify-content-center.my-5
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 1000px;height:400px;"}
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 1000px;height:400px;"}
                         .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
                         .col-12.d-flex.justify-content-center
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}

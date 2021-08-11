@@ -29,11 +29,6 @@ class DayPdtRptsController < ApplicationController
   def mtlfct_statistic
   end
 
-  def compare_statistic
-    @factories = current_user.factories
-    quotas = Quota.all
-  end
-
   def sglfct_compare_cau
     @factory = my_factory
     _quota = params[:quota]
@@ -126,13 +121,6 @@ class DayPdtRptsController < ApplicationController
     result
   end
 
-  def power_chart
-    #chart_config['sum_power'] = [gauge('总电量', sum_power)]
-    #if search_type == Setting.quota.ctg_power
-    #  sum_power = @day_pdt_rpts.sum(:power)
-    #  chart_config['sum_power'] = [gauge('总电量', sum_power)]
-    #end
-  end
 
   #汇总统计数据,表格展示用
   def static_pool
@@ -208,10 +196,6 @@ class DayPdtRptsController < ApplicationController
       :inflow, :outflow, :inmud, :outmud, :mst, :power, :mdflow, :mdrcy, :mdsell)
     end
   
-    def my_factory
-      @factory = current_user.factories.find(iddecode(params[:factory_id]))
-    end
-   
 
     #仪表数据
     def gauge(name, value,min, max, color)
