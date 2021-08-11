@@ -28,62 +28,65 @@ module QuotaConfig
     end
 
     def inf_quota(ctg_hash, code, rpt)
+      quota_h = quota_hash
       if code == Setting.quota.cod 
-        ctg_hash[quota_hash[code][:name]] = rpt.inf_qlty_cod
+        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_cod
       elsif code == Setting.quota.bod 
-        ctg_hash[quota_hash[code][:name]] = rpt.inf_qlty_bod
+        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_bod
       elsif code == Setting.quota.ss  
-        ctg_hash[quota_hash[code][:name]] = rpt.inf_qlty_ss
+        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_ss
       elsif code == Setting.quota.nhn 
-        ctg_hash[quota_hash[code][:name]] = rpt.inf_qlty_nhn
+        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_nhn
       elsif code == Setting.quota.tn  
-        ctg_hash[quota_hash[code][:name]] = rpt.inf_qlty_tn
+        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_tn
       elsif code == Setting.quota.tp  
-        ctg_hash[quota_hash[code][:name]] = rpt.inf_qlty_tp
+        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_tp
       elsif code == Setting.quota.ph  
-        ctg_hash[quota_hash[code][:name]] = rpt.inf_qlty_ph
+        ctg_hash[quota_h[code][:name]] = rpt.inf_qlty_ph
       end
     end
 
     def eff_quota(ctg_hash, code, rpt)
+      quota_h = quota_hash
       if code == Setting.quota.cod 
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_cod
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_cod
       elsif code == Setting.quota.bod 
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_bod
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_bod
       elsif code == Setting.quota.ss  
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_ss
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_ss
       elsif code == Setting.quota.nhn 
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_nhn
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_nhn
       elsif code == Setting.quota.tn  
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_tn
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_tn
       elsif code == Setting.quota.tp  
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_tp
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_tp
       elsif code == Setting.quota.ph  
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_ph
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_ph
       elsif code == Setting.quota.fecal
-        ctg_hash[quota_hash[code][:name]] = rpt.eff_qlty_fecal
+        ctg_hash[quota_h[code][:name]] = rpt.eff_qlty_fecal
       end
     end
 
     def other_quota(ctg_hash, code, rpt)
+      quota_h = quota_hash
       if code == Setting.quota.inflow 
-        ctg_hash[quota_hash[code][:name]] = rpt.inflow
+        ctg_hash[quota_h[code][:name]] = rpt.inflow
       elsif code == Setting.quota.outflow
-        ctg_hash[quota_hash[code][:name]] = rpt.outflow
+        ctg_hash[quota_h[code][:name]] = rpt.outflow
       elsif code == Setting.quota.inmud  
-        ctg_hash[quota_hash[code][:name]] = rpt.inmud
+        ctg_hash[quota_h[code][:name]] = rpt.inmud
       elsif code == Setting.quota.outmud 
-        ctg_hash[quota_hash[code][:name]] = rpt.outmud
+        ctg_hash[quota_h[code][:name]] = rpt.outmud
       elsif code == Setting.quota.mst    
-        ctg_hash[quota_hash[code][:name]] = rpt.mst
+        ctg_hash[quota_h[code][:name]] = rpt.mst
       elsif code == Setting.quota.power  
-        ctg_hash[quota_hash[code][:name]] = rpt.power
+        ctg_hash[quota_h[code][:name]] = rpt.power
       elsif code == Setting.quota.mdflow 
-        ctg_hash[quota_hash[code][:name]] = rpt.mdflow
+        ctg_hash[quota_h[code][:name]] = rpt.mdflow
       elsif code == Setting.quota.mdrcy  
-        ctg_hash[quota_hash[code][:name]] = rpt.mdrcy
+        ctg_hash[quota_h[code][:name]] = rpt.mdrcy
       elsif code == Setting.quota.mdsell 
-        ctg_hash[quota_hash[code][:name]] = rpt.mdsell
+        ctg_hash[quota_h[code][:name]] = rpt.mdsell
       end
     end
 

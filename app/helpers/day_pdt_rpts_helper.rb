@@ -13,7 +13,7 @@ module DayPdtRptsHelper
     str = ""
     quotas = Quota.all
     quotas.each do |f|
-      str += "<option value='" + f.id.to_s + "'>" + f.name + "</option>"
+      str += "<option value='" + f.code.to_s + "'>" + f.name + "</option>"
     end
 
     raw(str)

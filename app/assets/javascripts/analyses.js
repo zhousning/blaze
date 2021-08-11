@@ -36,8 +36,8 @@ function monthCompareChartSet(that_search) {
     if (search_type == '0' && ctg_cms.indexOf(qcodes) != -1) {
       
       chart_static_ctn.each(function(index, that_chart) {
-        var search_type = that_chart.dataset['type'];
-        if (search_type == '0') {
+        var search_type_cache = that_chart.dataset['type'];
+        if (search_type_cache == '0') {
           $(that_chart).removeClass("d-none");
           $(that_chart).addClass("d-block");
         } else {
@@ -49,8 +49,8 @@ function monthCompareChartSet(that_search) {
       monthChartConfig(url, that_chart, year, months, qcodes)
     } else if (search_type == '2' && ctg_mud.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
-        var search_type = that_chart.dataset['type'];
-        if (search_type == '2') {
+        var search_type_cache = that_chart.dataset['type'];
+        if (search_type_cache == '2') {
           $(that_chart).removeClass("d-none");
           $(that_chart).addClass("d-block");
         } else {
@@ -61,8 +61,8 @@ function monthCompareChartSet(that_search) {
       monthChartConfig(url, that_chart, year, months, qcodes)
     } else if (search_type == '3' && ctg_power.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
-        var search_type = that_chart.dataset['type'];
-        if (search_type == '3') {
+        var search_type_cache = that_chart.dataset['type'];
+        if (search_type_cache == '3') {
           $(that_chart).removeClass("d-none");
           $(that_chart).addClass("d-block");
         } else {
@@ -73,8 +73,8 @@ function monthCompareChartSet(that_search) {
       monthChartConfig(url, that_chart, year, months, qcodes)
     } else if (search_type == '4' && ctg_md.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
-        var search_type = that_chart.dataset['type'];
-        if (search_type == '4') {
+        var search_type_cache = that_chart.dataset['type'];
+        if (search_type_cache == '4') {
           $(that_chart).removeClass("d-none");
           $(that_chart).addClass("d-block");
         } else {

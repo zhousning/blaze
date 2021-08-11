@@ -1626,7 +1626,7 @@ development:
     outflow: '8'
     inmud: '9'
     outmud: '10'
-    mst: " 11"
+    mst: "11"
     power: '12'
     mdflow: '13'
     mdrcy: '14'
