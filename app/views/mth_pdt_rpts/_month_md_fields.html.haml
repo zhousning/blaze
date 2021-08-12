@@ -1,0 +1,39 @@
+.nested-fields.nestd-item
+  .form-group
+    .field.d-inline
+    
+      .form-group.row
+        = f.label Setting.month_mds.mdrcy, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mdrcy, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_mds.end_mdrcy, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :end_mdrcy, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_mds.mdsell, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mdsell, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_mds.end_mdsell, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :end_mdsell, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_mds.yoy, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :yoy, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_mds.mom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mom, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_mds.ypdr, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :ypdr, :class => "form-control"
+        

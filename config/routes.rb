@@ -120,6 +120,10 @@ Rails.application.routes.draw do
     resources :analyses, :only => [] do
       get :month_compare, :on => :collection
     end
+    resources :mth_pdt_rpts do
+      get :download_append, :on => :member
+      get :xls_download, :on => :collection
+    end
   end
   resources :analyses, :only => [] do
     get :compare, :on => :collection
@@ -157,9 +161,6 @@ Rails.application.routes.draw do
     get :download_append, :on => :member
     post :parse_excel, :on => :collection
     get :xls_download, :on => :collection
-  end
-  resources :level_ones do
-    get :download_append, :on => :member
   end
   resources :flower
 

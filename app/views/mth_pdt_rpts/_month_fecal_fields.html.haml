@@ -1,0 +1,29 @@
+.nested-fields.nestd-item
+  .form-group
+    .field.d-inline
+    
+      .form-group.row
+        = f.label Setting.month_fecals.up_std, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.text_field :up_std, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_fecals.end_std, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.text_field :end_std, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_fecals.yoy, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.text_field :yoy, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_fecals.mom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.text_field :mom, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_fecals.ypdr, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.text_field :ypdr, :class => "form-control"
+        

@@ -59,7 +59,5 @@ Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdrcy  ,   :n
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdsell ,   :name => Setting.day_pdt_rpts.mdsell  )
 #Quota.create!(:ctg => , :code => , :name => )
 
-#LevelOne.create!( :cod => Setting.level_ones.cod_s, :ss => Setting.level_ones.ss_s, :nhn => Setting.level_ones.nhn_s, :tn => Setting.level_ones.tn_s, :tp => Setting.level_ones.tp_s, :fecal => Setting.level_ones.fecal_s, :bod => Setting.level_ones.bod_s)
-
 
 

@@ -1,4 +1,15 @@
 module ChartConfig
+  def QuotaConfig.quota_hash 
+    quota_hash = Hash.new
+    quotas = Quota.all
+    quotas.each do |q|
+      quota_hash[q.code] = {:name => q.name, :max => q.max }
+    end
+    quota_hash
+  end
+
+  MYQUOTAS = QuotaConfig.quota_hash
+
   def my_factory
     @factory = current_user.factories.find(iddecode(params[:factory_id]))
   end
@@ -7,7 +18,6 @@ module ChartConfig
   #获取某一天的分类指标数据化验(cod、bod、tn)、污泥(inmud、outmud)等
   def some_day_quota(have_date, day_pdt_rpt, search_type, pos_type, chart_type, _qcodes)
     @factory = my_factory
-    quota_h = quota_hash
 
     my_real_codes = my_real_codes(search_type)
     real_codes = _qcodes.nil? ? my_real_codes : _qcodes & my_real_codes #查询哪些指标 
@@ -17,7 +27,7 @@ module ChartConfig
     series << {type: chart_type(chart_type)}
     dimensions = []
     real_codes.each do |code|
-      dimensions << quota_h[code][:name]
+      dimensions << MYQUOTAS[code][:name]
     end
 
     chart_config = {}
@@ -33,7 +43,6 @@ module ChartConfig
   #获取指定时期的多个指标
   #分别显示
   def period_multiple_quota(have_date, day_pdt_rpts, search_type, pos_type, chart_type, _qcodes)
-    quota_h = quota_hash
    
     #避免传递非当前分类中的数据
     my_real_codes = my_real_codes(search_type)
@@ -44,7 +53,7 @@ module ChartConfig
     dimensions = ['date']
     real_codes.each do |code|
       series << {type: chart_type(chart_type)}
-      dimensions << quota_h[code][:name]
+      dimensions << MYQUOTAS[code][:name]
     end
 
     chart_config = {} 

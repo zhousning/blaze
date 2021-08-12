@@ -36,12 +36,12 @@ class DayPdtRptsController < ApplicationController
 
   #多折线图表
   def sglfct_stc_cau
-    _start = Date.parse(params[:start])
-    _end = Date.parse(params[:end])
-    search_type = params[:search_type]
-    pos_type = params[:pos_type]
-    chart_type = params[:chart_type]
-    _qcodes = params[:qcodes].split(",")
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+    search_type = params[:search_type].gsub(/\s/, '')
+    pos_type = params[:pos_type].gsub(/\s/, '')
+    chart_type = params[:chart_type].gsub(/\s/, '')
+    _qcodes = params[:qcodes].gsub(/\s/, '').split(",")
 
     chart_config = {}
     @factory = my_factory
@@ -57,9 +57,9 @@ class DayPdtRptsController < ApplicationController
   end
 
   def radar_chart
-    pos_type = params[:pos_type]
-    chart_type = params[:chart_type]
-    search_type = params[:search_type]
+    pos_type = params[:pos_type].gsub(/\s/, '')
+    chart_type = params[:chart_type].gsub(/\s/, '')
+    search_type = params[:search_type].gsub(/\s/, '')
     chart_config = {} 
     @factory = my_factory
     if @factory
@@ -79,7 +79,7 @@ class DayPdtRptsController < ApplicationController
         end
       elsif pos_type == Setting.quota.pos_eff
         real_codes.each do |code|
-          indicator << { name: quota_hash[code][:name], max: quota_hash[code][:max]}
+          indicator << { name: MYQUOTAS[code][:name], max: MYQUOTAS[code][:max]}
         end
       end
     end
@@ -93,7 +93,7 @@ class DayPdtRptsController < ApplicationController
   end
 
   def new_quota_chart
-    qcode = params[:qcode]
+    qcode = params[:qcode].gsub(/\s/, '')
     result = {}
 
     @factory = my_factory
@@ -125,12 +125,12 @@ class DayPdtRptsController < ApplicationController
   #汇总统计数据,表格展示用
   def static_pool
     @factory = my_factory
-    search_type = params[:search_type]
+    search_type = params[:search_type].gsub(/\s/, '')
    
-    _start = Date.parse(params[:start])
-    _end = Date.parse(params[:end])
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
 
-    _qcodes = params[:qcodes].split(",")
+    _qcodes = params[:qcodes].gsub(/\s/, '').split(",")
     my_real_codes = my_real_codes(search_type)
     real_codes = _qcodes & my_real_codes 
 

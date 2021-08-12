@@ -1,0 +1,121 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @mth_pdt_rpt, :url => "/mth_pdt_rpts/#{@mth_pdt_rpt.id ? idencode(@mth_pdt_rpt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @mth_pdt_rpt.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@mth_pdt_rpt.errors.count, "error")} prohibited this buyer from being saved:"
+            %ul
+              - @mth_pdt_rpt.errors.full_messages.each do |msg|
+                %li= msg
+      
+        .form-group.row
+          = f.label Setting.mth_pdt_rpts.design, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.text_field :design, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.mth_pdt_rpts.outflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.text_field :outflow, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.mth_pdt_rpts.avg_outflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.text_field :avg_outflow, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.mth_pdt_rpts.end_outflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.text_field :end_outflow, :class => "form-control rounded-0" , :required => true
+          
+      
+      
+      
+      
+      
+        .form-group.row
+          = f.label Setting.month_cods.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_cods do |month_cod|
+                = render 'month_cod_fields', f: month_cod 
+      
+        .form-group.row
+          = f.label Setting.month_bods.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_bods do |month_bod|
+                = render 'month_bod_fields', f: month_bod 
+      
+        .form-group.row
+          = f.label Setting.month_tps.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_tps do |month_tp|
+                = render 'month_tp_fields', f: month_tp 
+      
+        .form-group.row
+          = f.label Setting.month_tns.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_tns do |month_tn|
+                = render 'month_tn_fields', f: month_tn 
+      
+        .form-group.row
+          = f.label Setting.month_nhns.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_nhns do |month_nhn|
+                = render 'month_nhn_fields', f: month_nhn 
+      
+        .form-group.row
+          = f.label Setting.month_fecals.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_fecals do |month_fecal|
+                = render 'month_fecal_fields', f: month_fecal 
+      
+        .form-group.row
+          = f.label Setting.month_powers.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_powers do |month_power|
+                = render 'month_power_fields', f: month_power 
+      
+        .form-group.row
+          = f.label Setting.month_muds.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_muds do |month_mud|
+                = render 'month_mud_fields', f: month_mud 
+      
+        .form-group.row
+          = f.label Setting.month_mds.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_mds do |month_md|
+                = render 'month_md_fields', f: month_md 
+      
+        .form-group.row
+          = f.label Setting.month_devices.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_devices do |month_device|
+                = render 'month_device_fields', f: month_device 
+      
+        .form-group.row
+          = f.label Setting.month_stuffs.label, :class => "col-3  text-right col-form-label"
+          .col-9
+            .row
+              = f.fields_for :month_stuffs do |month_stuff|
+                = render 'month_stuff_fields', f: month_stuff 
+      
+        .form-group.row
+          .col-3.offset-3
+            = f.submit '保存', :class => "button  button-small button-action"
+        -#
+          .col-3.offset-1
+            = link_to '返回', mth_pdt_rpts_path, :class => "button button-small  button-caution"

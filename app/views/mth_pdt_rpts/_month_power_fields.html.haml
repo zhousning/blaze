@@ -1,0 +1,39 @@
+.nested-fields.nestd-item
+  .form-group
+    .field.d-inline
+    
+      .form-group.row
+        = f.label Setting.month_powers.power, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :power, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_powers.end_power, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :end_power, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_powers.bom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :bom, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_powers.bom_power, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :bom_power, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_powers.yoy, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :yoy, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_powers.mom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mom, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_powers.ypdr, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :ypdr, :class => "form-control"
+        

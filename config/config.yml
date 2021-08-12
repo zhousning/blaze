@@ -1626,7 +1626,7 @@ development:
     outflow: '8'
     inmud: '9'
     outmud: '10'
-    mst: "11"
+    mst: '11'
     power: '12'
     mdflow: '13'
     mdrcy: '14'
@@ -1645,9 +1645,9 @@ development:
     bod_s: 10
     cod_s: 50
     ss_s: 10
-    nhn_s: 5 
+    nhn_s: 5
     tn_s: 15
-    tp_s: 0.5 
+    tp_s: 0.5
     fecal_s: 1000
     ph_s: 14
   charts:
@@ -1656,37 +1656,183 @@ development:
     gauge: '2'
     table: '3'
     radar: '4'
-    line_t: 'line'
-    bar_t: 'bar'
-    gauge_t: 'gauge'
-    table_t: 'table'
-    radar_t: 'radar'
+    line_t: line
+    bar_t: bar
+    gauge_t: gauge
+    table_t: table
+    radar_t: radar
   months:
     one: '1'
-    one_t: '一月'
+    one_t: 一月
     two: '2'
-    two_t: '二月'
+    two_t: 二月
     three: '3'
-    three_t: '三月'
+    three_t: 三月
     four: '4'
-    four_t: '四月'
+    four_t: 四月
     five: '5'
-    five_t: '五月'
+    five_t: 五月
     six: '6'
-    six_t: '六月'
+    six_t: 六月
     seven: '7'
-    seven_t: '七月'
+    seven_t: 七月
     eight: '8'
-    eight_t: '八月'
+    eight_t: 八月
     nine: '9'
-    nine_t: '九月'
+    nine_t: 九月
     ten: '10'
-    ten_t: '十月'
+    ten_t: 十月
     eleven: '11'
-    eleven_t: '十一月'
+    eleven_t: 十一月
     twelve: '12'
-    twelve_t: '十二月'
-
+    twelve_t: 十二月
+  month_bods:
+    label: 月BOD
+    avg_inf: 平均进水BOD浓度
+    avg_eff: 平均出水BOD浓度
+    emr: BOD平均消减率
+    avg_emq: BOD平均消减量
+    emq: 本月BOD消减量
+    end_emq: 本月止累计BOD消减量
+    up_std: 本月出水BOD达标天数
+    end_std: 本月止累计出水BOD达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_cods:
+    label: 月COD
+    avg_inf: 平均进水COD浓度
+    avg_eff: 平均出水COD浓度
+    emr: COD平均消减率
+    avg_emq: COD平均消减量
+    emq: 本月COD消减量
+    end_emq: 本月止累计COD消减量
+    up_std: 本月出水COD达标天数
+    end_std: 本月止累计出水COD达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_tps:
+    label: 月TP
+    avg_inf: 平均进水TP浓度
+    avg_eff: 平均出水TP浓度
+    emr: TP平均消减率
+    avg_emq: TP平均消减量
+    emq: 本月TP消减量
+    end_emq: 本月止累计TP消减量
+    up_std: 本月出水TP达标天数
+    end_std: 本月止累计出水TP达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_tns:
+    label: 月TN
+    avg_inf: 平均进水TN浓度
+    avg_eff: 平均出水TN浓度
+    emr: TN平均消减率
+    avg_emq: TN平均消减量
+    emq: 本月TN消减量
+    end_emq: 本月止累计TN消减量
+    up_std: 本月出水TN达标天数
+    end_std: 本月止累计出水TN达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_sses:
+    label: 月SS
+    avg_inf: 平均进水SS浓度
+    avg_eff: 平均出水SS浓度
+    emr: SS平均消减率
+    avg_emq: SS平均消减量
+    emq: 本月SS消减量
+    end_emq: 本月止累计SS消减量
+    up_std: 本月出水SS达标天数
+    end_std: 本月止累计出水SS达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_nhns:
+    label: 月NH3N
+    avg_inf: 平均进水NH3N浓度
+    avg_eff: 平均出水NH3N浓度
+    emr: NH3N平均消减率
+    avg_emq: NH3N平均消减量
+    emq: 本月NH3N消减量
+    end_emq: 本月止累计NH3N消减量
+    up_std: 本月出水NH3N达标天数
+    end_std: 本月止累计出水NH3N达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_mds:
+    label: 月中水
+    mdrcy: 中水回用量
+    end_mdrcy: 本月止累计中水回用量
+    mdsell: 中水销售水量
+    end_mdsell: 本月止累计中水销售水量
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_powerrs:
+    label: 月耗电量
+    power: 本月总耗电量
+    end_power: 本月止累计耗电量
+    bom: 单耗
+    bom_power: 单位好氧污染物耗电量
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_powers:
+    label: 月耗电量
+    power: 本月总耗电量
+    end_power: 本月止累计耗电量
+    bom: 单耗
+    bom_power: 单位好氧污染物耗电量
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_muds:
+    label: 月污泥处理
+    inmud: 进泥量
+    end_inmud: 本月止累计进泥量
+    outmud: 出泥量
+    end_outmud: 本月止累计出泥量
+    mst_up: 本月污泥含水率达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_fecals:
+    label: 月粪大肠杆菌
+    up_std: 本月出水粪大肠菌群达标天数
+    end_std: 本月止累计出水粪大肠菌群达标天数
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_devices:
+    label: 月设备统计
+    wsyxts: 本月污水处理设施有效运行天数
+    wswdyxts: 本月污泥稳定化设备设施有效运行天数
+    sbwhl: 全部设备完好率
+    gysbwhl: 主要工艺设备完好率
+    wbywhl: 无备用主要工艺设备完好率
+    gzwwhl: 主要构筑物完好率
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  month_stuffs:
+    label: 月药剂
+    xdjtjl: 本月消毒剂投加量加量
+    end_xdjtjl: 本月止累计消毒剂投加量
+    yoy: 同比
+    mom: 环比
+    ypdr: 截止本月累计完成全年计划占比
+  mth_pdt_rpts:
+    label: 综合统计月报表
+    date: 月份
+    design: 设计污水处理量
+    outflow: 本月污水处理量
+    avg_outflow: 平均污水处理量
+    end_outflow: 本月止累计污水处理量
 test:
   admins: *104
   users: *105

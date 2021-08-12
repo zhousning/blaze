@@ -24,6 +24,9 @@ class Factory < ActiveRecord::Base
   has_many :mth_pdt_rpts, :dependent => :destroy
   accepts_nested_attributes_for :mth_pdt_rpts, reject_if: :all_blank, allow_destroy: true
 
+  has_many :mth_pdt_rpts, :dependent => :destroy
+  accepts_nested_attributes_for :mth_pdt_rpts, reject_if: :all_blank, allow_destroy: true
+
 
   has_many :ses_pdt_rpts, :dependent => :destroy
   accepts_nested_attributes_for :ses_pdt_rpts, reject_if: :all_blank, allow_destroy: true

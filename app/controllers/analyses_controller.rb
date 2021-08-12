@@ -26,15 +26,14 @@ class AnalysesController < ApplicationController
   #]
   def month_compare
     my_months = months
-    quota_h = quota_hash
 
-    search_type = params[:search_type]
-    pos_type = params[:pos_type]
-    chart_type = params[:chart_type]
-    year = params[:year].to_i
-    all_months = params[:months].split(",")
-    _qcodes = [params[:quota]]
-    quota = quota_h[params[:quota]][:name]
+    search_type = params[:search_type].gsub(/\s/, '')
+    pos_type = params[:pos_type].gsub(/\s/, '')
+    chart_type = params[:chart_type].gsub(/\s/, '')
+    year = params[:year].gsub(/\s/, '').to_i
+    all_months = params[:months].gsub(/\s/, '').split(",")
+    _qcodes = [params[:quota].gsub(/\s/, '')]
+    quota = MYQUOTAS[params[:quota].gsub(/\s/, '')][:name]
     title = get_title(pos_type)
     dimensions = ["day"]
     series = []

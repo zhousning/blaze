@@ -1,0 +1,366 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-8.offset-2
+              .card-body
+                .container-fluid
+                  .row
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.mth_pdt_rpts.design
+                      = @mth_pdt_rpt.design
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.mth_pdt_rpts.outflow
+                      = @mth_pdt_rpt.outflow
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.mth_pdt_rpts.avg_outflow
+                      = @mth_pdt_rpt.avg_outflow
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.mth_pdt_rpts.end_outflow
+                      = @mth_pdt_rpt.end_outflow
+                  
+                  .row
+                  
+                  .row
+                  
+                  .row
+                  
+                  
+                  .row
+                  
+                    - @mth_pdt_rpt.month_cods.each do |month_cod|
+                       
+                      .col-md-2
+                        = month_cod.avg_inf
+                       
+                      .col-md-2
+                        = month_cod.avg_eff
+                       
+                      .col-md-2
+                        = month_cod.emr
+                       
+                      .col-md-2
+                        = month_cod.avg_emq
+                       
+                      .col-md-2
+                        = month_cod.emq
+                       
+                      .col-md-2
+                        = month_cod.end_emq
+                       
+                      .col-md-2
+                        = month_cod.up_std
+                       
+                      .col-md-2
+                        = month_cod.end_std
+                       
+                      .col-md-2
+                        = month_cod.yoy
+                       
+                      .col-md-2
+                        = month_cod.mom
+                       
+                      .col-md-2
+                        = month_cod.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_bods.each do |month_bod|
+                       
+                      .col-md-2
+                        = month_bod.avg_inf
+                       
+                      .col-md-2
+                        = month_bod.avg_eff
+                       
+                      .col-md-2
+                        = month_bod.emr
+                       
+                      .col-md-2
+                        = month_bod.avg_emq
+                       
+                      .col-md-2
+                        = month_bod.emq
+                       
+                      .col-md-2
+                        = month_bod.end_emq
+                       
+                      .col-md-2
+                        = month_bod.up_std
+                       
+                      .col-md-2
+                        = month_bod.end_std
+                       
+                      .col-md-2
+                        = month_bod.yoy
+                       
+                      .col-md-2
+                        = month_bod.mom
+                       
+                      .col-md-2
+                        = month_bod.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_tps.each do |month_tp|
+                       
+                      .col-md-2
+                        = month_tp.avg_inf
+                       
+                      .col-md-2
+                        = month_tp.avg_eff
+                       
+                      .col-md-2
+                        = month_tp.emr
+                       
+                      .col-md-2
+                        = month_tp.avg_emq
+                       
+                      .col-md-2
+                        = month_tp.emq
+                       
+                      .col-md-2
+                        = month_tp.end_emq
+                       
+                      .col-md-2
+                        = month_tp.up_std
+                       
+                      .col-md-2
+                        = month_tp.end_std
+                       
+                      .col-md-2
+                        = month_tp.yoy
+                       
+                      .col-md-2
+                        = month_tp.mom
+                       
+                      .col-md-2
+                        = month_tp.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_tns.each do |month_tn|
+                       
+                      .col-md-2
+                        = month_tn.avg_inf
+                       
+                      .col-md-2
+                        = month_tn.avg_eff
+                       
+                      .col-md-2
+                        = month_tn.emr
+                       
+                      .col-md-2
+                        = month_tn.avg_emq
+                       
+                      .col-md-2
+                        = month_tn.emq
+                       
+                      .col-md-2
+                        = month_tn.end_emq
+                       
+                      .col-md-2
+                        = month_tn.up_std
+                       
+                      .col-md-2
+                        = month_tn.end_std
+                       
+                      .col-md-2
+                        = month_tn.yoy
+                       
+                      .col-md-2
+                        = month_tn.mom
+                       
+                      .col-md-2
+                        = month_tn.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_nhns.each do |month_nhn|
+                       
+                      .col-md-2
+                        = month_nhn.avg_inf
+                       
+                      .col-md-2
+                        = month_nhn.avg_eff
+                       
+                      .col-md-2
+                        = month_nhn.emr
+                       
+                      .col-md-2
+                        = month_nhn.avg_emq
+                       
+                      .col-md-2
+                        = month_nhn.emq
+                       
+                      .col-md-2
+                        = month_nhn.end_emq
+                       
+                      .col-md-2
+                        = month_nhn.up_std
+                       
+                      .col-md-2
+                        = month_nhn.end_std
+                       
+                      .col-md-2
+                        = month_nhn.yoy
+                       
+                      .col-md-2
+                        = month_nhn.mom
+                       
+                      .col-md-2
+                        = month_nhn.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_fecals.each do |month_fecal|
+                       
+                      .col-md-2
+                        = month_fecal.up_std
+                       
+                      .col-md-2
+                        = month_fecal.end_std
+                       
+                      .col-md-2
+                        = month_fecal.yoy
+                       
+                      .col-md-2
+                        = month_fecal.mom
+                       
+                      .col-md-2
+                        = month_fecal.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_powers.each do |month_power|
+                       
+                      .col-md-2
+                        = month_power.power
+                       
+                      .col-md-2
+                        = month_power.end_power
+                       
+                      .col-md-2
+                        = month_power.bom
+                       
+                      .col-md-2
+                        = month_power.bom_power
+                       
+                      .col-md-2
+                        = month_power.yoy
+                       
+                      .col-md-2
+                        = month_power.mom
+                       
+                      .col-md-2
+                        = month_power.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_muds.each do |month_mud|
+                       
+                      .col-md-2
+                        = month_mud.inmud
+                       
+                      .col-md-2
+                        = month_mud.end_inmud
+                       
+                      .col-md-2
+                        = month_mud.outmud
+                       
+                      .col-md-2
+                        = month_mud.end_outmud
+                       
+                      .col-md-2
+                        = month_mud.mst_up
+                       
+                      .col-md-2
+                        = month_mud.yoy
+                       
+                      .col-md-2
+                        = month_mud.mom
+                       
+                      .col-md-2
+                        = month_mud.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_mds.each do |month_md|
+                       
+                      .col-md-2
+                        = month_md.mdrcy
+                       
+                      .col-md-2
+                        = month_md.end_mdrcy
+                       
+                      .col-md-2
+                        = month_md.mdsell
+                       
+                      .col-md-2
+                        = month_md.end_mdsell
+                       
+                      .col-md-2
+                        = month_md.yoy
+                       
+                      .col-md-2
+                        = month_md.mom
+                       
+                      .col-md-2
+                        = month_md.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_devices.each do |month_device|
+                       
+                      .col-md-2
+                        = month_device.wsyxts
+                       
+                      .col-md-2
+                        = month_device.wswdyxts
+                       
+                      .col-md-2
+                        = month_device.sbwhl
+                       
+                      .col-md-2
+                        = month_device.gysbwhl
+                       
+                      .col-md-2
+                        = month_device.wbywhl
+                       
+                      .col-md-2
+                        = month_device.gzwwhl
+                       
+                      .col-md-2
+                        = month_device.yoy
+                       
+                      .col-md-2
+                        = month_device.mom
+                       
+                      .col-md-2
+                        = month_device.ypdr
+                      
+                  
+                    - @mth_pdt_rpt.month_stuffs.each do |month_stuff|
+                       
+                      .col-md-2
+                        = month_stuff.xdjtjl
+                       
+                      .col-md-2
+                        = month_stuff.end_xdjtjl
+                       
+                      .col-md-2
+                        = month_stuff.yoy
+                       
+                      .col-md-2
+                        = month_stuff.mom
+                       
+                      .col-md-2
+                        = month_stuff.ypdr
+                      
+                  
+      = render "layouts/bootstrap/card"

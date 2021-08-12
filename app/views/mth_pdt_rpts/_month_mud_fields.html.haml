@@ -1,0 +1,44 @@
+.nested-fields.nestd-item
+  .form-group
+    .field.d-inline
+    
+      .form-group.row
+        = f.label Setting.month_muds.inmud, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :inmud, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_muds.end_inmud, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :end_inmud, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_muds.outmud, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :outmud, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_muds.end_outmud, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :end_outmud, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_muds.mst_up, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mst_up, :class => "form-control", :required => true 
+        
+      .form-group.row
+        = f.label Setting.month_muds.yoy, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :yoy, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_muds.mom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mom, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_muds.ypdr, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :ypdr, :class => "form-control"
+        
