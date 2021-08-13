@@ -29,6 +29,13 @@ module DayPdtRptsHelper
     raw(str)
   end
 
+  def options_for_mth_months(my_months)
+    str = ""
+    my_months.each do |month|
+      str += "<option value='" + month + "'>" + months[month] + "</option>"
+    end
+  end
+
   def months
     {
       Setting.months.one    => Setting.months.one_t, 

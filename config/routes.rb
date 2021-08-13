@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     resources :mth_pdt_rpts do
       get :download_append, :on => :member
       get :xls_download, :on => :collection
+      get :mth_rpt_create, :on => :collection
     end
   end
   resources :analyses, :only => [] do

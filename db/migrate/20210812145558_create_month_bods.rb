@@ -24,9 +24,6 @@ class CreateMonthBods < ActiveRecord::Migration
     
       t.float :ypdr,  null: false, default: Setting.systems.default_num 
     
-
-    
-
     
 
     

@@ -3,7 +3,8 @@ class MthPdtRptsController < ApplicationController
   before_filter :authenticate_user!
   #load_and_authorize_resource
 
-   
+  include MathCube 
+
   def index
     @mth_pdt_rpt = MthPdtRpt.new
     @factory = my_factory
@@ -11,7 +12,75 @@ class MthPdtRptsController < ApplicationController
     @mth_pdt_rpts = @factory.mth_pdt_rpts.order('pdt_date DESC') if @factory
    
   end
+
+  def mth_rpt_create
+    @factory = my_factory
+    month = params[:month].trip.to_i
+    time = Time.new
+    year = time.year
+    _start = Date.new(year, month, 1)
+    _end = Date.new(year, month, -1)
+
+    result = static_sum(@factory.id, _start, _end)
+    MthPdtRpt.transaction do
+      MonthBod.create!()
+    end
+  end
+
+
+      :inf_bod 
+      :eff_bod 
+      :inf_cod 
+      :eff_cod 
+      :inf_ss 
+      :eff_ss 
+      :inf_nhn 
+      :eff_nhn 
+      :inf_tn 
+      :eff_tn 
+      :inf_tp 
+      :eff_tp 
+      :inf_ph 
+      :eff_ph 
+      :eff_fecal
+      :inflow 
+      :outflow   
+      :inmud 
+      :outmud 
+      :mst
+      :power
+      :mdflow
+      :mdrcy
+      :mdsell
+
+  bod_max = MYQUOTAS[Setting.quota.bod][:max]
+  cod_max = MYQUOTAS[Setting.quota.bod][:max]
+  tn_max = MYQUOTAS[Setting.quota.tn][:max]
+  tp_max = MYQUOTAS[Setting.quota.tp][:max]
+  nhn_max = MYQUOTAS[Setting.quota.nhn][:max]
+  ss_max = MYQUOTAS[Setting.quota.ss][:max]
+
+  bod = month_cms(result[:inf_bod][:avg], result[:eff_bod][:avg], emr[:bod], avg_emq[:bod], emq[:bod], end_emq, up_std , end_std, yoy, mom, ypdr)
+
+  def month_cms(avg_inf, avg_eff, emr, avg_emq, emq, end_emq, up_std , end_std, yoy, mom, ypdr)
+    {
+      :avg_inf   =>   avg_inf,
+      :avg_eff   =>   avg_eff,
+      :emr       =>   emr    ,
+      :avg_emq   =>   avg_emq,
+      :emq       =>   emq    ,
+      :end_emq   =>   end_emq,
+      :up_std    =>   up_std ,
+      :end_std   =>   end_std,
+      :yoy       =>   yoy    ,
+      :mom       =>   mom    ,
+      :ypdr      =>   ypdr   
+    }
+  end
+
    
+
+
 
    
   def show

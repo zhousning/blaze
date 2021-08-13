@@ -33,75 +33,32 @@
                   
                     %th{:scope => "col"}
                       = Setting.day_pdt_rpts.pdt_date
-                    %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.name
-                    -#
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.weather
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.temper
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inf_qlty_bod
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inf_qlty_cod
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inf_qlty_ss
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inf_qlty_nhn
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inf_qlty_tn
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inf_qlty_tp
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inf_qlty_ph
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_cod
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_ss
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_nhn
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_tn
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_tp
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_ph
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_fecal
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.eff_qlty_bod
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.sed_qlty_bod
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.sed_qlty_cod
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.sed_qlty_ss
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.sed_qlty_nhn
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.sed_qlty_tn
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.sed_qlty_tp
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.sed_qlty_ph
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inflow
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.outflow
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.inmud
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.outmud
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.mst
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.power
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.mdflow
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.mdrcy
-                      %th{:scope => "col"}
-                        = Setting.day_pdt_rpts.mdsell
+                    %th.text-danger{:scope => "col"}
+                      = Setting.day_pdt_rpts.inf_qlty_cod
+                    %th.text-success{:scope => "col"}
+                      = Setting.day_pdt_rpts.eff_qlty_cod
+                    %th.text-danger{:scope => "col"}
+                      = Setting.day_pdt_rpts.inf_qlty_bod
+                    %th.text-success{:scope => "col"}
+                      = Setting.day_pdt_rpts.eff_qlty_bod
+                    %th.text-danger{:scope => "col"}
+                      = Setting.day_pdt_rpts.inf_qlty_tn
+                    %th.text-success{:scope => "col"}
+                      = Setting.day_pdt_rpts.eff_qlty_tn
+                    %th.text-danger{:scope => "col"}
+                      = Setting.day_pdt_rpts.inf_qlty_tp
+                    %th.text-success{:scope => "col"}
+                      = Setting.day_pdt_rpts.eff_qlty_tp
+                    %th.text-danger{:scope => "col"}
+                      = Setting.day_pdt_rpts.inf_qlty_nhn
+                    %th.text-success{:scope => "col"}
+                      = Setting.day_pdt_rpts.eff_qlty_nhn
+                    %th.text-danger{:scope => "col"}
+                      = Setting.day_pdt_rpts.inf_qlty_ss
+                    %th.text-success{:scope => "col"}
+                      = Setting.day_pdt_rpts.eff_qlty_ss
+                    %th.text-success{:scope => "col"}
+                      = Setting.day_pdt_rpts.eff_qlty_fecal
                     %th{:scope => "col"}
                 %tbody
                   - @day_pdt_rpts.each_with_index do |day_pdt_rpt, index|
@@ -112,74 +69,31 @@
                       %td
                         = day_pdt_rpt.pdt_date
                       %td
-                        = day_pdt_rpt.name
-                      -#
-                        %td
-                          = day_pdt_rpt.weather
-                        %td
-                          = day_pdt_rpt.temper
-                        %td
-                          = day_pdt_rpt.inf_qlty_bod
-                        %td
-                          = day_pdt_rpt.inf_qlty_cod
-                        %td
-                          = day_pdt_rpt.inf_qlty_ss
-                        %td
-                          = day_pdt_rpt.inf_qlty_nhn
-                        %td
-                          = day_pdt_rpt.inf_qlty_tn
-                        %td
-                          = day_pdt_rpt.inf_qlty_tp
-                        %td
-                          = day_pdt_rpt.inf_qlty_ph
-                        %td
-                          = day_pdt_rpt.eff_qlty_cod
-                        %td
-                          = day_pdt_rpt.eff_qlty_ss
-                        %td
-                          = day_pdt_rpt.eff_qlty_nhn
-                        %td
-                          = day_pdt_rpt.eff_qlty_tn
-                        %td
-                          = day_pdt_rpt.eff_qlty_tp
-                        %td
-                          = day_pdt_rpt.eff_qlty_ph
-                        %td
-                          = day_pdt_rpt.eff_qlty_fecal
-                        %td
-                          = day_pdt_rpt.eff_qlty_bod
-                        %td
-                          = day_pdt_rpt.sed_qlty_bod
-                        %td
-                          = day_pdt_rpt.sed_qlty_cod
-                        %td
-                          = day_pdt_rpt.sed_qlty_ss
-                        %td
-                          = day_pdt_rpt.sed_qlty_nhn
-                        %td
-                          = day_pdt_rpt.sed_qlty_tn
-                        %td
-                          = day_pdt_rpt.sed_qlty_tp
-                        %td
-                          = day_pdt_rpt.sed_qlty_ph
-                        %td
-                          = day_pdt_rpt.inflow
-                        %td
-                          = day_pdt_rpt.outflow
-                        %td
-                          = day_pdt_rpt.inmud
-                        %td
-                          = day_pdt_rpt.outmud
-                        %td
-                          = day_pdt_rpt.mst
-                        %td
-                          = day_pdt_rpt.power
-                        %td
-                          = day_pdt_rpt.mdflow
-                        %td
-                          = day_pdt_rpt.mdrcy
-                        %td
-                          = day_pdt_rpt.mdsell
+                        = day_pdt_rpt.inf_qlty_cod
+                      %td
+                        = day_pdt_rpt.eff_qlty_cod
+                      %td
+                        = day_pdt_rpt.inf_qlty_bod
+                      %td
+                        = day_pdt_rpt.eff_qlty_bod
+                      %td
+                        = day_pdt_rpt.inf_qlty_tn
+                      %td
+                        = day_pdt_rpt.eff_qlty_tn
+                      %td
+                        = day_pdt_rpt.inf_qlty_tp
+                      %td
+                        = day_pdt_rpt.eff_qlty_tp
+                      %td
+                        = day_pdt_rpt.inf_qlty_nhn
+                      %td
+                        = day_pdt_rpt.eff_qlty_nhn
+                      %td
+                        = day_pdt_rpt.inf_qlty_ss
+                      %td
+                        = day_pdt_rpt.eff_qlty_ss
+                      %td
+                        = day_pdt_rpt.eff_qlty_fecal
                       %td
                         .container-fluid
                           .row.justify-content-center
@@ -205,3 +119,145 @@
             #chart-ctn{:style => "width: 800px;height:400px;"}
           .col-4.d-flex.align-items-center.justify-content-center
             #day-pdt-rpt-ctn
+-#
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.name
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.weather
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.temper
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inf_qlty_bod
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inf_qlty_cod
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inf_qlty_ss
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inf_qlty_nhn
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inf_qlty_tn
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inf_qlty_tp
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inf_qlty_ph
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_cod
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_ss
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_nhn
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_tn
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_tp
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_ph
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_fecal
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.eff_qlty_bod
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.sed_qlty_bod
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.sed_qlty_cod
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.sed_qlty_ss
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.sed_qlty_nhn
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.sed_qlty_tn
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.sed_qlty_tp
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.sed_qlty_ph
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inflow
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.outflow
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.inmud
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.outmud
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.mst
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.power
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.mdflow
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.mdrcy
+  %th{:scope => "col"}
+    = Setting.day_pdt_rpts.mdsell
+-#
+  %td
+    = day_pdt_rpt.name
+  %td
+    = day_pdt_rpt.inf_qlty_ph
+  %td
+    = day_pdt_rpt.eff_qlty_ph
+  %td
+    = day_pdt_rpt.weather
+  %td
+    = day_pdt_rpt.temper
+  %td
+    = day_pdt_rpt.inf_qlty_bod
+  %td
+    = day_pdt_rpt.inf_qlty_cod
+  %td
+    = day_pdt_rpt.inf_qlty_ss
+  %td
+    = day_pdt_rpt.inf_qlty_nhn
+  %td
+    = day_pdt_rpt.inf_qlty_tn
+  %td
+    = day_pdt_rpt.inf_qlty_tp
+  %td
+    = day_pdt_rpt.inf_qlty_ph
+  %td
+    = day_pdt_rpt.eff_qlty_cod
+  %td
+    = day_pdt_rpt.eff_qlty_ss
+  %td
+    = day_pdt_rpt.eff_qlty_nhn
+  %td
+    = day_pdt_rpt.eff_qlty_tn
+  %td
+    = day_pdt_rpt.eff_qlty_tp
+  %td
+    = day_pdt_rpt.eff_qlty_ph
+  %td
+    = day_pdt_rpt.eff_qlty_fecal
+  %td
+    = day_pdt_rpt.eff_qlty_bod
+  %td
+    = day_pdt_rpt.sed_qlty_bod
+  %td
+    = day_pdt_rpt.sed_qlty_cod
+  %td
+    = day_pdt_rpt.sed_qlty_ss
+  %td
+    = day_pdt_rpt.sed_qlty_nhn
+  %td
+    = day_pdt_rpt.sed_qlty_tn
+  %td
+    = day_pdt_rpt.sed_qlty_tp
+  %td
+    = day_pdt_rpt.sed_qlty_ph
+  %td
+    = day_pdt_rpt.inflow
+  %td
+    = day_pdt_rpt.outflow
+  %td
+    = day_pdt_rpt.inmud
+  %td
+    = day_pdt_rpt.outmud
+  %td
+    = day_pdt_rpt.mst
+  %td
+    = day_pdt_rpt.power
+  %td
+    = day_pdt_rpt.mdflow
+  %td
+    = day_pdt_rpt.mdrcy
+  %td
+    = day_pdt_rpt.mdsell

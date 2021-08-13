@@ -1,4 +1,13 @@
 $(".mth_pdt_rpts").ready(function() {
   if ($(".mth_pdt_rpts").length > 0) {
+    $('#mth-rpt-create').on('click', function(e) {
+      var month = $("#months").val(); 
+      var that = e.target
+      var data_fct = that.dataset['fct'];
+      var url = "/factories/" + data_fct + "/mth_rpt_create";
+
+      var obj = {month: month}
+      $.get(url, obj);
+    });
   }
 });
