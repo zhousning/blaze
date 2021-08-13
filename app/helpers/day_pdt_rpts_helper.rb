@@ -31,9 +31,10 @@ module DayPdtRptsHelper
 
   def options_for_mth_months(my_months)
     str = ""
-    my_months.each do |month|
-      str += "<option value='" + month + "'>" + months[month] + "</option>"
+    my_months.each_pair do |k, v|
+      str += "<option value='" + k + "'>" + v + "</option>"
     end
+    raw(str)
   end
 
   def months

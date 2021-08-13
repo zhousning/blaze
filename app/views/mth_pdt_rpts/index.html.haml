@@ -11,6 +11,7 @@
             = select_tag "months", options_for_mth_months(@months), :include_blank=>false, :class=>"form-control"
           %li.list-group-item.pl-0.border-0
             %button#mth-rpt-create.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
+              生成月报表
 
           
           -#

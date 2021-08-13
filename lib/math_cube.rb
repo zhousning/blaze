@@ -22,14 +22,14 @@ module MathCube
     fecal_max = MYQUOTAS[Setting.quota.fecal][:max]
     mst_max = MYQUOTAS[Setting.quota.mst][:max]
 
-    bod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_bod <= ", factory_id, _start, _end, bod_max]).counts
-    cod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_cod <= ", factory_id, _start, _end, cod_max]).counts
-    tp = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_tp <= ", factory_id, _start, _end, tp_max]).counts
-    tn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_tn <= ", factory_id, _start, _end, tn_max]).counts
-    ss = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_ss <= ", factory_id, _start, _end, ss_max]).counts
-    nhn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_nhn <= ", factory_id, _start, _end, nhn_max]).counts
-    fecal = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_fecal <= ", factory_id, _start, _end, fecal_max]).counts
-    mst = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? mst <= ", factory_id, _start, _end, mst_max]).counts
+    bod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_bod <= ?", factory_id, _start, _end, bod_max]).count
+    cod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_cod <= ?", factory_id, _start, _end, cod_max]).count
+    tp = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_tp <= ?", factory_id, _start, _end, tp_max]).count
+    tn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_tn <= ?", factory_id, _start, _end, tn_max]).count
+    ss = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_ss <= ?", factory_id, _start, _end, ss_max]).count
+    nhn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_nhn <= ?", factory_id, _start, _end, nhn_max]).count
+    fecal = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_fecal <= ?", factory_id, _start, _end, fecal_max]).count
+    mst = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and mst <= ?", factory_id, _start, _end, mst_max]).count
 
     result = {:bod => bod, :cod => cod, :tp => tp, :tn => tn, :ss => ss, :nhn => nhn, :fecal => fecal, :mst => mst}
     result
@@ -56,7 +56,7 @@ module MathCube
     emq_cod = (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
     emq_nhn = (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
     emq_ss = (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
-    mud = (last_year_result[:mud][:sum] - result[:mud][:sum])/last_year_result[:mud][:sum]
+    mud = (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
     mdrcy = (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
     mdsell = (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
 
@@ -83,10 +83,10 @@ module MathCube
 
     last_year = year
     last_month = month - 1
-    if (last_month == 0) {
+    if last_month == 0
       last_month = 12
       last_year = year - 1
-    }
+    end
 
     _last_start = Date.new(last_year, last_month, 1)
     _last_end = Date.new(last_year, last_month, -1)
@@ -103,7 +103,7 @@ module MathCube
     emq_cod = (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
     emq_nhn = (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
     emq_ss = (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
-    mud = (last_year_result[:mud][:sum] - result[:mud][:sum])/last_year_result[:mud][:sum]
+    mud = (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
     mdrcy = (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
     mdsell = (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
 

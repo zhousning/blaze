@@ -4,7 +4,7 @@ $(".mth_pdt_rpts").ready(function() {
       var month = $("#months").val(); 
       var that = e.target
       var data_fct = that.dataset['fct'];
-      var url = "/factories/" + data_fct + "/mth_rpt_create";
+      var url = "/factories/" + data_fct + "/mth_pdt_rpts/mth_rpt_create";
 
       var obj = {month: month}
       $.get(url, obj);

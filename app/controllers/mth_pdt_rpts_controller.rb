@@ -9,13 +9,14 @@ class MthPdtRptsController < ApplicationController
     @mth_pdt_rpt = MthPdtRpt.new
     @factory = my_factory
    
+    @months = months
     @mth_pdt_rpts = @factory.mth_pdt_rpts.order('pdt_date DESC') if @factory
    
   end
 
   def mth_rpt_create
     @factory = my_factory
-    month = params[:month].trip.to_i
+    month = params[:month].strip.to_i
     time = Time.new
     year = time.year
 
@@ -31,6 +32,8 @@ class MthPdtRptsController < ApplicationController
     up_std = up_standard_days(@factory.id, _start, _end)
     end_std = up_standard_days(@factory.id, _year_start, _end)
 
+    #todo 要改 换成只存月
+    pdt_date = _start
     rpt = mth_pdt_rpt(pdt_date, @factory.design, result[:outflow][:sum], result[:outflow][:avg], year_result[:outflow][:sum])
 
     bod = month_cms(result[:inf_bod][:avg], result[:eff_bod][:avg], result[:emr][:bod], result[:avg_emq][:bod], result[:emq][:bod], year_result[:emq][:bod], up_std[:bod] , end_std[:bod], yoy_result[:emq_bod], mom_result[:emq_bod], 0)
@@ -40,7 +43,9 @@ class MthPdtRptsController < ApplicationController
     ss = month_cms(result[:inf_ss][:avg], result[:eff_ss][:avg], result[:emr][:ss], result[:avg_emq][:ss], result[:emq][:ss], year_result[:emq][:ss], up_std[:ss] , end_std[:ss], yoy_result[:emq_ss], mom_result[:emq_ss], 0)
     nhn = month_cms(result[:inf_nhn][:avg], result[:eff_nhn][:avg], result[:emr][:nhn], result[:avg_emq][:nhn], result[:emq][:nhn], year_result[:emq][:nhn], up_std[:nhn] , end_std[:nhn], yoy_result[:emq_nhn], mom_result[:emq_nhn], 0)
 
-    power = month_power(result[:power][:sum], year_result[:power][:sum], result[:power][:bom], yoy_result[:power], mom_result[:power], 0, yoy_result[:bom], mom_result[:bom], 0)
+    #todo 现在是0-缺少bom_power
+    power = month_power(result[:power][:sum], year_result[:power][:sum], result[:power][:bom], 0, yoy_result[:power], mom_result[:power], 0, yoy_result[:bom], mom_result[:bom], 0)
+
 
     mud = month_mud(result[:inmud][:sum], year_result[:inmud][:sum], result[:outmud][:sum], year_result[:outmud][:sum], up_std[:mst], yoy_result[:mst], mom_result[:mst], 0)
 
@@ -62,7 +67,7 @@ class MthPdtRptsController < ApplicationController
       rpt.build_month_md(md)
       rpt.build_month_fecal(fecal)
 
-      if @mth_pdt_rpt.save
+      if rpt.save
         flash[:succes] = "月度报表生成成功"
       else
         flash[:warning] = "月度报表生成失败"
@@ -131,7 +136,7 @@ class MthPdtRptsController < ApplicationController
       :mdrcy        =>   mdrcy,
       :end_mdrcy    =>   end_mdrcy,
       :mdsell       =>   mdsell,
-      :end_mdsell   =>   end_mdsell
+      :end_mdsell   =>   end_mdsell,
       :yoy_mdrcy    =>   yoy_mdrcy,
       :mom_mdrcy    =>   mom_mdrcy,
       :ypdr_mdrcy   =>   ypdr_mdrcy,

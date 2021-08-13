@@ -28,8 +28,8 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @user.factories << @qufu_one_fct
 @user.factories << @qufu_thd_fct
 
-100.times.each do |t|
-  pdt_date = Faker::Date.unique.between(from: '2021-05-01', to: '2021-9-25')
+400.times.each do |t|
+  pdt_date = Faker::Date.unique.between(from: '2020-01-01', to: '2021-08-15')
   DayPdtRpt.create!(
     :factory => @qufu_one_fct,
     :name => pdt_date.to_s + @qufu_one_fct.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 

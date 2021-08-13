@@ -44,6 +44,10 @@ class MthPdtRpt < ActiveRecord::Base
   has_one :month_ss
   accepts_nested_attributes_for :month_ss, allow_destroy: true
 
+  has_one :month_mud
+  accepts_nested_attributes_for :month_mud, allow_destroy: true
 
+  has_one :month_md
+  accepts_nested_attributes_for :month_md, allow_destroy: true
 
 end
