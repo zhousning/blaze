@@ -1650,6 +1650,7 @@ development:
     tp_s: 0.5
     fecal_s: 1000
     ph_s: 14
+    mst_s: 0.8
   charts:
     line: '0'
     bar: '1'

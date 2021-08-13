@@ -10,14 +10,18 @@ class CreateMonthPowers < ActiveRecord::Migration
     
       t.float :bom_power,  null: false, default: Setting.systems.default_num 
     
-      t.float :yoy,  null: false, default: Setting.systems.default_num 
+      t.float :yoy_power,  null: false, default: Setting.systems.default_num 
     
-      t.float :mom,  null: false, default: Setting.systems.default_num 
+      t.float :mom_power,  null: false, default: Setting.systems.default_num 
     
-      t.float :ypdr,  null: false, default: Setting.systems.default_num 
+      t.float :ypdr_power,  null: false, default: Setting.systems.default_num 
     
 
+      t.float :yoy_bom,  null: false, default: Setting.systems.default_num 
     
+      t.float :mom_bom,  null: false, default: Setting.systems.default_num 
+    
+      t.float :ypdr_bom,  null: false, default: Setting.systems.default_num 
 
     
 

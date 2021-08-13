@@ -10,12 +10,17 @@ class CreateMonthMds < ActiveRecord::Migration
     
       t.float :end_mdsell,  null: false, default: Setting.systems.default_num 
     
-      t.float :yoy,  null: false, default: Setting.systems.default_num 
+      t.float :yoy_mdrcy,  null: false, default: Setting.systems.default_num 
     
-      t.float :mom,  null: false, default: Setting.systems.default_num 
+      t.float :mom_mdrcy,  null: false, default: Setting.systems.default_num 
     
-      t.float :ypdr,  null: false, default: Setting.systems.default_num 
+      t.float :ypdr_mdrcy,  null: false, default: Setting.systems.default_num 
     
+      t.float :yoy_mdsell,  null: false, default: Setting.systems.default_num 
+    
+      t.float :mom_mdsell,  null: false, default: Setting.systems.default_num 
+    
+      t.float :ypdr_mdsell,  null: false, default: Setting.systems.default_num 
 
     
 

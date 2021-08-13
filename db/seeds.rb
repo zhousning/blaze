@@ -52,7 +52,7 @@ Quota.create!(:ctg => Setting.quota.ctg_flow, :code => Setting.quota.inflow , :n
 Quota.create!(:ctg => Setting.quota.ctg_flow, :code => Setting.quota.outflow, :name => Setting.day_pdt_rpts.outflow )
 Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.inmud  ,  :name => Setting.day_pdt_rpts.inmud   )
 Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.outmud ,  :name => Setting.day_pdt_rpts.outmud  )
-Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.mst    ,  :name => Setting.day_pdt_rpts.mst     )
+Quota.create!(:ctg => Setting.quota.ctg_mud, :code => Setting.quota.mst,    :max => Setting.level_ones.mst_s,  :name => Setting.day_pdt_rpts.mst     )
 Quota.create!(:ctg => Setting.quota.ctg_power, :code => Setting.quota.power , :name => Setting.day_pdt_rpts.power   )
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdflow ,   :name => Setting.day_pdt_rpts.mdflow  )
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdrcy  ,   :name => Setting.day_pdt_rpts.mdrcy   )

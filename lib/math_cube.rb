@@ -11,6 +11,119 @@ module MathCube
 
   MYQUOTAS = QuotaConfig.quota_hash
 
+
+  def up_standard_days(factory_id, _start, _end)
+    bod_max = MYQUOTAS[Setting.quota.bod][:max]
+    cod_max = MYQUOTAS[Setting.quota.bod][:max]
+    tn_max = MYQUOTAS[Setting.quota.tn][:max]
+    tp_max = MYQUOTAS[Setting.quota.tp][:max]
+    nhn_max = MYQUOTAS[Setting.quota.nhn][:max]
+    ss_max = MYQUOTAS[Setting.quota.ss][:max]
+    fecal_max = MYQUOTAS[Setting.quota.fecal][:max]
+    mst_max = MYQUOTAS[Setting.quota.mst][:max]
+
+    bod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_bod <= ", factory_id, _start, _end, bod_max]).counts
+    cod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_cod <= ", factory_id, _start, _end, cod_max]).counts
+    tp = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_tp <= ", factory_id, _start, _end, tp_max]).counts
+    tn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_tn <= ", factory_id, _start, _end, tn_max]).counts
+    ss = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_ss <= ", factory_id, _start, _end, ss_max]).counts
+    nhn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_nhn <= ", factory_id, _start, _end, nhn_max]).counts
+    fecal = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? eff_qlty_fecal <= ", factory_id, _start, _end, fecal_max]).counts
+    mst = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? mst <= ", factory_id, _start, _end, mst_max]).counts
+
+    result = {:bod => bod, :cod => cod, :tp => tp, :tn => tn, :ss => ss, :nhn => nhn, :fecal => fecal, :mst => mst}
+    result
+  end
+
+  def static_yoy(factory_id, year, month)
+    last_year = year - 1
+
+    _start = Date.new(year, month, 1)
+    _end = Date.new(year, month, -1)
+
+    _last_start = Date.new(last_year, month, 1)
+    _last_end = Date.new(last_year, month, -1)
+    
+    result = static_sum(factory_id, _start, _end)
+    last_year_result = static_sum(factory_id, _last_start, _last_end)
+
+    outflow = (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
+    power = (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
+    bom = (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
+    emq_tn = (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
+    emq_tp = (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
+    emq_bod = (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
+    emq_cod = (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
+    emq_nhn = (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
+    emq_ss = (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
+    mud = (last_year_result[:mud][:sum] - result[:mud][:sum])/last_year_result[:mud][:sum]
+    mdrcy = (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
+    mdsell = (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
+
+    {
+      :outflow  =>  outflow,
+      :power    =>  power ,
+      :bom      =>  bom ,
+      :emq_tn   =>  emq_tn, 
+      :emq_tp   =>  emq_tp ,
+      :emq_bod  =>  emq_bod,
+      :emq_cod  =>  emq_cod,
+      :emq_nhn  =>  emq_nhn,
+      :emq_ss   =>  emq_ss  ,   
+      :mud      =>  mud,
+      :mdsell      =>  mdsell,
+      :mdrcy      =>  mdrcy
+    }
+  end
+
+  def static_mom(factory_id, year, month)
+
+    _start = Date.new(year, month, 1)
+    _end = Date.new(year, month, -1)
+
+    last_year = year
+    last_month = month - 1
+    if (last_month == 0) {
+      last_month = 12
+      last_year = year - 1
+    }
+
+    _last_start = Date.new(last_year, last_month, 1)
+    _last_end = Date.new(last_year, last_month, -1)
+    
+    result = static_sum(factory_id, _start, _end)
+    last_year_result = static_sum(factory_id, _last_start, _last_end)
+
+    outflow = (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
+    power = (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
+    bom = (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
+    emq_tn = (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
+    emq_tp = (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
+    emq_bod = (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
+    emq_cod = (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
+    emq_nhn = (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
+    emq_ss = (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
+    mud = (last_year_result[:mud][:sum] - result[:mud][:sum])/last_year_result[:mud][:sum]
+    mdrcy = (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
+    mdsell = (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
+
+    {
+      :outflow  =>  outflow,
+      :power    =>  power ,
+      :bom      =>  bom ,
+      :emq_tn   =>  emq_tn, 
+      :emq_tp   =>  emq_tp ,
+      :emq_bod  =>  emq_bod,
+      :emq_cod  =>  emq_cod,
+      :emq_nhn  =>  emq_nhn,
+      :emq_ss   =>  emq_ss  ,   
+      :mud      =>  mud,
+      :mdsell      =>  mdsell,
+      :mdrcy      =>  mdrcy
+    }
+  end
+
+
   def static_sum(factory_id, _start, _end)
     rpt_static = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ?", factory_id, _start, _end]).select(search_str) 
     rpt = rpt_static[0]
