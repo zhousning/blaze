@@ -23,17 +23,31 @@
           = f.number_field :end_mdsell, :class => "form-control", :required => true 
         
       .form-group.row
-        = f.label Setting.month_mds.yoy, :class => "col-sm-5 text-right"
+        = f.label Setting.month_mds.yoy_mdrcy, :class => "col-sm-5 text-right"
         .col-sm-7
-          = f.number_field :yoy, :class => "form-control"
+          = f.number_field :yoy_mdrcy, :class => "form-control"
         
       .form-group.row
-        = f.label Setting.month_mds.mom, :class => "col-sm-5 text-right"
+        = f.label Setting.month_mds.mom_mdrcy, :class => "col-sm-5 text-right"
         .col-sm-7
-          = f.number_field :mom, :class => "form-control"
+          = f.number_field :mom_mdrcy, :class => "form-control"
         
       .form-group.row
-        = f.label Setting.month_mds.ypdr, :class => "col-sm-5 text-right"
+        = f.label Setting.month_mds.ypdr_mdrcy, :class => "col-sm-5 text-right"
         .col-sm-7
-          = f.number_field :ypdr, :class => "form-control"
+          = f.number_field :ypdr_mdrcy, :class => "form-control"
         
+      .form-group.row
+        = f.label Setting.month_mds.yoy_mdsell, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :yoy_mdsell, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_mds.mom_mdsell, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mom_mdsell, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_mds.ypdr_mdsell, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :ypdr_mdsell, :class => "form-control"

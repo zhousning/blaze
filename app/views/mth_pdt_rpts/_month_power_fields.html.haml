@@ -23,17 +23,31 @@
           = f.number_field :bom_power, :class => "form-control", :required => true 
         
       .form-group.row
-        = f.label Setting.month_powers.yoy, :class => "col-sm-5 text-right"
+        = f.label Setting.month_powers.yoy_power, :class => "col-sm-5 text-right"
         .col-sm-7
-          = f.number_field :yoy, :class => "form-control"
+          = f.number_field :yoy_power, :class => "form-control"
         
       .form-group.row
-        = f.label Setting.month_powers.mom, :class => "col-sm-5 text-right"
+        = f.label Setting.month_powers.mom_power, :class => "col-sm-5 text-right"
         .col-sm-7
-          = f.number_field :mom, :class => "form-control"
+          = f.number_field :mom_power, :class => "form-control"
         
       .form-group.row
-        = f.label Setting.month_powers.ypdr, :class => "col-sm-5 text-right"
+        = f.label Setting.month_powers.ypdr_power, :class => "col-sm-5 text-right"
         .col-sm-7
-          = f.number_field :ypdr, :class => "form-control"
+          = f.number_field :ypdr_power, :class => "form-control"
         
+      .form-group.row
+        = f.label Setting.month_powers.yoy_bom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :yoy_bom, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_powers.mom_bom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :mom_bom, :class => "form-control"
+        
+      .form-group.row
+        = f.label Setting.month_powers.ypdr_bom, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :ypdr_bom, :class => "form-control"

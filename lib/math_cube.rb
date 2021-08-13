@@ -29,9 +29,9 @@ module MathCube
     ss = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_ss <= ?", factory_id, _start, _end, ss_max]).count
     nhn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_nhn <= ?", factory_id, _start, _end, nhn_max]).count
     fecal = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_fecal <= ?", factory_id, _start, _end, fecal_max]).count
-    mst = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and mst <= ?", factory_id, _start, _end, mst_max]).count
+    mud = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and mst <= ?", factory_id, _start, _end, mst_max]).count
 
-    result = {:bod => bod, :cod => cod, :tp => tp, :tn => tn, :ss => ss, :nhn => nhn, :fecal => fecal, :mst => mst}
+    result = {:bod => bod, :cod => cod, :tp => tp, :tn => tn, :ss => ss, :nhn => nhn, :fecal => fecal, :mud => mud}
     result
   end
 

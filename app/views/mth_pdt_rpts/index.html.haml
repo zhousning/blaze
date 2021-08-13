@@ -1,6 +1,8 @@
 - provide(:title, t('.title'))
 
 
+.text-success
+  = flash[:info]
 .container-fluid
   .row
     = render "layouts/control_sidebar"
@@ -62,9 +64,10 @@
                       %td
                         .container-fluid
                           .row.justify-content-center
-                            = link_to "编辑", edit_mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :class => "button button-highlight button-small mr-1" 
-                            = link_to "详情",  mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
-                            = link_to "删除",  mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+                            = link_to "编辑", edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-highlight button-small mr-1" 
+                            = link_to "详情",  factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
+                            -#
+                              = link_to "删除",  mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
       = render "layouts/bootstrap/card"
 
 

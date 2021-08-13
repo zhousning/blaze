@@ -34,7 +34,7 @@ class MthPdtRptsController < ApplicationController
 
     #todo 要改 换成只存月
     pdt_date = _start
-    rpt = mth_pdt_rpt(pdt_date, @factory.design, result[:outflow][:sum], result[:outflow][:avg], year_result[:outflow][:sum])
+    rpt = mth_pdt_rpt(pdt_date, @factory.design, result[:outflow][:sum], result[:outflow][:avg], year_result[:outflow][:sum], @factory.id)
 
     bod = month_cms(result[:inf_bod][:avg], result[:eff_bod][:avg], result[:emr][:bod], result[:avg_emq][:bod], result[:emq][:bod], year_result[:emq][:bod], up_std[:bod] , end_std[:bod], yoy_result[:emq_bod], mom_result[:emq_bod], 0)
     cod = month_cms(result[:inf_cod][:avg], result[:eff_cod][:avg], result[:emr][:cod], result[:avg_emq][:cod], result[:emq][:cod], year_result[:emq][:cod], up_std[:cod] , end_std[:cod], yoy_result[:emq_cod], mom_result[:emq_cod], 0)
@@ -46,9 +46,7 @@ class MthPdtRptsController < ApplicationController
     #todo 现在是0-缺少bom_power
     power = month_power(result[:power][:sum], year_result[:power][:sum], result[:power][:bom], 0, yoy_result[:power], mom_result[:power], 0, yoy_result[:bom], mom_result[:bom], 0)
 
-
-    mud = month_mud(result[:inmud][:sum], year_result[:inmud][:sum], result[:outmud][:sum], year_result[:outmud][:sum], up_std[:mst], yoy_result[:mst], mom_result[:mst], 0)
-
+    mud = month_mud(result[:inmud][:sum], year_result[:inmud][:sum], result[:outmud][:sum], year_result[:outmud][:sum], up_std[:mud], yoy_result[:mud], mom_result[:mud], 0)
 
     md = month_md(result[:mdrcy][:sum], year_result[:mdrcy][:sum], result[:mdsell][:sum], year_result[:mdsell][:sum], yoy_result[:mdrcy], mom_result[:mdrcy], 0, yoy_result[:mdsell], mom_result[:mdsell], 0)
 
@@ -56,29 +54,51 @@ class MthPdtRptsController < ApplicationController
     
     MthPdtRpt.transaction do
       rpt = MthPdtRpt.new(rpt)
-      rpt.build_month_bod(bod)
-      rpt.build_month_cod(cod)
-      rpt.build_month_tp(tp)
-      rpt.build_month_tn(tn)
-      rpt.build_month_ss(ss)
-      rpt.build_month_nhn(nhn)
-      rpt.build_month_power(power)
-      rpt.build_month_mud(mud)
-      rpt.build_month_md(md)
-      rpt.build_month_fecal(fecal)
 
-      if rpt.save
-        flash[:succes] = "月度报表生成成功"
+      if rpt.save!
+        mthbod = MonthBod.new(bod)
+        mthbod.mth_pdt_rpt = rpt
+        mthbod.save!
+        mthcod = MonthCod.new(cod)
+        mthcod.mth_pdt_rpt = rpt
+        mthcod.save!
+        mthtp = MonthTp.new(tp)
+        mthtp.mth_pdt_rpt = rpt
+        mthtp.save!
+        mthtn = MonthTn.new(tn)
+        mthtn.mth_pdt_rpt = rpt
+        mthtn.save!
+        mthnhn = MonthNhn.new(nhn)
+        mthnhn.mth_pdt_rpt = rpt
+        mthnhn.save!
+        mthss = MonthSs.new(ss)
+        mthss.mth_pdt_rpt = rpt
+        mthss.save!
+        mthpower = MonthPower.new(power)
+        mthpower.mth_pdt_rpt = rpt
+        mthpower.save!
+        mthmud = MonthMud.new(mud)
+        mthmud.mth_pdt_rpt = rpt
+        mthmud.save!
+        mthmd = MonthMd.new(md)
+        mthmd.mth_pdt_rpt = rpt
+        mthmd.save!
+        mthfecal = MonthFecal.new(fecal)
+        mthfecal.mth_pdt_rpt = rpt
+        mthfecal.save!
+
+        flash[:info] = "月度报表生成成功"
       else
-        flash[:warning] = "月度报表生成失败"
+        flash[:info] = "月度报表生成失败"
       end
     end
     redirect_to :action => :index
   end
 
-  def mth_pdt_rpt(pdt_date, design, outflow, avg_outflow, end_outflow)
+  def mth_pdt_rpt(pdt_date, design, outflow, avg_outflow, end_outflow, factory_id)
     {
       :pdt_date =>  pdt_date, 
+      :factory_id => factory_id,
       :design   =>  design,
       :outflow  =>  outflow,
       :avg_outflow =>  avg_outflow,

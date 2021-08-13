@@ -1771,18 +1771,24 @@ development:
     end_mdrcy: 本月止累计中水回用量
     mdsell: 中水销售水量
     end_mdsell: 本月止累计中水销售水量
-    yoy: 同比
-    mom: 环比
-    ypdr: 截止本月累计完成全年计划占比
+    yoy_mdrcy: 中水回用量同比
+    mom_mdrcy: 中水回用量环比
+    ypdr_mdrcy: 中水回用量截止本月累计完成全年计划占比
+    yoy_mdsell: 中水销售水量同比
+    mom_mdsell: 中水销售水量环比
+    ypdr_mdsell: 中水销售水量截止本月累计完成全年计划占比
   month_powers:
     label: 月耗电量
     power: 本月总耗电量
     end_power: 本月止累计耗电量
     bom: 单耗
     bom_power: 单位好氧污染物耗电量
-    yoy: 同比
-    mom: 环比
-    ypdr: 截止本月累计完成全年计划占比
+    yoy_power: 耗电量同比
+    mom_power: 耗电量环比
+    ypdr_power: 耗电量截止本月累计完成全年计划占比
+    yoy_bom: 单耗同比
+    mom_bom: 单耗环比
+    ypdr_bom: 单耗截止本月累计完成全年计划占比
   month_muds:
     label: 月污泥处理
     inmud: 进泥量
