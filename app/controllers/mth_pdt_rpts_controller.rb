@@ -95,83 +95,6 @@ class MthPdtRptsController < ApplicationController
     redirect_to :action => :index
   end
 
-  def mth_pdt_rpt(pdt_date, design, outflow, avg_outflow, end_outflow, factory_id)
-    {
-      :pdt_date =>  pdt_date, 
-      :factory_id => factory_id,
-      :design   =>  design,
-      :outflow  =>  outflow,
-      :avg_outflow =>  avg_outflow,
-      :end_outflow =>  end_outflow
-    }
-  end
-
-  #削减量同比和环比
-  def month_cms(avg_inf, avg_eff, emr, avg_emq, emq, end_emq, up_std , end_std, yoy, mom, ypdr)
-    {
-      :avg_inf   =>   avg_inf,
-      :avg_eff   =>   avg_eff,
-      :emr       =>   emr    ,
-      :avg_emq   =>   avg_emq,
-      :emq       =>   emq    ,
-      :end_emq   =>   end_emq,
-      :up_std    =>   up_std ,
-      :end_std   =>   end_std,
-      :yoy       =>   yoy    ,
-      :mom       =>   mom    ,
-      :ypdr      =>   ypdr   
-    }
-  end
-
-  def month_power(power, end_power, bom, bom_power, yoy_power, mom_power, ypdr_power, yoy_bom, mom_bom, ypdr_bom)
-    {
-      :power => power,
-      :end_power => end_power,
-      :bom => bom,
-      :bom_power => bom_power,
-      :yoy_power => yoy_power,
-      :mom_power => mom_power,
-      :ypdr_power => ypdr_power,
-      :yoy_bom => yoy_bom,
-      :mom_bom => mom_bom,
-      :ypdr_bom => ypdr_bom
-    }
-  end
-   
-  def month_mud(inmud, end_inmud, outmud, end_outmud, mst_up, yoy, mom, ypdr)
-    {
-      :inmud      =>  inmud    ,
-      :end_inmud  =>  end_inmud,
-      :outmud     =>  outmud   ,
-      :end_outmud =>  end_outmud,
-      :mst_up     =>  mst_up   ,
-      :yoy        =>  yoy      ,
-      :mom        =>  mom      ,
-      :ypdr       =>  ypdr     
-    }
-  end
-
-  def month_md(mdrcy, end_mdrcy, mdsell, end_mdsell, yoy_mdrcy, mom_mdrcy, ypdr_mdrcy, yoy_mdsell, mom_mdsell, ypdr_mdsell)
-    {
-      :mdrcy        =>   mdrcy,
-      :end_mdrcy    =>   end_mdrcy,
-      :mdsell       =>   mdsell,
-      :end_mdsell   =>   end_mdsell,
-      :yoy_mdrcy    =>   yoy_mdrcy,
-      :mom_mdrcy    =>   mom_mdrcy,
-      :ypdr_mdrcy   =>   ypdr_mdrcy,
-      :yoy_mdsell   =>   yoy_mdsell,
-      :mom_mdsell   =>   mom_mdsell,
-      :ypdr_mdsell  =>   ypdr_mdsell
-    }
-  end
-
-  def month_fecal(up_std, end_std)
-    {
-      :up_std  => up_std,
-      :end_std => end_std
-    }
-  end
       
 
 
@@ -199,8 +122,8 @@ class MthPdtRptsController < ApplicationController
 
    
   def edit
-   
-    @mth_pdt_rpt = MthPdtRpt.find(iddecode(params[:id]))
+    @factory = my_factory 
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
    
   end
    
@@ -293,6 +216,84 @@ class MthPdtRptsController < ApplicationController
   
   def my_factory
     @factory = current_user.factories.find(iddecode(params[:factory_id]))
+  end
+
+  def mth_pdt_rpt(pdt_date, design, outflow, avg_outflow, end_outflow, factory_id)
+    {
+      :pdt_date =>  pdt_date, 
+      :factory_id => factory_id,
+      :design   =>  design,
+      :outflow  =>  outflow,
+      :avg_outflow =>  avg_outflow,
+      :end_outflow =>  end_outflow
+    }
+  end
+
+  #削减量同比和环比
+  def month_cms(avg_inf, avg_eff, emr, avg_emq, emq, end_emq, up_std , end_std, yoy, mom, ypdr)
+    {
+      :avg_inf   =>   avg_inf,
+      :avg_eff   =>   avg_eff,
+      :emr       =>   emr    ,
+      :avg_emq   =>   avg_emq,
+      :emq       =>   emq    ,
+      :end_emq   =>   end_emq,
+      :up_std    =>   up_std ,
+      :end_std   =>   end_std,
+      :yoy       =>   yoy    ,
+      :mom       =>   mom    ,
+      :ypdr      =>   ypdr   
+    }
+  end
+
+  def month_power(power, end_power, bom, bom_power, yoy_power, mom_power, ypdr_power, yoy_bom, mom_bom, ypdr_bom)
+    {
+      :power => power,
+      :end_power => end_power,
+      :bom => bom,
+      :bom_power => bom_power,
+      :yoy_power => yoy_power,
+      :mom_power => mom_power,
+      :ypdr_power => ypdr_power,
+      :yoy_bom => yoy_bom,
+      :mom_bom => mom_bom,
+      :ypdr_bom => ypdr_bom
+    }
+  end
+   
+  def month_mud(inmud, end_inmud, outmud, end_outmud, mst_up, yoy, mom, ypdr)
+    {
+      :inmud      =>  inmud    ,
+      :end_inmud  =>  end_inmud,
+      :outmud     =>  outmud   ,
+      :end_outmud =>  end_outmud,
+      :mst_up     =>  mst_up   ,
+      :yoy        =>  yoy      ,
+      :mom        =>  mom      ,
+      :ypdr       =>  ypdr     
+    }
+  end
+
+  def month_md(mdrcy, end_mdrcy, mdsell, end_mdsell, yoy_mdrcy, mom_mdrcy, ypdr_mdrcy, yoy_mdsell, mom_mdsell, ypdr_mdsell)
+    {
+      :mdrcy        =>   mdrcy,
+      :end_mdrcy    =>   end_mdrcy,
+      :mdsell       =>   mdsell,
+      :end_mdsell   =>   end_mdsell,
+      :yoy_mdrcy    =>   yoy_mdrcy,
+      :mom_mdrcy    =>   mom_mdrcy,
+      :ypdr_mdrcy   =>   ypdr_mdrcy,
+      :yoy_mdsell   =>   yoy_mdsell,
+      :mom_mdsell   =>   mom_mdsell,
+      :ypdr_mdsell  =>   ypdr_mdsell
+    }
+  end
+
+  def month_fecal(up_std, end_std)
+    {
+      :up_std  => up_std,
+      :end_std => end_std
+    }
   end
 end
 

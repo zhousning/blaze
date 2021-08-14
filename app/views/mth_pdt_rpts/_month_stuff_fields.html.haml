@@ -1,29 +1,32 @@
-.nested-fields.nestd-item
-  .form-group
-    .field.d-inline
-    
-      .form-group.row
-        = f.label Setting.month_stuffs.xdjtjl, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.text_field :xdjtjl, :class => "form-control", :required => true 
+%table.table-bordered.day-pdt-table
+  %caption.text-center
+    = Setting.month_stuffs.label
+  %tbody
+    %tr
+      %td.p-3.text-center
+        = f.label Setting.month_stuffs.xdjtjl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :xdjtjl, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_stuffs.end_xdjtjl, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.text_field :end_xdjtjl, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label Setting.month_stuffs.end_xdjtjl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :end_xdjtjl, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_stuffs.yoy, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.text_field :yoy, :class => "form-control"
+    %tr
+      %td.p-3.text-center
+        = f.label Setting.month_stuffs.yoy, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :yoy, :class => "form-control"
         
-      .form-group.row
-        = f.label Setting.month_stuffs.mom, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.text_field :mom, :class => "form-control"
+      %td.p-3.text-center
+        = f.label Setting.month_stuffs.mom, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :mom, :class => "form-control"
         
-      .form-group.row
-        = f.label Setting.month_stuffs.ypdr, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.text_field :ypdr, :class => "form-control"
+    %tr
+      %td.p-3.text-center
+        = f.label Setting.month_stuffs.ypdr, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :ypdr, :class => "form-control"
         

@@ -1,49 +1,54 @@
-.nested-fields.nestd-item
-  .form-group
-    .field.d-inline
-    
-      .form-group.row
-        = f.label Setting.month_devices.wsyxts, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :wsyxts, :class => "form-control", :required => true 
+%table.table-bordered.day-pdt-table
+  %caption.text-center
+    = Setting.month_devices.label
+  %tbody
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.wsyxts, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :wsyxts, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_devices.wswdyxts, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :wswdyxts, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.wswdyxts, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :wswdyxts, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_devices.sbwhl, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :sbwhl, :class => "form-control", :required => true 
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.sbwhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :sbwhl, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_devices.gysbwhl, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :gysbwhl, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.gysbwhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :gysbwhl, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_devices.wbywhl, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :wbywhl, :class => "form-control", :required => true 
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.wbywhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :wbywhl, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_devices.gzwwhl, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :gzwwhl, :class => "form-control", :required => true 
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.gzwwhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :gzwwhl, :class => "form-control", :required => true 
         
-      .form-group.row
-        = f.label Setting.month_devices.yoy, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :yoy, :class => "form-control"
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.yoy, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :yoy, :class => "form-control"
         
-      .form-group.row
-        = f.label Setting.month_devices.mom, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :mom, :class => "form-control"
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.mom, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :mom, :class => "form-control"
         
-      .form-group.row
-        = f.label Setting.month_devices.ypdr, :class => "col-sm-5 text-right"
-        .col-sm-7
-          = f.number_field :ypdr, :class => "form-control"
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.ypdr, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :ypdr, :class => "form-control"
         

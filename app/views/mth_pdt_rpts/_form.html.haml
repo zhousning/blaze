@@ -11,107 +11,71 @@
               - @mth_pdt_rpt.errors.full_messages.each do |msg|
                 %li= msg
       
-        .form-group.row
-          = f.label Setting.mth_pdt_rpts.design, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_field :design, :class => "form-control rounded-0" , :required => true
+        .row
+          .col-sm-12
+            %h2.text-center
+              = image_tag "gykg.jpg"
+              = @factory.name + @mth_pdt_rpt.pdt_date.to_s +  "月报表"
+          .col-sm-6.offset-3.p-5.border
+            .row
+              .col-6
+                .form-group.row
+                  = f.label Setting.mth_pdt_rpts.design, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.text_field :design, :class => "form-control rounded-0" , :required => true
+              .col-6
+                .form-group.row
+                  = f.label Setting.mth_pdt_rpts.outflow, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.text_field :outflow, :class => "form-control rounded-0" , :required => true
+              .col-6
+                .form-group.row
+                  = f.label Setting.mth_pdt_rpts.avg_outflow, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.text_field :avg_outflow, :class => "form-control rounded-0" , :required => true
+              .col-6
+                .form-group.row
+                  = f.label Setting.mth_pdt_rpts.end_outflow, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.text_field :end_outflow, :class => "form-control rounded-0" , :required => true
           
-        .form-group.row
-          = f.label Setting.mth_pdt_rpts.outflow, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_field :outflow, :class => "form-control rounded-0" , :required => true
-          
-        .form-group.row
-          = f.label Setting.mth_pdt_rpts.avg_outflow, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_field :avg_outflow, :class => "form-control rounded-0" , :required => true
-          
-        .form-group.row
-          = f.label Setting.mth_pdt_rpts.end_outflow, :class => "col-sm-3 col-form-label text-right"
-          .col-sm-6
-            = f.text_field :end_outflow, :class => "form-control rounded-0" , :required => true
-          
       
       
       
       
       
-        .form-group.row
-          = f.label Setting.month_cods.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_cod do |month_cod|
-                = render 'month_cod_fields', f: month_cod 
-      
-        .form-group.row
-          = f.label Setting.month_bods.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_bod do |month_bod|
-                = render 'month_bod_fields', f: month_bod 
-      
-        .form-group.row
-          = f.label Setting.month_tps.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_tp do |month_tp|
-                = render 'month_tp_fields', f: month_tp 
-      
-        .form-group.row
-          = f.label Setting.month_tns.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_tn do |month_tn|
-                = render 'month_tn_fields', f: month_tn 
-      
-        .form-group.row
-          = f.label Setting.month_nhns.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_nhn do |month_nhn|
-                = render 'month_nhn_fields', f: month_nhn 
-      
-        .form-group.row
-          = f.label Setting.month_fecals.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_fecal do |month_fecal|
-                = render 'month_fecal_fields', f: month_fecal 
-      
-        .form-group.row
-          = f.label Setting.month_powers.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_power do |month_power|
-                = render 'month_power_fields', f: month_power 
-      
-        .form-group.row
-          = f.label Setting.month_muds.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_mud do |month_mud|
-                = render 'month_mud_fields', f: month_mud 
-      
-        .form-group.row
-          = f.label Setting.month_mds.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_md do |month_md|
-                = render 'month_md_fields', f: month_md 
-      
-        .form-group.row
-          = f.label Setting.month_devices.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_device do |month_device|
-                = render 'month_device_fields', f: month_device 
-      
-        .form-group.row
-          = f.label Setting.month_stuffs.label, :class => "col-3  text-right col-form-label"
-          .col-9
-            .row
-              = f.fields_for :month_stuff do |month_stuff|
-                = render 'month_stuff_fields', f: month_stuff 
+            = f.fields_for :month_cod do |month_cod|
+              = render 'month_cod_fields', f: month_cod 
+   
+            = f.fields_for :month_bod do |month_bod|
+              = render 'month_bod_fields', f: month_bod 
+   
+            = f.fields_for :month_tp do |month_tp|
+              = render 'month_tp_fields', f: month_tp 
+   
+            = f.fields_for :month_tn do |month_tn|
+              = render 'month_tn_fields', f: month_tn 
+   
+            = f.fields_for :month_nhn do |month_nhn|
+              = render 'month_nhn_fields', f: month_nhn 
+   
+            = f.fields_for :month_fecal do |month_fecal|
+              = render 'month_fecal_fields', f: month_fecal 
+   
+            = f.fields_for :month_power do |month_power|
+              = render 'month_power_fields', f: month_power 
+   
+            = f.fields_for :month_mud do |month_mud|
+              = render 'month_mud_fields', f: month_mud 
+   
+            = f.fields_for :month_md do |month_md|
+              = render 'month_md_fields', f: month_md 
+   
+            = f.fields_for :month_device do |month_device|
+              = render 'month_device_fields', f: month_device 
+   
+            = f.fields_for :month_stuff do |month_stuff|
+              = render 'month_stuff_fields', f: month_stuff 
       
         .form-group.row
           .col-3.offset-3
