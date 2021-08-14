@@ -97,26 +97,21 @@ class MthPdtRptsController < ApplicationController
 
       
 
+  def upreport
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
 
+    @mth_pdt_rpt.complete
+    redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+  end
 
 
    
   def show
+    @factory = my_factory
    
-    @mth_pdt_rpt = MthPdtRpt.find(iddecode(params[:id]))
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
    
-  end
-   
-
-   
-  def create
-    @mth_pdt_rpt = MthPdtRpt.new(mth_pdt_rpt_params)
-     
-    if @mth_pdt_rpt.save
-      redirect_to :action => :index
-    else
-      render :new
-    end
   end
    
 
@@ -140,21 +135,6 @@ class MthPdtRptsController < ApplicationController
     end
   end
    
-
-   
-  def destroy
-   
-    @mth_pdt_rpt = MthPdtRpt.find(iddecode(params[:id]))
-   
-    @mth_pdt_rpt.destroy
-    redirect_to :action => :index
-  end
-   
-
-  
-
-  
-
   
   def xls_download
     send_file File.join(Rails.root, "public", "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true

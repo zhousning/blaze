@@ -26,29 +26,6 @@
                 - elsif @day_pdt.state == Setting.day_pdts.ongoing
                   %h2.text-danger.text-center.border.border-danger
                     待上报
-              -#
-                .row
-                  .col-6
-                    .row
-                      = label_tag nil, Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
-                      .col-sm-6
-                        %p
-                          = @day_pdt.pdt_date
-                  .col-6
-                    .row
-                      = label_tag nil, Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
-                      .col-sm-6
-                        = @day_pdt.signer
-                  .col-6
-                    .row
-                      = label_tag nil, Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
-                      .col-sm-6
-                        = @day_pdt.weather
-                  .col-6
-                    .row
-                      = label_tag nil, Setting.day_pdts.temper, :class => "col-sm-3 col-form-label text-right"
-                      .col-sm-6
-                        = @day_pdt.temper
               %table.table-bordered.day-pdt-table.w-100
                 %caption.text-center
                   = Setting.inf_qlties.label
@@ -229,3 +206,26 @@
   
                       
                   
+-#
+  .row
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          %p
+            = @day_pdt.pdt_date
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          = @day_pdt.signer
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          = @day_pdt.weather
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.temper, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          = @day_pdt.temper

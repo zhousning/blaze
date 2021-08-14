@@ -1826,11 +1826,16 @@ development:
     ypdr: 截止本月累计完成全年计划占比
   mth_pdt_rpts:
     label: 综合统计月报表
+    name: 名称
     date: 月份
     design: 设计污水处理量
     outflow: 本月污水处理量
     avg_outflow: 平均污水处理量
     end_outflow: 本月止累计污水处理量
+    ongoing: 0
+    ongoing_t: 填报中
+    complete: 1
+    complete_t: 已上报
 test:
   admins: *104
   users: *105
