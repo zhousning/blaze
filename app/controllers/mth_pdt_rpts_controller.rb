@@ -154,7 +154,7 @@ class MthPdtRptsController < ApplicationController
       if @document.save
         ExportWorker.perform_async(@mth_pdt_rpt.id, @document.id)
       else
-        redirect_to factory_mth_pdt_rpts_path( iddecode(@factory.id) )
+        redirect_to factory_mth_pdt_rpt_path( idencode(@factory.id), idencode(@mth_pdt_rpt.id) )
       end
     end
 
@@ -162,7 +162,7 @@ class MthPdtRptsController < ApplicationController
     if @document.status == Setting.documents.status_success
       send_file File.join(Rails.root, "public", "mth_pdt_rpts", @mth_pdt_rpt.name, @document.html_link), :filename => @document.html_link, :type => "application/force-download", :x_sendfile=>true
     else
-      redirect_to factory_mth_pdt_rpts_path( iddecode(@factory.id) )
+      redirect_to factory_mth_pdt_rpt_path( idencode(@factory.id), idencode(@mth_pdt_rpt.id) )
     end
   end
   
