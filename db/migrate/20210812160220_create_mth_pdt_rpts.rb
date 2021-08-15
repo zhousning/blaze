@@ -2,9 +2,12 @@ class CreateMthPdtRpts < ActiveRecord::Migration
   def change
     create_table :mth_pdt_rpts do |t|
 
-      t.date :pdt_date
+      t.date :start_date
+
+      t.date :end_date
     
       t.string :name,  null: false, default: Setting.systems.default_str
+
       t.float :design,  null: false, default: Setting.systems.default_num
     
       t.float :outflow,  null: false, default: Setting.systems.default_num

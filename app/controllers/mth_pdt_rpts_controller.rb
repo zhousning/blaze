@@ -10,7 +10,7 @@ class MthPdtRptsController < ApplicationController
     @factory = my_factory
    
     @months = months
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.order('pdt_date DESC') if @factory
+    @mth_pdt_rpts = @factory.mth_pdt_rpts.order('start_date DESC') if @factory
    
   end
 
@@ -33,9 +33,10 @@ class MthPdtRptsController < ApplicationController
     end_std = up_standard_days(@factory.id, _year_start, _end)
 
     #todo 要改 换成只存月
-    pdt_date = _start
+    start_date = _start
+    end_date = _end
     name = year.to_s + "年" + month.to_s + "月" + @factory.name + "生产运营报告"
-    rpt = mth_pdt_rpt(pdt_date, @factory.design, result[:outflow][:sum], result[:outflow][:avg], year_result[:outflow][:sum], @factory.id, name)
+    rpt = mth_pdt_rpt(start_date, end_date, @factory.design, result[:outflow][:sum], result[:outflow][:avg], year_result[:outflow][:sum], @factory.id, name)
 
     bod = month_cms(result[:inf_bod][:avg], result[:eff_bod][:avg], result[:emr][:bod], result[:avg_emq][:bod], result[:emq][:bod], year_result[:emq][:bod], up_std[:bod] , end_std[:bod], yoy_result[:emq_bod], mom_result[:emq_bod], 0)
     cod = month_cms(result[:inf_cod][:avg], result[:eff_cod][:avg], result[:emr][:cod], result[:avg_emq][:cod], result[:emq][:cod], year_result[:emq][:cod], up_std[:cod] , end_std[:cod], yoy_result[:emq_cod], mom_result[:emq_cod], 0)
@@ -223,10 +224,11 @@ class MthPdtRptsController < ApplicationController
     @factory = current_user.factories.find(iddecode(params[:factory_id]))
   end
 
-  def mth_pdt_rpt(pdt_date, design, outflow, avg_outflow, end_outflow, factory_id, name)
+  def mth_pdt_rpt(start_date, end_date, design, outflow, avg_outflow, end_outflow, factory_id, name)
     {
       :name => name,
-      :pdt_date =>  pdt_date, 
+      :start_date =>  start_date, 
+      :end_date =>  end_date, 
       :factory_id => factory_id,
       :design   =>  design,
       :outflow  =>  outflow,

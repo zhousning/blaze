@@ -50,6 +50,8 @@ class MthPdtRpt < ActiveRecord::Base
   has_one :month_md
   accepts_nested_attributes_for :month_md, allow_destroy: true
 
+  belongs_to :factory
+
   def onging 
     update_attribute :state, Setting.day_pdts.ongoing
   end

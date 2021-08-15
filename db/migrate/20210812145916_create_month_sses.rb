@@ -14,9 +14,9 @@ class CreateMonthSses < ActiveRecord::Migration
     
       t.float :end_emq,  null: false, default: Setting.systems.default_num 
     
-      t.float :up_std,  null: false, default: Setting.systems.default_num 
+      t.integer :up_std,  null: false, default: Setting.systems.default_num 
     
-      t.float :end_std,  null: false, default: Setting.systems.default_num 
+      t.integer :end_std,  null: false, default: Setting.systems.default_num 
     
       t.float :yoy,  null: false, default: Setting.systems.default_num 
     
