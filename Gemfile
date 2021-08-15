@@ -72,6 +72,9 @@ gem "bootstrap-table-rails"
 
 gem 'popper_js', '~> 1.14.5'
 
+gem 'bootstrap-datepicker-rails'
+
+
 #gem 'argon-theme', git: 'git@github.com:a113f/argon_rails.git'
 
 gem "animate-rails"

@@ -56,7 +56,8 @@ class DayPdtsController < ApplicationController
   def update
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
-   
+    @day_pdt.name = @day_pdt.pdt_date.to_s + @factory.name + "生产运营报表"
+
     if @day_pdt.update(day_pdt_params)
       redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
     else

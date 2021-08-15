@@ -22,7 +22,7 @@
                 .form-group.row
                   = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
                   .col-sm-6
-                    = f.date_field :pdt_date, :class => "form-control rounded-0" , :required => true
+                    = f.text_field :pdt_date, :class => "form-control rounded-0 day-pdt-date-picker" , :required => true
               .col-6
                 .form-group.row
                   = f.label Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
