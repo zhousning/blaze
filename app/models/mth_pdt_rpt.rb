@@ -1,6 +1,6 @@
 class MthPdtRpt < ActiveRecord::Base
 
-
+  has_one :document
 
 
 

@@ -1,5 +1,5 @@
 class Document < ActiveRecord::Base
-  belongs_to :examine
+  belongs_to :mth_pdt_rpt
 
   validates :status, :presence => true,
                      :numericality => {:only_integer => true}

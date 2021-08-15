@@ -7,6 +7,8 @@
       - content_for :card_header do
         %h5
           = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          %button#download-mth-pdt-rpt{:class => "button button-action button-small pull-right mr-1", :'data-fct' => idencode(@factory.id), :'data-mthrpt' => idencode(@mth_pdt_rpt.id)} 
+            下载word
           = link_to "上报",  upreport_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-royal button-small pull-right mr-1" 
           = link_to "编辑", edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-caution button-small pull-right mr-1" 
           = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do

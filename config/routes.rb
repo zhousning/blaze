@@ -124,6 +124,7 @@ Rails.application.routes.draw do
       get :download_append, :on => :member
       get :xls_download, :on => :collection
       get :mth_rpt_create, :on => :collection
+      get :download_report, :on => :member
       get :upreport, :on => :member
     end
   end

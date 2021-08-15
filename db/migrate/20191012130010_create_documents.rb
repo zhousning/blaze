@@ -10,7 +10,7 @@ class CreateDocuments < ActiveRecord::Migration
     
 
     
-      t.references :examine
+      t.references :mth_pdt_rpt
     
 
       t.timestamps null: false

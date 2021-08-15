@@ -34,7 +34,8 @@ class MthPdtRptsController < ApplicationController
 
     #todo 要改 换成只存月
     pdt_date = _start
-    rpt = mth_pdt_rpt(pdt_date, @factory.design, result[:outflow][:sum], result[:outflow][:avg], year_result[:outflow][:sum], @factory.id)
+    name = year.to_s + "年" + month.to_s + "月" + @factory.name + "生产运营报告"
+    rpt = mth_pdt_rpt(pdt_date, @factory.design, result[:outflow][:sum], result[:outflow][:avg], year_result[:outflow][:sum], @factory.id, name)
 
     bod = month_cms(result[:inf_bod][:avg], result[:eff_bod][:avg], result[:emr][:bod], result[:avg_emq][:bod], result[:emq][:bod], year_result[:emq][:bod], up_std[:bod] , end_std[:bod], yoy_result[:emq_bod], mom_result[:emq_bod], 0)
     cod = month_cms(result[:inf_cod][:avg], result[:eff_cod][:avg], result[:emr][:cod], result[:avg_emq][:cod], result[:emq][:cod], year_result[:emq][:cod], up_std[:cod] , end_std[:cod], yoy_result[:emq_cod], mom_result[:emq_cod], 0)
@@ -140,6 +141,30 @@ class MthPdtRptsController < ApplicationController
     send_file File.join(Rails.root, "public", "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
   
+
+  def download_report
+    @factory = my_factory 
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @document = @mth_pdt_rpt.document
+
+    if @document
+      ExportWorker.perform_async(@mth_pdt_rpt.id, @document.id)
+    else
+      @document = Document.new(:mth_pdt_rpt => @mth_pdt_rpt, :title => @mth_pdt_rpt.name, :status => Setting.documents.status_none)
+      if @document.save
+        ExportWorker.perform_async(@mth_pdt_rpt.id, @document.id)
+      else
+        redirect_to factory_mth_pdt_rpts_path( iddecode(@factory.id) )
+      end
+    end
+
+    #todo 失败返回异常
+    if @document.status == Setting.documents.status_success
+      send_file File.join(Rails.root, "public", "mth_pdt_rpts", @mth_pdt_rpt.name, @document.html_link), :filename => @document.html_link, :type => "application/force-download", :x_sendfile=>true
+    else
+      redirect_to factory_mth_pdt_rpts_path( iddecode(@factory.id) )
+    end
+  end
   
   
 
@@ -198,8 +223,9 @@ class MthPdtRptsController < ApplicationController
     @factory = current_user.factories.find(iddecode(params[:factory_id]))
   end
 
-  def mth_pdt_rpt(pdt_date, design, outflow, avg_outflow, end_outflow, factory_id)
+  def mth_pdt_rpt(pdt_date, design, outflow, avg_outflow, end_outflow, factory_id, name)
     {
+      :name => name,
       :pdt_date =>  pdt_date, 
       :factory_id => factory_id,
       :design   =>  design,

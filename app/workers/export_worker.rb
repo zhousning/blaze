@@ -4,15 +4,15 @@ class ExportWorker
   include Sidekiq::Worker
 
   FOLDER_PUBLIC = File.join(Rails.root, "public")
-  FRONT_COVER = File.join(Rails.root, "app", "workers", "templates", "frontcover.docx")
+  MONTH_REPORT = File.join(Rails.root, "app", "workers", "templates", "monthreport.docx")
 
-  def perform(examine_id, document_id, name)
-    @examine = Examine.find(examine_id)
+  def perform(mth_pdt_rpt_id, document_id)
+    @mth_pdt_rpt = MthPdtRpt.find(mth_pdt_rpt_id)
     @document = Document.find(document_id)
     @document.update_attribute :status, Setting.documents.status_process
 
     begin
-      export_process(@examine, @document, name)
+      export_process(@mth_pdt_rpt, @document)
       @document.update_attribute :status, Setting.documents.status_success
     rescue Exception => e
       puts e.message  
@@ -21,58 +21,74 @@ class ExportWorker
     end
   end
 
-  def export_process(examine, document, name)
-    hierarchy = examine.hierarchy
-    objs = JSON.parse(hierarchy)
-    target_folder = Rails.root.join("public", "examines", examine.id.to_s, name).to_s
-    docx = Caracal::Document.new(target_folder + '/目录.docx')
-    style_config(docx)
+  def export_process(mth_pdt_rpt, document)
 
-    title_level = 0 #判断目录层级用 
-    index = 1 #给每个文件编号,包括文件夹
-    root_folder = target_folder + "/" + index.to_s + "_" + examine.name
-    FileUtils.makedirs(root_folder) unless File.directory?(root_folder)
+    target_folder = Rails.root.join("public", "mth_pdt_rpts", mth_pdt_rpt.name).to_s
+    FileUtils.makedirs(target_folder) unless File.directory?(target_folder)
+    target_docx = target_folder + '/' + mth_pdt_rpt.name + '.docx'
 
-    hier(objs, target_folder, index, title_level, target_folder, docx)
-    docx.save
-    command = "zip -r " + target_folder + ".zip " + target_folder
-    system(command)
-    document.update_attribute :html_link, File.basename(target_folder + ".zip")
+    #docx = Caracal::Document.new(target_folder + '/' + mth_pdt_rpt.name + '.docx')
+    #style_config(docx)
+
+    #new_report(objs, target_folder, docx)
+
+    #docx.save
+
+    template = Sablon.template(File.expand_path(MONTH_REPORT))
+    context = {
+      title: mth_pdt_rpt.name,
+      cod: mth_pdt_rpt.month_cod,
+      bod: mth_pdt_rpt.month_bod,
+      tp: mth_pdt_rpt.month_tp,
+      tn: mth_pdt_rpt.month_tn,
+      ss: mth_pdt_rpt.month_ss,
+      nhn: mth_pdt_rpt.month_nhn,
+      power: mth_pdt_rpt.month_power,
+      mud: mth_pdt_rpt.month_mud,
+      md: mth_pdt_rpt.month_md,
+      fecal: mth_pdt_rpt.month_fecal,
+      device: mth_pdt_rpt.month_device,
+      stuff: mth_pdt_rpt.month_stuff,
+      technologies: ["Ruby", "HTML", "ODF"]
+    }
+    template.render_to_file File.expand_path(target_docx), context
+
+    document.update_attribute :html_link, document.title + '.docx'
   end
 
-  def hier(node, level, index, title_level, target_folder, docx)
-    nodeid = node['nodeid']
-    name = node['name']
-    index_str = index.to_s
-    level += "/#{index_str}_#{name}" 
-    title_level += 1
+  #def new_report(objs, target_folder, docx)
+  #  nodeid = node['nodeid']
+  #  name = node['name']
+  #  index_str = index.to_s
+  #  level += "/#{index_str}_#{name}" 
+  #  title_level += 1
 
-    isParent = node['isParent']
-    if isParent
-      FileUtils.makedirs(level) unless File.directory?(level)
+  #  isParent = node['isParent']
+  #  if isParent
+  #    FileUtils.makedirs(level) unless File.directory?(level)
 
-      front_cover_dir = target_folder + "/封皮/" + title_level.to_s + "级封皮"
-      front_cover(front_cover_dir, name)
+  #    front_cover_dir = target_folder + "/封皮/" + title_level.to_s + "级封皮"
+  #    front_cover(front_cover_dir, name)
 
-      category(title_level, index_str, name, docx)
-    else
-      if nodeid
-        @file = FileLib.find(nodeid)
-        if @file
-          FileUtils.cp FOLDER_PUBLIC + @file.path, level
-          docx.p "#{index}、#{name}" do 
-            style 'p'
-          end
-        end
-      end
-    end
+  #    category(title_level, index_str, name, docx)
+  #  else
+  #    if nodeid
+  #      @file = FileLib.find(nodeid)
+  #      if @file
+  #        FileUtils.cp FOLDER_PUBLIC + @file.path, level
+  #        docx.p "#{index}、#{name}" do 
+  #          style 'p'
+  #        end
+  #      end
+  #    end
+  #  end
 
-    if node['children'] 
-      node['children'].each_with_index do |obj, index|
-        hier(obj, level, index+1, title_level, target_folder, docx)
-      end
-    end
-  end
+  #  if node['children'] 
+  #    node['children'].each_with_index do |obj, index|
+  #      hier(obj, level, index+1, title_level, target_folder, docx)
+  #    end
+  #  end
+  #end
 
 
   def category(title_level, index, name, docx)
@@ -98,14 +114,13 @@ class ExportWorker
     end
   end
 
-  def front_cover(front_cover_dir, name)
-    FileUtils.makedirs(front_cover_dir) unless File.directory?(front_cover_dir)
-    template = Sablon.template(File.expand_path(FRONT_COVER))
+  def create_report(docx, name)
+    template = Sablon.template(File.expand_path(MONTH_REPORT))
     context = {
       title: name,
       technologies: ["Ruby", "HTML", "ODF"]
     }
-    template.render_to_file File.expand_path(front_cover_dir + "/" + name + ".docx"), context
+    template.render_to_file File.expand_path(docx), context
   end
 
   def style_config(docx)
