@@ -109,6 +109,10 @@ Rails.application.routes.draw do
       post :parse_excel, :on => :collection
       get :xls_download, :on => :collection
       get :upreport, :on => :member
+      get :verifying, :on => :member
+      get :rejected, :on => :member
+      get :verify_index, :on => :collection
+      get :verify_show, :on => :member
     end
     resources :day_pdt_rpts do
       get :produce_report, :on => :member

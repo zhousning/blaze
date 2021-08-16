@@ -65,6 +65,31 @@ class DayPdtsController < ApplicationController
     end
   end
 
+  def verify_index
+    @factory = my_factory
+
+    @day_pdts = @factory.day_pdts.where(:state => [Setting.day_pdts.verifying,  Setting.day_pdts.rejected]).group(:state) if @factory
+  end
+
+  def verify_show
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+  end
+
+  def verifying
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+    @day_pdt.verifying
+    redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+  end
+  
+  def rejected
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+    @day_pdt.rejected
+    redirect_to verify_show_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+  end
+
   def upreport
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
@@ -84,7 +109,7 @@ class DayPdtsController < ApplicationController
     )
 
     @day_pdt.complete if @day_pdt_rpt.save
-    redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+    redirect_to verify_show_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
   end
    
 

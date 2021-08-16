@@ -20,9 +20,6 @@
               上传表格
           
 
-          = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
-            = fa_icon "plus", text: Setting.systems.btn_new, right: false 
-          -#
             %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
               = fa_icon "plus", text: Setting.systems.btn_new, right: false 
       - content_for :card_body do
@@ -80,9 +77,7 @@
                       %td
                         .container-fluid
                           .row.justify-content-center
-                            - if day_pdt.state == Setting.day_pdts.ongoing || day_pdt.state == Setting.day_pdts.rejected
-                              = link_to "编辑", edit_factory_day_pdt_path(idencode(@factory.id), idencode(day_pdt.id)), :class => "button button-highlight button-small mr-1" 
-                            = link_to "查看",  factory_day_pdt_path(idencode(@factory.id), idencode(day_pdt.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "查看",  verify_show_factory_day_pdt_path(idencode(@factory.id), idencode(day_pdt.id)), :class => "button button-primary button-small mr-1" 
       = render "layouts/bootstrap/card"
 
 

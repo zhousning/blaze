@@ -7,11 +7,11 @@
       - content_for :card_header do
         %h5
           = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
-          - if @day_pdt.state == Setting.day_pdts.ongoing || @day_pdt.state == Setting.day_pdts.rejected
-            = link_to "提交审核",  verifying_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-royal button-small pull-right mr-1" 
-            = link_to "编辑", edit_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-caution button-small pull-right mr-1" 
           = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+          - if @day_pdt.state == Setting.day_pdts.verifying
+            = link_to "驳回", rejected_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-caution button-small pull-right mr-1" 
+            = link_to "上报水务集团日报表",  upreport_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-royal button-small pull-right mr-1" 
       - content_for :card_body do
         .container-fluid
           .row
