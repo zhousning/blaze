@@ -15,3 +15,16 @@ class Department < ActiveRecord::Base
   belongs_to :user
 
 end
+
+# == Schema Information
+#
+# Table name: departments
+#
+#  id         :integer         not null, primary key
+#  name       :string          default(""), not null
+#  info       :text
+#  factory_id :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

@@ -60,3 +60,22 @@ class MthPdtRpt < ActiveRecord::Base
     update_attribute :state, Setting.day_pdts.complete
   end
 end
+
+# == Schema Information
+#
+# Table name: mth_pdt_rpts
+#
+#  id          :integer         not null, primary key
+#  start_date  :date
+#  end_date    :date
+#  name        :string          default(""), not null
+#  design      :float           default("0.0"), not null
+#  outflow     :float           default("0.0"), not null
+#  avg_outflow :float           default("0.0"), not null
+#  end_outflow :float           default("0.0"), not null
+#  state       :integer         default("0"), not null
+#  factory_id  :integer
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#
+

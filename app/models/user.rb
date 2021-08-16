@@ -148,6 +148,7 @@ class User < ActiveRecord::Base
   #end
 end
 
+
 # == Schema Information
 #
 # Table name: users
@@ -174,6 +175,7 @@ end
 #  current_sign_in_ip     :string
 #  last_sign_in_ip        :string
 #  role_id                :integer
+#  company_id             :integer
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
 #

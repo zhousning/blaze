@@ -22,6 +22,7 @@ class Role < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: roles
@@ -31,6 +32,7 @@ end
 #  level         :string          default(""), not null
 #  resource_id   :integer
 #  resource_type :string
+#  department_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
 #

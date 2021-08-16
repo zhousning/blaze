@@ -1689,149 +1689,149 @@ development:
     twelve_t: 十二月
   month_bods:
     label: BOD
-    avg_inf: 平均进水BOD浓度
-    avg_eff: 平均出水BOD浓度
-    emr: BOD平均消减率
-    avg_emq: BOD平均消减量
-    emq: 本月BOD消减量
-    end_emq: 本月止累计BOD消减量
-    up_std: 本月出水BOD达标天数
-    end_std: 本月止累计出水BOD达标天数
-    yoy: 同比削减量
-    mom: 环比削减量
+    avg_inf: 平均进水BOD浓度(mg/L)
+    avg_eff: 平均出水BOD浓度(mg/L)
+    emr: BOD平均消减率(%)
+    avg_emq: BOD平均消减量(mg/L)
+    emq: 本月BOD消减量(kg)
+    end_emq: 本月止累计BOD消减量(kg)
+    up_std: 本月出水BOD达标天数(天)
+    end_std: 本月止累计出水BOD达标天数(天)
+    yoy: 同比(%)-削减量(吨)
+    mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_cods:
     label: COD
-    avg_inf: 平均进水COD浓度
-    avg_eff: 平均出水COD浓度
-    emr: COD平均消减率
-    avg_emq: COD平均消减量
-    emq: 本月COD消减量
-    end_emq: 本月止累计COD消减量
-    up_std: 本月出水COD达标天数
-    end_std: 本月止累计出水COD达标天数
-    yoy: 同比削减量
-    mom: 环比削减量
+    avg_inf: 平均进水COD浓度(mg/L)
+    avg_eff: 平均出水COD浓度(mg/L)
+    emr: COD平均消减率(%)
+    avg_emq: COD平均消减量(mg/L)
+    emq: 本月COD消减量(kg)
+    end_emq: 本月止累计COD消减量(kg)
+    up_std: 本月出水COD达标天数(天)
+    end_std: 本月止累计出水COD达标天数(天)
+    yoy: 同比(%)-削减量(吨)
+    mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tps:
     label: TP
-    avg_inf: 平均进水TP浓度
-    avg_eff: 平均出水TP浓度
-    emr: TP平均消减率
-    avg_emq: TP平均消减量
-    emq: 本月TP消减量
-    end_emq: 本月止累计TP消减量
-    up_std: 本月出水TP达标天数
-    end_std: 本月止累计出水TP达标天数
-    yoy: 同比削减量
-    mom: 环比削减量
+    avg_inf: 平均进水TP浓度(mg/L)
+    avg_eff: 平均出水TP浓度(mg/L)
+    emr: TP平均消减率(%)
+    avg_emq: TP平均消减量(mg/L)
+    emq: 本月TP消减量(kg)
+    end_emq: 本月止累计TP消减量(kg)
+    up_std: 本月出水TP达标天数(天)
+    end_std: 本月止累计出水TP达标天数(天)
+    yoy: 同比(%)-削减量(吨)
+    mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tns:
     label: TN
-    avg_inf: 平均进水TN浓度
-    avg_eff: 平均出水TN浓度
-    emr: TN平均消减率
-    avg_emq: TN平均消减量
-    emq: 本月TN消减量
-    end_emq: 本月止累计TN消减量
-    up_std: 本月出水TN达标天数
-    end_std: 本月止累计出水TN达标天数
-    yoy: 同比削减量
-    mom: 环比削减量
+    avg_inf: 平均进水TN浓度(mg/L)
+    avg_eff: 平均出水TN浓度(mg/L)
+    emr: TN平均消减率(%)
+    avg_emq: TN平均消减量(mg/L)
+    emq: 本月TN消减量(kg)
+    end_emq: 本月止累计TN消减量(kg)
+    up_std: 本月出水TN达标天数(天)
+    end_std: 本月止累计出水TN达标天数(天)
+    yoy: 同比(%)-削减量(吨)
+    mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_sses:
     label: SS
-    avg_inf: 平均进水SS浓度
-    avg_eff: 平均出水SS浓度
-    emr: SS平均消减率
-    avg_emq: SS平均消减量
-    emq: 本月SS消减量
-    end_emq: 本月止累计SS消减量
-    up_std: 本月出水SS达标天数
-    end_std: 本月止累计出水SS达标天数
-    yoy: 同比削减量
-    mom: 环比削减量
+    avg_inf: 平均进水SS浓度(mg/L)
+    avg_eff: 平均出水SS浓度(mg/L)
+    emr: SS平均消减率(%)
+    avg_emq: SS平均消减量(mg/L)
+    emq: 本月SS消减量(kg)
+    end_emq: 本月止累计SS消减量(kg)
+    up_std: 本月出水SS达标天数(天)
+    end_std: 本月止累计出水SS达标天数(天)
+    yoy: 同比(%)-削减量(吨)
+    mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_nhns:
     label: NH3-N
-    avg_inf: 平均进水NH3-N浓度
-    avg_eff: 平均出水NH3-N浓度
-    emr: NH3-N平均消减率
-    avg_emq: NH3-N平均消减量
-    emq: 本月NH3-N消减量
-    end_emq: 本月止累计NH3-N消减量
-    up_std: 本月出水NH3-N达标天数
-    end_std: 本月止累计出水NH3-N达标天数
-    yoy: 同比削减量
-    mom: 环比削减量
+    avg_inf: 平均进水NH3-N浓度(mg/L)
+    avg_eff: 平均出水NH3-N浓度(mg/L)
+    emr: NH3-N平均消减率(%)
+    avg_emq: NH3-N平均消减量(mg/L)
+    emq: 本月NH3-N消减量(kg)
+    end_emq: 本月止累计NH3-N消减量(kg)
+    up_std: 本月出水NH3-N达标天数(天)
+    end_std: 本月止累计出水NH3-N达标天数(天)
+    yoy: 同比(%)-削减量(吨)
+    mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_mds:
     label: 中水
-    mdrcy: 中水回用量
-    end_mdrcy: 本月止累计中水回用量
-    mdsell: 中水销售水量
-    end_mdsell: 本月止累计中水销售水量
-    yoy_mdrcy: 中水回用量同比
-    mom_mdrcy: 中水回用量环比
-    ypdr_mdrcy: 中水回用量截止本月累计完成全年计划占比
-    yoy_mdsell: 中水销售水量同比
-    mom_mdsell: 中水销售水量环比
-    ypdr_mdsell: 中水销售水量截止本月累计完成全年计划占比
+    mdrcy: 中水回用量(吨)
+    end_mdrcy: 本月止累计中水回用量(吨)
+    mdsell: 中水销售水量(吨)
+    end_mdsell: 本月止累计中水销售水量(吨)
+    yoy_mdrcy: 同比(%)-中水回用量(吨)
+    mom_mdrcy: 环比(%)-中水回用量(吨)
+    ypdr_mdrcy: 中水回用量截止本月累计完成全年计划占比(%)
+    yoy_mdsell: 同比(%)-中水销售水量(吨)
+    mom_mdsell: 环比(%)-中水销售水量(吨)
+    ypdr_mdsell: 中水销售水量截止本月累计完成全年计划占比(%)
   month_powers:
     label: 耗电量
-    power: 本月总耗电量
-    end_power: 本月止累计耗电量
-    bom: 单耗
-    bom_power: 单位好氧污染物耗电量
-    yoy_power: 耗电量同比
-    mom_power: 耗电量环比
-    ypdr_power: 耗电量截止本月累计完成全年计划占比
-    yoy_bom: 单耗同比
-    mom_bom: 单耗环比
-    ypdr_bom: 单耗截止本月累计完成全年计划占比
+    power: 本月总耗电量(度)
+    end_power: 本月止累计耗电量(度)
+    bom: 单耗(kw·hm3)
+    bom_power: 单位好氧污染物耗电量(kw·hkg)
+    yoy_power: 同比(%)-耗电总量(万千瓦时)
+    mom_power: 环比(%)-耗电总量(万千瓦时)
+    ypdr_power: 耗电总量截止本月累计完成全年计划占比
+    yoy_bom: 同比(%)-单耗(千瓦时/吨)
+    mom_bom: 环比(%)-单耗(千瓦时/吨)
+    ypdr_bom: 单耗截止本月累计完成全年计划占比(%)
   month_muds:
     label: 污泥处理
-    inmud: 进泥量
-    end_inmud: 本月止累计进泥量
-    outmud: 出泥量
-    end_outmud: 本月止累计出泥量
-    mst_up: 本月污泥含水率达标天数
-    yoy: 同比
-    mom: 环比
-    ypdr: 截止本月累计完成全年计划占比
+    inmud: 进泥量(m3)
+    end_inmud: 本月止累计进泥量(m3)
+    outmud: 出泥量(吨)
+    end_outmud: 本月止累计出泥量(吨)
+    mst_up: 本月污泥含水率达标天数(天)
+    yoy: 同比(%)
+    mom: 环比(%)
+    ypdr: 截止本月累计完成全年计划占比(%)
   month_fecals:
     label: 粪大肠杆菌
-    up_std: 本月出水粪大肠菌群达标天数
-    end_std: 本月止累计出水粪大肠菌群达标天数
-    yoy: 同比
-    mom: 环比
-    ypdr: 截止本月累计完成全年计划占比
+    up_std: 本月出水粪大肠菌群达标天数(天)
+    end_std: 本月止累计出水粪大肠菌群达标天数(天)
+    yoy: 同比(%)
+    mom: 环比(%)
+    ypdr: 截止本月累计完成全年计划占比(%)
   month_devices:
     label: 设备统计
-    wsyxts: 本月污水处理设施有效运行天数
-    wswdyxts: 本月污泥稳定化设备设施有效运行天数
-    sbwhl: 全部设备完好率
-    gysbwhl: 主要工艺设备完好率
-    wbywhl: 无备用主要工艺设备完好率
-    gzwwhl: 主要构筑物完好率
-    yoy: 同比
-    mom: 环比
-    ypdr: 截止本月累计完成全年计划占比
+    wsyxts: 本月污水处理设施有效运行天数(天)
+    wswdyxts: 本月污泥稳定化设备设施有效运行天数(天)
+    sbwhl: 全部设备完好率(%)
+    gysbwhl: 主要工艺设备完好率(%)
+    wbywhl: 无备用主要工艺设备完好率(%)
+    gzwwhl: 主要构筑物完好率(%)
+    yoy: 同比(%)
+    mom: 环比(%)
+    ypdr: 截止本月累计完成全年计划占比(%)
   month_stuffs:
     label: 药剂
-    xdjtjl: 本月消毒剂投加量加量
-    end_xdjtjl: 本月止累计消毒剂投加量
-    yoy: 同比
-    mom: 环比
-    ypdr: 截止本月累计完成全年计划占比
+    xdjtjl: 本月消毒剂投加量加量(T)
+    end_xdjtjl: 本月止累计消毒剂投加量(T)
+    yoy: 同比(%)
+    mom: 环比(%)
+    ypdr: 截止本月累计完成全年计划占比(%)
   mth_pdt_rpts:
     label: 综合统计月报表
     name: 名称
     date: 月份
-    design: 设计污水处理量
-    outflow: 本月污水处理量
-    avg_outflow: 平均污水处理量
-    end_outflow: 本月止累计污水处理量
+    design: 设计污水处理量(吨/日)
+    outflow: 本月污水处理量(吨)
+    avg_outflow: 平均污水处理量(吨/日)
+    end_outflow: 本月止累计污水处理量(吨)
     ongoing: 0
     ongoing_t: 填报中
     complete: 1

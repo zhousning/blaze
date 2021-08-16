@@ -40,3 +40,21 @@ class Factory < ActiveRecord::Base
   accepts_nested_attributes_for :year_pdt_rpts, reject_if: :all_blank, allow_destroy: true
 
 end
+
+# == Schema Information
+#
+# Table name: factories
+#
+#  id         :integer         not null, primary key
+#  area       :string          default(""), not null
+#  name       :string          default(""), not null
+#  info       :text
+#  lnt        :string          default(""), not null
+#  lat        :string          default(""), not null
+#  design     :float           default("0.0"), not null
+#  logo       :string          default(""), not null
+#  company_id :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

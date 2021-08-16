@@ -11,6 +11,7 @@ class Template < ActiveRecord::Base
   accepts_nested_attributes_for :nests, reject_if: :all_blank, allow_destroy: true
 end
 
+
 # == Schema Information
 #
 # Table name: templates
@@ -29,8 +30,11 @@ end
 #  show           :boolean
 #  form           :boolean
 #  js             :boolean
+#  upload         :boolean
+#  download       :boolean
 #  scss           :boolean
 #  admin          :boolean
+#  current_user   :boolean
 #  created_at     :datetime        not null
 #  updated_at     :datetime        not null
 #

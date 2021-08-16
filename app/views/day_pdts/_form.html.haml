@@ -6,7 +6,7 @@
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
               %span{"aria-hidden" => "true"} x 
-            %h2= "#{pluralize(@day_pdt.errors.count, "error")} prohibited this buyer from being saved:"
+            %h2= "#{pluralize(@day_pdt.errors.count, "个错误")} "
             %ul
               - @day_pdt.errors.full_messages.each do |msg|
                 %li= msg
@@ -22,7 +22,9 @@
                 .form-group.row
                   = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
                   .col-sm-6
-                    = f.text_field :pdt_date, :class => "form-control rounded-0 day-pdt-date-picker" , :required => true
+                    -#
+                      = f.text_field :pdt_date, :class => "form-control rounded-0 " , :required => true
+                    = f.date_field :pdt_date, :value => Date.today-1, :class => "form-control rounded-0" , :required => true, :min => Date.new(2021, 01, 01), :max => Date.today-1
               .col-6
                 .form-group.row
                   = f.label Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"

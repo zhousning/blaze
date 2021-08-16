@@ -20,8 +20,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap-table/bootstrap-table
 //= require bootstrap-table/locale/bootstrap-table-zh-CN
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js
 //= require cocoon
 //= require kindeditor
 //= require select2

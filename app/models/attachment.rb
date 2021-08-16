@@ -10,6 +10,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: attachments
@@ -18,5 +19,6 @@ end
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  file       :string          default(""), not null
+#  dog_id     :integer
 #
 

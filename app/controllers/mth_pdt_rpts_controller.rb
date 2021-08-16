@@ -52,7 +52,7 @@ class MthPdtRptsController < ApplicationController
 
     md = month_md(result[:mdrcy][:sum], year_result[:mdrcy][:sum], result[:mdsell][:sum], year_result[:mdsell][:sum], yoy_result[:mdrcy], mom_result[:mdrcy], 0, yoy_result[:mdsell], mom_result[:mdsell], 0)
 
-    fecal = month_fecal(up_std[:fecal] , end_std[:fecal])
+    fecal = month_fecal(up_std[:fecal] , end_std[:fecal], yoy_result[:fecal], mom_result[:fecal])
     
     MthPdtRpt.transaction do
       rpt = MthPdtRpt.new(rpt)
@@ -297,10 +297,12 @@ class MthPdtRptsController < ApplicationController
     }
   end
 
-  def month_fecal(up_std, end_std)
+  def month_fecal(up_std, end_std, yoy, mom)
     {
       :up_std  => up_std,
-      :end_std => end_std
+      :end_std => end_std,
+      :yoy => yoy,
+      :mom => mom
     }
   end
 end

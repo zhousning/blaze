@@ -14,6 +14,7 @@ class Enclosure < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: enclosures
@@ -28,5 +29,7 @@ end
 #  format_id   :integer
 #  ocr_id      :integer
 #  ctg_mtrl_id :integer
+#  dog_id      :integer
+#  day_pdt_id  :integer
 #
 
