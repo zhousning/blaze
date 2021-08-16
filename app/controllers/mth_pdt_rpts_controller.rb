@@ -17,12 +17,25 @@ class MthPdtRptsController < ApplicationController
   def mth_rpt_create
     @factory = my_factory
     month = params[:month].strip.to_i
+    search_year = params[:year].strip.to_i
     time = Time.new
     year = time.year
+
+    search_month = Date.new(search_year, month)
+    now_month = Date.new(year, time.month)
+    if now_month <= search_month
+      redirect_to :action => :index
+      return
+    end
 
     _year_start = Date.new(year, 1, 1)
     _start = Date.new(year, month, 1)
     _end = Date.new(year, month, -1)
+    @mth_pdt_rpts_cache = @factory.mth_pdt_rpts.where(["start_date = ? and end_date = ?", _start, _end])
+    unless @mth_pdt_rpts_cache.blank?
+      redirect_to :action => :index
+      return
+    end
 
     result = static_sum(@factory.id, _start, _end)
     year_result = static_sum(@factory.id, _year_start, _end)
@@ -32,7 +45,6 @@ class MthPdtRptsController < ApplicationController
     up_std = up_standard_days(@factory.id, _start, _end)
     end_std = up_standard_days(@factory.id, _year_start, _end)
 
-    #todo 要改 换成只存月
     start_date = _start
     end_date = _end
     name = year.to_s + "年" + month.to_s + "月" + @factory.name + "生产运营报告"
