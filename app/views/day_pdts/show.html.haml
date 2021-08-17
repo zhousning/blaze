@@ -8,7 +8,7 @@
         %h5
           = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
           - if @day_pdt.state == Setting.day_pdts.ongoing || @day_pdt.state == Setting.day_pdts.rejected
-            = link_to "提交审核",  verifying_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-royal button-small pull-right mr-1" 
+            = link_to "提交审核",  verifying_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "确定提交审核?"}
             = link_to "编辑", edit_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)), :class => "button button-caution button-small pull-right mr-1" 
           = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
@@ -28,7 +28,7 @@
                   %h2.text-primary.text-center.border.border-primary
                     = Setting.day_pdts.ongoing_t
                 - elsif @day_pdt.state == Setting.day_pdts.verifying
-                  %h2.text-warning.text-center.border.border-warning
+                  %h2.text-info.text-center.border.border-info
                     = Setting.day_pdts.verifying_t
                 - elsif @day_pdt.state == Setting.day_pdts.rejected
                   %h2.text-danger.text-center.border.border-danger

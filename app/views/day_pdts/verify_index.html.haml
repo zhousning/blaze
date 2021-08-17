@@ -63,16 +63,16 @@
                         = day_pdt.temper
                       %td
                         - if day_pdt.state == Setting.day_pdts.complete
-                          %p.text-success
+                          %span.text-success
                             = Setting.day_pdts.complete_t
                         - elsif day_pdt.state == Setting.day_pdts.ongoing
-                          %p.text-primary
+                          %span.text-primary
                             = Setting.day_pdts.ongoing_t
                         - elsif day_pdt.state == Setting.day_pdts.verifying
-                          %p.text-warning
+                          %span.text-info
                             = Setting.day_pdts.verifying_t
                         - elsif day_pdt.state == Setting.day_pdts.rejected
-                          %p.text-danger
+                          %span.text-danger
                             = Setting.day_pdts.rejected_t
                       %td
                         .container-fluid

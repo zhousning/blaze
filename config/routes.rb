@@ -130,6 +130,10 @@ Rails.application.routes.draw do
       get :mth_rpt_create, :on => :collection
       get :download_report, :on => :member
       get :upreport, :on => :member
+      get :verifying, :on => :member
+      get :rejected, :on => :member
+      get :verify_index, :on => :collection
+      get :verify_show, :on => :member
     end
   end
   resources :analyses, :only => [] do

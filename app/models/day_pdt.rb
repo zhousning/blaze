@@ -57,7 +57,7 @@ class DayPdt < ActiveRecord::Base
   end
 
   def verifying 
-    if ongoing? 
+    if ongoing? || rejected? 
       update_attribute :state, Setting.day_pdts.verifying
     end
   end

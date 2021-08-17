@@ -1838,7 +1838,11 @@ development:
     end_outflow: 本月止累计污水处理量(吨)
     ongoing: 0
     ongoing_t: 填报中
-    complete: 1
+    verifying: 1
+    verifying_t: 审核中
+    rejected: 2
+    rejected_t: 驳回
+    complete: 3
     complete_t: 已上报
 test:
   admins: *104

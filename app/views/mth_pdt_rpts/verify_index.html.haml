@@ -8,14 +8,8 @@
     = render "layouts/control_sidebar"
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
-        %ul.list-group.list-group-horizontal
-          %li.list-group-item.pl-0.border-0
-            = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.pl-0.border-0
-            = select_tag "months", options_for_mth_months(@months), :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.pl-0.border-0
-            %button#mth-rpt-create.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
-              生成月报表
+        %h5
+          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
       - content_for :card_body do
         .container-fluid
           .row
@@ -67,11 +61,7 @@
                       %td
                         .container-fluid
                           .row.justify-content-center
-                            - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing || mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected
-                              = link_to "编辑", edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-caution button-small mr-1" 
-                            = link_to "查看",  factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
-                            -#
-                              = link_to "删除",  mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+                            = link_to "查看",  verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
       = render "layouts/bootstrap/card"
 
 
