@@ -8,7 +8,6 @@ class DayPdtRptsController < ApplicationController
   include ChartConfig 
 
   def index
-    @day_pdt_rpt = DayPdtRpt.new
     @factory = my_factory
    
     @day_pdt_rpts = @factory.day_pdt_rpts.order('pdt_date DESC') if @factory
@@ -21,20 +20,13 @@ class DayPdtRptsController < ApplicationController
     @day_pdt_rpt = @factory.day_pdt_rpts.find(iddecode(params[:id]))
   end
    
+  #时间区间内单厂多指标 数据立方
   def sglfct_statistic
     @factories = current_user.factories
     quotas
   end
 
-  def mtlfct_statistic
-  end
-
-  def sglfct_compare_cau
-    @factory = my_factory
-    _quota = params[:quota]
-  end
-
-  #多折线图表
+  #多折线图表 数据立方
   def sglfct_stc_cau
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
@@ -56,6 +48,7 @@ class DayPdtRptsController < ApplicationController
     end
   end
 
+  #首页雷达图
   def radar_chart
     pos_type = params[:pos_type].gsub(/\s/, '')
     chart_type = params[:chart_type].gsub(/\s/, '')
@@ -92,6 +85,7 @@ class DayPdtRptsController < ApplicationController
 
   end
 
+  #仪表数据
   def new_quota_chart
     qcode = params[:qcode].gsub(/\s/, '')
     result = {}
@@ -105,20 +99,6 @@ class DayPdtRptsController < ApplicationController
     respond_to do |f|
       f.json{ render :json => result.to_json}
     end
-  end
-
-  def single_quota(qcode, day_pdt_rpt)
-    result = {}
-    if qcode == Setting.quota.inflow
-      result = gauge(Setting.day_pdt_rpts.inflow, day_pdt_rpt.inflow, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.inflow + 50).to_i, '#597cd5')
-    elsif qcode == Setting.quota.outflow
-      result = gauge(Setting.day_pdt_rpts.outflow, day_pdt_rpt.outflow, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.outflow + 50).to_i, '#597cd5')
-    elsif qcode == Setting.quota.outmud
-      result = gauge(Setting.day_pdt_rpts.outmud, day_pdt_rpt.outmud, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.outmud + 50).to_i, '#597cd5')
-    elsif qcode == Setting.quota.power
-      result = gauge(Setting.day_pdt_rpts.power, day_pdt_rpt.power, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.power + 50).to_i, '#597cd5')
-    end
-    result
   end
 
 
@@ -142,9 +122,7 @@ class DayPdtRptsController < ApplicationController
     end
   end
 
-  def mtlfct_stc_cau
-  end
-
+  #day_pdt_rpts modal显示图表用
   def produce_report 
     @factory = my_factory
    
@@ -180,13 +158,10 @@ class DayPdtRptsController < ApplicationController
     end
   end
 
-  
   def xls_download
     send_file File.join(Rails.root, "public", "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
   
-  
-
   private
     def day_pdt_rpt_params
       params.require(:day_pdt_rpt).permit(:name, :pdt_date, :weather, :temper, 
@@ -196,6 +171,19 @@ class DayPdtRptsController < ApplicationController
       :inflow, :outflow, :inmud, :outmud, :mst, :power, :mdflow, :mdrcy, :mdsell)
     end
   
+    def single_quota(qcode, day_pdt_rpt)
+      result = {}
+      if qcode == Setting.quota.inflow
+        result = gauge(Setting.day_pdt_rpts.inflow, day_pdt_rpt.inflow, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.inflow + 50).to_i, '#597cd5')
+      elsif qcode == Setting.quota.outflow
+        result = gauge(Setting.day_pdt_rpts.outflow, day_pdt_rpt.outflow, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.outflow + 50).to_i, '#597cd5')
+      elsif qcode == Setting.quota.outmud
+        result = gauge(Setting.day_pdt_rpts.outmud, day_pdt_rpt.outmud, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.outmud + 50).to_i, '#597cd5')
+      elsif qcode == Setting.quota.power
+        result = gauge(Setting.day_pdt_rpts.power, day_pdt_rpt.power, (day_pdt_rpt.inflow - 50).to_i, (day_pdt_rpt.power + 50).to_i, '#597cd5')
+      end
+      result
+    end
 
     #仪表数据
     def gauge(name, value,min, max, color)

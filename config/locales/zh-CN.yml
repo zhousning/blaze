@@ -625,21 +625,66 @@ zh-CN:
       title: 人工智能工具箱 
   day_pdts:
     index:
-      title: 生产运营日数据 
+      title: 生产运营数据 
     new:
-      title: 添加生产运营日数据
+      title: 添加生产运营数据
+    create:
+      title: 创建生产运营数据
     edit:
-      title: 编辑生产运营日数据
+      title: 编辑生产运营数据
+    update:
+      title: 编辑生产运营数据
     show:
-      title: 生产运营日数据信息
+      title: 查看生产运营数据信息
+    verifying:
+      title: 运营数据提交审核
+    verify_index:
+      title: 运营数据审核-列表
+    verify_show:
+      title: 运营数据审核-查看
+    rejected:
+      title: 运营数据审核-驳回
+    upreport:
+      title: 运营数据审核-上报
   day_pdt_rpts:
     index:
       title: 生产运营日报表
-    new:
-      title: 添加生产运营日报表
     edit:
-      title: 编辑生产运营日报表
+      title: 编辑日报表
     show:
-      title: 生产运营日报表信息
+      title: 查看日报表
     sglfct_statistic:
       title: 数据立方
+    sglfct_stc_cau:
+      title: 数据立方-时间区间内单厂多指标
+    radar_chart:
+      title: 首页-雷达图
+    new_quota_chart:
+      title: 首页-仪表数据
+    static_pool:
+      title: 汇总统计数据-表格展示用
+    produce_report:
+      title: 日报表 modal展示图表 
+  mth_pdt_rpts:
+    mth_rpt_create:
+      title: 生成月报表
+    index:
+      title: 月报表列表
+    edit:
+      title: 编辑月报表
+    update:
+      title: 编辑月报表
+    show:
+      title: 查看月报表
+    verifying:
+      title: 月报表提交审核
+    download_report:
+      title: 月报表下载word
+    verify_index:
+      title: 月报表审核-列表
+    verify_show:
+      title: 月报表审核-查看
+    rejected:
+      title: 月报表审核-驳回
+    upreport:
+      title: 月报表审核-上报

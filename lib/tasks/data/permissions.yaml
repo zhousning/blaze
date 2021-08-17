@@ -1,0 +1,10 @@
+---
+-
+  controller: DayPdtsController
+  actions: [index, show, new, create, edit, update, verify_index, verify_show, verifying, rejected, upreport]
+-
+  controller: DayPdtRptsController
+  actions: [index, new, edit, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
+-
+  controller: MthPdtRptsController
+  actions: [mth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, upreport]

@@ -83,50 +83,33 @@ Rails.application.routes.draw do
   #  get :start, :on => :member
   #end
 
-  resources :statistics do
-    get :line, :on => :member
-    get :series, :on => :member
-    get :column, :on => :member
-    get :pie, :on => :member
-    get :bar, :on => :member
-    get :area, :on => :member
-    get :scatter, :on => :member
-  end
+  #resources :statistics do
+  #  get :line, :on => :member
+  #  get :series, :on => :member
+  #  get :column, :on => :member
+  #  get :pie, :on => :member
+  #  get :bar, :on => :member
+  #  get :area, :on => :member
+  #  get :scatter, :on => :member
+  #end
 
   resources :selectors
  
-  resources :companies do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-  end
-  resources :factories do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-    resources :day_pdts do
-      get :download_append, :on => :member
-      post :parse_excel, :on => :collection
-      get :xls_download, :on => :collection
+  resources :factories, :only => [] do
+    resources :day_pdts, :only => [:index, :show, :new, :create, :edit, :update] do
       get :upreport, :on => :member
       get :verifying, :on => :member
       get :rejected, :on => :member
       get :verify_index, :on => :collection
       get :verify_show, :on => :member
     end
-    resources :day_pdt_rpts do
+    resources :day_pdt_rpts, :only => [:index, :show] do
       get :produce_report, :on => :member
-      get :sglfct_statistic, :on => :collection
-      get :mtlfct_statistic, :on => :collection
-      get :download_append, :on => :member
-      get :xls_download, :on => :collection
     end
     resources :analyses, :only => [] do
       get :month_compare, :on => :collection
     end
-    resources :mth_pdt_rpts do
-      get :download_append, :on => :member
-      get :xls_download, :on => :collection
+    resources :mth_pdt_rpts, :only => [:index, :edit, :update, :show] do
       get :mth_rpt_create, :on => :collection
       get :download_report, :on => :member
       get :upreport, :on => :member
@@ -136,42 +119,28 @@ Rails.application.routes.draw do
       get :verify_show, :on => :member
     end
   end
-  resources :analyses, :only => [] do
-    get :compare, :on => :collection
-  end
   resources :day_pdt_rpts, :only => [] do
     get :sglfct_statistic, :on => :collection
-    get :mtlfct_statistic, :on => :collection
     get :sglfct_stc_cau, :on => :collection
-    get :mtlfct_stc_cau, :on => :collection
     get :static_pool, :on => :collection
     get :radar_chart, :on => :collection
     get :new_quota_chart, :on => :collection
   end
-  resources :departments do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
+  resources :analyses, :only => [] do
+    get :compare, :on => :collection
   end
-  #resources :pdt_sums do
+  #resources :departments do
   #  get :download_append, :on => :member
   #  post :parse_excel, :on => :collection
   #  get :xls_download, :on => :collection
+  #end
+  #resources :pdt_sums do
   #end
   #resources :sed_qlties do
-  #  get :download_append, :on => :member
-  #  post :parse_excel, :on => :collection
-  #  get :xls_download, :on => :collection
   #end
   #resources :eff_qlties do
-  #  get :download_append, :on => :member
-  #  post :parse_excel, :on => :collection
-  #  get :xls_download, :on => :collection
   #end
   #resources :inf_qlties do
-  #  get :download_append, :on => :member
-  #  post :parse_excel, :on => :collection
-  #  get :xls_download, :on => :collection
   #end
   resources :flower
 

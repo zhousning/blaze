@@ -45,6 +45,7 @@ ActiveAdmin.register User  do
   end
 
   #密码为空也没问题
+  #todo company 没有保存
   form do |f|
     f.inputs "详情" do
       f.input :phone, :label => Setting.users.phone 

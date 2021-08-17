@@ -93,7 +93,7 @@ class DayPdtsController < ApplicationController
   def upreport
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
-    if @day_pdt.verifying
+    if @day_pdt.state == Setting.day_pdts.verifying
       @eff = @day_pdt.eff_qlty
       @inf = @day_pdt.inf_qlty
       @sed = @day_pdt.sed_qlty
