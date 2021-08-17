@@ -998,6 +998,13 @@ defaults:
     prospector_handle: 地勘单位员工
     monitor: 监督单位
     monitor_handle: 监督单位员工
+    day_pdt: 生产运营数据填报
+    day_pdt_verify: 生产运营数据审核
+    day_pdt_rpt: 日报表
+    data_cube: 数据立方
+    data_compare: 数据对比
+    mth_pdt_rpt: 月报表
+    mth_pdt_rpt_verify: 月报表审核
   permissions: &107
     super_admin: 管理系统所有资源
   citrines: &108

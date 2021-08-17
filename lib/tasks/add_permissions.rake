@@ -9,6 +9,7 @@ namespace 'db' do
 
       actions.each do |action|
         controller_name = controller.controller_name
+        puts controller_name
         name, cancan_action, action_desc = eval_cancan_action(controller_name, action)
         write_permission(controller.permission, cancan_action, name, action_desc)  
       end
@@ -41,6 +42,7 @@ end
 
 
 def write_permission(class_name, cancan_action, name, description)
+  puts class_name
   permission  = Permission.where(["subject_class = ? and action = ?", class_name, cancan_action]).first 
   unless permission
     permission = Permission.new

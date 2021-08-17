@@ -6,35 +6,47 @@
     -
       controller: DayPdt
       actions: [index, show, new, create, edit, update, verifying]
+- 
+  role_name: 生产运营数据审核
+  level: 1
+  permissions: 
+    -
+      controller: DayPdt
+      actions: [verify_index, verify_show, rejected, upreport]
+- 
+  role_name: 日报表 
+  level: 1
+  permissions: 
     -
       controller: DayPdtRpt
-      actions: [index, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
+      actions: [index, edit, show, static_pool, produce_report]
+
+- 
+  role_name: 数据立方
+  level: 1
+  permissions: 
+    -
+      controller: DayPdtRpt
+      actions: [sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
+
+- 
+  role_name: 数据对比
+  level: 1
+  permissions: 
+    -
+      controller: Analyse 
+      actions: [compare, month_compare]
+- 
+  role_name: 月报表 
+  level: 1
+  permissions: 
     -
       controller: MthPdtRpt
       actions: [mth_rpt_create, index, show, edit, update, verifying, download_report]
 - 
-  role_name: 生产运营数据审核
+  role_name: 月报表审核 
   level: 1
   permissions: 
     -
-      controller: DayPdt
-      actions: [index, show, new, create, edit, update, verify_index, verify_show, verifying, rejected, upreport]
-    -
-      controller: DayPdtRpt
-      actions: [index, new, edit, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
-    -
       controller: MthPdtRpt
-      actions: [mth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, upreport]
-- 
-  role_name: 生产运营数据审核
-  level: 1
-  permissions: 
-    -
-      controller: DayPdt
-      actions: [index, show, new, create, edit, update, verify_index, verify_show, verifying, rejected, upreport]
-    -
-      controller: DayPdtRpt
-      actions: [index, new, edit, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
-    -
-      controller: MthPdtRpt
-      actions: [mth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, upreport]
+      actions: [download_report, verify_index, verify_show, rejected, upreport]

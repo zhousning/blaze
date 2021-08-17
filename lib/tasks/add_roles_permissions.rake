@@ -15,7 +15,7 @@ namespace 'db' do
         end
       end
 
-      role_name = r['role_name']
+      role_name = r['role_name'].strip
       level = r['level']
       Role.create(:name => role_name, :level => level, :permissions => permission_arr)
     end

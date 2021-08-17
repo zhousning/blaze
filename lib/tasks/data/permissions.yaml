@@ -8,3 +8,6 @@
 -
   controller: MthPdtRptsController
   actions: [mth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, upreport]
+    #-
+    #controller: AnalysesController
+    #ac#cotions: [compare, month_compare]
