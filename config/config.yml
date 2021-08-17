@@ -1503,6 +1503,7 @@ development:
     design: 设计处理水量
     lnt: 经度
     lat: 维度
+    plan: 计划
   departments:
     label: 部门
     name: 名称

@@ -1,6 +1,7 @@
 ActiveAdmin.register Company  do
 
-  permit_params  :area, :name, :info, :lnt, :lat
+  permit_params  :area, :name, :info, :lnt, :lat, factories_attributes: [:id, :area, :name, :design, :info, :lnt, :lat, :_destroy]
+
 
   menu label: Setting.companies.label
   config.per_page = 20
@@ -38,9 +39,21 @@ ActiveAdmin.register Company  do
       
       f.input :area, :label => Setting.companies.area 
       f.input :name, :label => Setting.companies.name 
-      f.input :info, :label => Setting.companies.info 
       f.input :lnt, :label => Setting.companies.lnt 
       f.input :lat, :label => Setting.companies.lat 
+      f.input :info, :label => Setting.companies.info 
+
+      f.inputs '工厂' do
+        f.has_many :factories do |t|
+          t.input :area, :label => Setting.factories.area 
+          t.input :name, :label => Setting.factories.name 
+          t.input :design, :label => Setting.factories.design
+          t.input :plan, :label => Setting.factories.plan
+          t.input :lnt, :label => Setting.factories.lnt 
+          t.input :lat, :label => Setting.factories.lat 
+          t.input :info, :label => Setting.factories.info 
+        end
+      end
     end
     f.actions
   end

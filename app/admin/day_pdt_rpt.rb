@@ -53,7 +53,9 @@ ActiveAdmin.register DayPdtRpt  do
     id_column
     
     column Setting.day_pdt_rpts.name, :name
-    column Setting.day_pdt_rpts.pdt_date, :pdt_date
+    column Setting.day_pdt_rpts.pdt_date, :pdt_date, :sortable=> :pdt_date do |f|
+      f.pdt_date.strftime('%Y-%m-%d')
+    end
     column Setting.day_pdt_rpts.weather, :weather
     column Setting.day_pdt_rpts.temper, :temper
     column Setting.day_pdt_rpts.inf_qlty_bod, :inf_qlty_bod
@@ -63,21 +65,21 @@ ActiveAdmin.register DayPdtRpt  do
     column Setting.day_pdt_rpts.inf_qlty_tn, :inf_qlty_tn
     column Setting.day_pdt_rpts.inf_qlty_tp, :inf_qlty_tp
     column Setting.day_pdt_rpts.inf_qlty_ph, :inf_qlty_ph
-    column Setting.day_pdt_rpts.inf_qlty_cod, :inf_qlty_cod
-    column Setting.day_pdt_rpts.inf_qlty_ss, :inf_qlty_ss
-    column Setting.day_pdt_rpts.inf_qlty_nhn, :inf_qlty_nhn
-    column Setting.day_pdt_rpts.inf_qlty_tn, :inf_qlty_tn
-    column Setting.day_pdt_rpts.inf_qlty_tp, :inf_qlty_tp
-    column Setting.day_pdt_rpts.inf_qlty_ph, :inf_qlty_ph
-    column Setting.day_pdt_rpts.inf_qlty_fecal, :inf_qlty_fecal
-    column Setting.day_pdt_rpts.inf_qlty_bod, :inf_qlty_bod
-    column Setting.day_pdt_rpts.sed_qlty_bod, :sed_qlty_bod
-    column Setting.day_pdt_rpts.sed_qlty_cod, :sed_qlty_cod
-    column Setting.day_pdt_rpts.sed_qlty_ss, :sed_qlty_ss
-    column Setting.day_pdt_rpts.sed_qlty_nhn, :sed_qlty_nhn
-    column Setting.day_pdt_rpts.sed_qlty_tn, :sed_qlty_tn
-    column Setting.day_pdt_rpts.sed_qlty_tp, :sed_qlty_tp
-    column Setting.day_pdt_rpts.sed_qlty_ph, :sed_qlty_ph
+    column Setting.day_pdt_rpts.eff_qlty_bod, :efff_qlty_bod
+    column Setting.day_pdt_rpts.eff_qlty_cod, :eff_qlty_cod
+    column Setting.day_pdt_rpts.eff_qlty_ss, :eff_qlty_ss
+    column Setting.day_pdt_rpts.eff_qlty_nhn, :eff_qlty_nhn
+    column Setting.day_pdt_rpts.eff_qlty_tn, :eff_qlty_tn
+    column Setting.day_pdt_rpts.eff_qlty_tp, :eff_qlty_tp
+    column Setting.day_pdt_rpts.eff_qlty_ph, :eff_qlty_ph
+    column Setting.day_pdt_rpts.eff_qlty_fecal, :efff_qlty_fecal
+    #column Setting.day_pdt_rpts.sed_qlty_bod, :sed_qlty_bod
+    #column Setting.day_pdt_rpts.sed_qlty_cod, :sed_qlty_cod
+    #column Setting.day_pdt_rpts.sed_qlty_ss, :sed_qlty_ss
+    #column Setting.day_pdt_rpts.sed_qlty_nhn, :sed_qlty_nhn
+    #column Setting.day_pdt_rpts.sed_qlty_tn, :sed_qlty_tn
+    #column Setting.day_pdt_rpts.sed_qlty_tp, :sed_qlty_tp
+    #column Setting.day_pdt_rpts.sed_qlty_ph, :sed_qlty_ph
     column Setting.day_pdt_rpts.inflow, :inflow
     column Setting.day_pdt_rpts.outflow, :outflow
     column Setting.day_pdt_rpts.inmud, :inmud
@@ -88,12 +90,12 @@ ActiveAdmin.register DayPdtRpt  do
     column Setting.day_pdt_rpts.mdrcy, :mdrcy
     column Setting.day_pdt_rpts.mdsell, :mdsell
 
-    column "创建时间", :created_at, :sortable=>:created_at do |f|
-      f.created_at.strftime('%Y-%m-%d %H:%M:%S')
-    end
-    column "更新时间", :updated_at do |f|
-      f.updated_at.strftime('%Y-%m-%d %H:%M:%S')
-    end
+    #column "创建时间", :created_at, :sortable=>:created_at do |f|
+    #  f.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    #end
+    #column "更新时间", :updated_at do |f|
+    #  f.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+    #end
     actions
   end
 
@@ -111,14 +113,14 @@ ActiveAdmin.register DayPdtRpt  do
       f.input :inf_qlty_tn, :label => Setting.day_pdt_rpts.inf_qlty_tn 
       f.input :inf_qlty_tp, :label => Setting.day_pdt_rpts.inf_qlty_tp 
       f.input :inf_qlty_ph, :label => Setting.day_pdt_rpts.inf_qlty_ph 
-      f.input :inf_qlty_cod, :label => Setting.day_pdt_rpts.inf_qlty_cod 
-      f.input :inf_qlty_ss, :label => Setting.day_pdt_rpts.inf_qlty_ss 
-      f.input :inf_qlty_nhn, :label => Setting.day_pdt_rpts.inf_qlty_nhn 
-      f.input :inf_qlty_tn, :label => Setting.day_pdt_rpts.inf_qlty_tn 
-      f.input :inf_qlty_tp, :label => Setting.day_pdt_rpts.inf_qlty_tp 
-      f.input :inf_qlty_ph, :label => Setting.day_pdt_rpts.inf_qlty_ph 
-      f.input :inf_qlty_fecal, :label => Setting.day_pdt_rpts.inf_qlty_fecal 
-      f.input :inf_qlty_bod, :label => Setting.day_pdt_rpts.inf_qlty_bod 
+      f.input :eff_qlty_bod, :label => Setting.day_pdt_rpts.eff_qlty_bod 
+      f.input :eff_qlty_cod, :label => Setting.day_pdt_rpts.eff_qlty_cod 
+      f.input :eff_qlty_ss, :label => Setting.day_pdt_rpts.eff_qlty_ss 
+      f.input :eff_qlty_nhn, :label => Setting.day_pdt_rpts.eff_qlty_nhn 
+      f.input :eff_qlty_tn, :label => Setting.day_pdt_rpts.eff_qlty_tn 
+      f.input :eff_qlty_tp, :label => Setting.day_pdt_rpts.eff_qlty_tp 
+      f.input :eff_qlty_ph, :label => Setting.day_pdt_rpts.eff_qlty_ph 
+      f.input :eff_qlty_fecal, :label => Setting.day_pdt_rpts.eff_qlty_fecal 
       f.input :sed_qlty_bod, :label => Setting.day_pdt_rpts.sed_qlty_bod 
       f.input :sed_qlty_cod, :label => Setting.day_pdt_rpts.sed_qlty_cod 
       f.input :sed_qlty_ss, :label => Setting.day_pdt_rpts.sed_qlty_ss 
@@ -178,29 +180,29 @@ ActiveAdmin.register DayPdtRpt  do
       row Setting.day_pdt_rpts.inf_qlty_ph do
         day_pdt_rpt.inf_qlty_ph
       end
-      row Setting.day_pdt_rpts.inf_qlty_cod do
-        day_pdt_rpt.inf_qlty_cod
+      row Setting.day_pdt_rpts.eff_qlty_bod do
+        day_pdt_rpt.eff_qlty_bod
       end
-      row Setting.day_pdt_rpts.inf_qlty_ss do
-        day_pdt_rpt.inf_qlty_ss
+      row Setting.day_pdt_rpts.eff_qlty_cod do
+        day_pdt_rpt.eff_qlty_cod
       end
-      row Setting.day_pdt_rpts.inf_qlty_nhn do
-        day_pdt_rpt.inf_qlty_nhn
+      row Setting.day_pdt_rpts.eff_qlty_ss do
+        day_pdt_rpt.eff_qlty_ss
       end
-      row Setting.day_pdt_rpts.inf_qlty_tn do
-        day_pdt_rpt.inf_qlty_tn
+      row Setting.day_pdt_rpts.eff_qlty_nhn do
+        day_pdt_rpt.eff_qlty_nhn
       end
-      row Setting.day_pdt_rpts.inf_qlty_tp do
-        day_pdt_rpt.inf_qlty_tp
+      row Setting.day_pdt_rpts.eff_qlty_tn do
+        day_pdt_rpt.eff_qlty_tn
       end
-      row Setting.day_pdt_rpts.inf_qlty_ph do
-        day_pdt_rpt.inf_qlty_ph
+      row Setting.day_pdt_rpts.eff_qlty_tp do
+        day_pdt_rpt.eff_qlty_tp
       end
-      row Setting.day_pdt_rpts.inf_qlty_fecal do
-        day_pdt_rpt.inf_qlty_fecal
+      row Setting.day_pdt_rpts.eff_qlty_ph do
+        day_pdt_rpt.eff_qlty_ph
       end
-      row Setting.day_pdt_rpts.inf_qlty_bod do
-        day_pdt_rpt.inf_qlty_bod
+      row Setting.day_pdt_rpts.eff_qlty_fecal do
+        day_pdt_rpt.eff_qlty_fecal
       end
       row Setting.day_pdt_rpts.sed_qlty_bod do
         day_pdt_rpt.sed_qlty_bod

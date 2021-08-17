@@ -153,26 +153,26 @@ Rails.application.routes.draw do
     post :parse_excel, :on => :collection
     get :xls_download, :on => :collection
   end
-  resources :pdt_sums do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-  end
-  resources :sed_qlties do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-  end
-  resources :eff_qlties do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-  end
-  resources :inf_qlties do
-    get :download_append, :on => :member
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-  end
+  #resources :pdt_sums do
+  #  get :download_append, :on => :member
+  #  post :parse_excel, :on => :collection
+  #  get :xls_download, :on => :collection
+  #end
+  #resources :sed_qlties do
+  #  get :download_append, :on => :member
+  #  post :parse_excel, :on => :collection
+  #  get :xls_download, :on => :collection
+  #end
+  #resources :eff_qlties do
+  #  get :download_append, :on => :member
+  #  post :parse_excel, :on => :collection
+  #  get :xls_download, :on => :collection
+  #end
+  #resources :inf_qlties do
+  #  get :download_append, :on => :member
+  #  post :parse_excel, :on => :collection
+  #  get :xls_download, :on => :collection
+  #end
   resources :flower
 
 end

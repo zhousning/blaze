@@ -1,7 +1,7 @@
 ActiveAdmin.register User  do
 
   #permit_params  :phone, :password, :password_confirmation, :name, :identity, :alipay, :status, role_ids: []
-  permit_params  :phone, :name, :password, :password_confirmation, :identity, :alipay, :status, role_ids: []
+  permit_params  :phone, :name, :password, :password_confirmation, :identity, :alipay, :status, :company_id, role_ids: [], factory_ids: []
 
   actions :all, :except => [:destroy]
 
@@ -41,30 +41,25 @@ ActiveAdmin.register User  do
       f.created_at.strftime('%Y-%m-%d %H:%M:%S')
     end
     actions do
-      #link_to "修改密码", admin_change_password_path
     end
   end
 
-  #change_password do |f|
-  #  f.inputs "修改密码" do
-  #    f.input :password, :label => Setting.users.password 
-  #    f.input :password_confirmation, :label => Setting.users.password_confirmation 
-  #  end
-  #  f.actions
-  #end
-
+  #密码为空也没问题
   form do |f|
     f.inputs "详情" do
       f.input :phone, :label => Setting.users.phone 
       f.input :name, :label => Setting.users.name 
-      #f.input :password, :label => Setting.users.password 
-      #f.input :password_confirmation, :label => Setting.users.password_confirmation 
+      f.input :password, :label => Setting.users.password 
+      f.input :password_confirmation, :label => Setting.users.password_confirmation 
+      f.input :roles, :label => "角色分配", as: :check_boxes 
+      f.input :company_id, :label => "公司/地区", as: :select, collection:  Company.all.map {|c| [c.name, c.id]}
+      f.input :factories, :label => "工厂", as: :check_boxes 
       #f.input :identity, :label => Setting.users.identity 
       #f.input :alipay, :label => Setting.users.alipay 
-      f.input :roles, :label => "角色分配", as: :check_boxes 
     end
     f.actions
   end
+
 
   show :title=>'用户管理' do
     attributes_table do
@@ -93,9 +88,19 @@ ActiveAdmin.register User  do
       #  user.state
       #end
 
+      row "公司" do
+        table_for user.company do
+          column "名称",  :name
+        end
+      end
       row "角色" do
         table_for user.roles do
           column "角色详情",  :name
+        end
+      end
+      row "工厂" do
+        table_for user.factories do
+          column "所在工厂",  :name
         end
       end
 
@@ -139,4 +144,3 @@ ActiveAdmin.register User  do
   end
 
 end
-

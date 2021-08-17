@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :departments, :through => :user_depts
 
   belongs_to :role
+  belongs_to :company
 
   #has_many :users
   #belongs_to :parent,   :class_name => 'User'
