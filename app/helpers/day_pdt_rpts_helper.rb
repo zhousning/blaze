@@ -29,29 +29,12 @@ module DayPdtRptsHelper
     raw(str)
   end
 
-  def options_for_mth_months(my_months)
+  def options_for_mth_months
     str = ""
-    my_months.each_pair do |k, v|
+    months.each_pair do |k, v|
       str += "<option value='" + k + "'>" + v + "</option>"
     end
     raw(str)
   end
 
-  def months
-    {
-      Setting.months.one    => Setting.months.one_t, 
-      Setting.months.two    => Setting.months.two_t, 
-      Setting.months.three  => Setting.months.three_t,
-      Setting.months.four   => Setting.months.four_t, 
-      Setting.months.five   => Setting.months.five_t,
-      Setting.months.six    => Setting.months.six_t,
-      Setting.months.seven  => Setting.months.seven_t,
-      Setting.months.eight  => Setting.months.eight_t,
-      Setting.months.nine   => Setting.months.nine_t, 
-      Setting.months.ten    => Setting.months.ten_t,
-      Setting.months.eleven => Setting.months.eleven_t,
-      Setting.months.twelve => Setting.months.twelve_t
-    }
-
-  end
 end  

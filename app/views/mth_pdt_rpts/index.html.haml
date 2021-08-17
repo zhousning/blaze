@@ -1,18 +1,22 @@
 - provide(:title, t('.title'))
 
 
-.text-success
-  = flash[:info]
 .container-fluid
   .row
     = render "layouts/control_sidebar"
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      -#
+        #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+          %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+            %span{"aria-hidden" => "true"} x 
+          %ul
+            %li = flash[:info]
       - content_for :card_header do
         %ul.list-group.list-group-horizontal
           %li.list-group-item.pl-0.border-0
             = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
           %li.list-group-item.pl-0.border-0
-            = select_tag "months", options_for_mth_months(@months), :include_blank=>false, :class=>"form-control"
+            = select_tag "months", options_for_mth_months, :include_blank=>false, :class=>"form-control"
           %li.list-group-item.pl-0.border-0
             %button#mth-rpt-create.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
               生成月报表

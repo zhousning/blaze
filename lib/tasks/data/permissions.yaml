@@ -1,13 +1,13 @@
 ---
 -
-  controller: DayPdtsController
+  controller: DayPdt
   actions: [index, show, new, create, edit, update, verify_index, verify_show, verifying, rejected, upreport]
 -
-  controller: DayPdtRptsController
-  actions: [index, new, edit, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
+  controller: DayPdtRpt
+  actions: [index, edit, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
 -
-  controller: MthPdtRptsController
+  controller: MthPdtRpt
   actions: [mth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, upreport]
-    #-
-    #controller: AnalysesController
-    #ac#cotions: [compare, month_compare]
+-
+  controller: Analyse
+  actions: [compare, month_compare]

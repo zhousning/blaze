@@ -47,19 +47,19 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow = last_year_result[:outflow][:sum] == 0 ? 0 : (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
-    power   = last_year_result[:power][:sum]   == 0 ? 0 : (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
-    bom     = last_year_result[:power][:bom]   == 0 ? 0 : (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
-    emq_tn  = last_year_result[:emq][:tn]      == 0 ? 0 : (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
-    emq_tp  = last_year_result[:emq][:tp]      == 0 ? 0 : (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
-    emq_bod = last_year_result[:emq][:bod]     == 0 ? 0 : (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
-    emq_cod = last_year_result[:emq][:cod]     == 0 ? 0 : (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
-    emq_nhn = last_year_result[:emq][:nhn]     == 0 ? 0 : (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
-    emq_ss  = last_year_result[:emq][:ss]      == 0 ? 0 : (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
-    mud     = last_year_result[:outmud][:sum]  == 0 ? 0 : (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
-    mdrcy   = last_year_result[:mdrcy][:sum]   == 0 ? 0 : (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
-    mdsell  = last_year_result[:mdsell][:sum]  == 0 ? 0 : (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
-    fecal   = last_year_result[:eff_fecal][:sum] == 0 ? 0 : (last_year_result[:eff_fecal][:sum] - result[:eff_fecal][:sum])/last_year_result[:eff_fecal][:sum]
+    outflow = last_year_result.blank? || last_year_result[:outflow][:sum] == 0 ? 0 : (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
+    power   = last_year_result.blank? || [:power][:sum]   == 0 ? 0 : (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
+    bom     = last_year_result.blank? || [:power][:bom]   == 0 ? 0 : (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
+    emq_tn  = last_year_result.blank? || [:emq][:tn]      == 0 ? 0 : (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
+    emq_tp  = last_year_result.blank? || [:emq][:tp]      == 0 ? 0 : (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
+    emq_bod = last_year_result.blank? || [:emq][:bod]     == 0 ? 0 : (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
+    emq_cod = last_year_result.blank? || [:emq][:cod]     == 0 ? 0 : (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
+    emq_nhn = last_year_result.blank? || [:emq][:nhn]     == 0 ? 0 : (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
+    emq_ss  = last_year_result.blank? || [:emq][:ss]      == 0 ? 0 : (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
+    mud     = last_year_result.blank? || [:outmud][:sum]  == 0 ? 0 : (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
+    mdrcy   = last_year_result.blank? || [:mdrcy][:sum]   == 0 ? 0 : (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
+    mdsell  = last_year_result.blank? || [:mdsell][:sum]  == 0 ? 0 : (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
+    fecal   = last_year_result.blank? || [:eff_fecal][:sum] == 0 ? 0 : (last_year_result[:eff_fecal][:sum] - result[:eff_fecal][:sum])/last_year_result[:eff_fecal][:sum]
 
     {
       :outflow  =>  format_number( outflow*10*10 ),
@@ -96,19 +96,19 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow = last_year_result[:outflow][:sum] == 0 ? 0 : (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
-    power   = last_year_result[:power][:sum]   == 0 ? 0 : (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
-    bom     = last_year_result[:power][:bom]   == 0 ? 0 : (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
-    emq_tn  = last_year_result[:emq][:tn]      == 0 ? 0 : (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
-    emq_tp  = last_year_result[:emq][:tp]      == 0 ? 0 : (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
-    emq_bod = last_year_result[:emq][:bod]     == 0 ? 0 : (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
-    emq_cod = last_year_result[:emq][:cod]     == 0 ? 0 : (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
-    emq_nhn = last_year_result[:emq][:nhn]     == 0 ? 0 : (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
-    emq_ss  = last_year_result[:emq][:ss]      == 0 ? 0 : (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
-    mud     = last_year_result[:outmud][:sum]  == 0 ? 0 : (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
-    mdrcy   = last_year_result[:mdrcy][:sum]   == 0 ? 0 : (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
-    mdsell  = last_year_result[:mdsell][:sum]  == 0 ? 0 : (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
-    fecal   = last_year_result[:eff_fecal][:sum] == 0 ? 0 : (last_year_result[:eff_fecal][:sum] - result[:eff_fecal][:sum])/last_year_result[:eff_fecal][:sum]
+    outflow =  last_year_result.blank? || last_year_result[:outflow][:sum] == 0 ? 0 : (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
+    power   = last_year_result.blank? || last_year_result[:power][:sum]   == 0 ? 0 : (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
+    bom     = last_year_result.blank? || last_year_result[:power][:bom]   == 0 ? 0 : (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
+    emq_tn  = last_year_result.blank? || last_year_result[:emq][:tn]      == 0 ? 0 : (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
+    emq_tp  = last_year_result.blank? || last_year_result[:emq][:tp]      == 0 ? 0 : (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
+    emq_bod = last_year_result.blank? || last_year_result[:emq][:bod]     == 0 ? 0 : (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
+    emq_cod = last_year_result.blank? || last_year_result[:emq][:cod]     == 0 ? 0 : (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
+    emq_nhn = last_year_result.blank? || last_year_result[:emq][:nhn]     == 0 ? 0 : (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
+    emq_ss  = last_year_result.blank? || last_year_result[:emq][:ss]      == 0 ? 0 : (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
+    mud     = last_year_result.blank? || last_year_result[:outmud][:sum]  == 0 ? 0 : (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
+    mdrcy   = last_year_result.blank? || last_year_result[:mdrcy][:sum]   == 0 ? 0 : (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
+    mdsell  = last_year_result.blank? || last_year_result[:mdsell][:sum]  == 0 ? 0 : (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
+    fecal   = last_year_result.blank? || last_year_result[:eff_fecal][:sum] == 0 ? 0 : (last_year_result[:eff_fecal][:sum] - result[:eff_fecal][:sum])/last_year_result[:eff_fecal][:sum]
 
     {
       :outflow  =>  format_number( outflow*10*10 ),

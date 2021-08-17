@@ -40,6 +40,12 @@ class MthPdtRptsController < ApplicationController
     result = static_sum(@factory.id, _start, _end)
     year_result = static_sum(@factory.id, _year_start, _end)
 
+    if result.blank?
+      redirect_to :action => :index
+      #flash[:info] = "选定月份暂无数据"
+      return
+    end
+
     mom_result = static_mom(@factory.id, year, month)
     yoy_result = static_yoy(@factory.id, year, month)
     up_std = up_standard_days(@factory.id, _start, _end)
