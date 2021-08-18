@@ -22,17 +22,87 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 
 @user = User.create!(:phone => "15763703188", :password => "15763703188", :password_confirmation => "15763703188")
 
-@company = Company.create!(:area => "曲阜", :name => "曲阜污水处理厂")
-@qufu_one_fct = Factory.create!(:area => "曲阜", :name => "曲阜第一污水处理厂", :company => @company)
-@qufu_thd_fct = Factory.create!(:area => "曲阜", :name => "曲阜第三污水处理厂", :company => @company)
-@user.factories << @qufu_one_fct
-@user.factories << @qufu_thd_fct
+@role_day_pdt        = Role.where(:name => Setting.roles.day_pdt).first
+@role_day_rpt        = Role.where(:name => Setting.roles.day_pdt_rpt).first
+@role_mth_rpt        = Role.where(:name => Setting.roles.mth_pdt_rpt).first
+
+@role_day_pdt_verify = Role.where(:name => Setting.roles.day_pdt_verify).first
+@role_mth_rpt_verify = Role.where(:name => Setting.roles.mth_pdt_rpt_verify).first
+
+@role_data_cube      = Role.where(:name => Setting.roles.data_cube).first
+@role_data_compare   = Role.where(:name => Setting.roles.data_compare).first
+
+@data_filler  = [@role_day_pdt , @role_day_rpt, @role_mth_rpt, @role_data_compare ,@role_data_cube]
+@data_verifer = [@role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_data_compare ,@role_data_cube ]
+
+@renc = Company.create!(:area => "任城区", :name => "任城污水处理厂")
+@jinx = Company.create!(:area => "金乡县", :name => "达斯玛特污水处理厂")
+@jiax = Company.create!(:area => "嘉祥县", :name => "嘉祥水务")
+@wens = Company.create!(:area => "汶上县", :name => "汶上水务")
+@qufu = Company.create!(:area => "曲阜市", :name => "曲阜污水处理厂")
+@yanz = Company.create!(:area => "兖州区", :name => "兖州水务")
+@zouc = Company.create!(:area => "邹城市", :name => "邹城水务")
+@beih = Company.create!(:area => "太白湖新区", :name => "北湖污水处理厂")
+
+@rcws  = Factory.create!(:area => "任城区", :name => "任城污水处理厂", :company => @renc)
+@dsmt  = Factory.create!(:area => "金乡县", :name => "达斯玛特污水处理厂", :company => @jinx)
+@jxws  = Factory.create!(:area => "嘉祥县", :name => "嘉祥污水处理厂", :company => @jiax)
+@wsfd  = Factory.create!(:area => "汶上县", :name => "汶上佛都污水处理厂", :company => @wens)
+@wsqq  = Factory.create!(:area => "汶上县", :name => "汶上清泉污水处理厂", :company => @wens)
+@wsqy  = Factory.create!(:area => "汶上县", :name => "汶上清源污水处理厂", :company => @wens)
+@qfyw  = Factory.create!(:area => "曲阜市", :name => "曲阜第一污水处理厂", :company => @qufu)
+@qfsw  = Factory.create!(:area => "曲阜市", :name => "曲阜第三污水处理厂", :company => @qufu)
+@yzws  = Factory.create!(:area => "兖州区", :name => "兖州污水处理厂", :company => @yanz)
+@yzsw  = Factory.create!(:area => "兖州区", :name => "兖州第三污水处理厂", :company => @yanz)
+@yzdy  = Factory.create!(:area => "兖州区", :name => "兖州大禹污水处理厂", :company => @yanz)
+@zcdy  = Factory.create!(:area => "邹城市", :name => "邹城第一污水处理厂", :company => @zouc)
+@zcde  = Factory.create!(:area => "邹城市", :name => "邹城第二污水处理厂", :company => @zouc)
+@zcds  = Factory.create!(:area => "邹城市", :name => "邹城第三污水处理厂", :company => @zouc)
+@bhws  = Factory.create!(:area => "太白湖新区", :name => "北湖污水处理厂", :company => @beih)
+
+User.create!(:phone => "053766880909", :password => "zcds0909", :password_confirmation => "zcds0909", :name => "数据填报员", :roles => @data_filler, :factories => [@zcds])
+User.create!(:phone => "053700006666", :password => "zcds6666", :password_confirmation => "zcds6666", :name => "数据审核员", :roles => @data_verifer, :factories => [@zcds])
+User.create!(:phone => "053766880606", :password => "zcde0606", :password_confirmation => "zcde0606", :name => "数据填报员", :roles => @data_filler, :factories => [@zcde])
+User.create!(:phone => "053711115678", :password => "zcde5678", :password_confirmation => "zcde5678", :name => "数据审核员", :roles => @data_verifer, :factories => [@zcde])
+User.create!(:phone => "053769693708", :password => "zcdy3708", :password_confirmation => "zcdy3708", :name => "数据填报员", :roles => @data_filler, :factories => [@zcdy])
+User.create!(:phone => "053737080101", :password => "zcdy0101", :password_confirmation => "zcdy0101", :name => "数据审核员", :roles => @data_verifer, :factories => [@zcdy])
+#-----------
+User.create!(:phone => "053766886969", :password => "yzdy6969", :password_confirmation => "yzdy6969", :name => "数据填报员", :roles => @data_filler, :factories => [@yzdy])
+User.create!(:phone => "053766665656", :password => "yzdy5656", :password_confirmation => "yzdy5656", :name => "数据审核员", :roles => @data_verifer, :factories => [@yzdy])
+User.create!(:phone => "053766885858", :password => "yzsw5858", :password_confirmation => "yzsw5858", :name => "数据填报员", :roles => @data_filler, :factories => [@yzsw])
+User.create!(:phone => "053798985858", :password => "yzsw5858", :password_confirmation => "yzsw5858", :name => "数据审核员", :roles => @data_verifer, :factories => [@yzsw])
+User.create!(:phone => "053737081111", :password => "yzws1111", :password_confirmation => "yzws1111", :name => "数据填报员", :roles => @data_filler, :factories => [@yzws])
+User.create!(:phone => "053798983708", :password => "yzws3708", :password_confirmation => "yzws3708", :name => "数据审核员", :roles => @data_verifer, :factories => [@yzws])
+#-----------
+User.create!(:phone => "053766889999", :password => "qfyw9999", :password_confirmation => "qfyw9999", :name => "数据填报员", :roles => @data_filler, :factories => [@qfyw])
+User.create!(:phone => "053798986666", :password => "qfyw6666", :password_confirmation => "qfyw6666", :name => "数据审核员", :roles => @data_verifer, :factories => [@qfyw])
+User.create!(:phone => "053756788989", :password => "qfsw8989", :password_confirmation => "qfsw8989", :name => "数据填报员", :roles => @data_filler, :factories => [@qfsw])
+User.create!(:phone => "053756786789", :password => "qfsw6789", :password_confirmation => "qfsw6789", :name => "数据审核员", :roles => @data_verifer, :factories => [@qfsw])
+#-----------
+User.create!(:phone => "053766881234", :password => "wsqy6688", :password_confirmation => "wsqy6688", :name => "数据填报员", :roles => @data_filler, :factories => [@wsqy])
+User.create!(:phone => "053798981234", :password => "wsqy9898", :password_confirmation => "wsqy9898", :name => "数据审核员", :roles => @data_verifer, :factories => [@wsqy])
+User.create!(:phone => "053712348888", :password => "wsqq8888", :password_confirmation => "wsqq8888", :name => "数据填报员", :roles => @data_filler, :factories => [@wsqq])
+User.create!(:phone => "053712349999", :password => "wsqq9999", :password_confirmation => "wsqq9999", :name => "数据审核员", :roles => @data_verifer, :factories => [@wsqq])
+User.create!(:phone => "12395889588", :password => "wsfd9588", :password_confirmation => "wsfd9588", :name => "数据填报员", :roles => @data_filler, :factories => [@wsfd])
+User.create!(:phone => "12395999599", :password => "wsfd9599", :password_confirmation => "wsfd9599", :name => "数据审核员", :roles => @data_verifer, :factories => [@wsfd])
+#-----------
+User.create!(:phone => "12305379188", :password => "rcws9188", :password_confirmation => "rcws9188", :name => "数据填报员", :roles => @data_filler, :factories => [@rcws])
+User.create!(:phone => "12305379199", :password => "rcws9199", :password_confirmation => "rcws9199", :name => "数据审核员", :roles => @data_verifer, :factories => [@rcws])
+#-----------
+User.create!(:phone => "12305378888", :password => "dsmt8888", :password_confirmation => "dsmt8888", :name => "数据填报员", :roles => @data_filler, :factories => [@dsmt])
+User.create!(:phone => "12305379999", :password => "dsmt9999", :password_confirmation => "dsmt9999", :name => "数据审核员", :roles => @data_verifer, :factories => [@dsmt])
+#-----------
+User.create!(:phone => "12305371818", :password => "jxws1818", :password_confirmation => "jxws1818", :name => "数据填报员", :roles => @data_filler, :factories => [@jxws])
+User.create!(:phone => "12305370101", :password => "jxws0101", :password_confirmation => "jxws0101", :name => "数据审核员", :roles => @data_verifer, :factories => [@jxws])
+#-----------
+User.create!(:phone => "053766887788", :password => "bhws7788", :password_confirmation => "bhws7788", :name => "数据填报员", :roles => @data_filler, :factories => [@bhws])
+User.create!(:phone => "053798987878", :password => "bhws7878", :password_confirmation => "bhws7878", :name => "数据审核员", :roles => @data_verifer, :factories => [@bhws])
 
 400.times.each do |t|
   pdt_date = Faker::Date.unique.between(from: '2020-01-01', to: '2021-08-15')
   DayPdtRpt.create!(
-    :factory => @qufu_one_fct,
-    :name => pdt_date.to_s + @qufu_one_fct.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
+    :factory => @rcws,
+    :name => pdt_date.to_s + @rcws.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
     :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
     :eff_qlty_bod => Faker::Number.within(range: 1..10), :eff_qlty_cod => Faker::Number.within(range: 10..50), :eff_qlty_ss => Faker::Number.within(range: 1..10), :eff_qlty_nhn => Faker::Number.within(range: 1..5), :eff_qlty_tn => Faker::Number.within(range: 1..15), :eff_qlty_tp => format("%0.2f", Faker::Number.within(range: 0.1..0.5)), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..500),  
     :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 
@@ -57,7 +127,6 @@ Quota.create!(:ctg => Setting.quota.ctg_power, :code => Setting.quota.power , :n
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdflow ,   :name => Setting.day_pdt_rpts.mdflow  )
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdrcy  ,   :name => Setting.day_pdt_rpts.mdrcy   )
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdsell ,   :name => Setting.day_pdt_rpts.mdsell  )
-#Quota.create!(:ctg => , :code => , :name => )
 
 
 
