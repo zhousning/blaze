@@ -11,7 +11,7 @@ class ExcelTool
   #}
   def parseExcel(path)
     creek = Creek::Book.new(path) 
-    return parse(creek)
+    return parse(path, creek)
   end
 
   def parseExcelFromUrl(url)
@@ -54,13 +54,15 @@ class ExcelTool
   end
 
   private 
-    def parse(creek)
+    def parse(path, creek)
       hash = Hash.new
-      creek.sheets.each do |sheet| 
+      creek.sheets.each_with_index do |sheet, index| 
         row_arr = []
         sheet.with_images.rows.each do |row|
           row_arr << row
         end
+        
+        puts path + ": sheet" + index.to_s + "name: " + sheet.name
         hash[sheet.name] =row_arr
       end
       hash

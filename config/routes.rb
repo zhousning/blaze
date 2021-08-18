@@ -79,9 +79,9 @@ Rails.application.routes.draw do
   #  get :invite, :on => :collection
   #end
 
-  #resources :spiders do
-  #  get :start, :on => :member
-  #end
+  resources :spiders do
+    get :start, :on => :member
+  end
 
   #resources :statistics do
   #  get :line, :on => :member
