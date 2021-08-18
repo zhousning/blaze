@@ -98,6 +98,8 @@ User.create!(:phone => "12305370101", :password => "jxws0101", :password_confirm
 User.create!(:phone => "053766887788", :password => "bhws7788", :password_confirmation => "bhws7788", :name => "太白湖新区污水数据填报员", :roles => @data_filler, :factories => [@bhws])
 User.create!(:phone => "053798987878", :password => "bhws7878", :password_confirmation => "bhws7878", :name => "太白湖新区污水数据审核员", :roles => @data_verifer, :factories => [@bhws])
 
+user.factories << Factory.all
+
 400.times.each do |t|
   pdt_date = Faker::Date.unique.between(from: '2020-01-01', to: '2021-08-15')
   DayPdtRpt.create!(

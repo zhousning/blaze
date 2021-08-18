@@ -1,0 +1,67 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %ul.list-group.list-group-horizontal
+          %li.list-group-item.border-0.d-flex.flex-row
+            = date_field_tag 'search_date', nil, class: 'form-control mr-1'
+          %li.list-group-item.border-0.d-flex.flex-row
+            %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
+              下载Excel
+
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-12
+              .card.w-100
+                .card-body
+                  .tab-content.text-center
+                    #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
+                      %ul.list-group.list-group-horizontal
+                        %li.list-group-item
+                          - @factories.each do |f|
+                            %label.checkbox-inline.mr-5
+                              = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
+                              = f.name
+                      .row
+                        .col-12.d-flex.justify-content-center.my-5
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 1000px;height:400px;"}
+                        .col-12.d-flex.justify-content-center
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
+                      .row.mt-5
+                        .col-12.d-flex.justify-content-center
+                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
+
+      = render "layouts/bootstrap/card"
+
+-#
+  %h5
+    = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+    %button.button.button-primary.button-small{:type => "button"}
+      查看
+
+  -#
+    = link_to xls_download_factories_day_pdt_rpts_path(idencode(@factory.id)), :class => "button button-royal pull-right button-small mr-1" do
+      下载表格模板
+
+  -#
+    = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+      = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+    %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+      = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+
+  -#
+    %li.list-group-item.border-0.d-flex.flex-row
+      .form-check.form-check-inline
+        = radio_button_tag 'flow', Setting.quota.inflow_c, true, class: "form-check-input"
+
+        = label_tag Setting.quota.inflow_t, nil, :class => "form-check-label"
+      .form-check.form-check-inline
+        = radio_button_tag 'flow', Setting.quota.outflow_c, false, class: "form-check-input"
+
+        = label_tag Setting.quota.outflow_t, nil, :class => "form-check-label"
+
