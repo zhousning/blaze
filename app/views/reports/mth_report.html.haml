@@ -8,44 +8,27 @@
       - content_for :card_header do
         %ul.list-group.list-group-horizontal
           %li.list-group-item.pl-0.border-0
-            = select_tag "fcts", options_for_my_factory(@factories), :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.pl-0.border-0
-            = select_tag "qcodes", options_for_quotas, :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.pl-0.border-0
             = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
+          %li.list-group-item.pl-0.border-0
+            = select_tag "months", options_for_mth_months, :include_blank=>false, :class=>"form-control"
+          %li.list-group-item.border-0.d-flex.flex-row
+            %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
+              下载Excel
 
       - content_for :card_body do
         .container-fluid
           .row
             .col-12
               .card.w-100
-                .card-header.bg-white
-                  %ul.nav.nav-tabs{:role => "tablist"}
-                    %li.nav-item
-                      %a.nav-link.active{"data-toggle" => "tab", :href => "#home", :role => "tab"}
-                        月度对比
-                    -#
-                      %li.nav-item
-                        %a.nav-link{"data-toggle" => "tab", :href => "#profile", :role => "tab"}
-                          污泥分析
-                      %li.nav-item
-                        %a.nav-link{"data-toggle" => "tab", :href => "#messages", :role => "tab"}
-                          能耗分析
-                      %li.nav-item
-                        %a.nav-link{"data-toggle" => "tab", :href => "#settings", :role => "tab"}
-                          中水分析
                 .card-body
                   .tab-content.text-center
                     #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
-                          - months.each_pair do |k, v|
+                          - @factories.each do |f|
                             %label.checkbox-inline.mr-5
-                              = check_box_tag 'months', k, nil, {array: true} 
-                              = v 
-                        %li.list-group-item
-                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
-                            查询 
+                              = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
+                              = f.name
                       .row
                         .col-12.d-flex.justify-content-center.my-5
                           .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 1000px;height:400px;"}
