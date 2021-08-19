@@ -6,13 +6,23 @@
     = render "layouts/control_sidebar"
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
-        %ul.list-group.list-group-horizontal
-          %li.list-group-item.border-0.d-flex.flex-row
-            = date_field_tag 'search_date', nil, class: 'form-control mr-1'
-          %li.list-group-item.border-0.d-flex.flex-row
+        .row.ml-1.my-3.pl-0
+          .col-2.pl-0
+            = date_field_tag 'search_date', nil, class: 'form-control mr-1', :value => Date.today-1, :min => Date.new(2021, 01, 01), :max => Date.today-1
+          .col-2
             %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载Excel
 
+        .row.border.m-1.p-3
+          .col-2
+            %label.checkbox-inline.mr-5
+              = check_box_tag 'select-all', nil 
+              = '全选'
+          - @factories.each do |f|
+            .col-2
+              %label.checkbox-inline.mr-5
+                = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
+                = f.name
       - content_for :card_body do
         .container-fluid
           .row
@@ -22,11 +32,6 @@
                   .tab-content.text-center
                     #home.tab-pane.active{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
-                        %li.list-group-item
-                          - @factories.each do |f|
-                            %label.checkbox-inline.mr-5
-                              = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
-                              = f.name
                       .row
                         .col-12
                           %table#day-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}

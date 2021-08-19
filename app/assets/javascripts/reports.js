@@ -2,6 +2,8 @@ $(".reports").ready(function() {
 
   if ($(".reports.day_report").length > 0) {
 
+    select_checkbox_all("select-all", "fcts");
+
     $("#report-download-excel").click(function() {
       var fcts = '';
       var search_date = $("#search_date").val();
@@ -57,3 +59,14 @@ $(".reports").ready(function() {
   }
 
 });
+
+function select_checkbox_all(select_all, checkbox_name) {
+  $("#" + select_all).click(function() {
+    flag = $(this).is(":checked");
+    if (flag) {
+      $("input[name='" + checkbox_name + "']").prop('checked', true);
+    } else {
+      $("input[name='" + checkbox_name + "']").prop('checked', false);
+    }
+  })
+}
