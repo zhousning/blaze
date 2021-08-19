@@ -55,9 +55,28 @@ $(".reports").ready(function() {
         myChart.setOption(new_Option);
       });
     });
-
   }
 
+  if ($(".reports.mth_report").length > 0) {
+    select_checkbox_all("select-all", "fcts");
+
+    $("#report-download-excel").click(function() {
+      var fcts = '';
+      var year = $("#year").val();
+      var month = $("#month").val();
+
+      var check_boxes = $("input[name='fcts']:checked");
+
+      $.each(check_boxes, function(){
+        fcts += $(this).val() + ","
+      });
+
+      var url = "/factories/" + data_fct + "/mth_pdt_rpts/mth_rpt_create?month=" + month + "&year=" + year;
+      var url = "/reports/xls_mth_download?fcts=" + fcts + "&month=" + month + "&year=" + year;
+      location.href = url;
+      //$.get(url, {fcts: fcts, search_date: search_date})
+    });
+  }
 });
 
 function select_checkbox_all(select_all, checkbox_name) {

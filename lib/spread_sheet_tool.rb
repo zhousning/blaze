@@ -12,6 +12,43 @@ class SpreadSheetTool
 
     book = Spreadsheet.open day_report_template 
 
+    yuehuizong = book.worksheet 'yuehuizong'
+    yuehuizong_sheet(obj, yuehuizong)
+
+    book.write target_excel
+
+    return target_excel
+  end
+
+  def yuehuizong_sheet(obj, sheet)
+    obj.each_with_index do |mth_pdt_rpt, index|
+      name = mth_pdt_rpt.name
+      cod = mth_pdt_rpt.month_cod
+      tp = mth_pdt_rpt.month_tp
+      tn = mth_pdt_rpt.month_tn
+      ss = mth_pdt_rpt.month_ss
+      nhn = mth_pdt_rpt.month_nhn
+      power = mth_pdt_rpt.month_power
+      mud = mth_pdt_rpt.month_mud
+      md = mth_pdt_rpt.month_md
+      #fecal = mth_pdt_rpt.month_fecal
+      #device = mth_pdt_rpt.month_device
+      #stuff = mth_pdt_rpt.month_stuff
+
+      arr = [name, mud.inmud, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
+      start = 8
+      sheet.row(start + index).concat arr 
+    end
+  end
+
+  def exportMthPdtRptToExcel(obj)
+    Spreadsheet.client_encoding = 'UTF-8'
+    filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
+    mth_report_template = File.join(Rails.root, "public", "template", "mth_report.xls")
+    target_excel = File.join(Rails.root, "public", "excel", filename + '.xls') 
+
+    book = Spreadsheet.open mth_report_template 
+
     tuchu = book.worksheet 'tuchu'
     mingxi = book.worksheet 'mingxi'
 
@@ -22,7 +59,6 @@ class SpreadSheetTool
 
     return target_excel
   end
-
   private 
     def tuchu_sheet(obj, sheet)
       start = 6
