@@ -177,6 +177,7 @@ gem 'sablon'
 
 gem 'caracal'
 
+gem 'spreadsheet'
 
 gem 'faker', '~> 2.0'
 
