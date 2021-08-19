@@ -4,13 +4,13 @@ require 'spreadsheet'
 
 class SpreadSheetTool
 
-  def exportDayPdtRptToExcel(obj)
+  def exportMthPdtRptToExcel(obj)
     Spreadsheet.client_encoding = 'UTF-8'
     filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
-    day_report_template = File.join(Rails.root, "public", "template", "day_report.xls")
+    mth_report_template = File.join(Rails.root, "public", "template", "mth_report.xls")
     target_excel = File.join(Rails.root, "public", "excel", filename + '.xls') 
 
-    book = Spreadsheet.open day_report_template 
+    book = Spreadsheet.open mth_report_template 
 
     yuehuizong = book.worksheet 'yuehuizong'
     yuehuizong_sheet(obj, yuehuizong)
@@ -21,8 +21,9 @@ class SpreadSheetTool
   end
 
   def yuehuizong_sheet(obj, sheet)
-    obj.each_with_index do |mth_pdt_rpt, index|
-      name = mth_pdt_rpt.name
+    row_size = obj.size
+    obj.each_with_index do |mth_pdt_rpt, row|
+      name = mth_pdt_rpt.factory.name
       cod = mth_pdt_rpt.month_cod
       tp = mth_pdt_rpt.month_tp
       tn = mth_pdt_rpt.month_tn
@@ -36,18 +37,19 @@ class SpreadSheetTool
       #stuff = mth_pdt_rpt.month_stuff
 
       arr = [name, mud.inmud, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
-      start = 8
-      sheet.row(start + index).concat arr 
+      arr.each_with_index do |item, col|
+        sheet.rows[row + 4][col] = item 
+      end
     end
   end
 
-  def exportMthPdtRptToExcel(obj)
+  def exportDayPdtRptToExcel(obj)
     Spreadsheet.client_encoding = 'UTF-8'
     filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
-    mth_report_template = File.join(Rails.root, "public", "template", "mth_report.xls")
+    day_report_template = File.join(Rails.root, "public", "template", "day_report.xls")
     target_excel = File.join(Rails.root, "public", "excel", filename + '.xls') 
 
-    book = Spreadsheet.open mth_report_template 
+    book = Spreadsheet.open day_report_template 
 
     tuchu = book.worksheet 'tuchu'
     mingxi = book.worksheet 'mingxi'

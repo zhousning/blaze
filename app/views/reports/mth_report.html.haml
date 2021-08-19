@@ -12,7 +12,7 @@
           %li.list-group-item.pl-0.border-0
             = select_tag "month", options_for_mth_months, :include_blank=>false, :class=>"form-control"
           %li.list-group-item.border-0.d-flex.flex-row
-            %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
+            %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载Excel
 
         .row.border.m-1.p-3

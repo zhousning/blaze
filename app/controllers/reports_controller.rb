@@ -47,9 +47,8 @@ class ReportsController < ApplicationController
       iddecode(fct)
     end
 
-    search_year = params[:year].strip.to_i
+    year = params[:year].strip.to_i
     month = params[:month].strip.to_i
-    search_month = Date.new(search_year, month)
 
     _start = Date.new(year, month, 1)
     _end = Date.new(year, month, -1)

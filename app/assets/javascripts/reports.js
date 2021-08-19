@@ -71,7 +71,6 @@ $(".reports").ready(function() {
         fcts += $(this).val() + ","
       });
 
-      var url = "/factories/" + data_fct + "/mth_pdt_rpts/mth_rpt_create?month=" + month + "&year=" + year;
       var url = "/reports/xls_mth_download?fcts=" + fcts + "&month=" + month + "&year=" + year;
       location.href = url;
       //$.get(url, {fcts: fcts, search_date: search_date})
