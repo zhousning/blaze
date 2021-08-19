@@ -102,6 +102,7 @@ module ChartConfig
       Setting.charts.gauge   =>    Setting.charts.gauge_t,
       Setting.charts.table   =>    Setting.charts.table_t,
       Setting.charts.radar   =>    Setting.charts.radar_t
+      Setting.charts.scatter_3d   =>    Setting.charts.scatter_3d_t
     }
     charts[chart]
   end

@@ -1669,11 +1669,13 @@ development:
     gauge: '2'
     table: '3'
     radar: '4'
+    scatter_3d: '5'
     line_t: line
     bar_t: bar
     gauge_t: gauge
     table_t: table
     radar_t: radar
+    scatter_3d_t: scatter_3d
   months:
     one: '1'
     one_t: 一月

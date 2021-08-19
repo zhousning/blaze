@@ -119,6 +119,9 @@ Rails.application.routes.draw do
       get :verify_show, :on => :member
     end
   end
+  resources :analyses, :only => [] do
+    get :area_time_compare, :on => :collection
+  end
   resources :day_pdt_rpts, :only => [] do
     get :sglfct_statistic, :on => :collection
     get :sglfct_stc_cau, :on => :collection

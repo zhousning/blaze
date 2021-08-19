@@ -21,7 +21,7 @@ module DayPdtRptsHelper
 
   def options_for_years
     str = ""
-    years = ["2021", "2020"]
+    years = ["2021"]
     years.each do |year|
       str += "<option value='" + year + "'>" + year + "</option>"
     end
