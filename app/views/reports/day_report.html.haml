@@ -10,7 +10,7 @@
           %li.list-group-item.border-0.d-flex.flex-row
             = date_field_tag 'search_date', nil, class: 'form-control mr-1'
           %li.list-group-item.border-0.d-flex.flex-row
-            %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
+            %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载Excel
 
       - content_for :card_body do
@@ -20,7 +20,7 @@
               .card.w-100
                 .card-body
                   .tab-content.text-center
-                    #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
+                    #home.tab-pane.active{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
                         %li.list-group-item
                           - @factories.each do |f|
@@ -28,16 +28,85 @@
                               = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
                               = f.name
                       .row
-                        .col-12.d-flex.justify-content-center.my-5
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 1000px;height:400px;"}
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
-                      .row.mt-5
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
+                        .col-12
+                          %table#day-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                            %thead
+                              %tr
+                                %th{:scope => "col"} #
+                              
+                                %th{:scope => "col"}
+                                  = Setting.day_pdt_rpts.name
+                                %th.text-danger{:scope => "col"}
+                                  = Setting.day_pdt_rpts.inf_qlty_cod
+                                %th.text-success{:scope => "col"}
+                                  = Setting.day_pdt_rpts.eff_qlty_cod
+                                %th.text-danger{:scope => "col"}
+                                  = Setting.day_pdt_rpts.inf_qlty_bod
+                                %th.text-success{:scope => "col"}
+                                  = Setting.day_pdt_rpts.eff_qlty_bod
+                                %th.text-danger{:scope => "col"}
+                                  = Setting.day_pdt_rpts.inf_qlty_tn
+                                %th.text-success{:scope => "col"}
+                                  = Setting.day_pdt_rpts.eff_qlty_tn
+                                %th.text-danger{:scope => "col"}
+                                  = Setting.day_pdt_rpts.inf_qlty_tp
+                                %th.text-success{:scope => "col"}
+                                  = Setting.day_pdt_rpts.eff_qlty_tp
+                                %th.text-danger{:scope => "col"}
+                                  = Setting.day_pdt_rpts.inf_qlty_nhn
+                                %th.text-success{:scope => "col"}
+                                  = Setting.day_pdt_rpts.eff_qlty_nhn
+                                %th{:scope => "col"}
+                            %tbody
+                              - @day_pdt_rpts.each_with_index do |day_pdt_rpt, index|
+                                %tr
+                                  %td{:scope => "row"}
+                                    = index+1
+                                
+                                  %td
+                                    = day_pdt_rpt.name
+                                  %td
+                                    = day_pdt_rpt.inf_qlty_cod
+                                  %td
+                                    = day_pdt_rpt.eff_qlty_cod
+                                  %td
+                                    = day_pdt_rpt.inf_qlty_bod
+                                  %td
+                                    = day_pdt_rpt.eff_qlty_bod
+                                  %td
+                                    = day_pdt_rpt.inf_qlty_tn
+                                  %td
+                                    = day_pdt_rpt.eff_qlty_tn
+                                  %td
+                                    = day_pdt_rpt.inf_qlty_tp
+                                  %td
+                                    = day_pdt_rpt.eff_qlty_tp
+                                  %td
+                                    = day_pdt_rpt.inf_qlty_nhn
+                                  %td
+                                    = day_pdt_rpt.eff_qlty_nhn
+                                  %td
+                                    .container-fluid
+                                      .row.justify-content-center
+                                        %button#info-btn.button.button-primary.button-small{:type => "button", :'data-rpt' => idencode(day_pdt_rpt.id), :'data-fct' => idencode(day_pdt_rpt.factory.id)}
+                                          查看
 
       = render "layouts/bootstrap/card"
 
+
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered
+    .modal-content
+      .modal-header
+        %h3#day-pdt-rpt-header.modal-title.text-center
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        .row
+          .col-8
+            #chart-ctn{:style => "width: 800px;height:400px;"}
+          .col-4.d-flex.align-items-center.justify-content-center
+            #day-pdt-rpt-ctn
 -#
   %h5
     = fa_icon "list", text: t(controller_name + "." + action_name + '.title')

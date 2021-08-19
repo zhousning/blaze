@@ -132,8 +132,8 @@ Rails.application.routes.draw do
   resources :reports, :only => [:index] do
     get :day_report, :on => :collection
     get :mth_report, :on => :collection
-    get :day_report_download, :on => :collection
-    get :mth_report_download, :on => :collection
+    get :xls_day_download, :on => :collection
+    get :xls_mth_download, :on => :collection
   end
   #resources :departments do
   #  get :download_append, :on => :member
