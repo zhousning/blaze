@@ -62,7 +62,6 @@ class ExcelTool
           row_arr << row
         end
         
-        puts path + ": sheet" + index.to_s + "name: " + sheet.name
         hash[sheet.name] =row_arr
       end
       hash
