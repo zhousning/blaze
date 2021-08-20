@@ -12,6 +12,8 @@
           %ul
             %li = flash[:info]
       - content_for :card_header do
+        %h5
+          = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
         %ul.list-group.list-group-horizontal
           %li.list-group-item.pl-0.border-0
             = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"

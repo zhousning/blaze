@@ -7,7 +7,7 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %h5
-          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+          = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
 
           
           -#

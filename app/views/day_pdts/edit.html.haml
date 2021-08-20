@@ -6,7 +6,7 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %h5
-          = fa_icon "wpforms", text: t(controller_name + "." + action_name + '.title')
+          = fa_icon "wpforms", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
           -#
             = link_to "#{request.url}".sub("edit", ""), :class => "button button-small pull-right button-primary" do
           = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary" do
