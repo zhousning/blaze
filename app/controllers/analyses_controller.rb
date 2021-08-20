@@ -94,6 +94,7 @@ class AnalysesController < ApplicationController
   # {:date=>Wed, 02 Jun 2021, "BOD5(mg/l)"=>66.0}
   #]
   #diamensions = ['date', 'BOD5(mg/l)']
+  #单指标厂间对比
   def area_time_compare
     search_type = params[:search_type].gsub(/\s/, '')
     pos_type = params[:pos_type].gsub(/\s/, '')
@@ -101,7 +102,6 @@ class AnalysesController < ApplicationController
     _qcodes = [params[:quota].gsub(/\s/, '')]
     quota = MYQUOTAS[params[:quota].gsub(/\s/, '')][:name]
     title = get_title(pos_type)
-    dimensions = ["fct"]
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -110,23 +110,74 @@ class AnalysesController < ApplicationController
       iddecode(fct)
     end
 
-    @factories = Factory.find(fcts)
-
-    [["Income","Life Expectancy","Population","Country","Year"],[815,34.05,351014,"Australia",1800],[1314,39,645526,"Canada",1800]]
     obj = []
+    dimensions = ['date']
+    series = []
+    @factories = Factory.find(fcts)
     @factories.each do |factory|
       @day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
       have_date = true
       chart_config = period_multiple_quota(have_date, @day_pdt_rpts, search_type, pos_type, chart_type, _qcodes)
+      chart_config["datasets"].each do |dataset|
+        new_data = {}
+        new_data['date'] = dataset[:date]
+        new_data[factory.name] = dataset[quota]
+        obj << new_data 
+      end
+      series << {type: chart_type(chart_type)}
+      dimensions << factory.name 
     end
-
-    dimensions = dimensions + chart_config.dimensions
-    result_config = {"title" => title, "dimensions" => dimensions, "datasets" => datasets} 
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => obj} 
 
     respond_to do |f|
       f.json{ render :json => result_config.to_json}
     end
   end
+
+  #用作scatter 3d 但日期不能正常显示暂时先不用这个函数
+  #def area_time_compare
+  #  search_type = params[:search_type].gsub(/\s/, '')
+  #  pos_type = params[:pos_type].gsub(/\s/, '')
+  #  chart_type = params[:chart_type].gsub(/\s/, '')
+  #  _qcodes = [params[:quota].gsub(/\s/, '')]
+  #  quota = MYQUOTAS[params[:quota].gsub(/\s/, '')][:name]
+  #  title = get_title(pos_type)
+  #  _start = Date.parse(params[:start].gsub(/\s/, ''))
+  #  _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+  #  fcts = params[:fcts].gsub(/\s/, '').split(",")
+  #  fcts = fcts.collect do |fct|
+  #    iddecode(fct)
+  #  end
+
+  #  obj = []
+  #  dimensions = []
+  #  @factories = Factory.find(fcts)
+  #  @factories.each do |factory|
+  #    @day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+  #    have_date = true
+  #    chart_config = period_multiple_quota(have_date, @day_pdt_rpts, search_type, pos_type, chart_type, _qcodes)
+  #    chart_config["datasets"].each do |dataset|
+  #      dataset['fct'] = factory.name
+  #      obj << dataset
+  #    end
+  #    dimensions += chart_config['dimensions']
+  #  end
+  #  dimensions += ["fct"]
+  #  puts dimensions
+  #  puts obj
+
+  #  result_config = {"title" => title, "dimensions" => dimensions.uniq, "datasets" => obj} 
+
+  #  respond_to do |f|
+  #    f.json{ render :json => result_config.to_json}
+  #  end
+  #end
+  
+  def area_time
+    @factories = current_user.factories
+  end
+
   def power_chart
     #chart_config['sum_power'] = [gauge('总电量', sum_power)]
     #if search_type == Setting.quota.ctg_power
