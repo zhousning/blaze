@@ -28,7 +28,6 @@ def parse_excel(xls)
   year, month = File.basename(xls, '.xlsx').split('.')
 
   results.each_pair do |sheet, rows|
-    puts sheet
     day = sheet.gsub(/Sheet/, '')
 
     rows[6..22].each_with_index do |row, index|

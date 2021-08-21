@@ -39,6 +39,11 @@ class Factory < ActiveRecord::Base
   has_many :year_pdt_rpts, :dependent => :destroy
   accepts_nested_attributes_for :year_pdt_rpts, reject_if: :all_blank, allow_destroy: true
 
+  has_many :emp_infs, :dependent => :destroy
+  accepts_nested_attributes_for :emp_infs, reject_if: :all_blank, allow_destroy: true
+
+  has_many :emp_effs, :dependent => :destroy
+  accepts_nested_attributes_for :emp_effs, reject_if: :all_blank, allow_destroy: true
 end
 
 # == Schema Information

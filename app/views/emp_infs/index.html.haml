@@ -1,0 +1,101 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+
+          
+          = link_to xls_download_factory_emp_infs_path, :class => "button button-royal pull-right button-small mr-1" do
+            下载表格模板
+          
+          %button.button.button-caution.button-small.pull-right.mr-1{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
+            上传表格
+          
+          %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+            = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      = Setting.emp_infs.pdt_time
+                    %th{:scope => "col"}
+                      = Setting.emp_infs.cod
+                    %th{:scope => "col"}
+                      = Setting.emp_infs.nhn
+                    %th{:scope => "col"}
+                      = Setting.emp_infs.tp
+                    %th{:scope => "col"}
+                      = Setting.emp_infs.flow
+                    %th{:scope => "col"}
+                      = Setting.emp_infs.ph
+                    %th{:scope => "col"}
+                      = Setting.emp_infs.temp
+                    -#
+                      %th{:scope => "col"}
+                        设置
+                %tbody
+                  - @emp_infs.each_with_index do |emp_inf, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = emp_inf.pdt_time.strftime("%Y-%m-%d %H")
+                      %td
+                        = emp_inf.cod
+                      %td
+                        = emp_inf.nhn
+                      %td
+                        = emp_inf.tp
+                      %td
+                        = emp_inf.flow
+                      %td
+                        = emp_inf.ph
+                      %td
+                        = emp_inf.temp
+                      -#
+                        %td
+                          .container-fluid
+                            .row.justify-content-center
+                              = link_to "编辑", edit_emp_inf_path(idencode(emp_inf.id)), :class => "button button-highlight button-small mr-1" 
+                              = link_to "详情",  emp_inf_path(idencode(emp_inf.id)), :class => "button button-primary button-small mr-1" 
+                              = link_to "删除",  emp_inf_path(idencode(emp_inf.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+      = render "layouts/bootstrap/card"
+
+
+#exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title 表格上传 
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = form_tag "/factories/" + idencode(@factory.id).to_s + "/emp_infs/parse_excel", multipart: true, id: "form-parse-excel" do
+          .form-group.row
+            = label_tag "工厂", nil, :class => "col-4 text-right col-form-label col-form-label"
+            .col-8
+              = select_tag "fcts", options_for_my_factory(@factories), :include_blank=>false, :class=>"form-control"
+          .form-group.row
+            = label_tag "表格", nil, :class => "col-4 text-right col-form-label col-form-label"
+            .col-8
+              = file_field_tag "excel_file", :required => true 
+          .form-group.row
+            .col-sm-12
+              .progress.ctn-progress
+                .progress-bar.w-100.progress-bar-striped.progress-bar-animated{:role => "progressbar", :"aria-valuenow" => "100", :"aria-valuemin" => "0", :"aria-valuemax" => "100"}
+          .form-group.row
+            .col-8
+              = submit_tag '保存', :class => "btn btn-primary btn-parse-submit " 
+

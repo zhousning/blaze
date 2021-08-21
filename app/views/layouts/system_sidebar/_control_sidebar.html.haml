@@ -28,6 +28,10 @@
               - if current_user.has_role?(Setting.roles.mth_pdt_rpt_verify) || current_user.has_role?(Setting.roles.super_admin)
                 = link_to verify_index_factory_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
                   = fa_icon "object-group", text: "月报表审核"
+              = link_to factory_emp_infs_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                = fa_icon "cubes", text: "环境监测进水口"
+              = link_to factory_emp_effs_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                = fa_icon "object-ungroup", text: "环境监测出水口"
                
       .card.border-0.rounded-0
         .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success{:id => "headingAnalyse", :'data-toggle' => "collapse", :'data-target' => "#collapseAnalyse", :'aria-expanded' => "true", :'aria-controls' => "collapseAnalyse"}

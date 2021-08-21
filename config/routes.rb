@@ -118,6 +118,14 @@ Rails.application.routes.draw do
       get :verify_index, :on => :collection
       get :verify_show, :on => :member
     end
+    resources :emp_infs do
+      post :parse_excel, :on => :collection
+      get :xls_download, :on => :collection
+    end
+    resources :emp_effs do
+      post :parse_excel, :on => :collection
+      get :xls_download, :on => :collection
+    end
   end
   resources :day_pdt_rpts, :only => [] do
     get :sglfct_statistic, :on => :collection

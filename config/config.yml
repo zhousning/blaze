@@ -1854,6 +1854,30 @@ development:
     rejected_t: 驳回
     complete: 3
     complete_t: 已上报
+  emp_infs:
+    label: 济宁市环境自动监测系统进水口
+    pdt_time: 监测时间
+    flow: 小时流量
+    temp: 水温
+    bod: BOD5(mg/l)
+    cod: COD(mg/l)
+    ss: SS(mg/l)
+    nhn: NH3-N(mg/l)
+    tn: TN(mg/l)
+    tp: TP(mg/l)
+    ph: PH
+  emp_effs:
+    label: 济宁市环境自动监测系统出水口
+    pdt_time: 监测时间
+    flow: 小时流量
+    temp: 水温
+    bod: BOD5(mg/l)
+    cod: COD(mg/l)
+    ss: SS(mg/l)
+    nhn: NH3-N(mg/l)
+    tn: TN(mg/l)
+    tp: TP(mg/l)
+    ph: PH
 test:
   admins: *104
   users: *105

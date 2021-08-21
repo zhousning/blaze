@@ -97,4 +97,8 @@ class ApplicationController < ActionController::Base
       }
 
     end
+  
+    def my_factory
+      @factory = current_user.factories.find(iddecode(params[:factory_id]))
+    end
 end
