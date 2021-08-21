@@ -9,12 +9,12 @@ class ReportsController < ApplicationController
 
   def day_report
     @factories = Factory.all
-    @day_pdt_rpts = DayPdtRpt.all.order('pdt_date DESC')
+    @day_pdt_rpts = DayPdtRpt.all.order('pdt_date DESC').page( params[:page]).per( Setting.systems.per_page ) 
   end
 
   def mth_report
     @factories = Factory.all
-    @mth_pdt_rpts = MthPdtRpt.where(:state => Setting.mth_pdt_rpts.complete).order('start_date DESC')
+    @mth_pdt_rpts = MthPdtRpt.where(:state => Setting.mth_pdt_rpts.complete).order('start_date DESC').page( params[:page]).per( Setting.systems.per_page ) 
   end
   
   def mth_report_show

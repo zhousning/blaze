@@ -433,6 +433,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   mini_magick
   mini_racer
   newrelic_rpm

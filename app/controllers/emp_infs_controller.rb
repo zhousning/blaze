@@ -9,10 +9,33 @@ class EmpInfsController < ApplicationController
     @emp_inf = EmpInf.new
     @factory = my_factory
     @factories = Factory.all
-    @emp_infs = @factory.emp_infs.order('pdt_time DESC') 
+    @emp_infs = @factory.emp_infs.order('pdt_time DESC').page( params[:page]).per( Setting.systems.per_page ) 
    
   end
    
+  #bootstrap table分页用 暂时没有用
+  def query_list
+    @factory = my_factory
+    @emp_infs = @factory.emp_infs.order('pdt_time DESC').paginate( :page => params[:page], :per_page => 10 ) 
+    result = []
+    @emp_infs.each do |inf|
+      result << {
+        :id        => inf.id,
+        :pdt_time  => inf.pdt_time,
+        :cod       => inf.cod,     
+        :nhn       => inf.nhn,     
+        :tp        => inf.tp,      
+        :flow      => inf.flow,    
+        :ph        => inf.ph,      
+        :temp      => inf.temp    
+      }
+    end
+
+    respond_to do |f|
+      f.json{ render :json => {:rows => result}.to_json}
+    end
+  end
+
   def new
     @emp_inf = EmpInf.new
   end

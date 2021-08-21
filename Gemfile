@@ -136,7 +136,7 @@ gem 'newrelic_rpm'
 gem 'groupdate'
 
 
-#gem 'kaminari'
+gem 'kaminari'
 
 gem 'rqrcode_png'
 

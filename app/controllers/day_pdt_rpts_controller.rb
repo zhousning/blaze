@@ -10,7 +10,7 @@ class DayPdtRptsController < ApplicationController
   def index
     @factory = my_factory
    
-    @day_pdt_rpts = @factory.day_pdt_rpts.order('pdt_date DESC') if @factory
+    @day_pdt_rpts = @factory.day_pdt_rpts.order('pdt_date DESC').page( params[:page]).per( Setting.systems.per_page )  if @factory
    
   end
    

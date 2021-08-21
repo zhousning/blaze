@@ -1106,6 +1106,7 @@ defaults:
     default_str: ''
     default_num: 0
     default_boolean: true
+    per_page: 20
     index: index
     new: new
     show: show

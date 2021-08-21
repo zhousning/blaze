@@ -14,7 +14,7 @@
         .container-fluid
           .row
             .col-md-12
-              %table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable"}
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
                 %thead
                   %tr
                     %th{:scope => "col"} #
@@ -62,6 +62,8 @@
                         .container-fluid
                           .row.justify-content-center
                             = link_to "查看",  verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
+            .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
+              = paginate @mth_pdt_rpts, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
 
 

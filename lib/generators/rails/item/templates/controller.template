@@ -7,9 +7,9 @@ class <%= @mpc %>Controller < ApplicationController
   def index
     @<%= @mu %> = <%= @mc %>.new
   <% if @current_user %> 
-    @<%= @mpu %> = current_user.<%= @mpu %>
+    @<%= @mpu %> = current_user.<%= @mpu %>.page( params[:page]).per( Setting.systems.per_page )
   <% else %> 
-    @<%= @mpu %> = <%= @mc %>.all
+    @<%= @mpu %> = <%= @mc %>.all.page( params[:page]).per( Setting.systems.per_page )
   <% end %> 
   end
   <% end %> 

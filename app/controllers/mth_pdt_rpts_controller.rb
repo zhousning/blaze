@@ -10,7 +10,7 @@ class MthPdtRptsController < ApplicationController
     @factory = my_factory
    
     @months = months
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.order('start_date DESC') if @factory
+    @mth_pdt_rpts = @factory.mth_pdt_rpts.order('start_date DESC').page( params[:page]).per( Setting.systems.per_page )  if @factory
    
   end
 
@@ -119,7 +119,7 @@ class MthPdtRptsController < ApplicationController
   def verify_index
     @factory = my_factory
 
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.complete]).order("start_date DESC") if @factory
+    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.complete]).order("start_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
   end
 
   def verify_show

@@ -22,7 +22,7 @@
         .container-fluid
           .row
             .col-md-12
-              %table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable"}
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
                 %thead
                   %tr
                     %th{:scope => "col"} #
@@ -68,6 +68,8 @@
                           .row.justify-content-center
                             = link_to "编辑", edit_factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :class => "button button-highlight button-small mr-1" 
                             = link_to "删除",  factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+            .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
+              = paginate @emp_effs, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
 
 

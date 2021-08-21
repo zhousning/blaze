@@ -8,7 +8,7 @@ class DayPdtsController < ApplicationController
     @day_pdt = DayPdt.new
     @factory = my_factory
 
-    @day_pdts = @factory.day_pdts if @factory
+    @day_pdts = @factory.day_pdts.page( params[:page]).per( Setting.systems.per_page )  if @factory
   end
    
 
@@ -68,7 +68,7 @@ class DayPdtsController < ApplicationController
   def verify_index
     @factory = my_factory
 
-    @day_pdts = @factory.day_pdts.where(:state => [Setting.day_pdts.verifying, Setting.day_pdts.rejected, Setting.day_pdts.complete]).order("pdt_date DESC") if @factory
+    @day_pdts = @factory.day_pdts.where(:state => [Setting.day_pdts.verifying, Setting.day_pdts.rejected, Setting.day_pdts.complete]).order("pdt_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
   end
 
   def verify_show

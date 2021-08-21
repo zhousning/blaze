@@ -8,8 +8,13 @@ class EmpEffsController < ApplicationController
     @emp_eff = EmpEff.new
     @factory = my_factory
     @factories = Factory.all
-    @emp_effs = @factory.emp_effs.order('pdt_time DESC') 
+    @emp_effs = @factory.emp_effs.order('pdt_time DESC').page( params[:page]).per( Setting.systems.per_page ) 
    
+  end
+
+  def query_list
+    @factory = my_factory
+    @emp_effs = @factory.emp_effs.order('pdt_time DESC').paginate( :page => params[:page], :per_page => 10 ) 
   end
    
 

@@ -122,10 +122,12 @@ Rails.application.routes.draw do
       post :parse_excel, :on => :collection
       get :xls_download, :on => :collection
       get :watercms_flow, :on => :collection
+      #get :query_list, :on => :collection
     end
     resources :emp_effs do
       post :parse_excel, :on => :collection
       get :xls_download, :on => :collection
+      #get :query_list, :on => :collection
     end
   end
   resources :day_pdt_rpts, :only => [] do
