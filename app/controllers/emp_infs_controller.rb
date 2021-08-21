@@ -63,7 +63,31 @@ class EmpInfsController < ApplicationController
     redirect_to :action => :index
   end
    
+  def watercms_flow
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+    quota = params[:quota].trip
+    fct = params[:fct].trip
+    @factory = current_user.factories.find(iddecode(fct)) 
+
+    quota_title = emp_quota(quota)
+
+    if @factory
+      @emp_infs = @factory.emp_infs.where(['pdt_time between ? and ?', _start, _end]).select('pdt_time', 'flow', quota_title).order('pdt_time') 
+    end
+
+
+    chart_config = {}
+  end
    
+  def emp_quota(quota)
+    obj = {
+      Setting.quota.cod => 'cod', 
+      Setting.quota.nhn => 'nhn',
+      Setting.quota.tp  => 'tp'
+    }
+    obj(quota)
+  end
 
   def xls_download
     send_file File.join(Rails.root, "templates", "emp_inf.xlsx"), :filename => "环境监测进水水质模板.xlsx", :type => "application/force-download", :x_sendfile=>true

@@ -19,6 +19,8 @@
             
             %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
               = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+            %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#empModal", "data-toggle" => "modal", :type => "button"}
+              数据看板
       - content_for :card_body do
         .container-fluid
           .row
@@ -109,3 +111,25 @@
           %span{"aria-hidden" => "true"} x 
       .modal-body
         = render 'form'
+
+#empModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "empModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered
+    .modal-content
+      .modal-header
+        %ul.list-group.list-group-horizontal
+          %li.list-group-item.pl-0.border-0
+            = select_tag "qcodes", options_for_emp_quotas, :include_blank=>false, :class=>"form-control"
+          %li.list-group-item.border-0.d-flex.flex-row
+            = date_field_tag 'start', nil, class: 'form-control mr-1'
+            %span
+              一
+            = date_field_tag 'end', nil, class: 'form-control ml-1'
+            %button.area-time-search.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
+              查询 
+      .modal-body
+        .row
+          .col-12
+            #chart-ctn{:style => "width: 800px;height:500px;"}
+          -#
+            .col-4.d-flex.align-items-center.justify-content-center
+              #day-pdt-rpt-ctn
