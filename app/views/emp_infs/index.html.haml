@@ -124,12 +124,13 @@
             %span
               一
             = date_field_tag 'end', nil, class: 'form-control ml-1'
+          %li.list-group-item.pl-0.border-0
             %button.area-time-search.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
               查询 
       .modal-body
         .row
           .col-12
-            #chart-ctn{:style => "width: 800px;height:500px;"}
+            #chart-ctn{:style => "width: 1100px;height:500px;"}
           -#
             .col-4.d-flex.align-items-center.justify-content-center
               #day-pdt-rpt-ctn

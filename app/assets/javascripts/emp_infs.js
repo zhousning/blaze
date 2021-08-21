@@ -17,10 +17,10 @@ function empInfChartSet(that_search) {
   var qcodes = $("#qcodes").val();
   var start = $("#start").val();
   var end = $("#end").val();
-  var fct = that_chart.dataset['fct'];
+  var fct = that_search.dataset['fct'];
 
-  var url = "/analyses/area_time_compare";
-  var chart_ctn = $('#chart-ctn')
+  var url = "/factories/" + fct + "/emp_infs/watercms_flow";
+  var that_chart = $('#chart-ctn')[0]
 
   empInfChartConfig(url, that_chart, start, end, fct, qcodes)
 
@@ -92,8 +92,7 @@ function rainOption(data) {
               type: 'category',
               boundaryGap: false,
               axisLine: {onZero: false},
-              data: [
-              ].map(function (str) {
+              data: data.time.map(function (str) {
                   return str.replace(' ', '\n');
               })
           }
@@ -129,13 +128,12 @@ function rainOption(data) {
                       opacity: 0.3
                   },
                   data: [[{
-                      xAxis: '2009/9/12\n7:00'
+                      xAxis: data.start_time 
                   }, {
-                      xAxis: '2009/9/22\n7:00'
+                      xAxis: data.end_time 
                   }]]
               },
-              data: [
-              ]
+              data: data.s1_data 
           },
           {
               name: '降雨量',
@@ -147,7 +145,6 @@ function rainOption(data) {
               },
               emphasis: {
                   focus: 'series'
-                    M
               },
               markArea: {
                   silent: true,
@@ -156,14 +153,13 @@ function rainOption(data) {
                   },
                   data: [
                       [{
-                          xAxis: '2009/9/10\n7:00'
+                          xAxis: data.start_time 
                       }, {
-                          xAxis: '2009/9/20\n7:00'
+                          xAxis: data.end_time 
                       }]
                   ]
               },
-              data: [
-              ]
+              data: data.s1_data 
           }
       ]
   };

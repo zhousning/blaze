@@ -121,6 +121,7 @@ Rails.application.routes.draw do
     resources :emp_infs do
       post :parse_excel, :on => :collection
       get :xls_download, :on => :collection
+      get :watercms_flow, :on => :collection
     end
     resources :emp_effs do
       post :parse_excel, :on => :collection

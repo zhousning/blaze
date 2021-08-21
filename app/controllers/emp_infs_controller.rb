@@ -66,18 +66,38 @@ class EmpInfsController < ApplicationController
   def watercms_flow
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
-    quota = params[:quota].trip
-    fct = params[:fct].trip
+    quota = params[:quota].strip
+    fct = params[:fct].strip
     @factory = current_user.factories.find(iddecode(fct)) 
 
     quota_title = emp_quota(quota)
 
+    time = []
+    s1_data = [] 
+    s2_data = []
+    start_time = _start
+    end_time = _end
+
     if @factory
-      @emp_infs = @factory.emp_infs.where(['pdt_time between ? and ?', _start, _end]).select('pdt_time', 'flow', quota_title).order('pdt_time') 
+      @emp_infs = EmpInf.where(['factory_id = ? and pdt_time between ? and ?', @factory.id, _start, _end]).order('pdt_time')
+      @emp_infs.each do |inf|
+        time << inf.pdt_time
+        s1_data << inf.flow
+        s2_data << inf[quota_title.to_sym]
+      end
     end
 
+    chart_config = {
+      :time    => time,
+      :s1_data => s1_data,
+      :s1_data => s2_data,
+      :start_time => start_time,
+      :end_time   => end_time  
+    }
+    respond_to do |f|
+      f.json{ render :json => chart_config.to_json}
+    end
 
-    chart_config = {}
   end
    
   def emp_quota(quota)
@@ -86,7 +106,7 @@ class EmpInfsController < ApplicationController
       Setting.quota.nhn => 'nhn',
       Setting.quota.tp  => 'tp'
     }
-    obj(quota)
+    obj[quota]
   end
 
   def xls_download
