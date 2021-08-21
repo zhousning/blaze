@@ -693,3 +693,17 @@ zh-CN:
       title: 指标对比
     month_compare:
       title: 月度对比
+  emp_infs:
+    index:
+      title: 济宁环境监测系统进水水质数据 
+    edit:
+      title: 编辑月环境监测系统进水水质数据
+    update:
+      title: 编辑月环境监测系统进水水质数据
+  emp_infs:
+    index:
+      title: 济宁环境监测系统出水水质数据 
+    edit:
+      title: 编辑月环境监测系统出水水质数据
+    update:
+      title: 编辑月环境监测系统出水水质数据

@@ -1878,6 +1878,15 @@ development:
     tn: TN(mg/l)
     tp: TP(mg/l)
     ph: PH
+  emp_rffs:
+    label: 济宁市环境自动监测系统出水口
+    pdt_time: 监测时间
+    cod: cod
+    nhn: nhn
+    tp: tp
+    flow: 小时流量
+    ph: ph
+    temp: 水温
 test:
   admins: *104
   users: *105

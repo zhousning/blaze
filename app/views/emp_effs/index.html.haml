@@ -7,7 +7,7 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %h5
-          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+          = fa_icon "list", text: t(controller_name + "." + action_name + '.title') + "--" + @factory.name
 
           
           = link_to xls_download_factory_emp_effs_path, :class => "button button-royal pull-right button-small mr-1" do
@@ -41,9 +41,8 @@
                       = Setting.emp_effs.ph
                     %th{:scope => "col"}
                       = Setting.emp_effs.temp
-                    -#
-                      %th{:scope => "col"}
-                        设置
+                    %th{:scope => "col"}
+                      设置
                 %tbody
                   - @emp_effs.each_with_index do |emp_eff, index|
                     %tr
@@ -64,13 +63,11 @@
                         = emp_eff.ph
                       %td
                         = emp_eff.temp
-                      -#
-                        %td
-                          .container-fluid
-                            .row.justify-content-center
-                              = link_to "编辑", edit_emp_eff_path(idencode(emp_eff.id)), :class => "button button-highlight button-small mr-1" 
-                              = link_to "详情",  emp_eff_path(idencode(emp_eff.id)), :class => "button button-primary button-small mr-1" 
-                              = link_to "删除",  emp_eff_path(idencode(emp_eff.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            = link_to "编辑", edit_factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :class => "button button-highlight button-small mr-1" 
+                            = link_to "删除",  factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
       = render "layouts/bootstrap/card"
 
 
@@ -83,10 +80,11 @@
           %span{"aria-hidden" => "true"} x 
       .modal-body
         = form_tag "/factories/" + idencode(@factory.id).to_s + "/emp_effs/parse_excel", multipart: true, id: "form-parse-excel" do
-          .form-group.row
-            = label_tag "工厂", nil, :class => "col-4 text-right col-form-label col-form-label"
-            .col-8
-              = select_tag "fcts", options_for_my_factory(@factories), :include_blank=>false, :class=>"form-control"
+          -#
+            .form-group.row
+              = label_tag "工厂", nil, :class => "col-4 text-right col-form-label col-form-label"
+              .col-8
+                = select_tag "fcts", options_for_my_factory(@factories), :include_blank=>false, :class=>"form-control"
           .form-group.row
             = label_tag "表格", nil, :class => "col-4 text-right col-form-label col-form-label"
             .col-8
@@ -99,3 +97,11 @@
             .col-8
               = submit_tag '保存', :class => "btn btn-primary btn-parse-submit " 
 
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = render 'form'

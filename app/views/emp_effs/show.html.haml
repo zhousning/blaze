@@ -1,0 +1,48 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title') + "--" + @factory.name
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-8.offset-2
+              .card-body
+                .container-fluid
+                  .row
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.emp_effs.pdt_time
+                      = @emp_eff.pdt_time
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.emp_effs.cod
+                      = @emp_eff.cod
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.emp_effs.nhn
+                      = @emp_eff.nhn
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.emp_effs.tp
+                      = @emp_eff.tp
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.emp_effs.flow
+                      = @emp_eff.flow
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.emp_effs.ph
+                      = @emp_eff.ph
+                  
+                    .col-md-6.mb-3.mr-3
+                      = Setting.emp_effs.temp
+                      = @emp_eff.temp
+                  
+      = render "layouts/bootstrap/card"

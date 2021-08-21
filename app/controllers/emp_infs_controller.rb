@@ -6,17 +6,67 @@ class EmpInfsController < ApplicationController
    
   def index
    
+    @emp_inf = EmpInf.new
     @factory = my_factory
     @factories = Factory.all
     @emp_infs = @factory.emp_infs.order('pdt_time DESC') 
    
   end
    
+  def new
+    @emp_inf = EmpInf.new
+  end
+   
+  def create
+    @factory = my_factory
+    @emp_inf = EmpInf.new(emp_inf_params)
+    @emp_inf.factory = @factory
+     
+    if @emp_inf.save
+      redirect_to :action => :index
+    else
+      render :new
+    end
+  end
+   
 
+   
+  def edit
+   
+    @factory = my_factory
+    @emp_inf = @factory.emp_infs.find(iddecode(params[:id]))
+   
+  end
+   
+
+   
+  def update
+   
+    @factory = my_factory
+    @emp_inf = @factory.emp_infs.find(iddecode(params[:id]))
+   
+    if @emp_inf.update(emp_inf_params)
+      redirect_to edit_factory_emp_inf_path(idencode(@factory.id), idencode(@emp_inf.id)) 
+    else
+      render :edit
+    end
+  end
+   
+
+   
+  def destroy
+   
+    @factory = my_factory
+    @emp_inf = @factory.emp_infs.find(iddecode(params[:id]))
+   
+    @emp_inf.destroy if @emp_inf
+    redirect_to :action => :index
+  end
+   
    
 
   def xls_download
-    send_file File.join(Rails.root, "public", "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
+    send_file File.join(Rails.root, "templates", "emp_inf.xlsx"), :filename => "环境监测进水水质模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
   
   
@@ -25,7 +75,7 @@ class EmpInfsController < ApplicationController
     excel = params["excel_file"]
     tool = ExcelTool.new
     results = tool.parseExcel(excel.path)
-    fct = iddecode(params[:fcts])
+    fct = iddecode(params[:factory_id])
     @my_factory = my_factory
     @factory = current_user.factories.find(fct)
 
