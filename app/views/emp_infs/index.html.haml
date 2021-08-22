@@ -10,7 +10,7 @@
           = fa_icon "list", text: t(controller_name + "." + action_name + '.title') + "--" + @factory.name
 
           
-          - if current_user.has_role?(Setting.roles.super_admin)
+          - if current_user.has_role?(Setting.roles.grp_emp_inf) || current_user.has_role?(Setting.roles.super_admin)
             = link_to xls_download_factory_emp_infs_path, :class => "button button-royal pull-right button-small mr-1" do
               下载表格模板
             
@@ -66,7 +66,7 @@
                         = emp_inf.ph
                       %td.py-2
                         = emp_inf.temp
-                      - if current_user.has_role?(Setting.roles.super_admin)
+                      - if current_user.has_role?(Setting.roles.grp_emp_inf) || current_user.has_role?(Setting.roles.super_admin)
                         %td
                           .container-fluid
                             .row.justify-content-center

@@ -32,9 +32,22 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @role_data_cube      = Role.where(:name => Setting.roles.data_cube).first
 @role_data_compare   = Role.where(:name => Setting.roles.data_compare).first
 
-@data_filler  = [@role_day_pdt , @role_day_rpt, @role_mth_rpt, @role_data_compare ,@role_data_cube]
-@data_verifer = [@role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_data_compare ,@role_data_cube ]
+@role_report         = Role.where(:name =>  Setting.roles.report).first
+@role_fct_emp_inf    = Role.where(:name =>  Setting.roles.fct_emp_inf).first
+@role_fct_emp_eff    = Role.where(:name =>  Setting.roles.fct_emp_eff).first
+@role_grp_emp_inf    = Role.where(:name =>  Setting.roles.grp_emp_inf).first
+@role_grp_emp_eff    = Role.where(:name =>  Setting.roles.grp_emp_eff).first
 
+#厂区数据填报
+@data_filler  = [@role_day_pdt , @role_day_rpt, @role_mth_rpt, @role_data_compare ,@role_data_cube, @role_fct_emp_inf, @role_fct_emp_eff]
+#厂区数据审核
+@data_verifer = [@role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_data_compare ,@role_data_cube,  @role_fct_emp_inf, @role_fct_emp_eff]
+
+#集团运营
+@grp_opt = [@role_data_compare ,@role_data_cube, @role_report, @role_grp_emp_inf, @role_grp_emp_eff] 
+
+#集团管理者
+                                                              
 @renc = Company.create!(:area => "任城区", :name => "任城污水处理厂")
 @jinx = Company.create!(:area => "金乡县", :name => "达斯玛特污水处理厂")
 @jiax = Company.create!(:area => "嘉祥县", :name => "嘉祥水务")
@@ -98,22 +111,10 @@ User.create!(:phone => "12305370101", :password => "jxws0101", :password_confirm
 User.create!(:phone => "053766887788", :password => "bhws7788", :password_confirmation => "bhws7788", :name => "太白湖新区污水数据填报员", :roles => @data_filler, :factories => [@bhws])
 User.create!(:phone => "053798987878", :password => "bhws7878", :password_confirmation => "bhws7878", :name => "太白湖新区污水数据审核员", :roles => @data_verifer, :factories => [@bhws])
 
-user.factories << Factory.all
+all_factories = Factory.all
+user.factories << all_factories
 
-#Factory.all.each do |f|
-#  fake = Faker::Date
-#  20.times.each do |t|
-#    pdt_date = fake.between(from: '2021-04-01', to: '2021-08-15')
-#    DayPdtRpt.create!(
-#      :factory => f,
-#      :name => pdt_date.to_s + f.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
-#      :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
-#      :eff_qlty_bod => Faker::Number.within(range: 1..10), :eff_qlty_cod => Faker::Number.within(range: 10..50), :eff_qlty_ss => Faker::Number.within(range: 1..10), :eff_qlty_nhn => Faker::Number.within(range: 1..5), :eff_qlty_tn => Faker::Number.within(range: 1..15), :eff_qlty_tp => format("%0.2f", Faker::Number.within(range: 0.1..0.5)), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..500),  
-#      :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 
-#      :inflow => Faker::Number.within(range: 10..100), :outflow => Faker::Number.within(range: 10..100), :inmud => Faker::Number.within(range: 10..100), :outmud => Faker::Number.within(range: 10..100), :mst => Faker::Number.within(range: 10..100), :power => Faker::Number.within(range: 10..100), :mdflow => Faker::Number.within(range: 10..100), :mdrcy => Faker::Number.within(range: 10..100), :mdsell => Faker::Number.within(range: 10..100)
-#    )
-#  end
-#end
+grp_opt = User.create!(:phone => "157637035888", :password => "swjt5888", :password_confirmation => "swjt5888", :name => "水务集团运营", :roles => @grp_opt, :factories => all_factories)
 
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.cod,      :max => Setting.level_ones.cod_s, :name => Setting.inf_qlties.cod)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.bod,      :max => Setting.level_ones.bod_s, :name => Setting.inf_qlties.bod)
@@ -134,4 +135,19 @@ Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdrcy  ,   :n
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdsell ,   :name => Setting.day_pdt_rpts.mdsell  )
 
 
+
+#Factory.all.each do |f|
+#  fake = Faker::Date
+#  20.times.each do |t|
+#    pdt_date = fake.between(from: '2021-04-01', to: '2021-08-15')
+#    DayPdtRpt.create!(
+#      :factory => f,
+#      :name => pdt_date.to_s + f.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :temper => Faker::Number.between(from: -10, to: 35), 
+#      :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
+#      :eff_qlty_bod => Faker::Number.within(range: 1..10), :eff_qlty_cod => Faker::Number.within(range: 10..50), :eff_qlty_ss => Faker::Number.within(range: 1..10), :eff_qlty_nhn => Faker::Number.within(range: 1..5), :eff_qlty_tn => Faker::Number.within(range: 1..15), :eff_qlty_tp => format("%0.2f", Faker::Number.within(range: 0.1..0.5)), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..500),  
+#      :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 
+#      :inflow => Faker::Number.within(range: 10..100), :outflow => Faker::Number.within(range: 10..100), :inmud => Faker::Number.within(range: 10..100), :outmud => Faker::Number.within(range: 10..100), :mst => Faker::Number.within(range: 10..100), :power => Faker::Number.within(range: 10..100), :mdflow => Faker::Number.within(range: 10..100), :mdrcy => Faker::Number.within(range: 10..100), :mdsell => Faker::Number.within(range: 10..100)
+#    )
+#  end
+#end
 

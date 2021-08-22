@@ -13,6 +13,8 @@
           - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.verifying
             = link_to "驳回", rejected_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-caution button-small pull-right mr-1" , :data => {:confirm => "确定驳回吗?"}
             = link_to "上报水务集团",  upreport_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-royal button-small pull-right mr-1", :data => {:confirm => "上报后不允许修改，确定上报吗?"}
+          %button#download-mth-pdt-rpt{:class => "button button-inverse button-small pull-right mr-1", :'data-fct' => idencode(@factory.id), :'data-mthrpt' => idencode(@mth_pdt_rpt.id)} 
+            下载word
       - content_for :card_body do
         .container-fluid
           .row

@@ -1,20 +1,20 @@
 ---
 - 
-  role_name: 生产运营数据填报 
+  role_name: 厂区-生产运营数据填报 
   level: 1
   permissions: 
     -
       controller: DayPdt
       actions: [index, show, new, create, edit, update, verifying]
 - 
-  role_name: 生产运营数据审核
+  role_name: 厂区-生产运营数据审核
   level: 1
   permissions: 
     -
       controller: DayPdt
       actions: [verify_index, verify_show, rejected, upreport]
 - 
-  role_name: 日报表 
+  role_name: 厂区-日报表 
   level: 1
   permissions: 
     -
@@ -37,16 +37,56 @@
       controller: Analyse 
       actions: [compare, month_compare]
 - 
-  role_name: 月报表 
+  role_name: 厂区-月报表 
   level: 1
   permissions: 
     -
       controller: MthPdtRpt
       actions: [mth_rpt_create, index, show, edit, update, verifying, download_report]
 - 
-  role_name: 月报表审核 
+  role_name: 厂区-月报表审核 
   level: 1
   permissions: 
     -
       controller: MthPdtRpt
       actions: [download_report, verify_index, verify_show, rejected, upreport]
+
+- 
+  role_name: 集团-报表管理
+  level: 1
+  permissions: 
+    -
+      controller: Report 
+      actions: [index, mth_report_show, day_report, mth_report, xls_day_download, xls_mth_download]
+
+- 
+  role_name: 厂区-环境监测系统-进水
+  level: 1
+  permissions: 
+    -
+      controller: EmpInf 
+      actions: [index, watercms_flow]
+
+- 
+  role_name: 厂区-环境监测系统-出水
+  level: 1
+  permissions: 
+    -
+      controller: EmpEff 
+      actions: [index, watercms_flow]
+
+- 
+  role_name: 集团-环境监测系统-进水
+  level: 1
+  permissions: 
+    -
+      controller: EmpInf 
+      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]
+
+- 
+  role_name: 集团-环境监测系统-出水
+  level: 1
+  permissions: 
+    -
+      controller: EmpEff 
+      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]

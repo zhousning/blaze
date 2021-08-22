@@ -11,3 +11,6 @@
 -
   controller: Analyse
   actions: [compare, month_compare]
+-
+  controller: Report 
+  actions: [index, mth_report_show, day_report, mth_report, xls_day_download, xls_mth_download]

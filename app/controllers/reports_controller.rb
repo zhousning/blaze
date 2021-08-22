@@ -65,5 +65,4 @@ class ReportsController < ApplicationController
     send_file target_excel, :filename => "月报表.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
   
-  private
 end

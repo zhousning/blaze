@@ -713,9 +713,21 @@ zh-CN:
     index:
       title: 济宁环境监测系统进水水质数据 
     edit:
-      title: 编辑月环境监测系统进水水质数据
+      title: 编辑环境监测系统进水水质数据
     update:
-      title: 编辑月环境监测系统进水水质数据
+      title: 编辑环境监测系统进水水质数据
+    new:
+      title: 添加环境监测系统进水水质数据
+    create:
+      title: 添加环境监测系统进水水质数据
+    destroy:
+      title: 删除环境监测系统进水水质数据
+    watercms_flow:
+      title: 水质流量
+    xls_download:
+      title: 下载excel
+    parse_excel:
+      title: 解析excel
   emp_effs:
     index:
       title: 济宁环境监测系统出水水质数据 
@@ -723,3 +735,28 @@ zh-CN:
       title: 编辑月环境监测系统出水水质数据
     update:
       title: 编辑月环境监测系统出水水质数据
+    new:
+      title: 添加环境监测系统出水水质数据
+    create:
+      title: 添加环境监测系统出水水质数据
+    destroy:
+      title: 删除环境监测系统出水水质数据
+    watercms_flow:
+      title: 水质流量
+    xls_download:
+      title: 下载excel
+    parse_excel:
+      title: 解析excel
+  reports:
+    index:
+      title: 报表
+    mth_report_show:
+      title: 查看报表
+    day_report:
+      title: 日报表
+    mth_report:
+      title: 月报表
+    xls_day_download:
+      title: 下载excel日报表
+    xls_mth_download:
+      title: 下载excel月报表
