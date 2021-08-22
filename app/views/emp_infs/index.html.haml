@@ -28,43 +28,43 @@
               %table.text-center.table-sm{:'data-toggle' => "table", 'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
                 %thead
                   %tr
-                    %th{:scope => "col"} #
+                    %th.py-2{:scope => "col"} #
                   
-                    %th{:scope => "col"}
+                    %th.py-2{:scope => "col"}
                       = Setting.emp_infs.pdt_time
-                    %th{:scope => "col"}
+                    %th.py-2{:scope => "col"}
                       = Setting.emp_infs.cod
-                    %th{:scope => "col"}
+                    %th.py-2{:scope => "col"}
                       = Setting.emp_infs.nhn
-                    %th{:scope => "col"}
+                    %th.py-2{:scope => "col"}
                       = Setting.emp_infs.tp
-                    %th{:scope => "col"}
+                    %th.py-2{:scope => "col"}
                       = Setting.emp_infs.flow
-                    %th{:scope => "col"}
+                    %th.py-2{:scope => "col"}
                       = Setting.emp_infs.ph
-                    %th{:scope => "col"}
+                    %th.py-2{:scope => "col"}
                       = Setting.emp_infs.temp
                     - if current_user.has_role?(Setting.roles.super_admin)
                       %th{:scope => "col"}
                 %tbody
                   - @emp_infs.each_with_index do |emp_inf, index|
                     %tr
-                      %td{:scope => "row"}
+                      %td.py-2{:scope => "row"}
                         = index+1
                     
-                      %td
+                      %td.py-2
                         = emp_inf.pdt_time.strftime("%Y-%m-%d %H")
-                      %td
+                      %td.py-2
                         = emp_inf.cod
-                      %td
+                      %td.py-2
                         = emp_inf.nhn
-                      %td
+                      %td.py-2
                         = emp_inf.tp
-                      %td
+                      %td.py-2
                         = emp_inf.flow
-                      %td
+                      %td.py-2
                         = emp_inf.ph
-                      %td
+                      %td.py-2
                         = emp_inf.temp
                       - if current_user.has_role?(Setting.roles.super_admin)
                         %td
