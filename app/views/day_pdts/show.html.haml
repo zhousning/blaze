@@ -19,6 +19,10 @@
               %h2.text-center
                 = image_tag "gykg.jpg"
                 = @day_pdt.name
+            .col-2.offset-8
+              %p
+                = Setting.day_pdts.signer
+                = @day_pdt.signer
             .col-sm-6.offset-3.p-5.border
               .col-sm-3.offset-7
                 - if @day_pdt.state == Setting.day_pdts.complete

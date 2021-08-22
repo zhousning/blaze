@@ -1,11 +1,11 @@
 class DayPdt < ActiveRecord::Base
 
-  validates :pdt_date, :presence => { :message => "日期必填" },
-    :uniqueness => { :message => "当前日期运营数据已存在,不能重复创建" }
+  validates :pdt_date, :presence => { :message => "日期必填" }
+  #:uniqueness => { :message => "当前日期运营数据已存在,不能重复创建" }
   validate :pdt_date_validation
 
   def pdt_date_validation
-    if pdt_date > Date.today-1 || pdt_date < Date.new(2021,1,1)
+    if pdt_date > Date.today-1 || pdt_date < Date.new(2021,5,1)
       errors[:base] << "日期超限"
     end
   end
