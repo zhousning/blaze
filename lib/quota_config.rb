@@ -11,6 +11,16 @@ module QuotaConfig
 
     MYQUOTAS = QuotaConfig.quota_hash
 
+    def emp_quota(quota)
+      obj = {
+        Setting.quota.cod => 'cod', 
+        Setting.quota.nhn => 'nhn',
+        Setting.quota.tp  => 'tp'
+      }
+      obj[quota]
+    end
+
+
     def my_real_codes(type)
       quotas = nil
       type = type.strip

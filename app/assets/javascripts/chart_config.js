@@ -134,6 +134,132 @@ function periodChartConfig(url, that_chart, factory_id, start, end, qcodes){
   });
 }
 
+function rainOption(data) {
+  option = {
+      title: {
+          text: data.title_text,
+          subtext: data.title_subtext,
+          left: 'center',
+          align: 'right'
+      },
+      grid: {
+          bottom: 80
+      },
+      toolbox: {
+          feature: {
+              dataZoom: {
+                  yAxisIndex: 'none'
+              },
+              magicType: {type: ['line', 'bar']},
+              restore: {},
+              saveAsImage: {}
+          }
+      },
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross',
+              animation: false,
+              label: {
+                  backgroundColor: '#505765'
+              }
+          }
+      },
+      legend: {
+          data: data.legend,
+          left: 10
+      },
+      dataZoom: [
+          {
+              show: true,
+              realtime: true,
+              start: 0,
+          },
+          {
+              type: 'inside',
+              realtime: true,
+              start: 0
+          }
+      ],
+      xAxis: [
+          {
+              type: 'category',
+              boundaryGap: false,
+              axisLine: {onZero: false},
+              data: data.time.map(function (str) {
+                  return str.replace(' ', '\n');
+              })
+          }
+      ],
+      yAxis: [
+          {
+              name: data.legend[0],
+              type: 'value',
+              max: data.y1_max,
+          },
+          {
+              name: data.legend[1],
+              nameLocation: 'start',
+              max: data.y2_max,
+              type: 'value',
+              inverse: true
+          }
+      ],
+      series: [
+          {
+              name: data.legend[0],
+              type: 'line',
+              areaStyle: {},
+              lineStyle: {
+                  width: 1
+              },
+              emphasis: {
+                  focus: 'series'
+              },
+              markArea: {
+                  silent: true,
+                  itemStyle: {
+                      opacity: 0.3
+                  },
+                  data: [[{
+                      xAxis: data.start_time 
+                  }, {
+                      xAxis: data.end_time 
+                  }]]
+              },
+              data: data.s1_data 
+          },
+          {
+              name: data.legend[1],
+              type: 'line',
+              yAxisIndex: 1,
+              areaStyle: {},
+              lineStyle: {
+                  width: 1
+              },
+              emphasis: {
+                  focus: 'series'
+              },
+              markArea: {
+                  silent: true,
+                  itemStyle: {
+                      opacity: 0.3
+                  },
+                  data: [
+                      [{
+                          xAxis: data.start_time 
+                      }, {
+                          xAxis: data.end_time 
+                      }]
+                  ]
+              },
+              data: data.s2_data 
+          }
+      ]
+  };
+  return option
+}
+
 //search_type 当前页面的checkbox
 function chartTable(ctnid, factory_id, start, end, qcodes, search_type){
   var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type}

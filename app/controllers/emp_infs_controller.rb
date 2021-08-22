@@ -3,6 +3,7 @@ class EmpInfsController < ApplicationController
   before_filter :authenticate_user!
   #load_and_authorize_resource
 
+  include QuotaConfig
    
   def index
    
@@ -13,29 +14,6 @@ class EmpInfsController < ApplicationController
    
   end
    
-  #bootstrap table分页用 暂时没有用
-  def query_list
-    @factory = my_factory
-    @emp_infs = @factory.emp_infs.order('pdt_time DESC').paginate( :page => params[:page], :per_page => 10 ) 
-    result = []
-    @emp_infs.each do |inf|
-      result << {
-        :id        => inf.id,
-        :pdt_time  => inf.pdt_time,
-        :cod       => inf.cod,     
-        :nhn       => inf.nhn,     
-        :tp        => inf.tp,      
-        :flow      => inf.flow,    
-        :ph        => inf.ph,      
-        :temp      => inf.temp    
-      }
-    end
-
-    respond_to do |f|
-      f.json{ render :json => {:rows => result}.to_json}
-    end
-  end
-
   def new
     @emp_inf = EmpInf.new
   end
@@ -104,7 +82,7 @@ class EmpInfsController < ApplicationController
     if @factory
       @emp_infs = EmpInf.where(['factory_id = ? and pdt_time between ? and ?', @factory.id, _start, _end]).order('pdt_time')
       @emp_infs.each do |inf|
-        time << inf.pdt_time
+        time << inf.pdt_time.strftime("%Y-%m-%d %H")
         s1_data << inf.flow
         s2_data << inf[quota_title.to_sym]
       end
@@ -113,9 +91,14 @@ class EmpInfsController < ApplicationController
     chart_config = {
       :time    => time,
       :s1_data => s1_data,
-      :s1_data => s2_data,
-      :start_time => start_time,
-      :end_time   => end_time  
+      :s2_data => s2_data,
+      :start_time => start_time.strftime("%Y-%m-%d %H"),
+      :end_time   => end_time.strftime("%Y-%m-%d %H"),  
+      :title_text => '水质流量关系图',
+      :title_subtext => '数据来自济宁市环境监测系统',
+      :legend => [Setting.emp_infs.flow, MYQUOTAS[quota][:name]],
+      :y1_max => 2000,
+      :y2_max => s2_data.max.to_i + 100
     }
     respond_to do |f|
       f.json{ render :json => chart_config.to_json}
@@ -123,15 +106,6 @@ class EmpInfsController < ApplicationController
 
   end
    
-  def emp_quota(quota)
-    obj = {
-      Setting.quota.cod => 'cod', 
-      Setting.quota.nhn => 'nhn',
-      Setting.quota.tp  => 'tp'
-    }
-    obj[quota]
-  end
-
   def xls_download
     send_file File.join(Rails.root, "templates", "emp_inf.xlsx"), :filename => "环境监测进水水质模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
@@ -171,6 +145,29 @@ class EmpInfsController < ApplicationController
     redirect_to factory_emp_infs_path(idencode(@my_factory.id)) 
   end 
   
+  #bootstrap table分页用 暂时没有用
+  def query_list
+    @factory = my_factory
+    @emp_infs = @factory.emp_infs.order('pdt_time DESC').paginate( :page => params[:page], :per_page => 10 ) 
+    result = []
+    @emp_infs.each do |inf|
+      result << {
+        :id        => inf.id,
+        :pdt_time  => inf.pdt_time,
+        :cod       => inf.cod,     
+        :nhn       => inf.nhn,     
+        :tp        => inf.tp,      
+        :flow      => inf.flow,    
+        :ph        => inf.ph,      
+        :temp      => inf.temp    
+      }
+    end
+
+    respond_to do |f|
+      f.json{ render :json => {:rows => result}.to_json}
+    end
+  end
+
 
   private
     def emp_inf_params

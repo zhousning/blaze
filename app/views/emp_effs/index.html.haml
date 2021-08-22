@@ -10,14 +10,17 @@
           = fa_icon "list", text: t(controller_name + "." + action_name + '.title') + "--" + @factory.name
 
           
-          = link_to xls_download_factory_emp_effs_path, :class => "button button-royal pull-right button-small mr-1" do
-            下载表格模板
-          
-          %button.button.button-caution.button-small.pull-right.mr-1{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
-            上传表格
-          
-          %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
-            = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+          - if current_user.has_role?(Setting.roles.super_admin)
+            = link_to xls_download_factory_emp_effs_path, :class => "button button-royal pull-right button-small mr-1" do
+              下载表格模板
+            
+            %button.button.button-caution.button-small.pull-right.mr-1{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
+              上传表格
+            
+            %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+          %button.button.button-inverse.button-small.pull-right.mr-1{"data-target" => "#empModal", "data-toggle" => "modal", :type => "button"}
+            数据看板
       - content_for :card_body do
         .container-fluid
           .row
@@ -41,8 +44,8 @@
                       = Setting.emp_effs.ph
                     %th{:scope => "col"}
                       = Setting.emp_effs.temp
-                    %th{:scope => "col"}
-                      设置
+                    - if current_user.has_role?(Setting.roles.super_admin)
+                      %th{:scope => "col"}
                 %tbody
                   - @emp_effs.each_with_index do |emp_eff, index|
                     %tr
@@ -63,11 +66,12 @@
                         = emp_eff.ph
                       %td
                         = emp_eff.temp
-                      %td
-                        .container-fluid
-                          .row.justify-content-center
-                            = link_to "编辑", edit_factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :class => "button button-highlight button-small mr-1" 
-                            = link_to "删除",  factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+                      - if current_user.has_role?(Setting.roles.super_admin)
+                        %td
+                          .container-fluid
+                            .row.justify-content-center
+                              = link_to "编辑", edit_factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :class => "button button-highlight button-small mr-1" 
+                              = link_to "删除",  factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
             .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
               = paginate @emp_effs, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
@@ -107,3 +111,23 @@
           %span{"aria-hidden" => "true"} x 
       .modal-body
         = render 'form'
+
+#empModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "empModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered
+    .modal-content
+      .modal-header
+        %ul.list-group.list-group-horizontal
+          %li.list-group-item.pl-0.border-0
+            = select_tag "qcodes", options_for_emp_quotas, :include_blank=>false, :class=>"form-control"
+          %li.list-group-item.border-0.d-flex.flex-row
+            = date_field_tag 'start', nil, class: 'form-control mr-1', :value => Date.today.at_beginning_of_month
+            %span
+              一
+            = date_field_tag 'end', nil, class: 'form-control ml-1', :value => Date.today
+          %li.list-group-item.pl-0.border-0
+            %button.area-time-search.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
+              查询 
+      .modal-body
+        .row
+          .col-12
+            #chart-ctn{:style => "width: 1100px;height:500px;"}

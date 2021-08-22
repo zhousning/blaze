@@ -3,6 +3,8 @@ class EmpEffsController < ApplicationController
   before_filter :authenticate_user!
   #load_and_authorize_resource
 
+  include QuotaConfig
+
   def index
    
     @emp_eff = EmpEff.new
@@ -12,11 +14,6 @@ class EmpEffsController < ApplicationController
    
   end
 
-  def query_list
-    @factory = my_factory
-    @emp_effs = @factory.emp_effs.order('pdt_time DESC').paginate( :page => params[:page], :per_page => 10 ) 
-  end
-   
 
   def new
     @emp_eff = EmpEff.new
@@ -69,7 +66,49 @@ class EmpEffsController < ApplicationController
   end
    
    
+   
+  def watercms_flow
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+    quota = params[:quota].strip
+    fct = params[:fct].strip
+    @factory = current_user.factories.find(iddecode(fct)) 
 
+    quota_title = emp_quota(quota)
+
+    time = []
+    s1_data = [] 
+    s2_data = []
+    start_time = _start
+    end_time = _end
+
+    if @factory
+      @emp_effs = EmpEff.where(['factory_id = ? and pdt_time between ? and ?', @factory.id, _start, _end]).order('pdt_time')
+      @emp_effs.each do |eff|
+        time << eff.pdt_time.strftime("%Y-%m-%d %H")
+        s1_data << eff.flow
+        s2_data << eff[quota_title.to_sym]
+      end
+    end
+
+    chart_config = {
+      :time    => time,
+      :s1_data => s1_data,
+      :s2_data => s2_data,
+      :start_time => start_time.strftime("%Y-%m-%d %H"),
+      :end_time   => end_time.strftime("%Y-%m-%d %H"),  
+      :title_text => '水质流量关系图',
+      :title_subtext => '数据来自济宁市环境监测系统',
+      :legend => [Setting.emp_effs.flow, MYQUOTAS[quota][:name]],
+      :y1_max => 2000,
+      :y2_max => s2_data.max.to_i + 100
+    }
+    respond_to do |f|
+      f.json{ render :json => chart_config.to_json}
+    end
+
+  end
+   
   def xls_download
     send_file File.join(Rails.root, "templates", "emp_eff.xlsx"), :filename => "环境监测出水水质模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end

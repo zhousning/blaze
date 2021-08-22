@@ -20,10 +20,7 @@ module DayPdtRptsHelper
   end
 
   def options_for_emp_quotas
-    str = ""
-    str += "<option value='" + Setting.quota.cod + "'>" + Setting.inf_qlties.cod + "</option>"
-     + "<option value='" + Setting.quota.nhn + "'>" + Setting.inf_qlties.nhn + "</option>"
-     + "<option value='" + Setting.quota.tp + "'>" + Setting.inf_qlties.tp + "</option>"
+    str = "<option value='" + Setting.quota.cod + "'>" + Setting.inf_qlties.cod + "</option>" + "<option value='" + Setting.quota.nhn + "'>" + Setting.inf_qlties.nhn + "</option>" + "<option value='" + Setting.quota.tp + "'>" + Setting.inf_qlties.tp + "</option>"
     raw(str)
   end
 

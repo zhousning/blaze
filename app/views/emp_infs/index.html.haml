@@ -19,8 +19,8 @@
             
             %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
               = fa_icon "plus", text: Setting.systems.btn_new, right: false 
-            %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#empModal", "data-toggle" => "modal", :type => "button"}
-              数据看板
+          %button.button.button-inverse.button-small.pull-right.mr-1{"data-target" => "#empModal", "data-toggle" => "modal", :type => "button"}
+            数据看板
       - content_for :card_body do
         .container-fluid
           .row
@@ -122,10 +122,10 @@
           %li.list-group-item.pl-0.border-0
             = select_tag "qcodes", options_for_emp_quotas, :include_blank=>false, :class=>"form-control"
           %li.list-group-item.border-0.d-flex.flex-row
-            = date_field_tag 'start', nil, class: 'form-control mr-1'
+            = date_field_tag 'start', nil, class: 'form-control mr-1', :value => Date.today.at_beginning_of_month
             %span
               一
-            = date_field_tag 'end', nil, class: 'form-control ml-1'
+            = date_field_tag 'end', nil, class: 'form-control ml-1', :value => Date.today
           %li.list-group-item.pl-0.border-0
             %button.area-time-search.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
               查询 

@@ -38,6 +38,7 @@ def parse_emps_excel(xls)
             index += 5 
             time = item['A' + index.to_s].strip
             if /\d\d\d\d-\d\d-\d\d/.match(time)
+              puts time
               datetime = time.to_datetime #DateTime.strptime(time, "%Y-%m-%d %H")
               cod      = item['B' + index.to_s].nil? ? 0 : item['B' + index.to_s]
               nhn      = item['D' + index.to_s].nil? ? 0 : item['D' + index.to_s]
@@ -48,7 +49,7 @@ def parse_emps_excel(xls)
               temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
               @emp_inf = factory.emp_infs.where(:pdt_time => datetime).first
-              EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => inflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_inf
+              EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => inflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_inf
             end
           end
         end
@@ -76,7 +77,7 @@ def parse_emps_excel(xls)
               temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
               @emp_eff = factory.emp_effs.where(:pdt_time => datetime).first
-              EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => efflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_eff
+              EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => efflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_eff
             end
           end
         end
