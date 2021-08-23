@@ -18,6 +18,8 @@ class DayPdtRptsController < ApplicationController
     @factory = my_factory
    
     @day_pdt_rpt = @factory.day_pdt_rpts.find(iddecode(params[:id]))
+
+    @day_rpt_stc = @day_pdt_rpt.day_rpt_stc
   end
    
   #时间区间内单厂多指标 数据立方

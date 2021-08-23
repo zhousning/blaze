@@ -17,101 +17,127 @@
                 .container-fluid
                   .row
                   
-                    .col-md-6.mb-3.mr-3
+              %table.table-bordered.day-pdt-table.w-100
+                %caption.text-center
+                  = Setting.day_rpt_stcs.label
+                %tbody
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.bcr
+                    %td.p-3.text-center
                       = @day_rpt_stc.bcr
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.bnr
+                    %td.p-3.text-center
                       = @day_rpt_stc.bnr
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.bpr
+                    %td.p-3.text-center
                       = @day_rpt_stc.bpr
                   
-                    .col-md-6.mb-3.mr-3
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.bom
+                    %td.p-3.text-center
                       = @day_rpt_stc.bom
                   
-                    .col-md-6.mb-3.mr-3
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.cod_bom
+                    %td.p-3.text-center
                       = @day_rpt_stc.cod_bom
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.bod_bom
+                    %td.p-3.text-center
                       = @day_rpt_stc.bod_bom
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.nhn_bom
+                    %td.p-3.text-center
                       = @day_rpt_stc.nhn_bom
                   
-                    .col-md-6.mb-3.mr-3
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.tp_bom
+                    %td.p-3.text-center
                       = @day_rpt_stc.tp_bom
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.tn_bom
+                    %td.p-3.text-center
                       = @day_rpt_stc.tn_bom
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.ss_bom
+                    %td.p-3.text-center
                       = @day_rpt_stc.ss_bom
                   
-                    .col-md-6.mb-3.mr-3
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.cod_emq
+                    %td.p-3.text-center
                       = @day_rpt_stc.cod_emq
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.bod_emq
+                    %td.p-3.text-center
                       = @day_rpt_stc.bod_emq
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.nhn_emq
+                    %td.p-3.text-center
                       = @day_rpt_stc.nhn_emq
                   
-                    .col-md-6.mb-3.mr-3
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.tp_emq
+                    %td.p-3.text-center
                       = @day_rpt_stc.tp_emq
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.tn_emq
+                    %td.p-3.text-center
                       = @day_rpt_stc.tn_emq
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.ss_emq
+                    %td.p-3.text-center
                       = @day_rpt_stc.ss_emq
                   
-                    .col-md-6.mb-3.mr-3
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.cod_emr
+                    %td.p-3.text-center
                       = @day_rpt_stc.cod_emr
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.bod_emr
+                    %td.p-3.text-center
                       = @day_rpt_stc.bod_emr
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.nhn_emr
+                    %td.p-3.text-center
                       = @day_rpt_stc.nhn_emr
                   
-                    .col-md-6.mb-3.mr-3
+                  %tr
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.tp_emr
+                    %td.p-3.text-center
                       = @day_rpt_stc.tp_emr
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.tn_emr
+                    %td.p-3.text-center
                       = @day_rpt_stc.tn_emr
                   
-                    .col-md-6.mb-3.mr-3
+                    %td.p-3.text-center
                       = Setting.day_rpt_stcs.ss_emr
+                    %td.p-3.text-center
                       = @day_rpt_stc.ss_emr
                   
-                  .row
-                  
-                  .row
-                  
-                  .row
-                  
-                  
-                  .row
                   
       = render "layouts/bootstrap/card"
