@@ -11,6 +11,7 @@ class DayPdtRpt < ActiveRecord::Base
   #end
 
 
+  has_one :day_rpt_stc
 
   belongs_to :day_pdt
 

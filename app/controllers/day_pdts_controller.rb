@@ -3,12 +3,13 @@ class DayPdtsController < ApplicationController
   before_filter :authenticate_user!
   #load_and_authorize_resource
 
+  include FormulaLib
 
   def index
     @day_pdt = DayPdt.new
     @factory = my_factory
 
-    @day_pdts = @factory.day_pdts.page( params[:page]).per( Setting.systems.per_page )  if @factory
+    @day_pdts = @factory.day_pdts.order('pdt_date DESC').page( params[:page]).per( Setting.systems.per_page )  if @factory
   end
    
 
@@ -106,9 +107,6 @@ class DayPdtsController < ApplicationController
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
     @day_pdt.name = day_pdt_params[:pdt_date].to_s + @factory.name + "生产运营报表"
-    puts ',m,,,,,,,,,,,,'
-    puts day_pdt_params
-    puts ',m,,,,,,,,,,,,'
 
     if @day_pdt.update(day_pdt_params)
       redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
@@ -159,6 +157,34 @@ class DayPdtsController < ApplicationController
         :eff_qlty_bod => @eff.bod, :eff_qlty_cod => @eff.cod, :eff_qlty_ss => @eff.ss, :eff_qlty_nhn => @eff.nhn, :eff_qlty_tn => @eff.tn, :eff_qlty_tp => @eff.tp, :eff_qlty_ph => @eff.ph, :eff_qlty_fecal => @eff.fecal,
         :sed_qlty_bod => @sed.bod, :sed_qlty_cod => @sed.cod, :sed_qlty_ss => @sed.ss, :sed_qlty_nhn => @sed.nhn, :sed_qlty_tn => @sed.tn, :sed_qlty_tp => @sed.tp, :sed_qlty_ph => @sed.ph, 
         :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell
+      )
+
+      @day_rpt_stc.new(
+        :bcr     => FormulaLib.ratio(@inf.bod, @inf.cod),
+        :bnr     => FormulaLib.ratio(@inf.bod, @inf.tnn),
+        :bpr     => FormulaLib.ratio(@inf.bod, @inf.tp),
+        :bom     => FormulaLib.bom(@pdt_sum.power, @pdt_sum.inflow), 
+
+        :cod_bom => FormulaLib.em_bom(@pdt_sum.power, @inf.cod, @eff.cod, @pdt_sum,inflow ), 
+        :bod_bom => FormulaLib.em_bom(@pdt_sum.power, @inf.bod, @eff.bod, @pdt_sum,inflow ), 
+        :nhn_bom => FormulaLib.em_bom(@pdt_sum.power, @inf.nhn, @eff.nhn, @pdt_sum,inflow ), 
+        :tp_bom  => FormulaLib.em_bom(@pdt_sum.power, @inf.tp,  @eff.tp,  @pdt_sum,inflow ), 
+        :tn_bom  => FormulaLib.em_bom(@pdt_sum.power, @inf.tn,  @eff.tn,  @pdt_sum,inflow ), 
+        :ss_bom  => FormulaLib.em_bom(@pdt_sum.power, @inf.ss,  @eff.ss,  @pdt_sum,inflow ), 
+
+        :cod_emq => FormulaLib.emq(@inf.cod, @eff.cod,  @pdt_sum.inflow ), 
+        :bod_emq => FormulaLib.emq(@inf.bod, @eff.bod,  @pdt_sum.inflow  ), 
+        :nhn_emq => FormulaLib.emq(@inf.nhn, @eff.nhn,  @pdt_sum.inflow  ), 
+        :tp_emq  => FormulaLib.emq(@inf.tp,  @eff.tp,   @pdt_sum.inflow  ), 
+        :tn_emq  => FormulaLib.emq(@inf.tn,  @eff.tn,   @pdt_sum.inflow  ), 
+        :ss_emq  => FormulaLib.emq(@inf.ss,  @eff.ss,   @pdt_sum.inflow  ), 
+
+        :cod_emr => FormulaLib.emr(@inf.cod, @eff.cod ), 
+        :bod_emr => FormulaLib.emr(@inf.bod, @eff.bod ), 
+        :nhn_emr => FormulaLib.emr(@inf.nhn, @eff.nhn ), 
+        :tp_emr  => FormulaLib.emr(@inf.tp,  @eff.tp ), 
+        :tn_emr  => FormulaLib.emr(@inf.tn,  @eff.tn ), 
+        :ss_emr  => FormulaLib.emr(@inf.ss,  @eff.ss )
       )
 
       @day_pdt.complete if @day_pdt_rpt.save

@@ -1893,6 +1893,30 @@ development:
     flow: 小时流量
     ph: ph
     temp: 水温
+  day_rpt_stcs:
+    label: 日报表统计分析
+    bcr: BODCOD
+    bnr: BODTN
+    bpr: BODTP
+    bom: 电单耗
+    cod_bom: 削减COD电单耗
+    bod_bom: 削减BOD电单耗
+    nhn_bom: 削减NH3N电单耗
+    tp_bom: 削减TP电单耗
+    tn_bom: 削减TN电单耗
+    ss_bom: 削减SS电单耗
+    cod_emq: COD削减量
+    bod_emq: BOD削减量
+    nhn_emq: NH3N削减量
+    tp_emq: TP削减量
+    tn_emq: TN削减量
+    ss_emq: SS削减量
+    cod_emr: COD削减率
+    bod_emr: BOD削减率
+    nhn_emr: NH3N削减率
+    tp_emr: TP削减率
+    tn_emr: TN削减率
+    ss_emr: SS削减率
 test:
   admins: *104
   users: *105

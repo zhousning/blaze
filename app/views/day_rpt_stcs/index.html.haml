@@ -1,0 +1,145 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+
+          
+
+          
+
+          -#
+            = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+          %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+            = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.bcr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.bnr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.bpr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.bom
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.cod_bom
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.bod_bom
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.nhn_bom
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.tp_bom
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.tn_bom
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.ss_bom
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.cod_emq
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.bod_emq
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.nhn_emq
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.tp_emq
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.tn_emq
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.ss_emq
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.cod_emr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.bod_emr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.nhn_emr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.tp_emr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.tn_emr
+                    %th{:scope => "col"}
+                      = Setting.day_rpt_stcs.ss_emr
+                    %th{:scope => "col"}
+                      设置
+                %tbody
+                  - @day_rpt_stcs.each_with_index do |day_rpt_stc, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = day_rpt_stc.bcr
+                      %td
+                        = day_rpt_stc.bnr
+                      %td
+                        = day_rpt_stc.bpr
+                      %td
+                        = day_rpt_stc.bom
+                      %td
+                        = day_rpt_stc.cod_bom
+                      %td
+                        = day_rpt_stc.bod_bom
+                      %td
+                        = day_rpt_stc.nhn_bom
+                      %td
+                        = day_rpt_stc.tp_bom
+                      %td
+                        = day_rpt_stc.tn_bom
+                      %td
+                        = day_rpt_stc.ss_bom
+                      %td
+                        = day_rpt_stc.cod_emq
+                      %td
+                        = day_rpt_stc.bod_emq
+                      %td
+                        = day_rpt_stc.nhn_emq
+                      %td
+                        = day_rpt_stc.tp_emq
+                      %td
+                        = day_rpt_stc.tn_emq
+                      %td
+                        = day_rpt_stc.ss_emq
+                      %td
+                        = day_rpt_stc.cod_emr
+                      %td
+                        = day_rpt_stc.bod_emr
+                      %td
+                        = day_rpt_stc.nhn_emr
+                      %td
+                        = day_rpt_stc.tp_emr
+                      %td
+                        = day_rpt_stc.tn_emr
+                      %td
+                        = day_rpt_stc.ss_emr
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            = link_to "编辑", edit_day_rpt_stc_path(idencode(day_rpt_stc.id)), :class => "button button-highlight button-small mr-1" 
+                            = link_to "详情",  day_rpt_stc_path(idencode(day_rpt_stc.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "删除",  day_rpt_stc_path(idencode(day_rpt_stc.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+            .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
+              = paginate @day_rpt_stcs, window: 2, left: 1, right: 1 
+      = render "layouts/bootstrap/card"
+
+
+
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = render 'form'
