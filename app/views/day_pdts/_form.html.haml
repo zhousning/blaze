@@ -2,6 +2,9 @@
   .row.justify-content-sm-center
     .col-sm-12
       = form_for @day_pdt, :url => "/factories/#{idencode(@factory.id)}/day_pdts/#{@day_pdt.id ? idencode(@day_pdt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if flash[:warning]
+          #error_explanation.alert.alert-warning.alert-dismissible.fade.show
+            = flash[:warning]
         - if @day_pdt.errors.any?
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}

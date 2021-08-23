@@ -47,49 +47,51 @@ class DayPdtsController < ApplicationController
   def emp_sync
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+    @inf_qlty = @day_pdt.inf_qlty
+    @eff_qlty = @day_pdt.eff_qlty
+    @pdt_sum  = @day_pdt.pdt_sum
+
     date = @day_pdt.pdt_date
     _start = date.to_s + "00:10:00"
     _end = (date + 1).to_s + "00:10:00"
     @emp_infs = @factory.emp_infs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
     @emp_effs = @factory.emp_effs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
 
-    inf_avg_cod  = format("%0.2f", @emp_infs.average(:cod)).to_f
-    inf_avg_nhn  = format("%0.2f", @emp_infs.average(:nhn)).to_f
-    inf_avg_tp   = format("%0.2f", @emp_infs.average(:tp)).to_f
-    inf_avg_ph   = format("%0.2f", @emp_infs.average(:ph)).to_f
-    inf_avg_temp = format("%0.2f", @emp_infs.average(:temp)).to_f
-    inf_sum_flow = format("%0.2f", @emp_infs.average(:flow)).to_f
-
-    eff_avg_cod  = format("%0.2f", @emp_effs.average(:cod)).to_f
-    eff_avg_nhn  = format("%0.2f", @emp_effs.average(:nhn)).to_f
-    eff_avg_tp   = format("%0.2f", @emp_effs.average(:tp)).to_f
-    eff_avg_ph   = format("%0.2f", @emp_effs.average(:ph)).to_f
-    eff_avg_temp = format("%0.2f", @emp_effs.average(:temp)).to_f
-    eff_sum_flow = format("%0.2f", @emp_effs.average(:flow)).to_f
-
-    inf_qlty = {
-      :cod => inf_avg_cod, 
-      :nhn => inf_avg_nhn, 
-      :tp  => inf_avg_tp , 
-      :ph  => inf_avg_ph  
-    }
-    eff_qlty = {
-      :cod => eff_avg_cod, 
-      :nhn => eff_avg_nhn, 
-      :tp  => eff_avg_tp , 
-      :ph  => eff_avg_ph  
-    }
-    pdt_sum = {
-      :inflow  => inf_sum_flow,
-      :outflow => eff_sum_flow
-    }
-    day_pdt_params = {inf_qlty_attributes: inf_qlty, eff_qlty_attributes: eff_qlty, pdt_sum_attributes: pdt_sum}
-
-    if @day_pdt.update(day_pdt_params)
-      redirect_to edit_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
-    else
-      render :edit
+    unless @emp_infs.blank?
+      inf_avg_cod  = format("%0.2f", @emp_infs.average(:cod)).to_f
+      inf_avg_nhn  = format("%0.2f", @emp_infs.average(:nhn)).to_f
+      inf_avg_tp   = format("%0.2f", @emp_infs.average(:tp)).to_f
+      inf_avg_ph   = format("%0.2f", @emp_infs.average(:ph)).to_f
+      inf_avg_temp = format("%0.2f", @emp_infs.average(:temp)).to_f
+      inf_sum_flow = format("%0.2f", @emp_infs.average(:flow)).to_f
+      inf_qlty = {
+        :cod => inf_avg_cod, 
+        :nhn => inf_avg_nhn, 
+        :tp  => inf_avg_tp , 
+        :ph  => inf_avg_ph  
+      }
+      @inf_qlty.update_attributes(inf_qlty)
+      @pdt_sum.update_attributes(:inflow => inf_sum_flow)
     end
+
+    unless @emp_effs.blank?
+      eff_avg_cod  = format("%0.2f", @emp_effs.average(:cod)).to_f
+      eff_avg_nhn  = format("%0.2f", @emp_effs.average(:nhn)).to_f
+      eff_avg_tp   = format("%0.2f", @emp_effs.average(:tp)).to_f
+      eff_avg_ph   = format("%0.2f", @emp_effs.average(:ph)).to_f
+      eff_avg_temp = format("%0.2f", @emp_effs.average(:temp)).to_f
+      eff_sum_flow = format("%0.2f", @emp_effs.average(:flow)).to_f
+      eff_qlty = {
+        :cod => eff_avg_cod, 
+        :nhn => eff_avg_nhn, 
+        :tp  => eff_avg_tp , 
+        :ph  => eff_avg_ph  
+      }
+      @eff_qlty.update_attributes(eff_qlty)
+      @pdt_sum.update_attributes(:outflow => eff_sum_flow)
+    end
+
+    redirect_to edit_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
   end
 
    
@@ -103,7 +105,10 @@ class DayPdtsController < ApplicationController
   def update
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
-    @day_pdt.name = @day_pdt.pdt_date.to_s + @factory.name + "生产运营报表"
+    @day_pdt.name = day_pdt_params[:pdt_date].to_s + @factory.name + "生产运营报表"
+    puts ',m,,,,,,,,,,,,'
+    puts day_pdt_params
+    puts ',m,,,,,,,,,,,,'
 
     if @day_pdt.update(day_pdt_params)
       redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
