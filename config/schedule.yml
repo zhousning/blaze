@@ -1,4 +1,4 @@
-produce_leaf:
-  cron: "* * * * *"
+produce_day_pdt:
+  cron: "30 3 * * *"
   class: "DayPdtWorker"
   queue: default

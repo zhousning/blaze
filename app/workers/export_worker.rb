@@ -3,8 +3,8 @@ require "sablon"
 class ExportWorker
   include Sidekiq::Worker
 
-  FOLDER_PUBLIC = File.join(Rails.root, "public")
-  MONTH_REPORT = File.join(Rails.root, "app", "workers", "templates", "monthreport.docx")
+  #FOLDER_PUBLIC = File.join(Rails.root, "public")
+  MONTH_REPORT = File.join(Rails.root, "templates", "monthreport.docx")
 
   def perform(mth_pdt_rpt_id, document_id)
     @mth_pdt_rpt = MthPdtRpt.find(mth_pdt_rpt_id)

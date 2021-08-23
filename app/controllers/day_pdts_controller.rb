@@ -44,6 +44,53 @@ class DayPdtsController < ApplicationController
     end
   end
    
+  def emp_sync
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+    date = @day_pdt.pdt_date
+    _start = date.to_s + "00:10:00"
+    _end = (date + 1).to_s + "00:10:00"
+    @emp_infs = @factory.emp_infs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
+    @emp_effs = @factory.emp_effs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
+
+    inf_avg_cod  = format("%0.2f", @emp_infs.average(:cod)).to_f
+    inf_avg_nhn  = format("%0.2f", @emp_infs.average(:nhn)).to_f
+    inf_avg_tp   = format("%0.2f", @emp_infs.average(:tp)).to_f
+    inf_avg_ph   = format("%0.2f", @emp_infs.average(:ph)).to_f
+    inf_avg_temp = format("%0.2f", @emp_infs.average(:temp)).to_f
+    inf_sum_flow = format("%0.2f", @emp_infs.average(:flow)).to_f
+
+    eff_avg_cod  = format("%0.2f", @emp_effs.average(:cod)).to_f
+    eff_avg_nhn  = format("%0.2f", @emp_effs.average(:nhn)).to_f
+    eff_avg_tp   = format("%0.2f", @emp_effs.average(:tp)).to_f
+    eff_avg_ph   = format("%0.2f", @emp_effs.average(:ph)).to_f
+    eff_avg_temp = format("%0.2f", @emp_effs.average(:temp)).to_f
+    eff_sum_flow = format("%0.2f", @emp_effs.average(:flow)).to_f
+
+    inf_qlty = {
+      :cod => inf_avg_cod, 
+      :nhn => inf_avg_nhn, 
+      :tp  => inf_avg_tp , 
+      :ph  => inf_avg_ph  
+    }
+    eff_qlty = {
+      :cod => eff_avg_cod, 
+      :nhn => eff_avg_nhn, 
+      :tp  => eff_avg_tp , 
+      :ph  => eff_avg_ph  
+    }
+    pdt_sum = {
+      :inflow  => inf_sum_flow,
+      :outflow => eff_sum_flow
+    }
+    day_pdt_params = {inf_qlty_attributes: inf_qlty, eff_qlty_attributes: eff_qlty, pdt_sum_attributes: pdt_sum}
+
+    if @day_pdt.update(day_pdt_params)
+      redirect_to edit_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+    else
+      render :edit
+    end
+  end
 
    
   def edit
@@ -126,7 +173,7 @@ class DayPdtsController < ApplicationController
    
 
   def xls_download
-    send_file File.join(Rails.root, "public", "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
+    send_file File.join(Rails.root, "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
   
   
