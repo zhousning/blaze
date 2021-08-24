@@ -1,8 +1,6 @@
 - provide(:title, t('.title'))
 
 
-.text-success
-  = flash[:info]
 .container-fluid
   .row
     = render "layouts/control_sidebar"
@@ -20,17 +18,27 @@
                     %th{:scope => "col"} #
                   
                     %th{:scope => "col"}
-                      = Setting.mth_pdt_rpts.name
+                      日期
+                    -#
+                      %th{:scope => "col"}
+                        = Setting.mth_pdt_rpts.avg_outflow
                     %th{:scope => "col"}
                       = Setting.mth_pdt_rpts.outflow
                     %th{:scope => "col"}
-                      = Setting.mth_pdt_rpts.avg_outflow
-                    %th{:scope => "col"}
                       = Setting.mth_pdt_rpts.end_outflow
+                    %th.text-danger{:scope => "col"}
+                      = Setting.month_cods.avg_inf
+                    %th.text-success{:scope => "col"}
+                      = Setting.month_cods.avg_eff
+                    %th.text-danger{:scope => "col"}
+                      = Setting.month_tns.avg_inf
+                    %th.text-success{:scope => "col"}
+                      = Setting.month_tns.avg_eff
+                    %th.text-danger{:scope => "col"}
+                      = Setting.month_tps.avg_inf
+                    %th.text-success{:scope => "col"}
+                      = Setting.month_tps.avg_eff
                     %th{:scope => "col"}
-                      进度
-                    %th{:scope => "col"}
-                      设置
                 %tbody
                   - @mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
                     %tr
@@ -38,30 +46,30 @@
                         = index+1
                     
                       %td
-                        = mth_pdt_rpt.name
+                        = mth_pdt_rpt.start_date.year.to_s + "年" +  mth_pdt_rpt.start_date.month.to_s + "月"
+                      -#
+                        %td
+                          = mth_pdt_rpt.avg_outflow
                       %td
                         = mth_pdt_rpt.outflow
                       %td
-                        = mth_pdt_rpt.avg_outflow
-                      %td
                         = mth_pdt_rpt.end_outflow
-                      %td
-                        - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.complete
-                          %span.text-success
-                            = Setting.mth_pdt_rpts.complete_t
-                        - elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
-                          %span.text-primary
-                            = Setting.mth_pdt_rpts.ongoing_t
-                        - elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.verifying
-                          %span.text-info
-                            = Setting.mth_pdt_rpts.verifying_t
-                        - elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected
-                          %span.text-danger
-                            = Setting.mth_pdt_rpts.rejected_t
+                      %td.text-danger
+                        = mth_pdt_rpt.month_cod.avg_inf
+                      %td.text-success
+                        = mth_pdt_rpt.month_cod.avg_eff
+                      %td.text-danger
+                        = mth_pdt_rpt.month_tn.avg_inf
+                      %td.text-success
+                        = mth_pdt_rpt.month_tn.avg_eff
+                      %td.text-danger
+                        = mth_pdt_rpt.month_tp.avg_inf
+                      %td.text-success
+                        = mth_pdt_rpt.month_tp.avg_eff
                       %td
                         .container-fluid
                           .row.justify-content-center
-                            = link_to "查看",  verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "查看",  mth_report_finish_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
       = render "layouts/bootstrap/card"
 
 

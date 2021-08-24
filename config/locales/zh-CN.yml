@@ -704,6 +704,10 @@ zh-CN:
       title: 月报表审核-驳回
     upreport:
       title: 月报表审核-上报
+    mth_report_finish_index:
+      title: 月报表
+    mth_report_finish_show:
+      title: 月报表明细
   analyses:
     compare:
       title: 指标对比

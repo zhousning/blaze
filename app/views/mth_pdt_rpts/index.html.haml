@@ -78,8 +78,6 @@
                             = link_to "查看",  factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
                             -#
                               = link_to "删除",  mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
-            .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
-              = paginate @mth_pdt_rpts, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
 
 

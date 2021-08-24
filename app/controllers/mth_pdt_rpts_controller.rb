@@ -14,6 +14,17 @@ class MthPdtRptsController < ApplicationController
    
   end
 
+  def mth_report_finish_index
+    @factory = my_factory
+    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => Setting.mth_pdt_rpts.complete).order('start_date DESC')
+  end
+
+  def mth_report_finish_show
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+  end
+   
+
   def mth_rpt_create
     @factory = my_factory
     month = params[:month].strip.to_i
@@ -210,6 +221,15 @@ class MthPdtRptsController < ApplicationController
     end
   end
   
+  def xls_mth_download
+    @factory = my_factory 
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    obj = [@mth_pdt_rpt]
+
+    excel_tool = SpreadSheetTool.new
+    target_excel = excel_tool.exportMthPdtRptToExcel(obj)
+    send_file target_excel, :filename => "月报表.xlsx", :type => "application/force-download", :x_sendfile=>true
+  end
   
 
   private

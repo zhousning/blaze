@@ -106,6 +106,7 @@ Rails.application.routes.draw do
     end
     resources :day_pdt_rpts, :only => [:index, :show] do
       get :produce_report, :on => :member
+      get :xls_day_download, :on => :member
     end
     resources :analyses, :only => [] do
       get :month_compare, :on => :collection
@@ -118,6 +119,9 @@ Rails.application.routes.draw do
       get :rejected, :on => :member
       get :verify_index, :on => :collection
       get :verify_show, :on => :member
+      get :mth_report_finish_index, :on => :collection
+      get :mth_report_finish_show, :on => :member
+      get :xls_mth_download, :on => :member
     end
     resources :emp_infs do
       post :parse_excel, :on => :collection

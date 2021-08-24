@@ -164,6 +164,16 @@ class DayPdtRptsController < ApplicationController
     send_file File.join(Rails.root, "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
   
+  def xls_day_download
+    @factory = my_factory
+    @day_pdt_rpt = @factory.day_pdt_rpts.find(iddecode(params[:id]))
+    obj = [@day_pdt_rpt]
+
+    excel_tool = SpreadSheetTool.new
+    target_excel = excel_tool.exportDayPdtRptToExcel(obj)
+    send_file target_excel, :filename => "日报表.xlsx", :type => "application/force-download", :x_sendfile=>true
+  end
+
   private
     def day_pdt_rpt_params
       params.require(:day_pdt_rpt).permit(:name, :pdt_date, :weather, :temper, 

@@ -14,20 +14,22 @@
             .card-body.py-0.pl-2.pr-0.border.border-danger
               - if current_user.has_role?(Setting.roles.day_pdt) || current_user.has_role?(Setting.roles.super_admin)
                 = link_to factory_day_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
-                  = fa_icon "codepen", text: "生产运营数据"
-                
-              - if current_user.has_role?(Setting.roles.day_pdt_rpt) || current_user.has_role?(Setting.roles.super_admin)
-                = link_to factory_day_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
-                  = fa_icon "diamond", text: "日报表"
+                  = fa_icon "codepen", text: "日运营数据填报"
               - if current_user.has_role?(Setting.roles.mth_pdt_rpt) || current_user.has_role?(Setting.roles.super_admin)
                 = link_to factory_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
-                  = fa_icon "diamond", text: "月报表"
+                  = fa_icon "codepen", text: "月报表填报"
+                
               - if current_user.has_role?(Setting.roles.day_pdt_verify) || current_user.has_role?(Setting.roles.super_admin)
                 = link_to verify_index_factory_day_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
-                  = fa_icon "object-group", text: "运营数据审核"
+                  = fa_icon "object-group", text: "日运营数据审核"
               - if current_user.has_role?(Setting.roles.mth_pdt_rpt_verify) || current_user.has_role?(Setting.roles.super_admin)
                 = link_to verify_index_factory_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
                   = fa_icon "object-group", text: "月报表审核"
+              - if current_user.has_role?(Setting.roles.day_pdt_rpt) || current_user.has_role?(Setting.roles.super_admin)
+                = link_to factory_day_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "diamond", text: "日报表"
+                = link_to mth_report_finish_index_factory_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "diamond", text: "月报表"
               - if current_user.has_role?(Setting.roles.grp_emp_inf) || current_user.has_role?(Setting.roles.fct_emp_inf) || current_user.has_role?(Setting.roles.super_admin)
                 = link_to factory_emp_infs_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
                   = fa_icon "sign-in", text: "环境监测进水口"

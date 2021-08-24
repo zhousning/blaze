@@ -7,6 +7,7 @@
       - content_for :card_header do
         %h5
           = fa_icon "newspaper-o", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+          = link_to '下载excel', xls_day_download_factory_day_pdt_rpt_path(idencode(@factory.id), idencode(@day_pdt_rpt.id)), {:class => "button button-action button-small pull-right mr-1"} 
           = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
       - content_for :card_body do

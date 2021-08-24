@@ -7,7 +7,7 @@ class SpreadSheetTool
   def exportMthPdtRptToExcel(obj)
     Spreadsheet.client_encoding = 'UTF-8'
     filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
-    mth_report_template = File.join(Rails.root, "public", "template", "mth_report.xls")
+    mth_report_template = File.join(Rails.root, "public", "mth_report.xls")
     target_excel = File.join(Rails.root, "public", "excel", filename + '.xls') 
 
     book = Spreadsheet.open mth_report_template 
@@ -46,7 +46,7 @@ class SpreadSheetTool
   def exportDayPdtRptToExcel(obj)
     Spreadsheet.client_encoding = 'UTF-8'
     filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
-    day_report_template = File.join(Rails.root, "public", "template", "day_report.xls")
+    day_report_template = File.join(Rails.root, "templates", "day_report.xls")
     target_excel = File.join(Rails.root, "public", "excel", filename + '.xls') 
 
     book = Spreadsheet.open day_report_template 
