@@ -6,51 +6,51 @@
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.mdrcy, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :mdrcy, :class => "form-control", :required => true 
+        = f.number_field :mdrcy, :class => "form-control", :disabled => true, :required => true 
         
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.end_mdrcy, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :end_mdrcy, :class => "form-control", :required => true 
+        = f.number_field :end_mdrcy, :class => "form-control", :disabled => true, :required => true 
         
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.mdsell, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :mdsell, :class => "form-control", :required => true 
+        = f.number_field :mdsell, :class => "form-control", :disabled => true, :required => true 
         
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.end_mdsell, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :end_mdsell, :class => "form-control", :required => true 
+        = f.number_field :end_mdsell, :class => "form-control", :disabled => true, :required => true 
         
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.yoy_mdrcy, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :yoy_mdrcy, :class => "form-control"
+        = f.number_field :yoy_mdrcy, :class => "form-control", :disabled => true
         
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.mom_mdrcy, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :mom_mdrcy, :class => "form-control"
+        = f.number_field :mom_mdrcy, :class => "form-control", :disabled => true
         
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.ypdr_mdrcy, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :ypdr_mdrcy, :class => "form-control"
+        = f.number_field :ypdr_mdrcy, :class => "form-control", :disabled => true
         
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.yoy_mdsell, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :yoy_mdsell, :class => "form-control"
+        = f.number_field :yoy_mdsell, :class => "form-control", :disabled => true
         
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.mom_mdsell, :class => " text-right"
       %td.p-3.text-center
-        = f.number_field :mom_mdsell, :class => "form-control"
+        = f.number_field :mom_mdsell, :class => "form-control", :disabled => true
         
       %td.p-3.text-center
         = f.label nil, Setting.month_mds.ypdr_mdsell, :class => " text-right"

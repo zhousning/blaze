@@ -26,4 +26,7 @@ module FormulaLib
     (quota_in - quota_out != 0 && inflow !=0) ? format("%0.2f",power*1000/(quota_in - quota_out)/inflow) : 0
   end
 
+  #同比
+  def self.yoy(
+
 end

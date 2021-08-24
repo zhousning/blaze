@@ -184,6 +184,7 @@ class MthPdtRptsController < ApplicationController
     @factory = my_factory 
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
    
+    puts mth_pdt_rpt_params
     if @mth_pdt_rpt.update(mth_pdt_rpt_params)
       redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else
@@ -233,46 +234,49 @@ class MthPdtRptsController < ApplicationController
   
 
   private
+  
     def mth_pdt_rpt_params
-      params.require(:mth_pdt_rpt).permit( :design, :outflow, :avg_outflow, :end_outflow, month_cods_attributes: month_cod_params, month_bods_attributes: month_bod_params, month_tps_attributes: month_tp_params, month_tns_attributes: month_tn_params, month_nhns_attributes: month_nhn_params, month_fecals_attributes: month_fecal_params, month_powers_attributes: month_power_params, month_muds_attributes: month_mud_params, month_mds_attributes: month_md_params, month_devices_attributes: month_device_params, month_stuffs_attributes: month_stuff_params)
+      params.require(:mth_pdt_rpt).permit( month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params)
     end
   
-  
-  
     def month_cod_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr]
     end
   
     def month_bod_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr ]
     end
   
     def month_tp_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr ]
     end
   
     def month_tn_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr ]
     end
   
     def month_nhn_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr ]
     end
   
+    def month_ss_params
+      [:id, :ypdr ]
+    end
+
     def month_fecal_params
-      [:id, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+      [:id,:ypdr ]
     end
   
     def month_power_params
-      [:id, :power, :end_power, :bom, :bom_power, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr_power, :ypdr_bom]
     end
   
     def month_mud_params
-      [:id, :inmud, :end_inmud, :outmud, :end_outmud, :mst_up, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr ]
     end
   
     def month_md_params
-      [:id, :mdrcy, :end_mdrcy, :mdsell, :end_mdsell, :yoy, :mom, :ypdr ,:_destroy]
+      [:id, :ypdr_mdsell, :ypdr_mdrcy ]
     end
   
     def month_device_params
@@ -283,90 +287,130 @@ class MthPdtRptsController < ApplicationController
       [:id, :xdjtjl, :end_xdjtjl, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-  def my_factory
-    @factory = current_user.factories.find(iddecode(params[:factory_id]))
-  end
+    #def mth_pdt_rpt_params
+    #  params.require(:mth_pdt_rpt).permit( :design, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params)
+    #end
+  
+    #def month_cod_params
+    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_bod_params
+    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_tp_params
+    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_tn_params
+    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_nhn_params
+    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_fecal_params
+    #  [:id, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_power_params
+    #  [:id, :power, :end_power, :bom, :bom_power, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_mud_params
+    #  [:id, :inmud, :end_inmud, :outmud, :end_outmud, :mst_up, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+  
+    #def month_md_params
+    #  [:id, :mdrcy, :end_mdrcy, :mdsell, :end_mdsell, :yoy, :mom, :ypdr ,:_destroy]
+    #end
+    
+    def my_factory
+      @factory = current_user.factories.find(iddecode(params[:factory_id]))
+    end
 
-  def mth_pdt_rpt(start_date, end_date, design, outflow, avg_outflow, end_outflow, factory_id, name)
-    {
-      :name => name,
-      :start_date =>  start_date, 
-      :end_date =>  end_date, 
-      :factory_id => factory_id,
-      :design   =>  design,
-      :outflow  =>  outflow,
-      :avg_outflow =>  avg_outflow,
-      :end_outflow =>  end_outflow
-    }
-  end
+    def mth_pdt_rpt(start_date, end_date, design, outflow, avg_outflow, end_outflow, factory_id, name)
+      {
+        :name => name,
+        :start_date =>  start_date, 
+        :end_date =>  end_date, 
+        :factory_id => factory_id,
+        :design   =>  design,
+        :outflow  =>  outflow,
+        :avg_outflow =>  avg_outflow,
+        :end_outflow =>  end_outflow
+      }
+    end
 
-  #削减量同比和环比
-  def month_cms(avg_inf, avg_eff, emr, avg_emq, emq, end_emq, up_std , end_std, yoy, mom, ypdr)
-    {
-      :avg_inf   =>   avg_inf,
-      :avg_eff   =>   avg_eff,
-      :emr       =>   emr    ,
-      :avg_emq   =>   avg_emq,
-      :emq       =>   emq    ,
-      :end_emq   =>   end_emq,
-      :up_std    =>   up_std ,
-      :end_std   =>   end_std,
-      :yoy       =>   yoy    ,
-      :mom       =>   mom    ,
-      :ypdr      =>   ypdr   
-    }
-  end
+    #削减量同比和环比
+    def month_cms(avg_inf, avg_eff, emr, avg_emq, emq, end_emq, up_std , end_std, yoy, mom, ypdr)
+      {
+        :avg_inf   =>   avg_inf,
+        :avg_eff   =>   avg_eff,
+        :emr       =>   emr    ,
+        :avg_emq   =>   avg_emq,
+        :emq       =>   emq    ,
+        :end_emq   =>   end_emq,
+        :up_std    =>   up_std ,
+        :end_std   =>   end_std,
+        :yoy       =>   yoy    ,
+        :mom       =>   mom    ,
+        :ypdr      =>   ypdr   
+      }
+    end
 
-  def month_power(power, end_power, bom, bom_power, yoy_power, mom_power, ypdr_power, yoy_bom, mom_bom, ypdr_bom)
-    {
-      :power => power,
-      :end_power => end_power,
-      :bom => bom,
-      :bom_power => bom_power,
-      :yoy_power => yoy_power,
-      :mom_power => mom_power,
-      :ypdr_power => ypdr_power,
-      :yoy_bom => yoy_bom,
-      :mom_bom => mom_bom,
-      :ypdr_bom => ypdr_bom
-    }
-  end
-   
-  def month_mud(inmud, end_inmud, outmud, end_outmud, mst_up, yoy, mom, ypdr)
-    {
-      :inmud      =>  inmud    ,
-      :end_inmud  =>  end_inmud,
-      :outmud     =>  outmud   ,
-      :end_outmud =>  end_outmud,
-      :mst_up     =>  mst_up   ,
-      :yoy        =>  yoy      ,
-      :mom        =>  mom      ,
-      :ypdr       =>  ypdr     
-    }
-  end
+    def month_power(power, end_power, bom, bom_power, yoy_power, mom_power, ypdr_power, yoy_bom, mom_bom, ypdr_bom)
+      {
+        :power => power,
+        :end_power => end_power,
+        :bom => bom,
+        :bom_power => bom_power,
+        :yoy_power => yoy_power,
+        :mom_power => mom_power,
+        :ypdr_power => ypdr_power,
+        :yoy_bom => yoy_bom,
+        :mom_bom => mom_bom,
+        :ypdr_bom => ypdr_bom
+      }
+    end
+     
+    def month_mud(inmud, end_inmud, outmud, end_outmud, mst_up, yoy, mom, ypdr)
+      {
+        :inmud      =>  inmud    ,
+        :end_inmud  =>  end_inmud,
+        :outmud     =>  outmud   ,
+        :end_outmud =>  end_outmud,
+        :mst_up     =>  mst_up   ,
+        :yoy        =>  yoy      ,
+        :mom        =>  mom      ,
+        :ypdr       =>  ypdr     
+      }
+    end
 
-  def month_md(mdrcy, end_mdrcy, mdsell, end_mdsell, yoy_mdrcy, mom_mdrcy, ypdr_mdrcy, yoy_mdsell, mom_mdsell, ypdr_mdsell)
-    {
-      :mdrcy        =>   mdrcy,
-      :end_mdrcy    =>   end_mdrcy,
-      :mdsell       =>   mdsell,
-      :end_mdsell   =>   end_mdsell,
-      :yoy_mdrcy    =>   yoy_mdrcy,
-      :mom_mdrcy    =>   mom_mdrcy,
-      :ypdr_mdrcy   =>   ypdr_mdrcy,
-      :yoy_mdsell   =>   yoy_mdsell,
-      :mom_mdsell   =>   mom_mdsell,
-      :ypdr_mdsell  =>   ypdr_mdsell
-    }
-  end
+    def month_md(mdrcy, end_mdrcy, mdsell, end_mdsell, yoy_mdrcy, mom_mdrcy, ypdr_mdrcy, yoy_mdsell, mom_mdsell, ypdr_mdsell)
+      {
+        :mdrcy        =>   mdrcy,
+        :end_mdrcy    =>   end_mdrcy,
+        :mdsell       =>   mdsell,
+        :end_mdsell   =>   end_mdsell,
+        :yoy_mdrcy    =>   yoy_mdrcy,
+        :mom_mdrcy    =>   mom_mdrcy,
+        :ypdr_mdrcy   =>   ypdr_mdrcy,
+        :yoy_mdsell   =>   yoy_mdsell,
+        :mom_mdsell   =>   mom_mdsell,
+        :ypdr_mdsell  =>   ypdr_mdsell
+      }
+    end
 
-  def month_fecal(up_std, end_std, yoy, mom)
-    {
-      :up_std  => up_std,
-      :end_std => end_std,
-      :yoy => yoy,
-      :mom => mom
-    }
-  end
+    def month_fecal(up_std, end_std, yoy, mom)
+      {
+        :up_std  => up_std,
+        :end_std => end_std,
+        :yoy => yoy,
+        :mom => mom
+      }
+    end
 end
 

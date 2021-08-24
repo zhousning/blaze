@@ -6,34 +6,34 @@
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.power, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :power, :class => "form-control", :required => true 
+        = f.number_field :power, :class => "form-control", :disabled => true, :required => true 
         
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.end_power, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :end_power, :class => "form-control", :required => true 
+        = f.number_field :end_power, :class => "form-control", :disabled => true, :required => true 
         
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.bom, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :bom, :class => "form-control", :required => true 
+        = f.number_field :bom, :class => "form-control", :disabled => true, :required => true 
         
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.bom_power, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :bom_power, :class => "form-control", :required => true 
+        = f.number_field :bom_power, :class => "form-control", :disabled => true, :required => true 
         
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.yoy_power, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :yoy_power, :class => "form-control"
+        = f.number_field :yoy_power, :class => "form-control", :disabled => true
         
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.mom_power, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :mom_power, :class => "form-control"
+        = f.number_field :mom_power, :class => "form-control", :disabled => true
         
     %tr
       %td.p-3.text-center
@@ -44,13 +44,13 @@
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.yoy_bom, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :yoy_bom, :class => "form-control"
+        = f.number_field :yoy_bom, :class => "form-control", :disabled => true
         
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.mom_bom, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :mom_bom, :class => "form-control"
+        = f.number_field :mom_bom, :class => "form-control", :disabled => true
         
       %td.p-3.text-center
         = f.label nil, Setting.month_powers.ypdr_bom, :class => " text-center"

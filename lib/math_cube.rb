@@ -1,4 +1,5 @@
 module MathCube
+  include FormulaLib
   
   def QuotaConfig.quota_hash 
     quota_hash = Hash.new

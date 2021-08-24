@@ -1137,7 +1137,7 @@ defaults:
     rejected: 不通过
     passed: 通过
     produce_day_pdt: 系统每日8:00前自动生成昨日空白报表
-    produce_mth_rpt: 系统每月3号前自动生成上月空白月报表
+    produce_mth_rpt: 系统每月3号前自动生成上月月报表
   trade_orders: &118
     number: 订单编号
     price: 价格

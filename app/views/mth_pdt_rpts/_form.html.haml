@@ -1,11 +1,11 @@
 .container-fluid
   .row.justify-content-sm-center
     .col-sm-12
-      = form_for @mth_pdt_rpt, :url => "/factories/#{idencode(@factory.id)}/mth_pdt_rpts/#{@mth_pdt_rpt.id ? idencode(@mth_pdt_rpt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+      = form_for @mth_pdt_rpt, :url => "/factories/#{idencode(@factory.id)}/mth_pdt_rpts/#{@mth_pdt_rpt.id ? idencode(@mth_pdt_rpt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true, :disabled => true} do |f|
         - if @mth_pdt_rpt.errors.any?
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
-              %span{"aria-hidden" => "true"} x 
+              %span{"aria-hidden" => "true, :disabled => true"} x 
             %h2= "#{pluralize(@mth_pdt_rpt.errors.count, "error")} prohibited this buyer from being saved:"
             %ul
               - @mth_pdt_rpt.errors.full_messages.each do |msg|
@@ -20,24 +20,24 @@
             .row
               .col-6
                 .form-group.row
-                  = f.label Setting.mth_pdt_rpts.design, :class => "col-sm-3 col-form-label text-right"
+                  = f.label Setting.mth_pdt_rpts.design, :class => "col-sm-6 col-form-label text-right"
                   .col-sm-6
-                    = f.text_field :design, :class => "form-control rounded-0" , :required => true
+                    = f.text_field :design, :class => "form-control rounded-0" , :required => true, :disabled => true
               .col-6
                 .form-group.row
-                  = f.label Setting.mth_pdt_rpts.outflow, :class => "col-sm-3 col-form-label text-right"
+                  = f.label Setting.mth_pdt_rpts.outflow, :class => "col-sm-6 col-form-label text-right"
                   .col-sm-6
-                    = f.text_field :outflow, :class => "form-control rounded-0" , :required => true
+                    = f.text_field :outflow, :class => "form-control rounded-0" , :required => true, :disabled => true
               .col-6
                 .form-group.row
-                  = f.label Setting.mth_pdt_rpts.avg_outflow, :class => "col-sm-3 col-form-label text-right"
+                  = f.label Setting.mth_pdt_rpts.avg_outflow, :class => "col-sm-6 col-form-label text-right"
                   .col-sm-6
-                    = f.text_field :avg_outflow, :class => "form-control rounded-0" , :required => true
+                    = f.text_field :avg_outflow, :class => "form-control rounded-0" , :required => true, :disabled => true
               .col-6
                 .form-group.row
-                  = f.label Setting.mth_pdt_rpts.end_outflow, :class => "col-sm-3 col-form-label text-right"
+                  = f.label Setting.mth_pdt_rpts.end_outflow, :class => "col-sm-6 col-form-label text-right"
                   .col-sm-6
-                    = f.text_field :end_outflow, :class => "form-control rounded-0" , :required => true
+                    = f.text_field :end_outflow, :class => "form-control rounded-0" , :required => true, :disabled => true
           
       
       
@@ -58,6 +58,9 @@
    
             = f.fields_for :month_nhn do |month_nhn|
               = render 'month_nhn_fields', f: month_nhn 
+   
+            = f.fields_for :month_ss do |month_nhn|
+              = render 'month_ss_fields', f: month_nhn 
    
             = f.fields_for :month_fecal do |month_fecal|
               = render 'month_fecal_fields', f: month_fecal 
