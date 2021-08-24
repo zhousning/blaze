@@ -8,7 +8,7 @@
         %h5
           = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
 
-          = link_to "/report/#{idencode(@mth_pdt_rpt.id)}/mth_report_show", :class => "button button-small  pull-right button-primary mr-1" do
+          = link_to "/reports/mth_report", :class => "button button-small  pull-right button-primary mr-1" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
       - content_for :card_body do
         .container-fluid

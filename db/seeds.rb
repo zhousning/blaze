@@ -133,7 +133,8 @@ User.create!(:phone => "053798989188", :password => "bhws9188", :password_confir
 all_factories = Factory.all
 user.factories << all_factories
 
-grp_opt = User.create!(:phone => "157637035888", :password => "swjt5888", :password_confirmation => "swjt5888", :name => "水务集团运营", :roles => @grp_opt, :factories => all_factories)
+#集团运营
+grp_opt = User.create!(:phone => "15763703588", :password => "swjt3588", :password_confirmation => "swjt3588", :name => "水务集团运营", :roles => @grp_opt, :factories => all_factories)
 
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.cod,      :max => Setting.level_ones.cod_s, :name => Setting.inf_qlties.cod)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.bod,      :max => Setting.level_ones.bod_s, :name => Setting.inf_qlties.bod)

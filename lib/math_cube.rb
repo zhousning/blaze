@@ -48,19 +48,19 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow = FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])   unless last_year_result.blank?
-    power   = FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     unless last_year_result.blank?
-    bom     = FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     unless last_year_result.blank?
-    emq_tn  = FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        unless last_year_result.blank?
-    emq_tp  = FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        unless last_year_result.blank?
-    emq_bod = FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       unless last_year_result.blank?
-    emq_cod = FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       unless last_year_result.blank?
-    emq_nhn = FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       unless last_year_result.blank?
-    emq_ss  = FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        unless last_year_result.blank?
-    mud     = FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    unless last_year_result.blank?
-    mdrcy   = FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     unless last_year_result.blank?
-    mdsell  = FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    unless last_year_result.blank?
-    fecal   = FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) unless last_year_result.blank?
+    outflow = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])
+    power   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     
+    bom     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     
+    emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        
+    emq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        
+    emq_bod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       
+    emq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       
+    emq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       
+    emq_ss  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        
+    mud     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    
+    mdrcy   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     
+    mdsell  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    
+    fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
 
     {
       :outflow  =>  outflow,
@@ -97,19 +97,19 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow = FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])   unless last_year_result.blank?
-    power   = FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     unless last_year_result.blank?
-    bom     = FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     unless last_year_result.blank?
-    emq_tn  = FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        unless last_year_result.blank?
-    emq_tp  = FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        unless last_year_result.blank?
-    emq_bod = FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       unless last_year_result.blank?
-    emq_cod = FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       unless last_year_result.blank?
-    emq_nhn = FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       unless last_year_result.blank?
-    emq_ss  = FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        unless last_year_result.blank?
-    mud     = FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    unless last_year_result.blank?
-    mdrcy   = FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     unless last_year_result.blank?
-    mdsell  = FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    unless last_year_result.blank?
-    fecal   = FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) unless last_year_result.blank?
+    outflow = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])   
+    power   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     
+    bom     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     
+    emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        
+    emq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        
+    emq_bod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       
+    emq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       
+    emq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       
+    emq_ss  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        
+    mud     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    
+    mdrcy   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     
+    mdsell  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    
+    fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
 
     {
       :outflow  =>  outflow,

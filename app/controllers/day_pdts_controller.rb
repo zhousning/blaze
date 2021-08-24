@@ -34,14 +34,20 @@ class DayPdtsController < ApplicationController
    
   def create
     @factory = my_factory
+    day_pdt = @factory.day_pdts.where(:pdt_date => day_pdt_params[:pdt_date]).first
     @day_pdt = DayPdt.new(day_pdt_params)
-    @day_pdt.name = @day_pdt.pdt_date.to_s + @factory.name + "生产运营报表"
-    @day_pdt.factory = @factory
-
-    if @day_pdt.save
-      redirect_to :action => :index
-    else
+    if day_pdt
+      @day_pdt.errors[:pdt_date] = "当前日期运营数据已存在,请重新填报"
       render :new
+    else
+      @day_pdt.name = @day_pdt.pdt_date.to_s + @factory.name + "生产运营报表"
+      @day_pdt.factory = @factory
+
+      if @day_pdt.save
+        redirect_to :action => :index
+      else
+        render :new
+      end
     end
   end
    
