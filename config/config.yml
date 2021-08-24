@@ -1000,11 +1000,12 @@ defaults:
     monitor_handle: 监督单位员工
     day_pdt: 厂区-生产运营数据填报
     day_pdt_verify: 厂区-生产运营数据审核
-    day_pdt_rpt: 厂区-日报表
+    day_pdt_rpt: 厂区-日报表查看
     data_cube: 数据立方
     data_compare: 数据对比
-    mth_pdt_rpt: 厂区-月报表
+    mth_pdt_rpt: 厂区-月报表填报
     mth_pdt_rpt_verify: 厂区-月报表审核
+    mth_pdt_rpt_index: 厂区-月报表查看
     report: 集团-报表管理
     fct_emp_inf: 厂区-环境监测系统-进水
     fct_emp_eff: 厂区-环境监测系统-出水
@@ -1135,6 +1136,8 @@ defaults:
     pending: 待审核
     rejected: 不通过
     passed: 通过
+    produce_day_pdt: 系统每日8:00前自动生成昨日空白报表
+    produce_mth_rpt: 系统每月3号前自动生成上月空白月报表
   trade_orders: &118
     number: 订单编号
     price: 价格

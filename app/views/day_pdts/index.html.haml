@@ -8,6 +8,8 @@
       - content_for :card_header do
         %h5
           = fa_icon "list", text: @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+          %span.text-danger
+            = fa_icon "question-circle-o", text: Setting.systems.produce_day_pdt 
 
           
           -#

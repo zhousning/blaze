@@ -14,12 +14,12 @@
       controller: DayPdt
       actions: [verify_index, verify_show, rejected, upreport]
 - 
-  role_name: 厂区-日报表 
+  role_name: 厂区-日报表查看 
   level: 1
   permissions: 
     -
       controller: DayPdtRpt
-      actions: [index, edit, show, static_pool, produce_report]
+      actions: [index, show, static_pool, produce_report]
 
 - 
   role_name: 数据立方
@@ -37,12 +37,12 @@
       controller: Analyse 
       actions: [compare, month_compare]
 - 
-  role_name: 厂区-月报表 
+  role_name: 厂区-月报表填报 
   level: 1
   permissions: 
     -
       controller: MthPdtRpt
-      actions: [mth_rpt_create, index, show, edit, update, verifying, download_report]
+      actions: [mth_rpt_create, index, show, edit, update, verifying]
 - 
   role_name: 厂区-月报表审核 
   level: 1
@@ -50,6 +50,13 @@
     -
       controller: MthPdtRpt
       actions: [download_report, verify_index, verify_show, rejected, upreport]
+- 
+  role_name: 厂区-月报表查看 
+  level: 1
+  permissions: 
+    -
+      controller: MthPdtRpt
+      actions: [mth_report_finish_index, mth_report_finish_show, xls_mth_download, download_report]
 
 - 
   role_name: 集团-报表管理

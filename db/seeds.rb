@@ -24,7 +24,8 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 
 @role_day_pdt        = Role.where(:name => Setting.roles.day_pdt).first
 @role_day_rpt        = Role.where(:name => Setting.roles.day_pdt_rpt).first
-@role_mth_rpt        = Role.where(:name => Setting.roles.mth_pdt_rpt).first
+@role_mth_rpt_filler = Role.where(:name => Setting.roles.mth_pdt_rpt).first
+@role_mth_rpt_index  = Role.where(:name => Setting.roles.mth_pdt_rpt_index).first
 
 @role_day_pdt_verify = Role.where(:name => Setting.roles.day_pdt_verify).first
 @role_mth_rpt_verify = Role.where(:name => Setting.roles.mth_pdt_rpt_verify).first
@@ -39,9 +40,12 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @role_grp_emp_eff    = Role.where(:name =>  Setting.roles.grp_emp_eff).first
 
 #厂区数据填报
-@data_filler  = [@role_day_pdt , @role_day_rpt, @role_mth_rpt, @role_data_compare ,@role_data_cube, @role_fct_emp_inf, @role_fct_emp_eff]
+@data_filler  = [@role_day_pdt , @role_day_rpt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_fct_emp_inf, @role_fct_emp_eff]
 #厂区数据审核
-@data_verifer = [@role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_data_compare ,@role_data_cube,  @role_fct_emp_inf, @role_fct_emp_eff]
+@data_verifer = [@role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube,  @role_fct_emp_inf, @role_fct_emp_eff]
+#厂区管理者
+@fct_mgn  = [@role_day_rpt, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_fct_emp_inf, @role_fct_emp_eff]
+
 
 #集团运营
 @grp_opt = [@role_data_compare ,@role_data_cube, @role_report, @role_grp_emp_inf, @role_grp_emp_eff] 
@@ -75,41 +79,56 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 
 User.create!(:phone => "053766880909", :password => "zcds0909", :password_confirmation => "zcds0909", :name => "邹城三污数据填报员", :roles => @data_filler, :factories => [@zcds])
 User.create!(:phone => "053700006666", :password => "zcds6666", :password_confirmation => "zcds6666", :name => "邹城三污数据审核员", :roles => @data_verifer, :factories => [@zcds])
+User.create!(:phone => "053700009999", :password => "zcds9999", :password_confirmation => "zcds9999", :name => "邹城三污管理者", :roles => @fct_mgn, :factories => [@zcds])
 User.create!(:phone => "053766880606", :password => "zcde0606", :password_confirmation => "zcde0606", :name => "邹城二污数据填报员", :roles => @data_filler, :factories => [@zcde])
 User.create!(:phone => "053711115678", :password => "zcde5678", :password_confirmation => "zcde5678", :name => "邹城二污数据审核员", :roles => @data_verifer, :factories => [@zcde])
+User.create!(:phone => "053711114567", :password => "zcde4567", :password_confirmation => "zcde4567", :name => "邹城二污管理者", :roles => @fct_mgn, :factories => [@zcde])
 User.create!(:phone => "053769693708", :password => "zcdy3708", :password_confirmation => "zcdy3708", :name => "邹城一污数据填报员", :roles => @data_filler, :factories => [@zcdy])
 User.create!(:phone => "053737080101", :password => "zcdy0101", :password_confirmation => "zcdy0101", :name => "邹城一污数据审核员", :roles => @data_verifer, :factories => [@zcdy])
+User.create!(:phone => "053737089898", :password => "zcdy9898", :password_confirmation => "zcdy9898", :name => "邹城一污管理者", :roles => @fct_mgn, :factories => [@zcdy])
 #-----------
 User.create!(:phone => "053766886969", :password => "yzdy6969", :password_confirmation => "yzdy6969", :name => "兖州大禹数据填报员", :roles => @data_filler, :factories => [@yzdy])
 User.create!(:phone => "053766665656", :password => "yzdy5656", :password_confirmation => "yzdy5656", :name => "兖州大禹数据审核员", :roles => @data_verifer, :factories => [@yzdy])
+User.create!(:phone => "053766661818", :password => "yzdy1818", :password_confirmation => "yzdy1818", :name => "兖州大禹管理者", :roles => @fct_mgn, :factories => [@yzdy])
 User.create!(:phone => "053766885858", :password => "yzsw5858", :password_confirmation => "yzsw5858", :name => "兖州三污数据填报员", :roles => @data_filler, :factories => [@yzsw])
 User.create!(:phone => "053798985858", :password => "yzsw5858", :password_confirmation => "yzsw5858", :name => "兖州三污数据审核员", :roles => @data_verifer, :factories => [@yzsw])
+User.create!(:phone => "053798986868", :password => "yzsw6868", :password_confirmation => "yzsw6868", :name => "兖州三污管理者", :roles => @fct_mgn, :factories => [@yzsw])
 User.create!(:phone => "053737081111", :password => "yzws1111", :password_confirmation => "yzws1111", :name => "兖州污水数据填报员", :roles => @data_filler, :factories => [@yzws])
 User.create!(:phone => "053798983708", :password => "yzws3708", :password_confirmation => "yzws3708", :name => "兖州污水数据审核员", :roles => @data_verifer, :factories => [@yzws])
+User.create!(:phone => "053798989797", :password => "yzws9797", :password_confirmation => "yzws9797", :name => "兖州污水管理者", :roles => @fct_mgn, :factories => [@yzws])
 #-----------
 User.create!(:phone => "053766889999", :password => "qfyw9999", :password_confirmation => "qfyw9999", :name => "曲阜一污数据填报员", :roles => @data_filler, :factories => [@qfyw])
 User.create!(:phone => "053798986666", :password => "qfyw6666", :password_confirmation => "qfyw6666", :name => "曲阜一污数据审核员", :roles => @data_verifer, :factories => [@qfyw])
+User.create!(:phone => "053798981919", :password => "qfyw1919", :password_confirmation => "qfyw1919", :name => "曲阜一污管理者", :roles => @fct_mgn, :factories => [@qfyw])
 User.create!(:phone => "053756788989", :password => "qfsw8989", :password_confirmation => "qfsw8989", :name => "曲阜三污数据填报员", :roles => @data_filler, :factories => [@qfsw])
 User.create!(:phone => "053756786789", :password => "qfsw6789", :password_confirmation => "qfsw6789", :name => "曲阜三污数据审核员", :roles => @data_verifer, :factories => [@qfsw])
+User.create!(:phone => "053756781234", :password => "qfsw1234", :password_confirmation => "qfsw1234", :name => "曲阜三污管理者", :roles => @fct_mgn, :factories => [@qfsw])
 #-----------
 User.create!(:phone => "053766881234", :password => "wsqy6688", :password_confirmation => "wsqy6688", :name => "汶上清源数据填报员", :roles => @data_filler, :factories => [@wsqy])
 User.create!(:phone => "053798981234", :password => "wsqy9898", :password_confirmation => "wsqy9898", :name => "汶上清源数据审核员", :roles => @data_verifer, :factories => [@wsqy])
+User.create!(:phone => "053795661234", :password => "wsqy9566", :password_confirmation => "wsqy9566", :name => "汶上清源管理者", :roles => @fct_mgn, :factories => [@wsqy])
 User.create!(:phone => "053712348888", :password => "wsqq8888", :password_confirmation => "wsqq8888", :name => "汶上清泉数据填报员", :roles => @data_filler, :factories => [@wsqq])
 User.create!(:phone => "053712349999", :password => "wsqq9999", :password_confirmation => "wsqq9999", :name => "汶上清泉数据审核员", :roles => @data_verifer, :factories => [@wsqq])
+User.create!(:phone => "053712343708", :password => "wsqq3708", :password_confirmation => "wsqq3708", :name => "汶上清泉管理者", :roles => @fct_mgn, :factories => [@wsqq])
 User.create!(:phone => "12395889588", :password => "wsfd9588", :password_confirmation => "wsfd9588", :name => "汶上佛都数据填报员", :roles => @data_filler, :factories => [@wsfd])
 User.create!(:phone => "12395999599", :password => "wsfd9599", :password_confirmation => "wsfd9599", :name => "汶上佛都数据审核员", :roles => @data_verifer, :factories => [@wsfd])
+User.create!(:phone => "12396969696", :password => "wsfd9696", :password_confirmation => "wsfd9696", :name => "汶上佛都管理者", :roles => @fct_mgn, :factories => [@wsfd])
 #-----------
 User.create!(:phone => "12305379188", :password => "rcws9188", :password_confirmation => "rcws9188", :name => "任城污水数据填报员", :roles => @data_filler, :factories => [@rcws])
 User.create!(:phone => "12305379199", :password => "rcws9199", :password_confirmation => "rcws9199", :name => "任城污水数据审核员", :roles => @data_verifer, :factories => [@rcws])
+User.create!(:phone => "12305377788", :password => "rcws7788", :password_confirmation => "rcws7788", :name => "任城污水管理者", :roles => @fct_mgn, :factories => [@rcws])
 #-----------
 User.create!(:phone => "12305378888", :password => "dsmt8888", :password_confirmation => "dsmt8888", :name => "达斯玛特数据填报员", :roles => @data_filler, :factories => [@dsmt])
 User.create!(:phone => "12305379999", :password => "dsmt9999", :password_confirmation => "dsmt9999", :name => "达斯玛特数据审核员", :roles => @data_verifer, :factories => [@dsmt])
+User.create!(:phone => "12305376688", :password => "dsmt6688", :password_confirmation => "dsmt6688", :name => "达斯玛特管理者", :roles => @fct_mgn, :factories => [@dsmt])
 #-----------
 User.create!(:phone => "12305371818", :password => "jxws1818", :password_confirmation => "jxws1818", :name => "嘉祥污水数据填报员", :roles => @data_filler, :factories => [@jxws])
 User.create!(:phone => "12305370101", :password => "jxws0101", :password_confirmation => "jxws0101", :name => "嘉祥污水数据审核员", :roles => @data_verifer, :factories => [@jxws])
+User.create!(:phone => "12305378989", :password => "jxws8989", :password_confirmation => "jxws8989", :name => "嘉祥污水管理者", :roles => @fct_mgn, :factories => [@jxws])
 #-----------
 User.create!(:phone => "053766887788", :password => "bhws7788", :password_confirmation => "bhws7788", :name => "太白湖新区污水数据填报员", :roles => @data_filler, :factories => [@bhws])
 User.create!(:phone => "053798987878", :password => "bhws7878", :password_confirmation => "bhws7878", :name => "太白湖新区污水数据审核员", :roles => @data_verifer, :factories => [@bhws])
+User.create!(:phone => "053798989188", :password => "bhws9188", :password_confirmation => "bhws9188", :name => "太白湖新区污水管理者", :roles => @fct_mgn, :factories => [@bhws])
 
 all_factories = Factory.all
 user.factories << all_factories
