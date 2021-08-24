@@ -48,34 +48,34 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow = last_year_result.blank? || last_year_result[:outflow][:sum] == 0 ? 0 : (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
-    power   = last_year_result.blank? || [:power][:sum]   == 0 ? 0 : (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
-    bom     = last_year_result.blank? || [:power][:bom]   == 0 ? 0 : (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
-    emq_tn  = last_year_result.blank? || [:emq][:tn]      == 0 ? 0 : (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
-    emq_tp  = last_year_result.blank? || [:emq][:tp]      == 0 ? 0 : (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
-    emq_bod = last_year_result.blank? || [:emq][:bod]     == 0 ? 0 : (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
-    emq_cod = last_year_result.blank? || [:emq][:cod]     == 0 ? 0 : (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
-    emq_nhn = last_year_result.blank? || [:emq][:nhn]     == 0 ? 0 : (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
-    emq_ss  = last_year_result.blank? || [:emq][:ss]      == 0 ? 0 : (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
-    mud     = last_year_result.blank? || [:outmud][:sum]  == 0 ? 0 : (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
-    mdrcy   = last_year_result.blank? || [:mdrcy][:sum]   == 0 ? 0 : (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
-    mdsell  = last_year_result.blank? || [:mdsell][:sum]  == 0 ? 0 : (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
-    fecal   = last_year_result.blank? || [:eff_fecal][:sum] == 0 ? 0 : (last_year_result[:eff_fecal][:sum] - result[:eff_fecal][:sum])/last_year_result[:eff_fecal][:sum]
+    outflow = FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])   unless last_year_result.blank?
+    power   = FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     unless last_year_result.blank?
+    bom     = FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     unless last_year_result.blank?
+    emq_tn  = FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        unless last_year_result.blank?
+    emq_tp  = FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        unless last_year_result.blank?
+    emq_bod = FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       unless last_year_result.blank?
+    emq_cod = FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       unless last_year_result.blank?
+    emq_nhn = FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       unless last_year_result.blank?
+    emq_ss  = FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        unless last_year_result.blank?
+    mud     = FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    unless last_year_result.blank?
+    mdrcy   = FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     unless last_year_result.blank?
+    mdsell  = FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    unless last_year_result.blank?
+    fecal   = FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) unless last_year_result.blank?
 
     {
-      :outflow  =>  format_number( outflow*10*10 ),
-      :power    =>  format_number( power*10*10   ),
-      :bom      =>  format_number( bom*10*10     ),
-      :emq_tn   =>  format_number( emq_tn*10*10  ), 
-      :emq_tp   =>  format_number( emq_tp*10*10  ),
-      :emq_bod  =>  format_number( emq_bod*10*10 ),
-      :emq_cod  =>  format_number( emq_cod*10*10 ),
-      :emq_nhn  =>  format_number( emq_nhn*10*10 ),
-      :emq_ss   =>  format_number( emq_ss*10*10  ),   
-      :mud      =>  format_number( mud*10*10     ),
-      :mdsell   =>  format_number( mdsell*10*10  ),
-      :mdrcy    =>  format_number( mdrcy*10*10   ),
-      :fecal    =>  format_number( fecal*10*10   )
+      :outflow  =>  outflow,
+      :power    =>  power,
+      :bom      =>  bom,
+      :emq_tn   =>  emq_tn ,
+      :emq_tp   =>  emq_tp,
+      :emq_bod  =>  emq_bod,
+      :emq_cod  =>  emq_cod,
+      :emq_nhn  =>  emq_nhn,
+      :emq_ss   =>  emq_ss  , 
+      :mud      =>  mud,
+      :mdsell   =>  mdsell,
+      :mdrcy    =>  mdrcy,
+      :fecal    =>  fecal
     }
   end
 
@@ -97,34 +97,34 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow =  last_year_result.blank? || last_year_result[:outflow][:sum] == 0 ? 0 : (last_year_result[:outflow][:sum] - result[:outflow][:sum])/last_year_result[:outflow][:sum]
-    power   = last_year_result.blank? || last_year_result[:power][:sum]   == 0 ? 0 : (last_year_result[:power][:sum] - result[:power][:sum])/last_year_result[:power][:sum]
-    bom     = last_year_result.blank? || last_year_result[:power][:bom]   == 0 ? 0 : (last_year_result[:power][:bom] - result[:power][:bom])/last_year_result[:power][:bom]
-    emq_tn  = last_year_result.blank? || last_year_result[:emq][:tn]      == 0 ? 0 : (last_year_result[:emq][:tn] - result[:emq][:tn])/last_year_result[:emq][:tn]
-    emq_tp  = last_year_result.blank? || last_year_result[:emq][:tp]      == 0 ? 0 : (last_year_result[:emq][:tp] - result[:emq][:tp])/last_year_result[:emq][:tp]
-    emq_bod = last_year_result.blank? || last_year_result[:emq][:bod]     == 0 ? 0 : (last_year_result[:emq][:bod] - result[:emq][:bod])/last_year_result[:emq][:bod]
-    emq_cod = last_year_result.blank? || last_year_result[:emq][:cod]     == 0 ? 0 : (last_year_result[:emq][:cod] - result[:emq][:cod])/last_year_result[:emq][:cod]
-    emq_nhn = last_year_result.blank? || last_year_result[:emq][:nhn]     == 0 ? 0 : (last_year_result[:emq][:nhn] - result[:emq][:nhn])/last_year_result[:emq][:nhn]
-    emq_ss  = last_year_result.blank? || last_year_result[:emq][:ss]      == 0 ? 0 : (last_year_result[:emq][:ss] - result[:emq][:ss])/last_year_result[:emq][:ss]
-    mud     = last_year_result.blank? || last_year_result[:outmud][:sum]  == 0 ? 0 : (last_year_result[:outmud][:sum] - result[:outmud][:sum])/last_year_result[:outmud][:sum]
-    mdrcy   = last_year_result.blank? || last_year_result[:mdrcy][:sum]   == 0 ? 0 : (last_year_result[:mdrcy][:sum] - result[:mdrcy][:sum])/last_year_result[:mdrcy][:sum]
-    mdsell  = last_year_result.blank? || last_year_result[:mdsell][:sum]  == 0 ? 0 : (last_year_result[:mdsell][:sum] - result[:mdsell][:sum])/last_year_result[:mdsell][:sum]
-    fecal   = last_year_result.blank? || last_year_result[:eff_fecal][:sum] == 0 ? 0 : (last_year_result[:eff_fecal][:sum] - result[:eff_fecal][:sum])/last_year_result[:eff_fecal][:sum]
+    outflow = FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])   unless last_year_result.blank?
+    power   = FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     unless last_year_result.blank?
+    bom     = FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     unless last_year_result.blank?
+    emq_tn  = FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        unless last_year_result.blank?
+    emq_tp  = FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        unless last_year_result.blank?
+    emq_bod = FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       unless last_year_result.blank?
+    emq_cod = FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       unless last_year_result.blank?
+    emq_nhn = FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       unless last_year_result.blank?
+    emq_ss  = FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        unless last_year_result.blank?
+    mud     = FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    unless last_year_result.blank?
+    mdrcy   = FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     unless last_year_result.blank?
+    mdsell  = FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    unless last_year_result.blank?
+    fecal   = FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) unless last_year_result.blank?
 
     {
-      :outflow  =>  format_number( outflow*10*10 ),
-      :power    =>  format_number( power*10*10   ),
-      :bom      =>  format_number( bom*10*10     ),
-      :emq_tn   =>  format_number( emq_tn*10*10  ), 
-      :emq_tp   =>  format_number( emq_tp*10*10  ),
-      :emq_bod  =>  format_number( emq_bod*10*10 ),
-      :emq_cod  =>  format_number( emq_cod*10*10 ),
-      :emq_nhn  =>  format_number( emq_nhn*10*10 ),
-      :emq_ss   =>  format_number( emq_ss*10*10  ),   
-      :mud      =>  format_number( mud*10*10     ),
-      :mdsell   =>  format_number( mdsell*10*10  ),
-      :mdrcy    =>  format_number( mdrcy*10*10   ),
-      :fecal    =>  format_number( fecal*10*10   )
+      :outflow  =>  outflow,
+      :power    =>  power,
+      :bom      =>  bom,
+      :emq_tn   =>  emq_tn, 
+      :emq_tp   =>  emq_tp,
+      :emq_bod  =>  emq_bod,
+      :emq_cod  =>  emq_cod,
+      :emq_nhn  =>  emq_nhn,
+      :emq_ss   =>  emq_ss  , 
+      :mud      =>  mud,
+      :mdsell   =>  mdsell,
+      :mdrcy    =>  mdrcy,
+      :fecal    =>  fecal
     }
   end
 
@@ -165,31 +165,31 @@ module MathCube
     mdrcy     =  rpt.sum_mdrcy 
     mdsell    =  rpt.sum_mdsell
 
-    bom = format_number(power/inflow) 
+    bom = FormulaLib.bom(power, inflow) 
     #bom_power = 
     #平均削减率
-    emr_bod = eff_bod == 0 ? 0 : format_number((inf_bod - eff_bod)/eff_bod*10*10)
-    emr_cod = eff_cod == 0 ? 0 : format_number((inf_cod - eff_cod)/eff_cod*10*10)
-    emr_tp  = eff_tp  == 0 ? 0 : format_number((inf_tp  - eff_tp)/eff_tp*10*10)
-    emr_tn  = eff_tn  == 0 ? 0 : format_number((inf_tn  - eff_tn)/eff_tn*10*10)
-    emr_ss  = eff_ss  == 0 ? 0 : format_number((inf_ss  - eff_ss)/eff_ss*10*10)
-    emr_nhn = eff_nhn == 0 ? 0 : format_number((inf_nhn - eff_nhn)/eff_nhn*10*10)
+    emr_bod = FormulaLib.emr(inf_bod , eff_bod)
+    emr_cod = FormulaLib.emr(inf_cod , eff_cod)
+    emr_tp  = FormulaLib.emr(inf_tp  , eff_tp)
+    emr_tn  = FormulaLib.emr(inf_tn  , eff_tn)
+    emr_ss  = FormulaLib.emr(inf_ss  , eff_ss)
+    emr_nhn = FormulaLib.emr(inf_nhn , eff_nhn)
 
     #本月削减量
-    emq_bod = format_number((inf_bod - eff_bod)*inflow)
-    emq_cod = format_number((inf_cod - eff_cod)*inflow)
-    emq_tp  = format_number((inf_tp - eff_tp)*inflow)
-    emq_tn  = format_number((inf_tn - eff_tn)*inflow)
-    emq_ss  = format_number((inf_ss - eff_ss)*inflow)
-    emq_nhn = format_number((inf_nhn - eff_nhn)*inflow)
+    emq_bod = FormulaLib.emq(inf_bod , eff_bod, inflow)
+    emq_cod = FormulaLib.emq(inf_cod , eff_cod, inflow)
+    emq_tp  = FormulaLib.emq(inf_tp  , eff_tp,  inflow)
+    emq_tn  = FormulaLib.emq(inf_tn  , eff_tn,  inflow)
+    emq_ss  = FormulaLib.emq(inf_ss  , eff_ss,  inflow)
+    emq_nhn = FormulaLib.emq(inf_nhn , eff_nhn, inflow)
 
     #平均削减量
-    avg_emq_bod = format_number(emq_bod/counts) 
-    avg_emq_cod = format_number(emq_cod/counts) 
-    avg_emq_tp  =  format_number(emq_tp/counts) 
-    avg_emq_tn  =  format_number(emq_tn/counts)
-    avg_emq_ss  =  format_number(emq_ss/counts) 
-    avg_emq_nhn = format_number(emq_nhn/counts) 
+    avg_emq_bod = FormulaLib.ratio(emq_bod, counts) 
+    avg_emq_cod = FormulaLib.ratio(emq_cod, counts) 
+    avg_emq_tp  = FormulaLib.ratio(emq_tp,  counts) 
+    avg_emq_tn  = FormulaLib.ratio(emq_tn,  counts)
+    avg_emq_ss  = FormulaLib.ratio(emq_ss,  counts) 
+    avg_emq_nhn = FormulaLib.ratio(emq_nhn, counts) 
 
     result = {
       :inf_bod =>   { code: Setting.quota.bod,     title: Setting.day_pdt_rpts.inf_qlty_bod,   sum: inf_bod,   avg: format_number( inf_bod/counts ) },

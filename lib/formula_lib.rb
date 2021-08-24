@@ -5,9 +5,19 @@ module FormulaLib
     b == 0 ? 0 : format("%0.2f",a/b)
   end
 
+  #同比%
+  def self.yoy(current, last)
+    last == 0 ? 0 : format("%0.2f", (current-last)/last*10*10)
+  end
+
+  #同比%
+  def self.mom(current, last)
+    last == 0 ? 0 : format("%0.2f", (current-last)/last*10*10)
+  end
+
   #削减率(单位%, 指标mg/l, 进水量m3)
   def self.emr(quota_in, quota_out)
-    quota_in == 0 ? 0 : format("%0.2f",(quota_in - quota_out)/quota_in)
+    quota_in == 0 ? 0 : format("%0.2f",(quota_in - quota_out)/quota_in*10*10)
   end
 
   #削减量(单位mg/l, 指标mg/l, 进水量m3)
@@ -25,8 +35,5 @@ module FormulaLib
   def self.em_bom(power, quota_in, quota_out, inflow) 
     (quota_in - quota_out != 0 && inflow !=0) ? format("%0.2f",power*1000/(quota_in - quota_out)/inflow) : 0
   end
-
-  #同比
-  def self.yoy(
 
 end
