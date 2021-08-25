@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   #mount Ckeditor::Engine => '/ckeditor'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  get 'forget', to: 'admin/dashboard#index'
   #devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   devise_for :users, controllers: { sessions: 'users/sessions' }
   devise_scope :user do

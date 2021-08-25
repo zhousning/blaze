@@ -1,33 +1,18 @@
 require "sablon"
 
 #不用异步
-class ExportWorker
-  #include Sidekiq::Worker
+class ExportMthDoc
 
-  #FOLDER_PUBLIC = File.join(Rails.root, "public")
-  MONTH_REPORT = File.join(Rails.root, "templates", "monthreport.docx")
-
-  def perform(mth_pdt_rpt_id, document_id)
+  def process(mth_pdt_rpt_id)
     @mth_pdt_rpt = MthPdtRpt.find(mth_pdt_rpt_id)
-    @document = Document.find(document_id)
-    @document.update_attribute :status, Setting.documents.status_process
 
-    begin
-      export_process(@mth_pdt_rpt, @document)
-      @document.update_attribute :status, Setting.documents.status_success
-    rescue Exception => e
-      puts e.message  
-      puts e.backtrace.inspect 
-      @document.update_attribute :status, Setting.documents.status_fail
-    end
+    export_process(@mth_pdt_rpt)
   end
 
-  def export_process(mth_pdt_rpt, document)
-
+  def export_process(mth_pdt_rpt)
     target_folder = Rails.root.join("public", "mth_pdt_rpts", mth_pdt_rpt.name).to_s
     FileUtils.makedirs(target_folder) unless File.directory?(target_folder)
     target_docx = target_folder + '/' + mth_pdt_rpt.name + '.docx'
-
 
     docx = Caracal::Document.new(target_docx)
     style_config(docx)
@@ -62,7 +47,6 @@ class ExportWorker
       cell_style rows[0], background: '3366cc', color: 'ffffff', bold: true
     end
 
-
     docx.page
     mud_header = ['', Setting.day_pdt_rpts.inflow, Setting.day_pdt_rpts.outflow, Setting.day_pdt_rpts.inmud, Setting.day_pdt_rpts.outmud] 
     mud_table = [] << mud_header
@@ -76,7 +60,6 @@ class ExportWorker
       cell_style rows[0], background: '3366cc', color: 'ffffff', bold: true
     end
 
-
     docx.page
     power_header = ['', Setting.day_pdt_rpts.power] 
     power_table = [] << power_header
@@ -89,7 +72,6 @@ class ExportWorker
     docx.table power_table, border_size: 4 do
       cell_style rows[0], background: '3366cc', color: 'ffffff', bold: true
     end
-
 
     docx.page
     md_header = ['', Setting.day_pdt_rpts.mdflow, Setting.day_pdt_rpts.mdrcy, Setting.day_pdt_rpts.mdsell] 
@@ -106,30 +88,29 @@ class ExportWorker
 
     month_report(mth_pdt_rpt, docx)
     
-    row1 = ['Header 1', 'Header 2', 'Header 3']
-    row2 = ['Cell 1', 'Cell 2', 'Cell 3']
-    row3 = ['Cell 4', 'Cell 5', 'Cell 6']
-    row4 = ['Footer 1', 'Footer 2', 'Footer 3']
-    c1 = Caracal::Core::Models::TableCellModel.new margins: { top: 0, bottom: 100, left: 0, right: 200 } do
-      table [row1, row2, row3, row4], border_size: 4 do
-        cell_style rows[0],  bold: true, background: '3366cc', color: 'ffffff'
-        cell_style rows[-1], bold: true,   background: 'dddddd'
-        cell_style cells[3], italic: true, color: 'cc0000'
-        cell_style cells,    size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
-      end
-    end
-    c2 = Caracal::Core::Models::TableCellModel.new margins: { top: 0, bottom: 100, left: 0, right: 200 } do
-      p 'This layout uses nested tables (the outer table has no border) to provide a caption to the table data.'
-    end
-    
-    docx.table [[c1,c2]] do
-      cell_style cols[0], width: 6000
-    end
-    #new_report(objs, target_folder, docx)
+    #row1 = ['Header 1', 'Header 2', 'Header 3']
+    #row2 = ['Cell 1', 'Cell 2', 'Cell 3']
+    #row3 = ['Cell 4', 'Cell 5', 'Cell 6']
+    #row4 = ['Footer 1', 'Footer 2', 'Footer 3']
+    #c1 = Caracal::Core::Models::TableCellModel.new margins: { top: 0, bottom: 100, left: 0, right: 200 } do
+    #  table [row1, row2, row3, row4], border_size: 4 do
+    #    cell_style rows[0],  bold: true, background: '3366cc', color: 'ffffff'
+    #    cell_style rows[-1], bold: true,   background: 'dddddd'
+    #    cell_style cells[3], italic: true, color: 'cc0000'
+    #    cell_style cells,    size: 18, margins: { top: 100, bottom: 0, left: 100, right: 100 }
+    #  end
+    #end
+    #c2 = Caracal::Core::Models::TableCellModel.new margins: { top: 0, bottom: 100, left: 0, right: 200 } do
+    #  p 'This layout uses nested tables (the outer table has no border) to provide a caption to the table data.'
+    #end
+    #
+    #docx.table [[c1,c2]] do
+    #  cell_style cols[0], width: 6000
+    #end
 
     docx.save
 
-    document.update_attribute :html_link, document.title + '.docx'
+    target_docx
   end
 
   def month_report(mth_pdt_rpt, docx)
@@ -200,92 +181,6 @@ class ExportWorker
       #cell_style cols[0], width: 6000
     end
   end
-  #template = Sablon.template(File.expand_path(MONTH_REPORT))
-  #context = {
-  #  title: mth_pdt_rpt.name,
-  #  cod: mth_pdt_rpt.month_cod,
-  #  bod: mth_pdt_rpt.month_bod,
-  #  tp: mth_pdt_rpt.month_tp,
-  #  tn: mth_pdt_rpt.month_tn,
-  #  ss: mth_pdt_rpt.month_ss,
-  #  nhn: mth_pdt_rpt.month_nhn,
-  #  power: mth_pdt_rpt.month_power,
-  #  mud: mth_pdt_rpt.month_mud,
-  #  md: mth_pdt_rpt.month_md,
-  #  fecal: mth_pdt_rpt.month_fecal,
-  #  device: mth_pdt_rpt.month_device,
-  #  stuff: mth_pdt_rpt.month_stuff,
-  #  technologies: ["Ruby", "HTML", "ODF"]
-  #}
-  #template.render_to_file File.expand_path(target_docx), context
-
-
-  #def new_report(objs, target_folder, docx)
-  #  nodeid = node['nodeid']
-  #  name = node['name']
-  #  index_str = index.to_s
-  #  level += "/#{index_str}_#{name}" 
-  #  title_level += 1
-
-  #  isParent = node['isParent']
-  #  if isParent
-  #    FileUtils.makedirs(level) unless File.directory?(level)
-
-  #    front_cover_dir = target_folder + "/封皮/" + title_level.to_s + "级封皮"
-  #    front_cover(front_cover_dir, name)
-
-  #    category(title_level, index_str, name, docx)
-  #  else
-  #    if nodeid
-  #      @file = FileLib.find(nodeid)
-  #      if @file
-  #        FileUtils.cp FOLDER_PUBLIC + @file.path, level
-  #        docx.p "#{index}、#{name}" do 
-  #          style 'p'
-  #        end
-  #      end
-  #    end
-  #  end
-
-  #  if node['children'] 
-  #    node['children'].each_with_index do |obj, index|
-  #      hier(obj, level, index+1, title_level, target_folder, docx)
-  #    end
-  #  end
-  #end
-
-
-  def category(title_level, index, name, docx)
-    if title_level == 1
-      docx.h1 "#{index} #{name}" 
-    elsif title_level == 2 
-      docx.page
-      docx.h2 "#{number_map(index)}、#{name}" do
-        style 'h2'
-      end
-    elsif title_level == 3
-      docx.h3 "（#{number_map(index)}）#{name}" do 
-        style 'h3'
-      end
-    elsif title_level == 4 
-      docx.h4 "( #{index} )、#{name}" do 
-        style 'h4'
-      end
-    else
-      docx.p "#{index}、#{name}" do 
-        style 'p'
-      end
-    end
-  end
-
-  def create_report(docx, name)
-    template = Sablon.template(File.expand_path(MONTH_REPORT))
-    context = {
-      title: name,
-      technologies: ["Ruby", "HTML", "ODF"]
-    }
-    template.render_to_file File.expand_path(docx), context
-  end
 
   def style_config(docx)
     docx.style do
@@ -331,17 +226,5 @@ class ExportWorker
       bold false 
       italic false
     end
-  end
-
-  def number_map(number)
-    number = number.to_s
-    obj = {
-      "1" => "一", 
-      "2" => "二", 
-      "3" => "三", 
-      "4" => "四", 
-      "5" => "五"
-    }
-    obj[number]
   end
 end

@@ -9,14 +9,5 @@ $(".mth_pdt_rpts").ready(function() {
 
       location.href = url; 
     });
-
-    $('#download-mth-pdt-rpt').on('click', function(e) {
-      var that = e.target
-      var data_fct = that.dataset['fct'];
-      var data_mthrpt = that.dataset['mthrpt'];
-      var url = "/factories/" + data_fct + "/mth_pdt_rpts/" + data_mthrpt + "/download_report";
-
-      location.href = url; 
-    })
   }
 });

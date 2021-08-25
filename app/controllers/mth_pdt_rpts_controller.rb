@@ -201,25 +201,10 @@ class MthPdtRptsController < ApplicationController
   def download_report
     @factory = my_factory 
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-    @document = @mth_pdt_rpt.document
 
-    if @document
-      ExportWorker.perform_async(@mth_pdt_rpt.id, @document.id)
-    else
-      @document = Document.new(:mth_pdt_rpt => @mth_pdt_rpt, :title => @mth_pdt_rpt.name, :status => Setting.documents.status_none)
-      if @document.save
-        ExportWorker.perform_async(@mth_pdt_rpt.id, @document.id)
-      else
-        redirect_to factory_mth_pdt_rpt_path( idencode(@factory.id), idencode(@mth_pdt_rpt.id) )
-      end
-    end
-
-    #todo 失败返回异常
-    if @document.status == Setting.documents.status_success
-      send_file File.join(Rails.root, "public", "mth_pdt_rpts", @mth_pdt_rpt.name, @document.html_link), :filename => @document.html_link, :type => "application/force-download", :x_sendfile=>true
-    else
-      redirect_to factory_mth_pdt_rpt_path( idencode(@factory.id), idencode(@mth_pdt_rpt.id) )
-    end
+    docWorker = ExportMthDoc.new
+    target_word = docWorker.process(@mth_pdt_rpt.id)
+    send_file target_word, :filename => "月报表word报告.docx", :type => "application/force-download", :x_sendfile=>true
   end
   
   def xls_mth_download
