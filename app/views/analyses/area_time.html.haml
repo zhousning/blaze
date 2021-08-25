@@ -10,10 +10,10 @@
           %li.list-group-item.pl-0.border-0
             = select_tag "qcodes", options_for_quotas, :include_blank=>false, :class=>"form-control"
           %li.list-group-item.border-0.d-flex.flex-row
-            = date_field_tag 'start', nil, class: 'form-control mr-1'
+            = date_field_tag 'start', nil, class: 'form-control mr-1', :value => Date.today.at_beginning_of_month
             %span
               一
-            = date_field_tag 'end', nil, class: 'form-control ml-1'
+            = date_field_tag 'end', nil, class: 'form-control ml-1', :value => Date.today
 
       - content_for :card_body do
         .container-fluid

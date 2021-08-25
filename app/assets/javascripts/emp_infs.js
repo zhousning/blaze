@@ -2,13 +2,13 @@ $(".emp_infs").ready(function() {
 
   if ($(".emp_infs.index").length > 0) {
     $(".area-time-search").on('click', function(e) {
-      empChartSet(e.target);
+      empInfChartSet(e.target);
     })
   }
 
 });
 
-function empChartSet(that_search) {
+function empInfChartSet(that_search) {
   var qcodes = $("#qcodes").val();
   var start = $("#start").val();
   var end = $("#end").val();
