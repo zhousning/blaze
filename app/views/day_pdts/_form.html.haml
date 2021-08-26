@@ -55,6 +55,10 @@
             = f.fields_for :pdt_sum do |pdt_sum|
               = render 'pdt_sum_fields', f: pdt_sum 
 
+            = f.fields_for :tspmuds do |tspmud|
+              = render 'tspmud_fields', f: tspmud 
+            .links.mt-3
+              = link_to_add_association "添加污泥处理", f, :tspmuds, :class => "button button-small button-royal"
           
           
             .form-group.row.my-3

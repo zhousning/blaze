@@ -11,6 +11,9 @@ class DayPdtRpt < ActiveRecord::Base
   #  end
   #end
 
+  has_many :tspmuds, :dependent => :destroy
+  accepts_nested_attributes_for :tspmuds, reject_if: :all_blank, allow_destroy: true
+
   has_one :day_rpt_stc
 
   belongs_to :day_pdt

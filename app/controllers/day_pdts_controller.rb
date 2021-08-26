@@ -154,16 +154,18 @@ class DayPdtsController < ApplicationController
       @eff = @day_pdt.eff_qlty
       @inf = @day_pdt.inf_qlty
       @sed = @day_pdt.sed_qlty
+      @tspmuds = @day_pdt.tspmuds
       @pdt_sum = @day_pdt.pdt_sum
 
       @day_pdt_rpt = DayPdtRpt.new(
         :factory => @factory,
         :day_pdt => @day_pdt,
+        :tspmuds => @tspmuds,
         :name => @day_pdt.name, :pdt_date => @day_pdt.pdt_date, :weather => @day_pdt.weather, :temper => @day_pdt.temper, 
         :inf_qlty_bod => @inf.bod, :inf_qlty_cod => @inf.cod, :inf_qlty_ss => @inf.ss, :inf_qlty_nhn => @inf.nhn, :inf_qlty_tn => @inf.tn, :inf_qlty_tp => @inf.tp, :inf_qlty_ph => @inf.ph, 
         :eff_qlty_bod => @eff.bod, :eff_qlty_cod => @eff.cod, :eff_qlty_ss => @eff.ss, :eff_qlty_nhn => @eff.nhn, :eff_qlty_tn => @eff.tn, :eff_qlty_tp => @eff.tp, :eff_qlty_ph => @eff.ph, :eff_qlty_fecal => @eff.fecal,
         :sed_qlty_bod => @sed.bod, :sed_qlty_cod => @sed.cod, :sed_qlty_ss => @sed.ss, :sed_qlty_nhn => @sed.nhn, :sed_qlty_tn => @sed.tn, :sed_qlty_tp => @sed.tp, :sed_qlty_ph => @sed.ph, 
-        :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :tspmud => @pdt_sum.tspmud, :dlemud => @pdt_sum.dlemud, :rcpmud => @pdt_sum.rcpmud, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell
+        :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell
       )
 
       if @day_pdt_rpt.save
@@ -230,7 +232,7 @@ class DayPdtsController < ApplicationController
 
   private
     def day_pdt_params
-      params.require(:day_pdt).permit( :pdt_date, :name, :signer, :weather, :temper, :desc , enclosures_attributes: enclosure_params, inf_qlty_attributes: inf_qlty_params, eff_qlty_attributes: eff_qlty_params, sed_qlty_attributes: sed_qlty_params, pdt_sum_attributes: pdt_sum_params)
+      params.require(:day_pdt).permit( :pdt_date, :name, :signer, :weather, :temper, :desc , enclosures_attributes: enclosure_params, inf_qlty_attributes: inf_qlty_params, eff_qlty_attributes: eff_qlty_params, sed_qlty_attributes: sed_qlty_params, pdt_sum_attributes: pdt_sum_params, tspmuds_attributes: tspmud_params)
     end
   
     def enclosure_params
@@ -250,7 +252,10 @@ class DayPdtsController < ApplicationController
     end
   
     def pdt_sum_params
-      [:id, :inflow, :outflow, :inmud, :outmud, :tspmud, :dlemud, :rcpmud, :mst, :power, :mdflow, :mdrcy, :mdsell ,:_destroy]
+      [:id, :inflow, :outflow, :inmud, :outmud, :mst, :power, :mdflow, :mdrcy, :mdsell ,:_destroy]
+    end
+    def tspmud_params
+      [:id, :tspvum, :dealer, :rcpvum, :price, :prtmtd, :goort ,:_destroy]
     end
   
     def my_factory

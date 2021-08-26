@@ -6,7 +6,7 @@ mysetting:
   reports: &3
     title: 标题
     content: 正文
-  models: &136
+  models:
     label: ''
     name: 名称
     image: 图像
@@ -562,7 +562,7 @@ mysetting:
   table_pages: &61
     label: 表格页
     content: 内容
-  projects2: &137
+  projects2:
     label: 工程项目
     name: 工程项目名称
     itemname: 分项名称，分项工程名称
@@ -1940,6 +1940,17 @@ development:
     selected: selected
     completed: completed
     canceled: canceled
+  tspmuds:
+    label: 污泥处置
+    tspvum: 转运泥量
+    dealer: 处置单位
+    rcpvum: 处置单位接收量
+    price: 价格元吨
+    prtmtd: 处置方式
+    goort: 后续产品走向
+  dogs:
+    label: 狗
+    name: 名称
 test:
   admins: *104
   users: *105

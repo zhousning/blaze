@@ -1,0 +1,40 @@
+.nested-fields.nestd-item
+  .field.d-inline
+    %table.table-bordered.day-pdt-table
+      %caption.text-center
+        = Setting.tspmuds.label
+      %tbody
+        %tr
+          %td.p-3.text-center
+            = f.label Setting.tspmuds.tspvum, :class => "text-center"
+          %td.p-3.text-center
+            = f.number_field :tspvum, :class => "form-control", :required => true , :step => '0.01'
+            
+          %td.p-3.text-center
+            = f.label Setting.tspmuds.dealer, :class => "text-center"
+          %td.p-3.text-center
+            = f.text_field :dealer, :class => "form-control", :required => true 
+            
+        %tr
+          %td.p-3.text-center
+            = f.label Setting.tspmuds.rcpvum, :class => "text-center"
+          %td.p-3.text-center
+            = f.number_field :rcpvum, :class => "form-control", :required => true , :step => '0.01'
+            
+          %td.p-3.text-center
+            = f.label Setting.tspmuds.price, :class => "text-center"
+          %td.p-3.text-center
+            = f.number_field :price, :class => "form-control", :required => true , :step => '0.01'
+            
+        %tr
+          %td.p-3.text-center
+            = f.label Setting.tspmuds.prtmtd, :class => "text-center"
+          %td.p-3.text-center
+            = f.text_field :prtmtd, :class => "form-control", :required => true 
+            
+          %td.p-3.text-center
+            = f.label Setting.tspmuds.goort, :class => "text-center"
+          %td.p-3.text-center
+            = f.text_field :goort, :class => "form-control", :required => true 
+            
+        = link_to_remove_association "X", f, :class => "nestd-notify-badge"

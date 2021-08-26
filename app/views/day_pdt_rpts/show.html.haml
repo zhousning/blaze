@@ -293,20 +293,6 @@
                     %td.p-3.text-center
                       = @day_pdt_rpt.mst
                       
-                  -#
-                    %tr
-                      %td.p-3.text-center
-                        = label_tag nil, Setting.pdt_sums.tspmud, :class => " text-center"
-                      %td.p-3.text-center
-                        = @day_pdt.tspmud
-                      %td.p-3.text-center
-                        = label_tag nil, Setting.pdt_sums.dlemud, :class => " text-center"
-                      %td.p-3.text-center
-                        = @day_pdt.dlemud
-                      %td.p-3.text-center
-                        = label_tag nil, Setting.pdt_sums.rcpmud, :class => " text-center"
-                      %td.p-3.text-center
-                        = @day_pdt.rcpmud
 
                   %tr
                     %td.p-3.text-center
@@ -324,6 +310,42 @@
                     %td.p-3.text-center
                       = @day_pdt_rpt.mdsell
 
+              %table.table-bordered.day-pdt-table.w-100
+                %caption.text-center
+                  = Setting.tspmuds.label
+                %tbody
+                  - @day_pdt_rpt.tspmuds.each do |tspmud|
+                    %tr
+                      %td.p-3.text-center
+                        = label_tag nil, Setting.tspmuds.tspvum, :class => " text-center"
+                      %td.p-3.text-center
+                        = tspmud.tspvum
+
+                      %td.p-3.text-center
+                        = label_tag nil, Setting.tspmuds.dealer, :class => " text-center"
+                      %td.p-3.text-center
+                        = tspmud.dealer
+
+                      %td.p-3.text-center
+                        = label_tag nil, Setting.tspmuds.rcpvum, :class => " text-center"
+                      %td.p-3.text-center
+                        = tspmud.rcpvum
+                    
+                    %tr
+                      %td.p-3.text-center
+                        = label_tag nil, Setting.tspmuds.price, :class => " text-center"
+                      %td.p-3.text-center
+                        = tspmud.rcpvum
+                    
+                      %td.p-3.text-center
+                        = label_tag nil, Setting.tspmuds.prtmtd, :class => " text-center"
+                      %td.p-3.text-center
+                        = tspmud.prtmtd
+                    
+                      %td.p-3.text-center
+                        = label_tag nil, Setting.tspmuds.goort, :class => " text-center"
+                      %td.p-3.text-center
+                        = tspmud.goort
 
       = render "layouts/bootstrap/card"
   

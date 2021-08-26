@@ -16,7 +16,7 @@
           .col-sm-6
           <% if options[:tag][index] == 'text' %>  = f.text_field :<%= attr %>, :class => "form-control rounded-0" <% if options[:required][index] == 'true' %>, :required => true<% end %>
           <% elsif options[:tag][index] == 'textarea' %>  = f.text_area :<%= attr %>, :class => "form-control rounded-0", :rows => "20" <% if options[:required][index] == 'true' %>, :required => true<% end %>
-          <% elsif options[:tag][index] == 'number' %>  = f.number_field :<%= attr %>, :class => "form-control rounded-0" <% if options[:required][index] == 'true' %>, :required => true<% end %>, :step => "0.01"
+          <% elsif options[:tag][index] == 'number' %>  = f.number_field :<%= attr %>, :class => "form-control rounded-0", :step => "0.01"  <% if options[:required][index] == 'true' %>, :required => true<% end %>
           <% elsif options[:tag][index] == 'phone' %>  = f.phone_field :<%= attr %>, :class => "form-control rounded-0" <% if options[:required][index] == 'true' %>, :required => true<% end %>
           <% elsif options[:tag][index] == 'date' %>  = f.date_field :<%= attr %>, :class => "form-control rounded-0" <% if options[:required][index] == 'true' %>, :required => true<% end %>
           <% elsif options[:tag][index] == 'datetime' %>  = f.datetime_select :<%= attr %>, :start_year => 2021, :order => [:year, :month, :day ], use_month_numbers: true, :class => "form-control rounded-0"
