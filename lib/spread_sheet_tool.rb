@@ -13,14 +13,15 @@ class SpreadSheetTool
     book = Spreadsheet.open mth_report_template 
 
     yuehuizong = book.worksheet 'yuehuizong'
-    yuehuizong_sheet(obj, yuehuizong)
+    mingxi = book.worksheet 'mingxi'
+    mth_sheets(obj, yuehuizong, mingxi)
 
     book.write target_excel
 
     return target_excel
   end
 
-  def yuehuizong_sheet(obj, sheet)
+  def mth_sheets(obj, yuehuizong, mingxi)
     row_size = obj.size
     obj.each_with_index do |mth_pdt_rpt, row|
       name = mth_pdt_rpt.factory.name
@@ -38,8 +39,14 @@ class SpreadSheetTool
 
       arr = [name, mud.inmud, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
       arr.each_with_index do |item, col|
-        sheet.rows[row + 4][col] = item 
+        yuehuizong.rows[row + 4][col] = item 
       end
+
+      _start = mth_pdt_rpt.start_date
+      _end = mth_pdt_rpt.end_date
+      factory = mth_pdt_rpt.factory
+      @day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ? ", _start, _end]).order("pdt_date ASC")
+      mingxi_sheet(@day_pdt_rpts, mingxi)
     end
   end
 
@@ -100,7 +107,8 @@ class SpreadSheetTool
 
     def day_pdt_rpt_title
       [
-        "",
+        "厂区",
+        Setting.day_pdt_rpts.pdt_date,  
         Setting.day_pdt_rpts.inf_qlty_bod,  
         Setting.day_pdt_rpts.eff_qlty_bod,  
         Setting.day_pdt_rpts.inf_qlty_cod,  
@@ -118,19 +126,36 @@ class SpreadSheetTool
         Setting.day_pdt_rpts.eff_qlty_fecal,
         Setting.day_pdt_rpts.inflow,        
         Setting.day_pdt_rpts.outflow,       
+        Setting.day_rpt_stcs.bcr,
+        Setting.day_rpt_stcs.bnr,
+        Setting.day_rpt_stcs.bpr,
+        Setting.day_rpt_stcs.cod_emq,
+        Setting.day_rpt_stcs.bod_emq,
+        Setting.day_rpt_stcs.nhn_emq,
+        Setting.day_rpt_stcs.tp_emq,
+        Setting.day_rpt_stcs.tn_emq,
+        Setting.day_rpt_stcs.ss_emq,
+        Setting.day_rpt_stcs.cod_emr,
+        Setting.day_rpt_stcs.bod_emr,
+        Setting.day_rpt_stcs.nhn_emr,
+        Setting.day_rpt_stcs.tp_emr,
+        Setting.day_rpt_stcs.tn_emr,
+        Setting.day_rpt_stcs.ss_emr,
         Setting.day_pdt_rpts.inmud,         
         Setting.day_pdt_rpts.outmud,        
         Setting.day_pdt_rpts.mst,           
         Setting.day_pdt_rpts.power,         
+        Setting.day_rpt_stcs.bom,
         Setting.day_pdt_rpts.mdflow,        
         Setting.day_pdt_rpts.mdrcy,         
-        Setting.day_pdt_rpts.mdsell
+        Setting.day_pdt_rpts.mdsell,
       ]
     end
 
     def day_pdt_rpt_obj(day_pdt_rpt)
       [
         day_pdt_rpt.factory.name,
+        day_pdt_rpt.pdt_date.to_s,  
         day_pdt_rpt.inf_qlty_bod,  
         day_pdt_rpt.eff_qlty_bod,  
         day_pdt_rpt.inf_qlty_cod,  
@@ -148,10 +173,26 @@ class SpreadSheetTool
         day_pdt_rpt.eff_qlty_fecal,
         day_pdt_rpt.inflow,        
         day_pdt_rpt.outflow,       
+        day_pdt_rpt.day_rpt_stc.bcr,
+        day_pdt_rpt.day_rpt_stc.bnr,
+        day_pdt_rpt.day_rpt_stc.bpr,
+        day_pdt_rpt.day_rpt_stc.cod_emq,
+        day_pdt_rpt.day_rpt_stc.bod_emq,
+        day_pdt_rpt.day_rpt_stc.nhn_emq,
+        day_pdt_rpt.day_rpt_stc.tp_emq,
+        day_pdt_rpt.day_rpt_stc.tn_emq,
+        day_pdt_rpt.day_rpt_stc.ss_emq,
+        day_pdt_rpt.day_rpt_stc.cod_emr,
+        day_pdt_rpt.day_rpt_stc.bod_emr,
+        day_pdt_rpt.day_rpt_stc.nhn_emr,
+        day_pdt_rpt.day_rpt_stc.tp_emr,
+        day_pdt_rpt.day_rpt_stc.tn_emr,
+        day_pdt_rpt.day_rpt_stc.ss_emr,
         day_pdt_rpt.inmud,         
         day_pdt_rpt.outmud,        
         day_pdt_rpt.mst,           
         day_pdt_rpt.power,         
+        day_pdt_rpt.day_rpt_stc.bom,
         day_pdt_rpt.mdflow,        
         day_pdt_rpt.mdrcy,         
         day_pdt_rpt.mdsell

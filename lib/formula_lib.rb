@@ -28,7 +28,7 @@ module FormulaLib
   #平均消减率(单位%, 消减量吨, 水量m3 or 吨)
   #消减量之和/单指标*处理水量之和
   def self.avg_emr(quota_emq_sum, quota_inflow_sum)
-    quota_in == 0 ? 0 : format("%0.2f", (quota_emq_sum/quota_inflow_sum*1000000*10*10)).to_f
+    quota_inflow_sum == 0 ? 0 : format("%0.2f", (quota_emq_sum/quota_inflow_sum*1000000*10*10)).to_f
   end
 
   #消减量(单位吨, 指标mg/l, 处理水量m3 or 吨)
@@ -41,7 +41,7 @@ module FormulaLib
   #平均消减量(单位mg/l, 日削减量吨, 日处理水量m3 or 吨)
   #日削减量和/日处理水量和
   def self.avg_emq(quota_emq_sum, inflow_sum)
-    flow == 0 ? 0 : format("%0.2f",(quota_emq_sum/inflow_sum)*1000000).to_f
+    inflow_sum == 0 ? 0 : format("%0.2f",(quota_emq_sum/inflow_sum)*1000000).to_f
   end
 
   #电单耗(单位kw.h/m3, 电量kw.h, 进水量m3)

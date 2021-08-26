@@ -161,7 +161,7 @@ module MathCube
     inf_ph    =  rpt.sum_inf_qlty_ph    
     eff_ph    =  rpt.sum_eff_qlty_ph    
     eff_fecal =  rpt.sum_eff_qlty_fecal 
-    inflow    =  rpt.sum_inflow,
+    inflow    =  rpt.sum_inflow
     outflow   =  rpt.sum_outflow
     inmud     =  rpt.sum_inmud 
     outmud    =  rpt.sum_outmud
