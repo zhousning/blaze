@@ -1,4 +1,9 @@
 module FormulaLib
+  #处理水量指进水量
+
+  def self.multiply(a, b)
+    a.nil? || b.nil? ? 0 : format("%0.2f",a*b).to_f
+  end
 
   #进水
   def self.ratio(a, b)
@@ -15,15 +20,28 @@ module FormulaLib
     last == 0 ? 0 : format("%0.2f", (current-last)/last*10*10).to_f
   end
 
-  #削减率(单位%, 指标mg/l, 进水量m3)
+  #消减率(单位%, 指标mg/l, 水量m3 or 吨)
   def self.emr(quota_in, quota_out)
     quota_in == 0 ? 0 : format("%0.2f",(quota_in - quota_out)/quota_in*10*10).to_f
   end
 
-  #削减量(单位mg/l, 指标mg/l, 进水量m3)
-  #单位若是吨需除1000000
+  #平均消减率(单位%, 消减量吨, 水量m3 or 吨)
+  #消减量之和/单指标*处理水量之和
+  def self.avg_emr(quota_emq_sum, quota_inflow_sum)
+    quota_in == 0 ? 0 : format("%0.2f", (quota_emq_sum/quota_inflow_sum*1000000*10*10)).to_f
+  end
+
+  #消减量(单位吨, 指标mg/l, 处理水量m3 or 吨)
+  #单位若是吨需除1000000 单位若是mg/l不用除1000000
+  #(进水-出水)*污水日处理量
   def self.emq(quota_in, quota_out, inflow)
-    format("%0.2f",(quota_in - quota_out)*inflow).to_f
+    format("%0.2f",(quota_in - quota_out)*inflow/1000000).to_f
+  end
+
+  #平均消减量(单位mg/l, 日削减量吨, 日处理水量m3 or 吨)
+  #日削减量和/日处理水量和
+  def self.avg_emq(quota_emq_sum, inflow_sum)
+    flow == 0 ? 0 : format("%0.2f",(quota_emq_sum/inflow_sum)*1000000).to_f
   end
 
   #电单耗(单位kw.h/m3, 电量kw.h, 进水量m3)
@@ -31,7 +49,7 @@ module FormulaLib
     inflow == 0 ? 0 : format("%0.2f",power/inflow).to_f
   end
 
-  #削减电单耗(单位kw.h/kg, 电量kw.h, 指标mg/l, 进水量m3)
+  #消减电单耗(单位kw.h/kg, 电量kw.h, 指标mg/l, 进水量m3)
   def self.em_bom(power, quota_in, quota_out, inflow) 
     (quota_in - quota_out != 0 && inflow !=0) ? format("%0.2f",power*1000/(quota_in - quota_out)/inflow).to_f : 0
   end

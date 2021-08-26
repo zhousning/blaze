@@ -130,15 +130,21 @@ module MathCube
 
 
   def static_sum(factory_id, _start, _end)
-    rpt_static = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ?", factory_id, _start, _end]).select(search_str) 
+    day_pdt_rpts = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ?", factory_id, _start, _end])
+    day_rpt_stcs = DayRptStc.where(:day_pdt_rpt => day_pdt_rpts.pluck(:id))
+
+    rpt_static = day_pdt_rpts.select(search_str) 
+    stc_static = day_rpt_stcs.select(rpt_stc_search_str) 
+
     rpt = rpt_static[0]
+    stc = stc_static[0]
 
     result = {}
-    result = result_hash(rpt) if rpt.counts > 0
+    result = result_hash(rpt, stc) if rpt.counts > 0
     result
   end
 
-  def result_hash(rpt)
+  def result_hash(rpt, stc)
     counts = rpt.counts
     inf_bod   =  rpt.sum_inf_qlty_bod   
     eff_bod   =  rpt.sum_eff_qlty_bod   
@@ -155,7 +161,7 @@ module MathCube
     inf_ph    =  rpt.sum_inf_qlty_ph    
     eff_ph    =  rpt.sum_eff_qlty_ph    
     eff_fecal =  rpt.sum_eff_qlty_fecal 
-    inflow    =  rpt.sum_inflow
+    inflow    =  rpt.sum_inflow,
     outflow   =  rpt.sum_outflow
     inmud     =  rpt.sum_inmud 
     outmud    =  rpt.sum_outmud
@@ -166,61 +172,80 @@ module MathCube
     mdsell    =  rpt.sum_mdsell
 
     bom = FormulaLib.bom(power, inflow) 
-    #bom_power = 
-    #平均削减率
-    emr_bod = FormulaLib.emr(inf_bod , eff_bod)
-    emr_cod = FormulaLib.emr(inf_cod , eff_cod)
-    emr_tp  = FormulaLib.emr(inf_tp  , eff_tp)
-    emr_tn  = FormulaLib.emr(inf_tn  , eff_tn)
-    emr_ss  = FormulaLib.emr(inf_ss  , eff_ss)
-    emr_nhn = FormulaLib.emr(inf_nhn , eff_nhn)
 
     #本月削减量
-    emq_bod = FormulaLib.emq(inf_bod , eff_bod, inflow)
-    emq_cod = FormulaLib.emq(inf_cod , eff_cod, inflow)
-    emq_tp  = FormulaLib.emq(inf_tp  , eff_tp,  inflow)
-    emq_tn  = FormulaLib.emq(inf_tn  , eff_tn,  inflow)
-    emq_ss  = FormulaLib.emq(inf_ss  , eff_ss,  inflow)
-    emq_nhn = FormulaLib.emq(inf_nhn , eff_nhn, inflow)
+    emq_bod = stc.sum_bod_emq
+    emq_cod = stc.sum_cod_emq
+    emq_tp  = stc.sum_tp_emq 
+    emq_tn  = stc.sum_tn_emq 
+    emq_ss  = stc.sum_ss_emq 
+    emq_nhn = stc.sum_nhn_emq
+
+    #bom_power = 
+    #平均削减率
+    emr_bod = FormulaLib.avg_emr(emq_bod, stc.sum_cod_inflow)
+    emr_cod = FormulaLib.avg_emr(emq_cod, stc.sum_ss_inflow)
+    emr_tp  = FormulaLib.avg_emr(emq_tp , stc.sum_nhn_inflow)
+    emr_tn  = FormulaLib.avg_emr(emq_tn , stc.sum_tn_inflow)
+    emr_ss  = FormulaLib.avg_emr(emq_ss , stc.sum_tp_inflow)
+    emr_nhn = FormulaLib.avg_emr(emq_nhn, stc.sum_bod_inflow)
+
 
     #平均削减量
-    avg_emq_bod = FormulaLib.ratio(emq_bod, counts) 
-    avg_emq_cod = FormulaLib.ratio(emq_cod, counts) 
-    avg_emq_tp  = FormulaLib.ratio(emq_tp,  counts) 
-    avg_emq_tn  = FormulaLib.ratio(emq_tn,  counts)
-    avg_emq_ss  = FormulaLib.ratio(emq_ss,  counts) 
-    avg_emq_nhn = FormulaLib.ratio(emq_nhn, counts) 
+    avg_emq_bod = FormulaLib.avg_emq(emq_bod, inflow) 
+    avg_emq_cod = FormulaLib.avg_emq(emq_cod, inflow) 
+    avg_emq_tp  = FormulaLib.avg_emq(emq_tp,  inflow) 
+    avg_emq_tn  = FormulaLib.avg_emq(emq_tn,  inflow)
+    avg_emq_ss  = FormulaLib.avg_emq(emq_ss,  inflow) 
+    avg_emq_nhn = FormulaLib.avg_emq(emq_nhn, inflow) 
 
     result = {
-      :inf_bod =>   { code: Setting.quota.bod,     title: Setting.day_pdt_rpts.inf_qlty_bod,   sum: inf_bod,   avg: format_number( inf_bod/counts ) },
-      :eff_bod =>   { code: Setting.quota.bod,     title: Setting.day_pdt_rpts.eff_qlty_bod,   sum: eff_bod,   avg: format_number( eff_bod/counts ) },
-      :inf_cod =>   { code: Setting.quota.cod,     title: Setting.day_pdt_rpts.inf_qlty_cod,   sum: inf_cod,   avg: format_number( inf_cod/counts ) },
-      :eff_cod =>   { code: Setting.quota.cod,     title: Setting.day_pdt_rpts.eff_qlty_cod,   sum: eff_cod,   avg: format_number( eff_cod/counts ) },
-      :inf_ss =>    { code: Setting.quota.ss,      title: Setting.day_pdt_rpts.inf_qlty_ss,    sum: inf_ss,    avg: format_number( inf_ss/counts ) },
-      :eff_ss =>    { code: Setting.quota.ss,      title: Setting.day_pdt_rpts.eff_qlty_ss,    sum: eff_ss,    avg: format_number( eff_ss/counts ) },
-      :inf_nhn =>   { code: Setting.quota.nhn,     title: Setting.day_pdt_rpts.inf_qlty_nhn,   sum: inf_nhn,   avg: format_number( inf_nhn/counts ) },
-      :eff_nhn =>   { code: Setting.quota.nhn,     title: Setting.day_pdt_rpts.eff_qlty_nhn,   sum: eff_nhn,   avg: format_number( eff_nhn/counts ) },
-      :inf_tn =>    { code: Setting.quota.tn,      title: Setting.day_pdt_rpts.inf_qlty_tn,    sum: inf_tn,    avg: format_number( inf_tn/counts ) },
-      :eff_tn =>    { code: Setting.quota.tn,      title: Setting.day_pdt_rpts.eff_qlty_tn,    sum: eff_tn,    avg: format_number( eff_tn/counts ) },
-      :inf_tp =>    { code: Setting.quota.tp,      title: Setting.day_pdt_rpts.inf_qlty_tp,    sum: inf_tp,    avg: format_number( inf_tp/counts ) },
-      :eff_tp =>    { code: Setting.quota.tp,      title: Setting.day_pdt_rpts.eff_qlty_tp,    sum: eff_tp,    avg: format_number( eff_tp/counts ) },
-      :inf_ph =>    { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.inf_qlty_ph,    sum: inf_ph,    avg: format_number( inf_ph/counts ) },
-      :eff_ph =>    { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.eff_qlty_ph,    sum: eff_ph,    avg: format_number( eff_ph/counts ) },
-      :eff_fecal => { code: Setting.quota.fecal,   title: Setting.day_pdt_rpts.eff_qlty_fecal, sum: eff_fecal, avg: format_number( eff_fecal/counts ) },
-      :inflow =>    { code: Setting.quota.inflow,  title: Setting.day_pdt_rpts.inflow,         sum: inflow,    avg: format_number( inflow/counts ) }, 
-      :outflow =>   { code: Setting.quota.outflow, title: Setting.day_pdt_rpts.outflow,        sum: outflow,   avg: format_number( outflow/counts ) },
-      :inmud =>     { code: Setting.quota.inmud,   title: Setting.day_pdt_rpts.inmud,          sum: inmud,     avg: format_number( inmud/counts ) }, 
-      :outmud =>    { code: Setting.quota.outmud,  title: Setting.day_pdt_rpts.outmud,         sum: outmud,    avg: format_number( outmud/counts ) },
-      :mst =>       { code: Setting.quota.mst,     title: Setting.day_pdt_rpts.mst,            sum: mst,       avg: format_number( mst/counts ) },  
-      :power =>     { code: Setting.quota.power,   title: Setting.day_pdt_rpts.power,          sum: power,     avg: format_number( power/counts ), bom: bom }, 
-      :mdflow =>    { code: Setting.quota.mdflow,  title: Setting.day_pdt_rpts.mdflow,         sum: mdflow,    avg: format_number( mdflow/counts ) },
-      :mdrcy =>     { code: Setting.quota.mdrcy,   title: Setting.day_pdt_rpts.mdrcy,          sum: mdrcy,     avg: format_number( mdrcy/counts ) }, 
-      :mdsell =>    { code: Setting.quota.mdsell,  title: Setting.day_pdt_rpts.mdsell,         sum: mdsell,    avg: format_number( mdsell/counts ) },
+      :inf_bod =>   { code: Setting.quota.bod,     title: Setting.day_pdt_rpts.inf_qlty_bod,   sum: inf_bod,   avg: FormulaLib.ratio(inf_bod,   counts) },
+      :eff_bod =>   { code: Setting.quota.bod,     title: Setting.day_pdt_rpts.eff_qlty_bod,   sum: eff_bod,   avg: FormulaLib.ratio(eff_bod,   counts) },
+      :inf_cod =>   { code: Setting.quota.cod,     title: Setting.day_pdt_rpts.inf_qlty_cod,   sum: inf_cod,   avg: FormulaLib.ratio(inf_cod,   counts) },
+      :eff_cod =>   { code: Setting.quota.cod,     title: Setting.day_pdt_rpts.eff_qlty_cod,   sum: eff_cod,   avg: FormulaLib.ratio(eff_cod,   counts) },
+      :inf_ss =>    { code: Setting.quota.ss,      title: Setting.day_pdt_rpts.inf_qlty_ss,    sum: inf_ss,    avg: FormulaLib.ratio(inf_ss,    counts) },
+      :eff_ss =>    { code: Setting.quota.ss,      title: Setting.day_pdt_rpts.eff_qlty_ss,    sum: eff_ss,    avg: FormulaLib.ratio(eff_ss,    counts) },
+      :inf_nhn =>   { code: Setting.quota.nhn,     title: Setting.day_pdt_rpts.inf_qlty_nhn,   sum: inf_nhn,   avg: FormulaLib.ratio(inf_nhn,   counts) },
+      :eff_nhn =>   { code: Setting.quota.nhn,     title: Setting.day_pdt_rpts.eff_qlty_nhn,   sum: eff_nhn,   avg: FormulaLib.ratio(eff_nhn,   counts) },
+      :inf_tn =>    { code: Setting.quota.tn,      title: Setting.day_pdt_rpts.inf_qlty_tn,    sum: inf_tn,    avg: FormulaLib.ratio(inf_tn,    counts) },
+      :eff_tn =>    { code: Setting.quota.tn,      title: Setting.day_pdt_rpts.eff_qlty_tn,    sum: eff_tn,    avg: FormulaLib.ratio(eff_tn,    counts) },
+      :inf_tp =>    { code: Setting.quota.tp,      title: Setting.day_pdt_rpts.inf_qlty_tp,    sum: inf_tp,    avg: FormulaLib.ratio(inf_tp,    counts) },
+      :eff_tp =>    { code: Setting.quota.tp,      title: Setting.day_pdt_rpts.eff_qlty_tp,    sum: eff_tp,    avg: FormulaLib.ratio(eff_tp,    counts) },
+      :inf_ph =>    { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.inf_qlty_ph,    sum: inf_ph,    avg: FormulaLib.ratio(inf_ph,    counts) },
+      :eff_ph =>    { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.eff_qlty_ph,    sum: eff_ph,    avg: FormulaLib.ratio(eff_ph,    counts) },
+      :eff_fecal => { code: Setting.quota.fecal,   title: Setting.day_pdt_rpts.eff_qlty_fecal, sum: eff_fecal, avg: FormulaLib.ratio(eff_fecal, counts) },
+      :inflow =>    { code: Setting.quota.inflow,  title: Setting.day_pdt_rpts.inflow,         sum: inflow,    avg: FormulaLib.ratio(inflow,    counts) }, 
+      :outflow =>   { code: Setting.quota.outflow, title: Setting.day_pdt_rpts.outflow,        sum: outflow,   avg: FormulaLib.ratio(outflow,   counts) },
+      :inmud =>     { code: Setting.quota.inmud,   title: Setting.day_pdt_rpts.inmud,          sum: inmud,     avg: FormulaLib.ratio(inmud,     counts) }, 
+      :outmud =>    { code: Setting.quota.outmud,  title: Setting.day_pdt_rpts.outmud,         sum: outmud,    avg: FormulaLib.ratio(outmud,    counts) },
+      :mst =>       { code: Setting.quota.mst,     title: Setting.day_pdt_rpts.mst,            sum: mst,       avg: FormulaLib.ratio(mst,       counts) },  
+      :power =>     { code: Setting.quota.power,   title: Setting.day_pdt_rpts.power,          sum: power,     avg: FormulaLib.ratio(power,     counts), bom: bom }, 
+      :mdflow =>    { code: Setting.quota.mdflow,  title: Setting.day_pdt_rpts.mdflow,         sum: mdflow,    avg: FormulaLib.ratio(mdflow,    counts) },
+      :mdrcy =>     { code: Setting.quota.mdrcy,   title: Setting.day_pdt_rpts.mdrcy,          sum: mdrcy,     avg: FormulaLib.ratio(mdrcy,     counts) }, 
+      :mdsell =>    { code: Setting.quota.mdsell,  title: Setting.day_pdt_rpts.mdsell,         sum: mdsell,    avg: FormulaLib.ratio(mdsell,    counts) },
       :emr => {:bod => emr_bod, :cod => emr_cod, :tp => emr_tp, :tn => emr_tn, :ss => emr_ss, :nhn => emr_nhn},
       :emq => {:bod => emq_bod, :cod => emq_cod, :tp => emq_tp, :tn => emq_tn, :ss => emq_ss, :nhn => emq_nhn},
       :avg_emq => {:bod => avg_emq_bod, :cod => avg_emq_cod, :tp => avg_emq_tp, :tn => avg_emq_tn, :ss => avg_emq_ss, :nhn => avg_emq_nhn}
     }
     result
+  end
+
+  def rpt_stc_search_str
+    "
+      sum(bod_emq)     sum_bod_emq,
+      sum(cod_emq)     sum_cod_emq,
+      sum(ss_emq)      sum_ss_emq,
+      sum(nhn_emq)     sum_nhn_emq,
+      sum(tn_emq)      sum_tn_emq,
+      sum(tp_emq)      sum_tp_emq,
+      sum(cod_inflow)  sum_cod_inflow,
+      sum(ss_inflow)   sum_ss_inflow,
+      sum(nhn_inflow)  sum_nhn_inflow,
+      sum(tn_inflow)   sum_tn_inflow,
+      sum(tp_inflow)   sum_tp_inflow,
+      sum(bod_inflow)  sum_bod_inflow
+    "
   end
   
   def search_str
@@ -258,10 +283,6 @@ module MathCube
       #sum(sed_qlty_tn)      sum_sed_qlty_tn,
       #sum(sed_qlty_tp)      sum_sed_qlty_tp,  
       #sum(sed_qlty_ph)      sum_sed_qlty_ph, 
-  end
-
-  def format_number(number)
-    format("%0.2f", number).to_f
   end
 end
 

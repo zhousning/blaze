@@ -183,6 +183,20 @@
                     %td.p-3.text-center
                       = @day_pdt.pdt_sum.mst
                       
+                 %tr
+                   %td.p-3.text-center
+                     = f.label nil, Setting.pdt_sums.tspmud, :class => " text-center"
+                   %td.p-3.text-center
+                     = @day_pdt.tspmud
+                   %td.p-3.text-center
+                     = f.label nil, Setting.pdt_sums.dlemud, :class => " text-center"
+                   %td.p-3.text-center
+                     = @day_pdt.dlemud
+                   %td.p-3.text-center
+                     = f.label nil, Setting.pdt_sums.rcpmud, :class => " text-center"
+                   %td.p-3.text-center
+                     = @day_pdt.rcpmud
+
                   %tr
                     %td.p-3.text-center
                       = label_tag nil, Setting.pdt_sums.mdflow, :class => " text-center"

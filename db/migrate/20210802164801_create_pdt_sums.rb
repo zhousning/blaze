@@ -9,6 +9,12 @@ class CreatePdtSums < ActiveRecord::Migration
       t.float :inmud,  null: false, default: Setting.systems.default_num 
     
       t.float :outmud,  null: false, default: Setting.systems.default_num 
+
+      t.float :tspmud,  null: false, default: Setting.systems.default_num 
+
+      t.float :rcpmud,  null: false, default: Setting.systems.default_num
+
+      t.string :dlemud,  null: false, default: Setting.systems.default_str
     
       t.float :mst,  null: false, default: Setting.systems.default_num 
     

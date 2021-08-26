@@ -50,7 +50,15 @@ class DayPdtRpt < ActiveRecord::Base
       :nhn_emr => FormulaLib.emr(self.inf_qlty_nhn, self.eff_qlty_nhn ), 
       :tp_emr  => FormulaLib.emr(self.inf_qlty_tp,  self.eff_qlty_tp  ), 
       :tn_emr  => FormulaLib.emr(self.inf_qlty_tn,  self.eff_qlty_tn  ), 
-      :ss_emr  => FormulaLib.emr(self.inf_qlty_ss,  self.eff_qlty_ss  )
+      :ss_emr  => FormulaLib.emr(self.inf_qlty_ss,  self.eff_qlty_ss  ),
+
+      :cod_inflow => FormulaLib.multiply(self.inf_qlty_cod, self.inflow ), 
+      :bod_inflow => FormulaLib.multiply(self.inf_qlty_bod, self.inflow ), 
+      :nhn_inflow => FormulaLib.multiply(self.inf_qlty_nhn, self.inflow ), 
+      :tp_inflow  => FormulaLib.multiply(self.inf_qlty_tp,  self.inflow ), 
+      :tn_inflow  => FormulaLib.multiply(self.inf_qlty_tn,  self.inflow ), 
+      :ss_inflow  => FormulaLib.multiply(self.inf_qlty_ss,  self.inflow )
+
     )
   end
 

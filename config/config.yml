@@ -1312,6 +1312,9 @@ defaults:
     mdflow: 中水量(吨)
     mdrcy: 中水回用量(吨)
     mdsell: 中水销售水量(吨)
+    tspmud: 转运泥量(吨)
+    rcpmud: 处置单位接收量(吨)
+    dlemud: 处置单位名称
   sed_qlties: &140
     label: 二沉池出水
     bod: BOD5(mg/l)
@@ -1361,7 +1364,7 @@ defaults:
     name: 名称
     pdt_date: 日期
     weather: 天气
-    temper: 温度
+    temper: 温度(摄氏度)
     inf_qlty_bod: 进水BOD(mg/l)
     inf_qlty_cod: 进水COD(mg/l)
     inf_qlty_ss: 进水SS(mg/l)
@@ -1493,12 +1496,12 @@ defaults:
     avg_eff: 平均出水BOD浓度(mg/L)
     emr: BOD平均消减率(%)
     avg_emq: BOD平均消减量(mg/L)
-    emq: 本月BOD消减量(kg)
-    end_emq: 本月止累计BOD消减量(kg)
+    emq: 本月BOD消减量(吨)
+    end_emq: 本月止累计BOD消减量(吨)
     up_std: 本月出水BOD达标天数(天)
     end_std: 本月止累计出水BOD达标天数(天)
-    yoy: 同比(%)-削减量(吨)
-    mom: 环比(%)-削减量(吨)
+    yoy: 同比(%)-消减量(吨)
+    mom: 环比(%)-消减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_cods: &150
     label: COD
@@ -1506,12 +1509,12 @@ defaults:
     avg_eff: 平均出水COD浓度(mg/L)
     emr: COD平均消减率(%)
     avg_emq: COD平均消减量(mg/L)
-    emq: 本月COD消减量(kg)
-    end_emq: 本月止累计COD消减量(kg)
+    emq: 本月COD消减量(吨)
+    end_emq: 本月止累计COD消减量(吨)
     up_std: 本月出水COD达标天数(天)
     end_std: 本月止累计出水COD达标天数(天)
-    yoy: 同比(%)-削减量(吨)
-    mom: 环比(%)-削减量(吨)
+    yoy: 同比(%)-消减量(吨)
+    mom: 环比(%)-消减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tps: &151
     label: TP
@@ -1519,12 +1522,12 @@ defaults:
     avg_eff: 平均出水TP浓度(mg/L)
     emr: TP平均消减率(%)
     avg_emq: TP平均消减量(mg/L)
-    emq: 本月TP消减量(kg)
-    end_emq: 本月止累计TP消减量(kg)
+    emq: 本月TP消减量(吨)
+    end_emq: 本月止累计TP消减量(吨)
     up_std: 本月出水TP达标天数(天)
     end_std: 本月止累计出水TP达标天数(天)
-    yoy: 同比(%)-削减量(吨)
-    mom: 环比(%)-削减量(吨)
+    yoy: 同比(%)-消减量(吨)
+    mom: 环比(%)-消减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tns: &152
     label: TN
@@ -1532,12 +1535,12 @@ defaults:
     avg_eff: 平均出水TN浓度(mg/L)
     emr: TN平均消减率(%)
     avg_emq: TN平均消减量(mg/L)
-    emq: 本月TN消减量(kg)
-    end_emq: 本月止累计TN消减量(kg)
+    emq: 本月TN消减量(吨)
+    end_emq: 本月止累计TN消减量(吨)
     up_std: 本月出水TN达标天数(天)
     end_std: 本月止累计出水TN达标天数(天)
-    yoy: 同比(%)-削减量(吨)
-    mom: 环比(%)-削减量(吨)
+    yoy: 同比(%)-消减量(吨)
+    mom: 环比(%)-消减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_sses: &153
     label: SS
@@ -1545,12 +1548,12 @@ defaults:
     avg_eff: 平均出水SS浓度(mg/L)
     emr: SS平均消减率(%)
     avg_emq: SS平均消减量(mg/L)
-    emq: 本月SS消减量(kg)
-    end_emq: 本月止累计SS消减量(kg)
+    emq: 本月SS消减量(吨)
+    end_emq: 本月止累计SS消减量(吨)
     up_std: 本月出水SS达标天数(天)
     end_std: 本月止累计出水SS达标天数(天)
-    yoy: 同比(%)-削减量(吨)
-    mom: 环比(%)-削减量(吨)
+    yoy: 同比(%)-消减量(吨)
+    mom: 环比(%)-消减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_nhns: &154
     label: NH3-N
@@ -1558,12 +1561,12 @@ defaults:
     avg_eff: 平均出水NH3-N浓度(mg/L)
     emr: NH3-N平均消减率(%)
     avg_emq: NH3-N平均消减量(mg/L)
-    emq: 本月NH3-N消减量(kg)
-    end_emq: 本月止累计NH3-N消减量(kg)
+    emq: 本月NH3-N消减量(吨)
+    end_emq: 本月止累计NH3-N消减量(吨)
     up_std: 本月出水NH3-N达标天数(天)
     end_std: 本月止累计出水NH3-N达标天数(天)
-    yoy: 同比(%)-削减量(吨)
-    mom: 环比(%)-削减量(吨)
+    yoy: 同比(%)-消减量(吨)
+    mom: 环比(%)-消减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_mds: &155
     label: 中水
@@ -1585,7 +1588,7 @@ defaults:
     bom_power: 单位好氧污染物耗电量(kw·hkg)
     yoy_power: 同比(%)-耗电总量(万千瓦时)
     mom_power: 环比(%)-耗电总量(万千瓦时)
-    ypdr_power: 耗电总量截止本月累计完成全年计划占比
+    ypdr_power: 耗电总量截止本月累计完成全年计划占比(%)
     yoy_bom: 同比(%)-单耗(千瓦时/吨)
     mom_bom: 环比(%)-单耗(千瓦时/吨)
     ypdr_bom: 单耗截止本月累计完成全年计划占比(%)
@@ -1643,8 +1646,8 @@ defaults:
   emp_infs: &162
     label: 济宁市环境自动监测系统进水口
     pdt_time: 监测时间
-    flow: 小时流量
-    temp: 水温
+    flow: 小时流量(m3/小时)
+    temp: 水温(摄氏度)
     bod: BOD5(mg/l)
     cod: COD(mg/l)
     ss: SS(mg/l)
@@ -1655,8 +1658,8 @@ defaults:
   emp_effs: &163
     label: 济宁市环境自动监测系统出水口
     pdt_time: 监测时间
-    flow: 小时流量
-    temp: 水温
+    flow: 小时流量(m3/小时)
+    temp: 水温(摄氏度)
     bod: BOD5(mg/l)
     cod: COD(mg/l)
     ss: SS(mg/l)
@@ -1666,28 +1669,28 @@ defaults:
     ph: PH
   day_rpt_stcs: &164
     label: 日报表统计分析
-    bcr: BOD/COD
-    bnr: BOD/TN
-    bpr: BOD/TP
-    bom: 电单耗
-    cod_bom: 削减COD电单耗
-    bod_bom: 削减BOD电单耗
-    nhn_bom: 削减NH3N电单耗
-    tp_bom: 削减TP电单耗
-    tn_bom: 削减TN电单耗
-    ss_bom: 削减SS电单耗
-    cod_emq: COD削减量
-    bod_emq: BOD削减量
-    nhn_emq: NH3-N削减量
-    tp_emq: TP削减量
-    tn_emq: TN削减量
-    ss_emq: SS削减量
-    cod_emr: COD削减率
-    bod_emr: BOD削减率
-    nhn_emr: NH3-N削减率
-    tp_emr: TP削减率
-    tn_emr: TN削减率
-    ss_emr: SS削减率
+    bcr: BOD/COD(>0.3)
+    bnr: BOD/TN(>4)
+    bpr: BOD/TP(>28)
+    bom: 电单耗(kw.h/m3)
+    cod_bom: 消减COD电单耗(kw.h/kg)
+    bod_bom: 消减BOD电单耗(kw.h/kg)
+    nhn_bom: 消减NH3N电单耗(kw.h/kg)
+    tp_bom: 消减TP电单耗(kw.h/kg)
+    tn_bom: 消减TN电单耗(kw.h/kg)
+    ss_bom: 消减SS电单耗(kw.h/kg)
+    cod_emq: COD消减量(吨)
+    bod_emq: BOD消减量(吨)
+    nhn_emq: NH3-N消减量(吨)
+    tp_emq: TP消减量(吨)
+    tn_emq: TN消减量(吨)
+    ss_emq: SS消减量(吨)
+    cod_emr: COD消减率(%)
+    bod_emr: BOD消减率(%)
+    nhn_emr: NH3-N消减率(%)
+    tp_emr: TP消减率(%)
+    tn_emr: TN消减率(%)
+    ss_emr: SS消减率(%)
   notices: &1
     label: 通知公告
     title: 标题

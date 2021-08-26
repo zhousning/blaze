@@ -173,7 +173,6 @@
                       = @day_pdt.pdt_sum.power
                       
                   %tr
-              
                     %td.p-3.text-center
                       = label_tag nil, Setting.pdt_sums.inmud, :class => " text-center"
                     %td.p-3.text-center
@@ -187,6 +186,20 @@
                     %td.p-3.text-center
                       = @day_pdt.pdt_sum.mst
                       
+                  %tr
+                    %td.p-3.text-center
+                      = label_tag nil, Setting.pdt_sums.tspmud, :class => " text-center"
+                    %td.p-3.text-center
+                      = @day_pdt.pdt_sum.tspmud
+                    %td.p-3.text-center
+                      = label_tag nil, Setting.pdt_sums.dlemud, :class => " text-center"
+                    %td.p-3.text-center
+                      = @day_pdt.pdt_sum.dlemud
+                    %td.p-3.text-center
+                      = label_tag nil, Setting.pdt_sums.rcpmud, :class => " text-center"
+                    %td.p-3.text-center
+                      = @day_pdt.pdt_sum.rcpmud
+
                   %tr
                     %td.p-3.text-center
                       = label_tag nil, Setting.pdt_sums.mdflow, :class => " text-center"

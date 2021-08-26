@@ -47,6 +47,17 @@ class CreateDayRptStcs < ActiveRecord::Migration
       t.float :ss_emr,  null: false, default: Setting.systems.default_num 
     
 
+      t.float :cod_inflow,  null: false, default: Setting.systems.default_num 
+    
+      t.float :bod_inflow,  null: false, default: Setting.systems.default_num 
+    
+      t.float :nhn_inflow,  null: false, default: Setting.systems.default_num 
+    
+      t.float :tp_inflow,  null: false, default: Setting.systems.default_num 
+    
+      t.float :tn_inflow,  null: false, default: Setting.systems.default_num 
+    
+      t.float :ss_inflow,  null: false, default: Setting.systems.default_num 
     
 
     
