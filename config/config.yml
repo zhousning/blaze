@@ -1940,7 +1940,7 @@ development:
     selected: selected
     completed: completed
     canceled: canceled
-  tspmuds:
+  tspmuds: &165
     label: 污泥处置
     tspvum: 转运泥量
     dealer: 处置单位
@@ -1948,7 +1948,7 @@ development:
     price: 价格元吨
     prtmtd: 处置方式
     goort: 后续产品走向
-  chemicals:
+  chemicals: &166
     label: 药剂
     name: 名称
     unprice: 单价元吨
@@ -1956,7 +1956,7 @@ development:
     cmptc: 药剂浓度
     dosptc: 药剂投加浓度
     per_cost: 吨水药剂成本
-  chemical_ctgs:
+  chemical_ctgs: &167
     label: 化学药剂分类
     code: 编码
     name: 名称
@@ -2184,3 +2184,6 @@ production:
   emp_infs: *162
   emp_effs: *163
   day_rpt_stcs: *164
+  tspmuds: *165
+  chemicals: *166
+  chemical_ctgs: *167
