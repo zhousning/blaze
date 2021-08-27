@@ -28,6 +28,7 @@ module FormulaLib
   #平均消减率(单位%, 消减量吨, 水量m3 or 吨)
   #消减量之和/单指标*处理水量之和
   def self.avg_emr(quota_emq_sum, quota_inflow_sum)
+    puts "#{quota_emq_sum}, #{quota_inflow_sum}"
     quota_inflow_sum == 0 ? 0 : format("%0.2f", (quota_emq_sum/quota_inflow_sum*1000000*10*10)).to_f
   end
 

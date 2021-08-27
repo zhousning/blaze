@@ -1,0 +1,37 @@
+.nested-fields.border.border-danger.mt-2
+  .form-group
+    .field.d-inline
+      %table.table-bordered.day-pdt-table.ml-2
+        %caption.text-center
+          = Setting.chemicals.label
+        %tbody
+          %tr
+            %td.p-3.text-center
+              = f.label Setting.chemicals.name, :class => "col-sm-3 col-form-label text-center"
+            %td.p-3.text-center
+              =f.text_field :name, :class => "form-control rounded-0" , :required => true
+            
+            %td.p-3.text-center
+              = f.label Setting.chemicals.unprice, :class => "col-sm-3 col-form-label text-center"
+            %td.p-3.text-center
+              =f.number_field :unprice, :class => "form-control rounded-0", :step => "0.01"  , :required => true
+            
+            %td.p-3.text-center
+              = f.label Setting.chemicals.cmptc, :class => "col-sm-3 col-form-label text-center"
+            %td.p-3.text-center
+              =f.number_field :cmptc, :class => "form-control rounded-0", :step => "0.01"  , :required => true
+          -#
+            
+            %td.p-3.text-center
+              = f.label Setting.chemicals.dosptc, :class => "col-sm-3 col-form-label text-center"
+            %td.p-3.text-center
+              =f.number_field :dosptc, :class => "form-control rounded-0", :step => "0.01"  , :required => true
+            
+            %td.p-3.text-center
+              = f.label Setting.chemicals.per_cost, :class => "col-sm-3 col-form-label text-center"
+            %td.p-3.text-center
+              =f.number_field :per_cost, :class => "form-control rounded-0", :step => "0.01"  , :required => true
+          
+      .form-group.row
+        .col-sm-2.offset-10.mt-3
+          = link_to_remove_association "删除", f, :class => "btn btn-danger btn-sm d-inline"

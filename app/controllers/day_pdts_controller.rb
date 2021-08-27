@@ -232,7 +232,7 @@ class DayPdtsController < ApplicationController
 
   private
     def day_pdt_params
-      params.require(:day_pdt).permit( :pdt_date, :name, :signer, :weather, :temper, :desc , enclosures_attributes: enclosure_params, inf_qlty_attributes: inf_qlty_params, eff_qlty_attributes: eff_qlty_params, sed_qlty_attributes: sed_qlty_params, pdt_sum_attributes: pdt_sum_params, tspmuds_attributes: tspmud_params)
+      params.require(:day_pdt).permit( :pdt_date, :name, :signer, :weather, :temper, :desc , enclosures_attributes: enclosure_params, inf_qlty_attributes: inf_qlty_params, eff_qlty_attributes: eff_qlty_params, sed_qlty_attributes: sed_qlty_params, pdt_sum_attributes: pdt_sum_params, tspmuds_attributes: tspmud_params, chemicals_attributes: chemical_params)
     end
   
     def enclosure_params
@@ -258,6 +258,10 @@ class DayPdtsController < ApplicationController
       [:id, :tspvum, :dealer, :rcpvum, :price, :prtmtd, :goort ,:_destroy]
     end
   
+    def chemical_params
+      [:id, :name, :unprice, :cmptc]
+    end
+
     def my_factory
       @factory = current_user.factories.find(iddecode(params[:factory_id]))
     end

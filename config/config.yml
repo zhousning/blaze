@@ -1948,9 +1948,13 @@ development:
     price: 价格元吨
     prtmtd: 处置方式
     goort: 后续产品走向
-  dogs:
-    label: 狗
+  chemicals:
+    label: 药剂
     name: 名称
+    unprice: 单价元吨
+    cmptc: 药剂浓度
+    dosptc: 药剂投加浓度
+    per_cost: 吨水药剂成本
 test:
   admins: *104
   users: *105

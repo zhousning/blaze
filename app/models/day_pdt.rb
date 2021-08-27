@@ -14,6 +14,9 @@ class DayPdt < ActiveRecord::Base
   has_many :tspmuds, :dependent => :destroy
   accepts_nested_attributes_for :tspmuds, reject_if: :all_blank, allow_destroy: true
 
+  has_many :chemicals, :dependent => :destroy
+  accepts_nested_attributes_for :chemicals, reject_if: :all_blank, allow_destroy: true
+
   has_many :enclosures, :dependent => :destroy
   accepts_nested_attributes_for :enclosures, reject_if: :all_blank, allow_destroy: true
 

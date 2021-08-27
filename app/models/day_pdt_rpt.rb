@@ -11,8 +11,8 @@ class DayPdtRpt < ActiveRecord::Base
   #  end
   #end
 
-  has_many :tspmuds, :dependent => :destroy
-  accepts_nested_attributes_for :tspmuds, reject_if: :all_blank, allow_destroy: true
+  has_many :tspmuds
+  has_many :chemicals
 
   has_one :day_rpt_stc
 

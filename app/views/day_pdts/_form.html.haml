@@ -60,6 +60,10 @@
             .links.mt-3
               = link_to_add_association "添加污泥处理", f, :tspmuds, :class => "button button-small button-royal"
           
+            = f.fields_for :chemicals do |tspmud|
+              = render 'chemical_fields', f: chemical
+            .links.mt-3
+              = link_to_add_association "添加药剂", f, :chemicals, :class => "button button-small button-caution"
           
             .form-group.row.my-3
               .col-sm-12

@@ -177,6 +177,9 @@ Rails.application.routes.draw do
   resources :day_rpt_stcs do
     get :download_append, :on => :member
   end
+  resources :chemicals do
+    get :download_append, :on => :member
+  end
   resources :flower
 
 end

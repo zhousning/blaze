@@ -183,12 +183,12 @@ module MathCube
 
     #bom_power = 
     #平均削减率
-    emr_bod = FormulaLib.avg_emr(emq_bod, stc.sum_cod_inflow)
-    emr_cod = FormulaLib.avg_emr(emq_cod, stc.sum_ss_inflow)
-    emr_tp  = FormulaLib.avg_emr(emq_tp , stc.sum_nhn_inflow)
+    emr_bod = FormulaLib.avg_emr(emq_bod, stc.sum_bod_inflow)
+    emr_cod = FormulaLib.avg_emr(emq_cod, stc.sum_cod_inflow)
+    emr_tp  = FormulaLib.avg_emr(emq_tp , stc.sum_tp_inflow)
     emr_tn  = FormulaLib.avg_emr(emq_tn , stc.sum_tn_inflow)
-    emr_ss  = FormulaLib.avg_emr(emq_ss , stc.sum_tp_inflow)
-    emr_nhn = FormulaLib.avg_emr(emq_nhn, stc.sum_bod_inflow)
+    emr_ss  = FormulaLib.avg_emr(emq_ss , stc.sum_ss_inflow)
+    emr_nhn = FormulaLib.avg_emr(emq_nhn, stc.sum_nhn_inflow)
 
 
     #平均削减量
