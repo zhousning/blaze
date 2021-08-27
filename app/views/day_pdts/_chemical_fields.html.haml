@@ -9,7 +9,7 @@
             %td.p-3.text-center
               = f.label Setting.chemicals.name, :class => "gtext-center"
             %td.p-3.text-center
-              = select_tag "name", options_for_chemicals, :include_blank=>false, :class=>"form-control"
+              = f.select :name, options_for_chemicals, {:include_blank=>false}, {:class=>"form-control"}
             
             %td.p-3.text-center
               = f.label Setting.chemicals.unprice, :class => "gtext-center"

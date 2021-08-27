@@ -20,13 +20,21 @@ module DayPdtRptsHelper
   end
 
   def options_for_chemicals
-    str = ""
+    hash = Hash.new
     ctgs = ChemicalCtg.all
     ctgs.each do |f|
-      str += "<option value='" + f.code + "'>" + f.name + "</option>"
+      hash[f.name] = f.code
     end
+    hash
+  end
 
-    raw(str)
+  def chemicals_hash
+    hash = Hash.new
+    ctgs = ChemicalCtg.all
+    ctgs.each do |f|
+      hash[f.code] = f.name
+    end
+    hash
   end
 
   def options_for_emp_quotas
