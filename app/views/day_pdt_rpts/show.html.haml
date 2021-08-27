@@ -389,15 +389,16 @@
                     %td.p-3.text-center
                       = @day_pdt_rpt.per_cost
 
-              .row.my-3
-                .col-sm-12
-                  %p
-                    = @day_pdt_rpt.day_pdt.desc
+              - unless @day_pdt_rpt.day_pdt.nil?
+                .row.my-3
+                  .col-sm-12
+                    %p
+                      = @day_pdt_rpt.day_pdt.desc
 
-              .row
-                - @day_pdt_rpt.day_pdt.enclosures.each do |e|
-                  .col-md-6
-                    = image_tag e.file_url(:small_width), :class => "w-100"
+                .row
+                  - @day_pdt_rpt.day_pdt.enclosures.each do |e|
+                    .col-md-6
+                      = image_tag e.file_url(:small_width), :class => "w-100"
       = render "layouts/bootstrap/card"
   
                       
