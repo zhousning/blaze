@@ -1,0 +1,302 @@
+.container-fluid
+  .row
+    .col-sm-12
+      %h2.text-center
+        = image_tag "gykg.jpg"
+        = @day_pdt.name
+    .col-2.offset-8
+      %p
+        = Setting.day_pdts.signer
+        = @day_pdt.signer
+    .col-sm-6.offset-3.p-5.border
+      .col-sm-3.offset-7
+        - if @day_pdt.state == Setting.day_pdts.complete
+          %h2.text-success.text-center.border.border-success
+            = Setting.day_pdts.complete_t
+        - elsif @day_pdt.state == Setting.day_pdts.ongoing
+          %h2.text-primary.text-center.border.border-primary
+            = Setting.day_pdts.ongoing_t
+        - elsif @day_pdt.state == Setting.day_pdts.verifying
+          %h2.text-info.text-center.border.border-info
+            = Setting.day_pdts.verifying_t
+        - elsif @day_pdt.state == Setting.day_pdts.rejected
+          %h2.text-danger.text-center.border.border-danger
+            = Setting.day_pdts.rejected_t
+      %table.table-bordered.day-pdt-table.w-100
+        %caption.text-center
+          = Setting.inf_qlties.label
+        %tbody
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.inf_qlties.bod, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.inf_qlty.bod
+            %td.p-3.text-center
+              = label_tag nil, Setting.inf_qlties.cod, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.inf_qlty.cod
+            %td.p-3.text-center
+              = label_tag nil, Setting.inf_qlties.ss, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.inf_qlty.ss
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.inf_qlties.nhn, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.inf_qlty.nhn
+            %td.p-3.text-center
+              = label_tag nil, Setting.inf_qlties.tn, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.inf_qlty.tn
+            %td.p-3.text-center
+              = label_tag nil, Setting.inf_qlties.tp, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.inf_qlty.tp
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.inf_qlties.ph, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.inf_qlty.ph
+            %td.p-3.text-center{:colspan => "4"}
+
+      %table.table-bordered.day-pdt-table.w-100
+        %caption.text-center
+          = Setting.eff_qlties.label
+        %tbody
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.eff_qlties.bod, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.eff_qlty.bod
+            %td.p-3.text-center
+              = label_tag nil, Setting.eff_qlties.cod, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.eff_qlty.cod
+            %td.p-3.text-center
+              = label_tag nil, Setting.eff_qlties.ss, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.eff_qlty.ss
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.eff_qlties.nhn, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.eff_qlty.nhn
+            %td.p-3.text-center
+              = label_tag nil, Setting.eff_qlties.tn, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.eff_qlty.tn
+            %td.p-3.text-center
+              = label_tag nil, Setting.eff_qlties.tp, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.eff_qlty.tp
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.eff_qlties.ph, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.eff_qlty.ph
+            %td.p-3.text-center{:colspan => "4"}
+              .row.mb-0
+                = label_tag nil, Setting.eff_qlties.fecal, :class => "col-sm-4 text-left col-form-label"
+                .col-sm-4
+                  = @day_pdt.eff_qlty.fecal 
+
+      %table.table-bordered.day-pdt-table.w-100
+        %caption.text-center
+          = Setting.sed_qlties.label
+        %tbody
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.sed_qlties.bod, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.sed_qlty.bod
+            %td.p-3.text-center
+              = label_tag nil, Setting.sed_qlties.cod, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.sed_qlty.cod
+            %td.p-3.text-center
+              = label_tag nil, Setting.sed_qlties.ss, :class => "text-center"
+            %td.p-3.text-center
+              = @day_pdt.sed_qlty.ss
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.sed_qlties.nhn, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.sed_qlty.nhn
+            %td.p-3.text-center
+              = label_tag nil, Setting.sed_qlties.tn, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.sed_qlty.tn
+            %td.p-3.text-center
+              = label_tag nil, Setting.sed_qlties.tp, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.sed_qlty.tp
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.sed_qlties.ph, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.sed_qlty.ph
+            %td.p-3.text-center{:colspan => "4"}
+
+      %table.table-bordered.day-pdt-table.w-100
+        %caption.text-center
+          = Setting.pdt_sums.label
+        %tbody
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.inflow, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.inflow
+              
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.outflow, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.outflow
+              
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.power, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.power
+              
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.inmud, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.inmud
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.outmud, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.outmud
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.mst, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.mst
+              
+
+          %tr
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.mdflow, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.mdflow
+              
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.mdrcy, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.mdrcy
+              
+            %td.p-3.text-center
+              = label_tag nil, Setting.pdt_sums.mdsell, :class => " text-center"
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.mdsell
+
+      %table.table-bordered.day-pdt-table.w-100
+        %caption.text-center
+          = Setting.tspmuds.label
+        %tbody
+          - @day_pdt.tspmuds.each do |tspmud|
+            %tr
+              %td.p-3.text-center
+                = label_tag nil, Setting.tspmuds.tspvum, :class => " text-center"
+              %td.p-3.text-center
+                = tspmud.tspvum
+
+              %td.p-3.text-center
+                = label_tag nil, Setting.tspmuds.dealer, :class => " text-center"
+              %td.p-3.text-center
+                = tspmud.dealer
+
+              %td.p-3.text-center
+                = label_tag nil, Setting.tspmuds.rcpvum, :class => " text-center"
+              %td.p-3.text-center
+                = tspmud.rcpvum
+            
+            %tr
+              %td.p-3.text-center
+                = label_tag nil, Setting.tspmuds.price, :class => " text-center"
+              %td.p-3.text-center
+                = tspmud.rcpvum
+            
+              %td.p-3.text-center
+                = label_tag nil, Setting.tspmuds.prtmtd, :class => " text-center"
+              %td.p-3.text-center
+                = tspmud.prtmtd
+            
+              %td.p-3.text-center
+                = label_tag nil, Setting.tspmuds.goort, :class => " text-center"
+              %td.p-3.text-center
+                = tspmud.goort
+              
+      %table.table-bordered.day-pdt-table.w-100
+        %caption.text-center
+          = Setting.chemicals.label
+        %tbody
+          - @day_pdt.chemicals.each do |chemical|
+            %tr
+              %td.p-3.text-center
+                = Setting.chemicals.name
+              %td.p-3.text-center
+                = chemical.name
+
+              %td.p-3.text-center
+                = Setting.chemicals.unprice
+              %td.p-3.text-center
+                = chemical.unprice
+
+              %td.p-3.text-center
+                = Setting.chemicals.cmptc
+              %td.p-3.text-center
+                = chemical.cmptc
+
+            %tr
+              %td.p-3.text-center
+                = Setting.chemicals.dosage
+              %td.p-3.text-center
+                = chemical.dosage
+
+              %td.p-3.text-center
+                = Setting.chemicals.dosptc
+              %td.p-3.text-center
+                = chemical.dosptc
+
+              %td.p-3.text-center
+                = Setting.chemicals.per_cost
+              %td.p-3.text-center
+                = chemical.per_cost
+          %tr
+            %td.p-3.text-center
+              = Setting.chemicals.per_cost + '合计'
+            %td.p-3.text-center
+              = @day_pdt.pdt_sum.per_cost
+              
+
+      .row.my-3
+        .col-sm-12
+          %p
+            = @day_pdt.desc
+
+      .row
+        - @day_pdt.enclosures.each do |e|
+          .col-md-6
+            = image_tag e.file_url(:small_width), :class => "w-100"
+-#
+  .row
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          %p
+            = @day_pdt.pdt_date
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          = @day_pdt.signer
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          = @day_pdt.weather
+    .col-6
+      .row
+        = label_tag nil, Setting.day_pdts.temper, :class => "col-sm-3 col-form-label text-right"
+        .col-sm-6
+          = @day_pdt.temper

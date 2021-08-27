@@ -19,6 +19,16 @@ module DayPdtRptsHelper
     raw(str)
   end
 
+  def options_for_chemicals
+    str = ""
+    ctgs = ChemicalCtg.all
+    ctgs.each do |f|
+      str += "<option value='" + f.code + "'>" + f.name + "</option>"
+    end
+
+    raw(str)
+  end
+
   def options_for_emp_quotas
     str = "<option value='" + Setting.quota.cod + "'>" + Setting.inf_qlties.cod + "</option>" + "<option value='" + Setting.quota.nhn + "'>" + Setting.inf_qlties.nhn + "</option>" + "<option value='" + Setting.quota.tp + "'>" + Setting.inf_qlties.tp + "</option>"
     raw(str)

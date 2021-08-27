@@ -46,6 +46,7 @@ class Factory < ActiveRecord::Base
   accepts_nested_attributes_for :emp_effs, reject_if: :all_blank, allow_destroy: true
 end
 
+
 # == Schema Information
 #
 # Table name: factories
@@ -57,6 +58,7 @@ end
 #  lnt        :string          default(""), not null
 #  lat        :string          default(""), not null
 #  design     :float           default("0.0"), not null
+#  plan       :float           default("0.0"), not null
 #  logo       :string          default(""), not null
 #  company_id :integer
 #  created_at :datetime        not null

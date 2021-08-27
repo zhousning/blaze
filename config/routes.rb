@@ -180,6 +180,9 @@ Rails.application.routes.draw do
   resources :chemicals do
     get :download_append, :on => :member
   end
+  resources :chemical_ctgs do
+    get :download_append, :on => :member
+  end
   resources :flower
 
 end

@@ -155,6 +155,17 @@ Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdrcy  ,   :n
 Quota.create!(:ctg => Setting.quota.ctg_md, :code => Setting.quota.mdsell ,   :name => Setting.day_pdt_rpts.mdsell  )
 
 
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.csn ,  :name => Setting.chemical_ctgs.csn_t   )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.jc ,   :name => Setting.chemical_ctgs.jc_t    )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.xxty , :name => Setting.chemical_ctgs.xxty_t  )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.pac ,  :name => Setting.chemical_ctgs.pac_t   )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.pam ,  :name => Setting.chemical_ctgs.pam_t   )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.slht , :name => Setting.chemical_ctgs.slht_t  )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.jhlst ,:name => Setting.chemical_ctgs.jhlst_t )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.clsn , :name => Setting.chemical_ctgs.clsn_t  )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.swj ,  :name => Setting.chemical_ctgs.swj_t   )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.yy ,   :name => Setting.chemical_ctgs.yy_t    )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.hxt ,  :name => Setting.chemical_ctgs.hxt_t   )
 
 #Factory.all.each do |f|
 #  fake = Faker::Date

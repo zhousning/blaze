@@ -28,7 +28,6 @@ module FormulaLib
   #平均消减率(单位%, 消减量吨, 水量m3 or 吨)
   #消减量之和/单指标*处理水量之和
   def self.avg_emr(quota_emq_sum, quota_inflow_sum)
-    puts "#{quota_emq_sum}, #{quota_inflow_sum}"
     quota_inflow_sum == 0 ? 0 : format("%0.2f", (quota_emq_sum/quota_inflow_sum*1000000*10*10)).to_f
   end
 
@@ -53,6 +52,18 @@ module FormulaLib
   #消减电单耗(单位kw.h/kg, 电量kw.h, 指标mg/l, 进水量m3)
   def self.em_bom(power, quota_in, quota_out, inflow) 
     (quota_in - quota_out != 0 && inflow !=0) ? format("%0.2f",power*1000/(quota_in - quota_out)/inflow).to_f : 0
+  end
+
+  #药剂投加浓度
+  #药剂量*药剂浓度/污水处理量
+  def self.dosptc(dosage, cmptc, inflow)
+    inflow == 0 ? 0 : format("%0.2f", dosage*cmptc/inflow).to_f
+  end
+
+  #吨水药剂成本
+  #药剂单价*投加量/污水处理量
+  def self.chemical_per_cost(unprice, dosage, inflow)
+    inflow == 0 ? 0 : format("%0.2f", unprice*dosage/inflow).to_f
   end
 
 end

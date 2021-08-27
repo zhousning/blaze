@@ -1952,9 +1952,36 @@ development:
     label: 药剂
     name: 名称
     unprice: 单价元吨
+    dosage: 投加量
     cmptc: 药剂浓度
     dosptc: 药剂投加浓度
     per_cost: 吨水药剂成本
+  chemical_ctgs:
+    label: 化学药剂分类
+    code: 编码
+    name: 名称
+    csn: '1'
+    csn_t: 醋酸钠
+    jc: '2'
+    jc_t: 甲醇
+    xxty: '3'
+    xxty_t: 新型碳源
+    pac: '4'
+    pac_t: PAC
+    pam: '5'
+    pam_t: PAM
+    slht: '6'
+    slht_t: 三氯化铁
+    jhlst: '7'
+    jhlst_t: 聚合硫酸铁
+    clsn: '8'
+    clsn_t: 次氯酸钠
+    swj: '9'
+    swj_t: 水烷洁
+    yy: '10'
+    yy_t: 液氧
+    hxt: '11'
+    hxt_t: 活性炭
 test:
   admins: *104
   users: *105

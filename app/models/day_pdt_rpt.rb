@@ -67,6 +67,7 @@ class DayPdtRpt < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: day_pdt_rpts
@@ -107,6 +108,9 @@ end
 #  mdflow         :float           default("0.0"), not null
 #  mdrcy          :float           default("0.0"), not null
 #  mdsell         :float           default("0.0"), not null
+#  tspmud         :float           default("0.0"), not null
+#  rcpmud         :float           default("0.0"), not null
+#  dlemud         :string          default(""), not null
 #  day_pdt_id     :integer
 #  factory_id     :integer
 #  user_id        :integer

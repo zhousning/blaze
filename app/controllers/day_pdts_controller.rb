@@ -37,6 +37,7 @@ class DayPdtsController < ApplicationController
     day_pdt = @factory.day_pdts.where(:pdt_date => day_pdt_params[:pdt_date]).first
     day_pdt_rpt = @factory.day_pdt_rpts.where(:pdt_date => day_pdt_params[:pdt_date]).first
     @day_pdt = DayPdt.new(day_pdt_params)
+
     if day_pdt || day_pdt_rpt
       @day_pdt.errors[:date_error] = "当前日期运营数据已存在,请重新填报"
       render :new
@@ -45,13 +46,14 @@ class DayPdtsController < ApplicationController
       @day_pdt.factory = @factory
 
       if @day_pdt.save
+        cal_per_cost(@day_pdt)
         redirect_to :action => :index
       else
         render :new
       end
     end
   end
-   
+
   def emp_sync
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
@@ -101,25 +103,32 @@ class DayPdtsController < ApplicationController
 
     redirect_to edit_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
   end
-
    
   def edit
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
   end
-   
 
-   
   def update
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
     @day_pdt.name = day_pdt_params[:pdt_date].to_s + @factory.name + "生产运营报表"
 
     if @day_pdt.update(day_pdt_params)
+      cal_per_cost(@day_pdt)
       redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
     else
       render :edit
     end
+  end
+
+  def cal_per_cost(day_pdt)
+    inflow = day_pdt.pdt_sum.inflow
+    per_cost = 0
+    day_pdt.chemicals.each do |c|
+      per_cost += c.update_ptc(inflow)
+    end
+    day_pdt.pdt_sum.update_per_cost(per_cost)
   end
 
   def verify_index
@@ -155,17 +164,19 @@ class DayPdtsController < ApplicationController
       @inf = @day_pdt.inf_qlty
       @sed = @day_pdt.sed_qlty
       @tspmuds = @day_pdt.tspmuds
+      @chemicals = @day_pdt.chemicals
       @pdt_sum = @day_pdt.pdt_sum
 
       @day_pdt_rpt = DayPdtRpt.new(
         :factory => @factory,
         :day_pdt => @day_pdt,
         :tspmuds => @tspmuds,
+        :chemicals => @chemicals,
         :name => @day_pdt.name, :pdt_date => @day_pdt.pdt_date, :weather => @day_pdt.weather, :temper => @day_pdt.temper, 
         :inf_qlty_bod => @inf.bod, :inf_qlty_cod => @inf.cod, :inf_qlty_ss => @inf.ss, :inf_qlty_nhn => @inf.nhn, :inf_qlty_tn => @inf.tn, :inf_qlty_tp => @inf.tp, :inf_qlty_ph => @inf.ph, 
         :eff_qlty_bod => @eff.bod, :eff_qlty_cod => @eff.cod, :eff_qlty_ss => @eff.ss, :eff_qlty_nhn => @eff.nhn, :eff_qlty_tn => @eff.tn, :eff_qlty_tp => @eff.tp, :eff_qlty_ph => @eff.ph, :eff_qlty_fecal => @eff.fecal,
         :sed_qlty_bod => @sed.bod, :sed_qlty_cod => @sed.cod, :sed_qlty_ss => @sed.ss, :sed_qlty_nhn => @sed.nhn, :sed_qlty_tn => @sed.tn, :sed_qlty_tp => @sed.tp, :sed_qlty_ph => @sed.ph, 
-        :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell
+        :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell, :per_cost => @pdt_sum.per_cost
       )
 
       if @day_pdt_rpt.save
@@ -238,6 +249,16 @@ class DayPdtsController < ApplicationController
     def enclosure_params
       [:id, :file, :_destroy]
     end
+
+    def new_params(day_pdt_params)
+      cmptc = day_pdt_params["chemicals_attributes"]["dosage"]
+      dosage = day_pdt_params["chemicals_attributes"]["cmptc"]
+      inflow = day_pdt_params["pdt_sum_attributes"]["inflow"]
+
+      dosptc = FormulaLib.dosptc(dosage, cmptc, inflow) 
+      day_pdt_params["chemicals_attributes"]["dosptc"] = dosptc
+    end
+   
   
     def inf_qlty_params
       [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph ,:_destroy]
@@ -259,7 +280,7 @@ class DayPdtsController < ApplicationController
     end
   
     def chemical_params
-      [:id, :name, :unprice, :cmptc]
+      [:id, :name, :unprice, :cmptc, :dosage , :dosptc, :per_cost, :_destroy]
     end
 
     def my_factory

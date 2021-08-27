@@ -26,6 +26,7 @@ class CreatePdtSums < ActiveRecord::Migration
     
       t.float :mdsell,  null: false, default: Setting.systems.default_num 
     
+      t.float :per_cost,  null: false, default: Setting.systems.default_num 
 
     
 

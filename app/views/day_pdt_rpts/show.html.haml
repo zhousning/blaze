@@ -346,7 +346,58 @@
                         = label_tag nil, Setting.tspmuds.goort, :class => " text-center"
                       %td.p-3.text-center
                         = tspmud.goort
+                      
+              %table.table-bordered.day-pdt-table.w-100
+                %caption.text-center
+                  = Setting.chemicals.label
+                %tbody
+                  - @day_pdt_rpt.chemicals.each do |chemical|
+                    %tr
+                      %td.p-3.text-center
+                        = Setting.chemicals.name
+                      %td.p-3.text-center
+                        = chemical.name
 
+                      %td.p-3.text-center
+                        = Setting.chemicals.unprice
+                      %td.p-3.text-center
+                        = chemical.unprice
+
+                      %td.p-3.text-center
+                        = Setting.chemicals.cmptc
+                      %td.p-3.text-center
+                        = chemical.cmptc
+
+                    %tr
+                      %td.p-3.text-center
+                        = Setting.chemicals.dosage
+                      %td.p-3.text-center
+                        = chemical.dosage
+
+                      %td.p-3.text-center
+                        = Setting.chemicals.dosptc
+                      %td.p-3.text-center
+                        = chemical.dosptc
+
+                      %td.p-3.text-center
+                        = Setting.chemicals.per_cost
+                      %td.p-3.text-center
+                        = chemical.per_cost
+                  %tr
+                    %td.p-3.text-center
+                      = Setting.chemicals.per_cost + '合计'
+                    %td.p-3.text-center
+                      = @day_pdt_rpt.per_cost
+
+              .row.my-3
+                .col-sm-12
+                  %p
+                    = @day_pdt_rpt.day_pdt.desc
+
+              .row
+                - @day_pdt_rpt.day_pdt.enclosures.each do |e|
+                  .col-md-6
+                    = image_tag e.file_url(:small_width), :class => "w-100"
       = render "layouts/bootstrap/card"
   
                       

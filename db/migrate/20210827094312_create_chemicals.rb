@@ -5,6 +5,8 @@ class CreateChemicals < ActiveRecord::Migration
       t.string :name,  null: false, default: Setting.systems.default_str
     
       t.float :unprice,  null: false, default: Setting.systems.default_num 
+
+      t.float :dosage,  null: false, default: Setting.systems.default_num 
     
       t.float :cmptc,  null: false, default: Setting.systems.default_num 
     

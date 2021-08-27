@@ -72,13 +72,7 @@ class CreateDayPdtRpts < ActiveRecord::Migration
     
       t.float :mdsell,  null: false, default: Setting.systems.default_num 
     
-      t.float :tspmud,  null: false, default: Setting.systems.default_num 
-
-      t.float :rcpmud,  null: false, default: Setting.systems.default_num 
-
-      t.string :dlemud,  null: false, default: Setting.systems.default_str
-    
-
+      t.float :per_cost,  null: false, default: Setting.systems.default_num 
     
 
     
