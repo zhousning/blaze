@@ -1,16 +1,28 @@
 ---
+#controller的名字均为程序中controller名称的单数，如AnalysesController为Analysis，必须有对应的model,可以建空model
 -
-  controller: DayPdt
+  controller: day_pdts_controller
   actions: [index, show, new, create, edit, update, verify_index, verify_show, verifying, rejected, upreport]
+
 -
-  controller: DayPdtRpt
-  actions: [index, edit, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
+  controller: day_pdt_rpts_controller
+  actions: [index, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report, xls_day_download]
+
 -
-  controller: MthPdtRpt
-  actions: [mth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, upreport]
+  controller: mth_pdt_rpts_controller
+  actions: [mth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, upreport, mth_report_finish_index, mth_report_finish_show, xls_mth_download]
+
 -
-  controller: Analyse
-  actions: [compare, month_compare]
+  controller: analyses_controller
+  actions: [compare, month_compare, area_time, area_time_compare]
+
 -
-  controller: Report 
+  controller: reports_controller
   actions: [index, mth_report_show, day_report, mth_report, xls_day_download, xls_mth_download]
+-
+  controller: emp_infs_controller
+  actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]
+
+-
+  controller: emp_effs_controller
+  actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]

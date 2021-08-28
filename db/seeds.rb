@@ -22,6 +22,10 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 
 @user = User.create!(:phone => "15763703188", :password => "15763703188", :password_confirmation => "15763703188")
 
+#区分厂区和集团用户是为了sidebar显示
+@role_fct            = Role.where(:name => Setting.roles.role_fct).first
+@role_grp            = Role.where(:name => Setting.roles.role_grp).first
+
 @role_day_pdt        = Role.where(:name => Setting.roles.day_pdt).first
 @role_day_rpt        = Role.where(:name => Setting.roles.day_pdt_rpt).first
 @role_mth_rpt_filler = Role.where(:name => Setting.roles.mth_pdt_rpt).first
@@ -32,6 +36,7 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 
 @role_data_cube      = Role.where(:name => Setting.roles.data_cube).first
 @role_data_compare   = Role.where(:name => Setting.roles.data_compare).first
+@role_area_time      = Role.where(:name => Setting.roles.area_time).first
 
 @role_report         = Role.where(:name =>  Setting.roles.report).first
 @role_fct_emp_inf    = Role.where(:name =>  Setting.roles.fct_emp_inf).first
@@ -40,15 +45,15 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @role_grp_emp_eff    = Role.where(:name =>  Setting.roles.grp_emp_eff).first
 
 #厂区数据填报
-@data_filler  = [@role_day_pdt , @role_day_rpt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_fct_emp_inf, @role_fct_emp_eff]
+@data_filler  = [@role_fct, @role_day_pdt , @role_day_rpt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff]
 #厂区数据审核
-@data_verifer = [@role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube,  @role_fct_emp_inf, @role_fct_emp_eff]
+@data_verifer = [@role_fct, @role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time,  @role_fct_emp_inf, @role_fct_emp_eff]
 #厂区管理者
-@fct_mgn  = [@role_day_rpt, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_fct_emp_inf, @role_fct_emp_eff]
+@fct_mgn  = [@role_fct, @role_day_rpt, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff]
 
 
 #集团运营
-@grp_opt = [@role_data_compare ,@role_data_cube, @role_report, @role_grp_emp_inf, @role_grp_emp_eff] 
+@grp_opt = [@role_grp, @role_data_compare ,@role_data_cube, @role_area_time, @role_report, @role_grp_emp_inf, @role_grp_emp_eff] 
 
 #集团管理者
                                                               

@@ -1,7 +1,7 @@
 class DayPdtsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  #load_and_authorize_resource
+  authorize_resource :except => [:emp_sync]
 
   include FormulaLib
 

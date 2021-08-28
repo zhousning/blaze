@@ -1,32 +1,99 @@
 ---
 - 
-  role_name: 厂区-生产运营数据填报 
+  role_name: 厂区用户
+  level: 1
+- 
+  role_name: 厂区生产运营数据填报 
   level: 1
   permissions: 
     -
-      controller: DayPdt
+      controller: day_pdts_controller
       actions: [index, show, new, create, edit, update, verifying]
 - 
-  role_name: 厂区-生产运营数据审核
+  role_name: 厂区月报表填报 
   level: 1
   permissions: 
     -
-      controller: DayPdt
+      controller: mth_pdt_rpts_controller
+      actions: [mth_rpt_create, index, show, edit, update, verifying]
+- 
+  role_name: 厂区生产运营数据审核
+  level: 1
+  permissions: 
+    -
+      controller: day_pdts_controller
       actions: [verify_index, verify_show, rejected, upreport]
 - 
-  role_name: 厂区-日报表查看 
+  role_name: 厂区月报表审核 
   level: 1
   permissions: 
     -
-      controller: DayPdtRpt
-      actions: [index, show, static_pool, produce_report]
+      controller: mth_pdt_rpts_controller
+      actions: [download_report, verify_index, verify_show, rejected, upreport]
+- 
+  role_name: 厂区日报表查看 
+  level: 1
+  permissions: 
+    -
+      controller: day_pdt_rpts_controller
+      actions: [index, show, static_pool, produce_report, xls_day_download]
+- 
+  role_name: 厂区月报表查看 
+  level: 1
+  permissions: 
+    -
+      controller: mth_pdt_rpts_controller
+      actions: [mth_report_finish_index, mth_report_finish_show, xls_mth_download, download_report]
 
+- 
+  role_name: 厂区环境监测系统进水
+  level: 1
+  permissions: 
+    -
+      controller: emp_infs_controller
+      actions: [index, watercms_flow]
+
+- 
+  role_name: 厂区环境监测系统出水
+  level: 1
+  permissions: 
+    -
+      controller: emp_effs_controller
+      actions: [index, watercms_flow]
+
+- 
+  role_name: 集团用户 
+  level: 1
+
+- 
+  role_name: 集团报表管理
+  level: 1
+  permissions: 
+    -
+      controller: reports_controller
+      actions: [index, mth_report_show, day_report, mth_report, xls_day_download, xls_mth_download]
+
+- 
+  role_name: 集团环境监测系统进水
+  level: 1
+  permissions: 
+    -
+      controller: emp_infs_controller
+      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]
+
+- 
+  role_name: 集团环境监测系统出水
+  level: 1
+  permissions: 
+    -
+      controller: emp_effs_controller
+      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]
 - 
   role_name: 数据立方
   level: 1
   permissions: 
     -
-      controller: DayPdtRpt
+      controller: day_pdt_rpts_controller
       actions: [sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
 
 - 
@@ -34,66 +101,13 @@
   level: 1
   permissions: 
     -
-      controller: Analyse 
+      controller: analyses_controller
       actions: [compare, month_compare]
 - 
-  role_name: 厂区-月报表填报 
+  role_name: 厂间分析
   level: 1
   permissions: 
     -
-      controller: MthPdtRpt
-      actions: [mth_rpt_create, index, show, edit, update, verifying]
-- 
-  role_name: 厂区-月报表审核 
-  level: 1
-  permissions: 
-    -
-      controller: MthPdtRpt
-      actions: [download_report, verify_index, verify_show, rejected, upreport]
-- 
-  role_name: 厂区-月报表查看 
-  level: 1
-  permissions: 
-    -
-      controller: MthPdtRpt
-      actions: [mth_report_finish_index, mth_report_finish_show, xls_mth_download, download_report]
+      controller: analyses_controller
+      actions: [area_time, area_time_compare]
 
-- 
-  role_name: 集团-报表管理
-  level: 1
-  permissions: 
-    -
-      controller: Report 
-      actions: [index, mth_report_show, day_report, mth_report, xls_day_download, xls_mth_download]
-
-- 
-  role_name: 厂区-环境监测系统-进水
-  level: 1
-  permissions: 
-    -
-      controller: EmpInf 
-      actions: [index, watercms_flow]
-
-- 
-  role_name: 厂区-环境监测系统-出水
-  level: 1
-  permissions: 
-    -
-      controller: EmpEff 
-      actions: [index, watercms_flow]
-
-- 
-  role_name: 集团-环境监测系统-进水
-  level: 1
-  permissions: 
-    -
-      controller: EmpInf 
-      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]
-
-- 
-  role_name: 集团-环境监测系统-出水
-  level: 1
-  permissions: 
-    -
-      controller: EmpEff 
-      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]

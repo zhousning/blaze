@@ -1,7 +1,7 @@
 class AnalysesController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  #load_and_authorize_resource
+  authorize_resource 
   
   include MathCube
   include QuotaConfig 

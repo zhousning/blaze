@@ -10,8 +10,7 @@ class ExportMthDoc
   end
 
   def export_process(mth_pdt_rpt)
-    target_folder = Rails.root.join("public", "mth_pdt_rpts", mth_pdt_rpt.name).to_s
-    FileUtils.makedirs(target_folder) unless File.directory?(target_folder)
+    target_folder = Rails.root.join("public", "mth_pdt_rpts").to_s
     target_docx = target_folder + '/' + mth_pdt_rpt.name + '.docx'
 
     docx = Caracal::Document.new(target_docx)

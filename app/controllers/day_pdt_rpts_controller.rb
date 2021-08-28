@@ -1,7 +1,7 @@
 class DayPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  #load_and_authorize_resource
+  authorize_resource
   
   include MathCube
   include QuotaConfig 
@@ -171,7 +171,7 @@ class DayPdtRptsController < ApplicationController
 
     excel_tool = SpreadSheetTool.new
     target_excel = excel_tool.exportDayPdtRptToExcel(obj)
-    send_file target_excel, :filename => "日报表.xlsx", :type => "application/force-download", :x_sendfile=>true
+    send_file target_excel, :filename => "日报表.xls", :type => "application/force-download", :x_sendfile=>true
   end
 
   private

@@ -1,7 +1,7 @@
 class MthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  #load_and_authorize_resource
+  #authorize_resource
 
   include MathCube 
 
@@ -191,12 +191,6 @@ class MthPdtRptsController < ApplicationController
       render :edit
     end
   end
-   
-  
-  def xls_download
-    send_file File.join(Rails.root, "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
-  end
-  
 
   def download_report
     @factory = my_factory 
@@ -214,7 +208,7 @@ class MthPdtRptsController < ApplicationController
 
     excel_tool = SpreadSheetTool.new
     target_excel = excel_tool.exportMthPdtRptToExcel(obj)
-    send_file target_excel, :filename => "月报表.xlsx", :type => "application/force-download", :x_sendfile=>true
+    send_file target_excel, :filename => "月报表.xls", :type => "application/force-download", :x_sendfile=>true
   end
   
 

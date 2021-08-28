@@ -7,16 +7,16 @@ namespace 'db' do
       permission_arr = []
       lists = r['permissions'] || []
       lists.each do |p|
-        controller = p['controller']
+        controller = p['controller'].camelize.constantize
         actions = p['actions']
-        pms = Permission.where(:subject_class => controller, :action => actions)
+        pms = Permission.where(:subject_class => controller.permission, :action => actions)
         pms.each do |pers|
           permission_arr << pers 
         end
       end
 
       role_name = r['role_name'].strip
-      level = r['level']
+      level = r['level'].to_s.strip
       Role.create(:name => role_name, :level => level, :permissions => permission_arr)
     end
   end

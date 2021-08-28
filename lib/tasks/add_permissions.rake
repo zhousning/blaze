@@ -4,8 +4,7 @@ namespace 'db' do
 
     data = YAML.load_file("lib/tasks/data/permissions.yaml")
     data.each do |r|
-      #controller = r['controller'].constantize
-      controller = r['controller']
+      controller = r['controller'].camelize.constantize
       actions = r['actions']
 
       actions.each do |action|
@@ -13,8 +12,8 @@ namespace 'db' do
         #puts controller_name
         #name, cancan_action, action_desc = eval_cancan_action(controller_name, action)
         #write_permission(controller.permission, cancan_action, name, action_desc)  
-        name, cancan_action, action_desc = eval_cancan_action(controller, action)
-        write_permission(controller, cancan_action, name, action_desc)  
+        name, cancan_action, action_desc = eval_cancan_action(controller.controller_name, action)
+        write_permission(controller.permission, cancan_action, name, action_desc)  
       end
 
     end
@@ -22,7 +21,7 @@ namespace 'db' do
 end
 
 def eval_cancan_action(controller_name, action)
-  controller_name = controller_name.pluralize.underscore
+  #controller_name = controller_name.pluralize.underscore
   name = I18n.t(controller_name + "." + action + ".title")
 
   case action
