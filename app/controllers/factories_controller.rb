@@ -7,6 +7,9 @@ class FactoriesController < ApplicationController
   def bigscreen
     @factory = current_user.factories.find(iddecode(params[:id]))
     @other_quotas = [Setting.quota.inflow, Setting.quota.outflow, Setting.quota.outmud, Setting.quota.power]
+    gon.lnt = @factory.lnt
+    gon.lat = @factory.lat
+    gon.title = @factory.name
   end
    
   def index

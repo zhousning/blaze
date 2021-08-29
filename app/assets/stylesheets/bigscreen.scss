@@ -61,6 +61,13 @@ body.factories.bigscreen {
   	border-width:26px 27px 27px;
   	border-image: image-url("bigscreen/chart-wrapper.png") 26 27 27 fill / 1 / 0 repeat;
   }
+  #map-container {
+  	position:absolute;
+  	top:30px;
+  	bottom:0;
+  	left:0;
+  	right:0;
+  }
   
   /* media query */
   @media (max-width:1900px) {
