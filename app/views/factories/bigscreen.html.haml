@@ -1,0 +1,30 @@
+- provide(:title, t('.title'))
+
+#bigscreen
+  %header#bigscreen-header
+    %h3.header-title
+      = Setting.systems.company_name
+      
+  #bigscreen-container
+    #flexCon
+      .flex-row
+        .flex-cell.flex-cell-l
+          .chart-wrapper
+            .chart-div.chart-statistic-ctn{:'data-chart' => Setting.charts.radar, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :'data-fct' => idencode(@factory.id)}
+        .flex-cell.flex-cell-c
+          .chart-wrapper
+            .chart-div
+        .flex-cell.flex-cell-r
+          .chart-wrapper
+            .chart-div.chart-statistic-ctn{:'data-chart' => Setting.charts.radar, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :'data-fct' => idencode(@factory.id)}
+      .flex-row
+        .flex-cell.flex-cell-lc.row
+          - @other_quotas.each do |quota|
+            .col-3.chart-wrapper
+              .chart-div.chart-gauge-ctn{:'data-chart' => Setting.charts.gauge, :'data-code' => quota, :'data-fct' => idencode(@factory.id)}
+        .flex-cell.flex-cell-r
+          .chart-wrapper
+            %h3.chart-title
+            .chart-div.chart-done
+              .chart-loader
+                .loader

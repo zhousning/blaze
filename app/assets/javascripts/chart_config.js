@@ -1,3 +1,32 @@
+function scatterOption(title, dimensions, datasets) {
+  var symbolSize = 2.5;
+  option = {
+      grid3D: {},
+      xAxis3D: {
+          type: 'category'
+      },
+      yAxis3D: {},
+      zAxis3D: {},
+      dataset: {
+          dimensions: dimensions, 
+          source: datasets
+      },
+      series: [
+          {
+              type: 'scatter3D',
+              symbolSize: symbolSize,
+              encode: {
+                  x: dimensions[0], 
+                  y: dimensions[1],
+                  z: dimensions[2],
+                  tooltip: [0, 1, 2]
+              }
+          }
+      ]
+  }
+  return option
+}
+
 function gaugeOption(name, value, min, max, color) {
   option = {
     tooltip: {
@@ -116,23 +145,6 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
   return new_Option;
 }
 
-
-//取特定时期的数据
-function periodChartConfig(url, that_chart, factory_id, start, end, qcodes){
-  var chart_type = that_chart.dataset['chart'];
-  var search_type = that_chart.dataset['type'];
-  var pos_type = that_chart.dataset['pos'];
-
-  var chart = echarts.init(that_chart);
-  chart.showLoading();
-  var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type, pos_type: pos_type, chart_type: chart_type}
-  $.get(url, obj).done(function (data) {
-    chart.hideLoading();
-    
-    var new_Option = newOption(data.title, data.series, data.dimensions, data.datasets)
-    chart.setOption(new_Option, true);
-  });
-}
 
 function rainOption(data) {
   option = {
@@ -258,6 +270,24 @@ function rainOption(data) {
       ]
   };
   return option
+}
+
+//取特定时期的数据
+function periodChartConfig(url, that_chart, factory_id, start, end, qcodes){
+  var chart_type = that_chart.dataset['chart'];
+  var search_type = that_chart.dataset['type'];
+  var pos_type = that_chart.dataset['pos'];
+
+  var chart = echarts.init(that_chart);
+  chart.showLoading();
+  var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type, pos_type: pos_type, chart_type: chart_type}
+  $.get(url, obj).done(function (data) {
+    chart.hideLoading();
+    
+    var new_Option = newOption(data.title, data.series, data.dimensions, data.datasets)
+    chart.setOption(new_Option, true);
+  });
+  return chart;
 }
 
 //search_type 当前页面的checkbox

@@ -97,6 +97,7 @@ Rails.application.routes.draw do
   resources :selectors
  
   resources :factories, :only => [] do
+    get :bigscreen, :on => :member
     resources :day_pdts, :only => [:index, :show, :new, :create, :edit, :update] do
       get :upreport, :on => :member
       get :verifying, :on => :member

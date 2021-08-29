@@ -19,6 +19,7 @@ function areaTimeChartSet(that_search) {
   var end = $("#end").val();
   var fcts = "";
   var url = "/analyses/area_time_compare";
+  var charts = [];
 
   var chart_ctn = $(that_search).parents(".sglfct-chart-ctn")[0]
   var check_boxes = $(chart_ctn).find("input[name='fcts']:checked");
@@ -51,7 +52,7 @@ function areaTimeChartSet(that_search) {
         }
       })
 
-      areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes)
+      charts.push(areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes));
     } else if (search_type == '2' && ctg_mud.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
         var search_type_cache = that_chart.dataset['type'];
@@ -63,7 +64,7 @@ function areaTimeChartSet(that_search) {
           $(that_chart).addClass("d-none");
         }
       })
-      areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes)
+      charts.push(areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes));
     } else if (search_type == '3' && ctg_power.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
         var search_type_cache = that_chart.dataset['type'];
@@ -75,7 +76,7 @@ function areaTimeChartSet(that_search) {
           $(that_chart).addClass("d-none");
         }
       })
-      areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes)
+      charts.push(areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes));
     } else if (search_type == '4' && ctg_md.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
         var search_type_cache = that_chart.dataset['type'];
@@ -87,10 +88,10 @@ function areaTimeChartSet(that_search) {
           $(that_chart).addClass("d-none");
         }
       })
-      areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes)
+      charts.push(areaTimeChartConfig(url, that_chart, start, end, fcts, qcodes));
     }
-
   })
+  chartResize(charts);
 }
 
 function areaTimeChartConfig(url, that_chart, start, end, fcts, quota) {
@@ -107,34 +108,7 @@ function areaTimeChartConfig(url, that_chart, start, end, fcts, quota) {
     var new_Option = newOption(data.title, data.series, data.dimensions, data.datasets)
     chart.setOption(new_Option, true);
   });
-}
-function scatterOption(title, dimensions, datasets) {
-  var symbolSize = 2.5;
-  option = {
-      grid3D: {},
-      xAxis3D: {
-          type: 'category'
-      },
-      yAxis3D: {},
-      zAxis3D: {},
-      dataset: {
-          dimensions: dimensions, 
-          source: datasets
-      },
-      series: [
-          {
-              type: 'scatter3D',
-              symbolSize: symbolSize,
-              encode: {
-                  x: dimensions[0], 
-                  y: dimensions[1],
-                  z: dimensions[2],
-                  tooltip: [0, 1, 2]
-              }
-          }
-      ]
-  }
-  return option
+  return chart;
 }
 function monthCompareChartSet(that_search) {
   var factory_id = $("#fcts").val();
@@ -142,6 +116,7 @@ function monthCompareChartSet(that_search) {
   var year = $("#year").val();
   var months = "";
   var url = "/factories/" + factory_id + "/analyses/month_compare";
+  var charts = [];
 
   var chart_ctn = $(that_search).parents(".sglfct-chart-ctn")[0]
   var check_boxes = $(chart_ctn).find("input[name='months']:checked");
@@ -174,7 +149,7 @@ function monthCompareChartSet(that_search) {
         }
       })
 
-      monthChartConfig(url, that_chart, year, months, qcodes)
+      charts.push(monthChartConfig(url, that_chart, year, months, qcodes))
     } else if (search_type == '2' && ctg_mud.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
         var search_type_cache = that_chart.dataset['type'];
@@ -186,7 +161,7 @@ function monthCompareChartSet(that_search) {
           $(that_chart).addClass("d-none");
         }
       })
-      monthChartConfig(url, that_chart, year, months, qcodes)
+      charts.push(monthChartConfig(url, that_chart, year, months, qcodes))
     } else if (search_type == '3' && ctg_power.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
         var search_type_cache = that_chart.dataset['type'];
@@ -198,7 +173,7 @@ function monthCompareChartSet(that_search) {
           $(that_chart).addClass("d-none");
         }
       })
-      monthChartConfig(url, that_chart, year, months, qcodes)
+      charts.push(monthChartConfig(url, that_chart, year, months, qcodes))
     } else if (search_type == '4' && ctg_md.indexOf(qcodes) != -1) {
       chart_static_ctn.each(function(index, that_chart) {
         var search_type_cache = that_chart.dataset['type'];
@@ -210,10 +185,11 @@ function monthCompareChartSet(that_search) {
           $(that_chart).addClass("d-none");
         }
       })
-      monthChartConfig(url, that_chart, year, months, qcodes)
+      charts.push(monthChartConfig(url, that_chart, year, months, qcodes))
     }
 
   })
+  chartResize(charts);
 }
 
 function monthChartConfig(url, that_chart, year, months, quota) {
@@ -230,5 +206,6 @@ function monthChartConfig(url, that_chart, year, months, quota) {
     var new_Option = newOption(data.title, data.series, data.dimensions, data.datasets)
     chart.setOption(new_Option, true);
   });
+  return chart;
 }
 

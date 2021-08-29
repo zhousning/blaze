@@ -60,6 +60,8 @@ function chartSet(that_search) {
   var chart_ctn = $(that_search).parents(".sglfct-chart-ctn")[0]
   var check_boxes = $(chart_ctn).find("input[name='qcodes']:checked");
 
+  var charts = [];
+
   $.each(check_boxes, function(){
     qcodes += $(this).val() + ","
   });
@@ -67,12 +69,15 @@ function chartSet(that_search) {
   $(chart_ctn).find(".chart-statistic-ctn").each(function(index, that_chart) {
     var chart_type = that_chart.dataset['chart'];
     var search_type = that_chart.dataset['type'];
+    var chart;
 
     if (chart_type == '0') {
-      periodChartConfig(url, that_chart, factory_id, start, end, qcodes)
+      chart = periodChartConfig(url, that_chart, factory_id, start, end, qcodes)
+      charts.push(chart);
     } else if (chart_type == '3') {
       chartTable(that_chart, factory_id, start, end, qcodes, search_type)
     }
   })
+  chartResize(charts);
 }
 

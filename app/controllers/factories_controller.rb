@@ -1,8 +1,13 @@
 class FactoriesController < ApplicationController
-  layout "application_control"
+  layout "application_no_header"
   before_filter :authenticate_user!
   #load_and_authorize_resource
 
+
+  def bigscreen
+    @factory = current_user.factories.find(iddecode(params[:id]))
+    @other_quotas = [Setting.quota.inflow, Setting.quota.outflow, Setting.quota.outmud, Setting.quota.power]
+  end
    
   def index
     @factory = Factory.new

@@ -48,19 +48,19 @@
                           %button.area-time-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
-                        .col-12.d-flex.justify-content-center.my-5
-                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf, :style => "width: 1000px;height:400px;"}
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff, :style => "width: 1000px;height:400px;"}
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_mud, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_power, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_md, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
+                        .col-12.my-5.chart-statistic-wrapper
+                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf}
+                        .col-12.chart-statistic-wrapper
+                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_eff}
+                        .col-12.chart-statistic-wrapper
+                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_mud, :'data-pos' => Setting.quota.pos_other}
+                        .col-12.chart-statistic-wrapper
+                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_power, :'data-pos' => Setting.quota.pos_other}
+                        .col-12.chart-statistic-wrapper
+                          .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_md, :'data-pos' => Setting.quota.pos_other}
                       -#
                         .row.mt-5
-                        .col-12.d-flex.justify-content-center
+                        .col-12
                           .chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
                   -#
                     #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
@@ -78,10 +78,10 @@
                           %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
-                        .col-12.d-flex.justify-content-center
+                        .col-12
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_mud, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
-                        .col-12.d-flex.justify-content-center
+                        .col-12
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_mud}
                      
                     #messages.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
@@ -95,10 +95,10 @@
                           %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
-                        .col-12.d-flex.justify-content-center
+                        .col-12
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_power, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
-                        .col-12.d-flex.justify-content-center
+                        .col-12
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_power}
                     #settings.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
                       %ul.list-group.list-group-horizontal
@@ -111,10 +111,10 @@
                           %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 
                       .row
-                        .col-12.d-flex.justify-content-center
+                        .col-12
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_md, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
                       .row.mt-5
-                        .col-12.d-flex.justify-content-center
+                        .col-12
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_md}
 
       = render "layouts/bootstrap/card"
