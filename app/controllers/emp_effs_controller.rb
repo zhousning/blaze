@@ -14,6 +14,13 @@ class EmpEffsController < ApplicationController
    
   end
 
+  def grp_index
+   
+    @emp_eff = EmpEff.new
+    @factories = Factory.all
+    @emp_effs = EmpEff.order('pdt_time DESC').page( params[:page]).per( Setting.systems.per_page ) 
+   
+  end
 
   def new
     @emp_eff = EmpEff.new

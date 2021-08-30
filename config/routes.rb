@@ -125,19 +125,30 @@ Rails.application.routes.draw do
       get :mth_report_finish_show, :on => :member
       get :xls_mth_download, :on => :member
     end
-    resources :emp_infs do
-      post :parse_excel, :on => :collection
-      get :xls_download, :on => :collection
+    resources :emp_infs, :only => [:index]  do
       get :watercms_flow, :on => :collection
-      #get :query_list, :on => :collection
     end
-    resources :emp_effs do
-      post :parse_excel, :on => :collection
-      get :xls_download, :on => :collection
+    resources :emp_effs, :only => [:index] do
       get :watercms_flow, :on => :collection
-      #get :query_list, :on => :collection
     end
   end
+
+  resources :emp_infs do
+    post :parse_excel, :on => :collection
+    get :xls_download, :on => :collection
+    get :watercms_flow, :on => :collection
+    get :grp_index, :on => :collection
+    #get :query_list, :on => :collection
+  end
+
+  resources :emp_effs do
+    post :parse_excel, :on => :collection
+    get :xls_download, :on => :collection
+    get :watercms_flow, :on => :collection
+    get :grp_index, :on => :collection
+    #get :query_list, :on => :collection
+  end
+
   resources :day_pdt_rpts, :only => [] do
     get :sglfct_statistic, :on => :collection
     get :sglfct_stc_cau, :on => :collection

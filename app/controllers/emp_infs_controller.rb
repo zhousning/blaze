@@ -14,6 +14,14 @@ class EmpInfsController < ApplicationController
    
   end
    
+  def grp_index
+   
+    @emp_inf = EmpInf.new
+    @factories = Factory.all
+    @emp_infs = EmpInf.order('pdt_time DESC').page( params[:page]).per( Setting.systems.per_page ) 
+   
+  end
+
   def new
     @emp_inf = EmpInf.new
   end
@@ -113,35 +121,37 @@ class EmpInfsController < ApplicationController
   
   
   def parse_excel
-    excel = params["excel_file"]
+    excels = params["excel_file"]
     tool = ExcelTool.new
-    results = tool.parseExcel(excel.path)
-    fct = iddecode(params[:factory_id])
-    @my_factory = my_factory
-    @factory = current_user.factories.find(fct)
+    @factories = Factory.all
+    @factories.each_with_index do |factory, index|
+      next if excels[index].nil?
+      results = tool.parseExcel(excels[index].path)
+      values = results.first[1][4..-5]
 
-    if @factory && !results["Sheet1"][4..-1].nil?
-      EmpInf.transaction do
-        results["Sheet1"][4..-1].each_with_index do |item, index|
-          index += 5 
-          time = item['A' + index.to_s].strip
-          next if time.blank?
-          datetime = time #DateTime.strptime(time, "%Y-%m-%d %H")
-          cod      = item['B' + index.to_s].nil? ? 0 : item['B' + index.to_s]
-          nhn      = item['D' + index.to_s].nil? ? 0 : item['D' + index.to_s]
-          tp       = item['F' + index.to_s].nil? ? 0 : item['F' + index.to_s]
-          tn       = item['H' + index.to_s].nil? ? 0 : item['H' + index.to_s]
-          inflow   = item['J' + index.to_s].nil? ? 0 : item['J' + index.to_s]
-          ph       = item['K' + index.to_s].nil? ? 0 : item['K' + index.to_s]
-          temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
+      if !values.nil?
+        EmpInf.transaction do
+          values.each_with_index do |item, index|
+            index += 5 
+            time = item['A' + index.to_s].strip
+            next if time.blank?
+            datetime = time #DateTime.strptime(time, "%Y-%m-%d %H")
+            cod      = item['B' + index.to_s].nil? ? 0 : item['B' + index.to_s]
+            nhn      = item['D' + index.to_s].nil? ? 0 : item['D' + index.to_s]
+            tp       = item['F' + index.to_s].nil? ? 0 : item['F' + index.to_s]
+            tn       = item['H' + index.to_s].nil? ? 0 : item['H' + index.to_s]
+            inflow   = item['J' + index.to_s].nil? ? 0 : item['J' + index.to_s]
+            ph       = item['K' + index.to_s].nil? ? 0 : item['K' + index.to_s]
+            temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
-          @emp_inf = @factory.emp_infs.where(:pdt_time => datetime).first
-          EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => inflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_inf
+            @emp_inf = factory.emp_infs.where(:pdt_time => datetime).first
+            EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => inflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_inf
+          end
         end
       end
     end
 
-    redirect_to factory_emp_infs_path(idencode(@my_factory.id)) 
+    redirect_to grp_index_emp_infs_path
   end 
   
   #bootstrap table分页用 暂时没有用
