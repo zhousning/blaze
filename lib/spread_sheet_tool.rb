@@ -4,6 +4,16 @@ require 'spreadsheet'
 
 class SpreadSheetTool
 
+  def parseExcel(path)
+    Spreadsheet.client_encoding = 'UTF-8'
+    book = Spreadsheet.open path
+    sheet1 = book.worksheet 0
+    puts sheet1
+    sheet1.each do |row|
+      puts row
+    end
+  end
+
   def exportMthPdtRptToExcel(obj)
     Spreadsheet.client_encoding = 'UTF-8'
     filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]

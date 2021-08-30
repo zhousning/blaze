@@ -15,16 +15,7 @@
             %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载Excel
 
-        .row.border.m-1.p-3
-          .col-2
-            %label.checkbox-inline.mr-5
-              = check_box_tag 'select-all', nil 
-              = '全选'
-          - @factories.each do |f|
-            .col-2
-              %label.checkbox-inline.mr-5
-                = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
-                = f.name
+        = render 'reports/date_fct_panel'
 
       - content_for :card_body do
         .container-fluid

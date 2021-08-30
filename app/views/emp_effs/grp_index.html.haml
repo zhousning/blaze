@@ -17,10 +17,22 @@
             %button.button.button-caution.button-small.pull-right.mr-1{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
               上传表格
             
-            %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
-              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+            -#
+              %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+                = fa_icon "plus", text: Setting.systems.btn_new, right: false 
           %button.button.button-inverse.button-small.pull-right.mr-1{"data-target" => "#empModal", "data-toggle" => "modal", :type => "button"}
             数据看板
+        .row.ml-1.my-3.pl-0
+          .col-3.pl-0.d-flex.flex-row
+            = date_field_tag 'search_start', nil, class: 'form-control mr-1', :value => Date.today.at_beginning_of_month
+            %span
+              一
+            = date_field_tag 'search_end', nil, class: 'form-control ml-1', :value => Date.today
+          .col-2
+            %button#report-download-excel.button.button-primary.button-small{:type => "button"}
+              下载Excel
+
+        = render 'reports/date_fct_panel'
       - content_for :card_body do
         .container-fluid
           .row
@@ -84,7 +96,10 @@
   .modal-dialog.modal-xl.modal-dialog-centered
     .modal-content
       .modal-header
-        %h5#exampleModalLabel.modal-title 表格上传 
+        %h5#exampleModalLabel.modal-title 
+          表格上传 
+          %span.text-danger
+            上次xlsx格式文件
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} x 
       .modal-body
@@ -94,7 +109,9 @@
               = label_tag f.name, nil, :class => "col-3 text-right col-form-label col-form-label"
               .col-9
                 %label.newbtn
-                  = file_field_tag "#{idencode(f.id)}", :class => "select-file", :onchange => "readFileName(this);" , accept: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                  -#
+                    = file_field_tag "#{idencode(f.id)}", :class => "select-file", :onchange => "readFileName(this);" , accept: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                  = file_field_tag "#{idencode(f.id)}", :class => "select-file", :onchange => "readFileName(this);" , accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                   %p.append-url
           .form-group.row
             .col-sm-12

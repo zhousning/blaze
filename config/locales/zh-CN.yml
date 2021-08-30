@@ -742,6 +742,8 @@ zh-CN:
       title: 下载excel
     parse_excel:
       title: 解析excel
+    grp_index:
+      title: 济宁环境监测系统进水水质数据
   emp_effs:
     index:
       title: 济宁环境监测系统出水水质数据 
@@ -761,6 +763,8 @@ zh-CN:
       title: 下载excel
     parse_excel:
       title: 解析excel
+    grp_index:
+      title: 济宁环境监测系统出水水质数据
   reports:
     index:
       title: 报表

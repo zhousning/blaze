@@ -22,28 +22,26 @@ class EmpEffsController < ApplicationController
    
   end
 
-  def new
-    @emp_eff = EmpEff.new
-  end
-   
-  def create
-    @factory = my_factory
-    @emp_eff = EmpEff.new(emp_eff_params)
-    @emp_eff.factory = @factory
+  #def new
+  #  @emp_eff = EmpEff.new
+  #end
+  # 
+  #def create
+  #  @factory = my_factory
+  #  @emp_eff = EmpEff.new(emp_eff_params)
+  #  @emp_eff.factory = @factory
 
-    if @emp_eff.save
-      redirect_to :action => :index
-    else
-      render :new
-    end
-  end
+  #  if @emp_eff.save
+  #    redirect_to :action => :index
+  #  else
+  #    render :new
+  #  end
+  #end
    
-
    
   def edit
    
-    @factory = my_factory
-    @emp_eff = @factory.emp_effs.find(iddecode(params[:id]))
+    @emp_eff = EmpEff.find(iddecode(params[:id]))
    
   end
    
@@ -51,11 +49,10 @@ class EmpEffsController < ApplicationController
    
   def update
    
-    @factory = my_factory
-    @emp_eff = @factory.emp_effs.find(iddecode(params[:id]))
+    @emp_eff = EmpEff.find(iddecode(params[:id]))
    
     if @emp_eff.update(emp_eff_params)
-      redirect_to edit_factory_emp_eff_path(idencode(@factory.id), idencode(@emp_eff.id)) 
+      redirect_to edit_emp_eff_path(idencode(@emp_eff.id)) 
     else
       render :edit
     end
@@ -65,13 +62,10 @@ class EmpEffsController < ApplicationController
    
   def destroy
    
-    @factory = my_factory
-    @emp_eff = @factory.emp_effs.find(iddecode(params[:id]))
-   
+    @emp_eff = EmpEff.find(iddecode(params[:id]))
     @emp_eff.destroy if @emp_eff
-    redirect_to :action => :index
+    redirect_to :action => :grp_index
   end
-   
    
    
   def watercms_flow
@@ -128,33 +122,39 @@ class EmpEffsController < ApplicationController
       factory_id = idencode(factory.id).to_s
       excel = params[factory_id]
       if excel
-        results = tool.parseExcel(excel.path)
-        values = results.first[1][4..-5]
-        if !values.nil?
-          EmpEff.transaction do
-            values.each_with_index do |item, index|
-              index += 5 
-              time = item['A' + index.to_s].strip
-              next if time.blank?
-              datetime = time #DateTime.strptime(time, "%Y-%m-%d %H")
-              cod      = item['B' + index.to_s].nil? ? 0 : item['B' + index.to_s]
-              nhn      = item['D' + index.to_s].nil? ? 0 : item['D' + index.to_s]
-              tp       = item['F' + index.to_s].nil? ? 0 : item['F' + index.to_s]
-              tn       = item['H' + index.to_s].nil? ? 0 : item['H' + index.to_s]
-              efflow   = item['J' + index.to_s].nil? ? 0 : item['J' + index.to_s]
-              ph       = item['K' + index.to_s].nil? ? 0 : item['K' + index.to_s]
-              temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
+        if File.extname(excel.path) == '.xlsx'
+          #elsif File.extname(excel.path) == '.xls'
+          results = tool.parseExcel(excel.path)
+          values = results.first[1][4..-5]
+          if !values.nil?
+            EmpEff.transaction do
+              values.each_with_index do |item, index|
+                index += 5 
+                time = item['A' + index.to_s].strip
+                next if time.blank?
+                datetime = time #DateTime.strptime(time, "%Y-%m-%d %H")
+                cod      = item['B' + index.to_s].nil? ? 0 : item['B' + index.to_s]
+                nhn      = item['D' + index.to_s].nil? ? 0 : item['D' + index.to_s]
+                tp       = item['F' + index.to_s].nil? ? 0 : item['F' + index.to_s]
+                tn       = item['H' + index.to_s].nil? ? 0 : item['H' + index.to_s]
+                efflow   = item['J' + index.to_s].nil? ? 0 : item['J' + index.to_s]
+                ph       = item['K' + index.to_s].nil? ? 0 : item['K' + index.to_s]
+                temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
-              @emp_eff = factory.emp_effs.where(:pdt_time => datetime).first
-              EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => efflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_eff
+                @emp_eff = factory.emp_effs.where(:pdt_time => datetime).first
+                EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => efflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_eff
+              end
             end
           end
+        else
+          next
         end
       end
     end
 
     redirect_to grp_index_emp_effs_path
   end 
+  
   
 
   private
