@@ -12,6 +12,7 @@ namespace :project do
     Rake::Task["db:seed"].invoke
     Rake::Task["db:import_watercms"].invoke
     Rake::Task["db:import_emps"].invoke
+    
     #Rake::Task["db:import_users"].invoke
     #Rake::Task["assets:precompile"].invoke
     #Rake::Task["kindeditor:assets"].invoke

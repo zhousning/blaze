@@ -10,6 +10,7 @@ $(".emp_infs").ready(function() {
     $(".area-time-search").on('click', function(e) {
       grpEmpInfChartSet();
     })
+
   }
 
 });
