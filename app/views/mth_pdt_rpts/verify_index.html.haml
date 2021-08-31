@@ -46,18 +46,7 @@
                       %td
                         = mth_pdt_rpt.end_outflow
                       %td
-                        - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.complete
-                          %span.text-success
-                            = Setting.mth_pdt_rpts.complete_t
-                        - elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
-                          %span.text-primary
-                            = Setting.mth_pdt_rpts.ongoing_t
-                        - elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.verifying
-                          %span.text-info
-                            = Setting.mth_pdt_rpts.verifying_t
-                        - elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected
-                          %span.text-danger
-                            = Setting.mth_pdt_rpts.rejected_t
+                        = render 'mth_pdt_rpts/state', :mth_pdt_rpt => mth_pdt_rpt
                       %td
                         .container-fluid
                           .row.justify-content-center

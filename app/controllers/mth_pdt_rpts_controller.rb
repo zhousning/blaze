@@ -1,7 +1,7 @@
 class MthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  #authorize_resource
+  authorize_resource
 
   include MathCube 
 
@@ -10,9 +10,82 @@ class MthPdtRptsController < ApplicationController
     @factory = my_factory
    
     @months = months
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.order('start_date DESC').page( params[:page]).per( Setting.systems.per_page )  if @factory
+    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.ongoing, Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order('start_date DESC').page( params[:page]).per( Setting.systems.per_page )  if @factory
    
   end
+
+  def show
+    @factory = my_factory
+   
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+   
+  end
+
+  def verify_index
+    @factory = my_factory
+
+    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order("start_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
+  end
+
+  def verify_show
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+  end
+
+  def verifying
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @mth_pdt_rpt.verifying
+    redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+  end
+  
+  def rejected
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @mth_pdt_rpt.rejected
+    redirect_to verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+  end
+
+  def cmp_verify_index
+    @factory = my_factory
+
+    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order("start_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
+  end
+  
+  def cmp_verify_show
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+  end
+
+  def cmp_verifying
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @mth_pdt_rpt.cmp_verifying
+    redirect_to verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+  end
+  
+  def cmp_rejected
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @mth_pdt_rpt.cmp_rejected
+    redirect_to cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+  end
+
+
+  def upreport
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+
+    @mth_pdt_rpt.complete
+    redirect_to cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+  end
+
+
+   
+   
+
+
+
 
   def mth_report_finish_index
     @factory = my_factory
@@ -127,50 +200,6 @@ class MthPdtRptsController < ApplicationController
   end
 
       
-  def verify_index
-    @factory = my_factory
-
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.complete]).order("start_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
-  end
-
-  def verify_show
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-  end
-
-  def verifying
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-    @mth_pdt_rpt.verifying
-    redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
-  end
-  
-  def rejected
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-    @mth_pdt_rpt.rejected
-    redirect_to verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
-  end
-
-
-  def upreport
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-
-    @mth_pdt_rpt.complete
-    redirect_to verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
-  end
-
-
-   
-  def show
-    @factory = my_factory
-   
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-   
-  end
-   
-
    
   def edit
     @factory = my_factory 
@@ -184,7 +213,6 @@ class MthPdtRptsController < ApplicationController
     @factory = my_factory 
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
    
-    puts mth_pdt_rpt_params
     if @mth_pdt_rpt.update(mth_pdt_rpt_params)
       redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else

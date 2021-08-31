@@ -712,6 +712,14 @@ zh-CN:
       title: 月报表审核-查看
     rejected:
       title: 月报表审核-驳回
+    cmp_verifying:
+      title: 月报表提交管理者审核
+    cmp_verify_index:
+      title: 管理者月报表审核-列表
+    cmp_verify_show:
+      title: 管理者月报表审核-查看
+    cmp_rejected:
+      title: 管理者月报表审核-驳回
     upreport:
       title: 月报表审核-上报
     mth_report_finish_index:

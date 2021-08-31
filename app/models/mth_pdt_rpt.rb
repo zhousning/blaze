@@ -52,14 +52,16 @@ class MthPdtRpt < ActiveRecord::Base
 
   belongs_to :factory
 
-  STATESTR = %w(ongoing verifying rejected complete)
-  STATE = [Setting.day_pdts.ongoing, Setting.day_pdts.verifying,  Setting.day_pdts.rejected,  Setting.day_pdts.complete]
+  STATESTR = %w(ongoing verifying rejected cmp_verifying cmp_rejected complete)
+  STATE = [Setting.mth_pdt_rpts.ongoing, Setting.mth_pdt_rpts.verifying,  Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying,  Setting.mth_pdt_rpts.cmp_rejected,  Setting.mth_pdt_rpts.complete]
   validates_inclusion_of :state, :in => STATE
   state_hash = {
-    STATESTR[0] => Setting.day_pdts.ongoing, 
-    STATESTR[1] => Setting.day_pdts.verifying,  
-    STATESTR[2] => Setting.day_pdts.rejected,  
-    STATESTR[3] => Setting.day_pdts.complete
+    STATESTR[0] => Setting.mth_pdt_rpts.ongoing, 
+    STATESTR[1] => Setting.mth_pdt_rpts.verifying,  
+    STATESTR[2] => Setting.mth_pdt_rpts.rejected,  
+    STATESTR[3] => Setting.mth_pdt_rpts.cmp_verifying,  
+    STATESTR[4] => Setting.mth_pdt_rpts.cmp_rejected,  
+    STATESTR[5] => Setting.mth_pdt_rpts.complete
   }
 
   STATESTR.each do |state|
@@ -69,24 +71,36 @@ class MthPdtRpt < ActiveRecord::Base
   end
 
   def onging 
-    update_attribute :state, Setting.day_pdts.ongoing
+    update_attribute :state, Setting.mth_pdt_rpts.ongoing
   end
 
   def verifying 
-    if ongoing? || rejected? 
-      update_attribute :state, Setting.day_pdts.verifying
+    if ongoing? || rejected? || cmp_rejected? 
+      update_attribute :state, Setting.mth_pdt_rpts.verifying
     end
   end
 
   def rejected 
     if verifying?
-      update_attribute :state, Setting.day_pdts.rejected 
+      update_attribute :state, Setting.mth_pdt_rpts.rejected 
+    end
+  end
+
+  def cmp_verifying 
+    if verifying? 
+      update_attribute :state, Setting.mth_pdt_rpts.cmp_verifying
+    end
+  end
+
+  def cmp_rejected 
+    if cmp_verifying?
+      update_attribute :state, Setting.mth_pdt_rpts.cmp_rejected 
     end
   end
 
   def complete
-    if verifying?
-      update_attribute :state, Setting.day_pdts.complete
+    if cmp_verifying?
+      update_attribute :state, Setting.mth_pdt_rpts.complete
     end
   end
 

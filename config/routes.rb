@@ -125,6 +125,10 @@ Rails.application.routes.draw do
       get :rejected, :on => :member
       get :verify_index, :on => :collection
       get :verify_show, :on => :member
+      get :cmp_verifying, :on => :member
+      get :cmp_rejected, :on => :member
+      get :cmp_verify_index, :on => :collection
+      get :cmp_verify_show, :on => :member
       get :mth_report_finish_index, :on => :collection
       get :mth_report_finish_show, :on => :member
       get :xls_mth_download, :on => :member

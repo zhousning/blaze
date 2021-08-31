@@ -23,8 +23,13 @@
               - if current_user.has_role?(Setting.roles.day_pdt_cmp_verify)
                 = link_to cmp_verify_index_factory_day_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
                   = fa_icon "object-group", text: "日运营数据审核"
+              //厂区月报表审核
               - if current_user.has_role?(Setting.roles.mth_pdt_rpt_verify)
                 = link_to verify_index_factory_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "object-group", text: "月报表审核"
+              //公司月报表审核
+              - if current_user.has_role?(Setting.roles.mth_pdt_rpt_cmp_verify)
+                = link_to cmp_verify_index_factory_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
                   = fa_icon "object-group", text: "月报表审核"
               - if current_user.has_role?(Setting.roles.day_pdt_rpt)
                 = link_to factory_day_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do

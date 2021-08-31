@@ -1009,6 +1009,7 @@ defaults:
     area_time: 厂间分析
     mth_pdt_rpt: 厂区月报表填报
     mth_pdt_rpt_verify: 厂区月报表审核
+    mth_pdt_rpt_cmp_verify: 公司月报表审核
     mth_pdt_rpt_index: 厂区月报表查看
     report: 集团报表管理
     fct_emp_inf: 厂区环境监测系统进水
@@ -1646,11 +1647,15 @@ defaults:
     ongoing: 0
     ongoing_t: 填报中
     verifying: 1
-    verifying_t: 审核中
+    verifying_t: 审核员审核中
     rejected: 2
-    rejected_t: 驳回
-    complete: 3
-    complete_t: 已上报
+    rejected_t: 审核员驳回
+    cmp_verifying: 3
+    cmp_verifying_t: 公司审核中
+    cmp_rejected: 4
+    cmp_rejected_t: 公司驳回
+    complete: 5
+    complete_t: 已上报水务集团
   emp_infs: &162
     label: 济宁市环境自动监测系统进水口
     pdt_time: 监测时间

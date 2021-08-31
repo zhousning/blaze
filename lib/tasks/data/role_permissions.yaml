@@ -36,7 +36,14 @@
   permissions: 
     -
       controller: mth_pdt_rpts_controller
-      actions: [download_report, verify_index, verify_show, rejected, upreport]
+      actions: [verify_index, verify_show, rejected, cmp_verifying, download_report]
+- 
+  role_name: 公司月报表审核
+  level: 1
+  permissions: 
+    -
+      controller: mth_pdt_rpts_controller
+      actions: [cmp_verify_index, cmp_verify_show, cmp_rejected, upreport]
 - 
   role_name: 厂区日报表查看 
   level: 1
