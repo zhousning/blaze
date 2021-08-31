@@ -947,9 +947,9 @@ mysetting:
 defaults:
   admins: &104
     class_name: all
-    email: mytea@world.com
-    phone: '15859859999'
-    password: mycrystalwater
+    email: myzn@world.com
+    phone: '17305372432'
+    password: dagening@521
   users: &105
     class_name: User
     opening: 0
@@ -1131,7 +1131,7 @@ defaults:
     btn_show: 详情
     btn_delete: 删除
     btn_save: 保存
-    company_name: 山东公用水务集团生产运营分析系统
+    company_name: 山东公用水务集团生产运营智能平台
     nav_item1: 首页
     nav_item2: 招标公告
     nav_item3: 中标公告

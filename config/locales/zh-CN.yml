@@ -6,15 +6,15 @@ zh-CN:
       long: "%B %d, %Y"
   layouts:
     application:
-      site_title: "山东公用水务集团生产运营分析系统"
+      site_title: "山东公用水务集团生产运营智能平台"
     application_control:
-      site_title: "山东公用水务集团生产运营分析系统"
+      site_title: "山东公用水务集团生产运营智能平台"
     application_mobile:
-      site_title: "山东公用水务集团生产运营分析系统"
+      site_title: "山东公用水务集团生产运营智能平台"
     application_home:
-      site_title: "山东公用水务集团生产运营分析系统"
+      site_title: "山东公用水务集团生产运营智能平台"
     application_no_header:
-      site_title: "山东公用水务集团生产运营分析系统"
+      site_title: "山东公用水务集团生产运营智能平台"
   views:
       pagination:
         first: "首页"
@@ -212,7 +212,7 @@ zh-CN:
   trees:
     index:
       title:
-        山东公用水务集团生产运营分析系统
+        山东公用水务集团生产运营智能平台
   pick_records:
     index:
       title:
