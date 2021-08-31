@@ -16,13 +16,20 @@
     -
       controller: mth_pdt_rpts_controller
       actions: [mth_rpt_create, index, show, edit, update, verifying]
-- 
+-
   role_name: 厂区生产运营数据审核
   level: 1
   permissions: 
     -
       controller: day_pdts_controller
-      actions: [verify_index, verify_show, rejected, upreport]
+      actions: [verify_index, verify_show, rejected, cmp_verifying]
+- 
+  role_name: 公司生产运营数据审核
+  level: 1
+  permissions: 
+    -
+      controller: day_pdts_controller
+      actions: [cmp_verify_index, cmp_verify_show, cmp_rejected, upreport]
 - 
   role_name: 厂区月报表审核 
   level: 1

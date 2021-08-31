@@ -1002,6 +1002,7 @@ defaults:
     role_grp: 集团用户
     day_pdt: 厂区生产运营数据填报
     day_pdt_verify: 厂区生产运营数据审核
+    day_pdt_cmp_verify: 公司生产运营数据审核
     day_pdt_rpt: 厂区日报表查看
     data_cube: 数据立方
     data_compare: 数据对比
@@ -1357,11 +1358,15 @@ defaults:
     ongoing: 0
     ongoing_t: 填报中
     verifying: 1
-    verifying_t: 审核中
+    verifying_t: 审核员审核中
     rejected: 2
-    rejected_t: 驳回
-    complete: 3
-    complete_t: 已上报
+    rejected_t: 审核员驳回
+    cmp_verifying: 3
+    cmp_verifying_t: 公司审核中
+    cmp_rejected: 4
+    cmp_rejected_t: 公司驳回
+    complete: 5
+    complete_t: 已上报水务集团
   day_pdt_rpts: &144
     label: 生产运营日报表
     name: 名称

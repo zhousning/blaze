@@ -9,19 +9,9 @@
         = Setting.day_pdts.signer
         = @day_pdt.signer
     .col-sm-6.offset-3.p-5.border
-      .col-sm-3.offset-7
-        - if @day_pdt.state == Setting.day_pdts.complete
-          %h2.text-success.text-center.border.border-success
-            = Setting.day_pdts.complete_t
-        - elsif @day_pdt.state == Setting.day_pdts.ongoing
-          %h2.text-primary.text-center.border.border-primary
-            = Setting.day_pdts.ongoing_t
-        - elsif @day_pdt.state == Setting.day_pdts.verifying
-          %h2.text-info.text-center.border.border-info
-            = Setting.day_pdts.verifying_t
-        - elsif @day_pdt.state == Setting.day_pdts.rejected
-          %h2.text-danger.text-center.border.border-danger
-            = Setting.day_pdts.rejected_t
+      .col-sm-5.offset-7
+        %h2
+          = render 'day_pdts/state', :day_pdt => @day_pdt
       %table.table-bordered.day-pdt-table.w-100
         %caption.text-center
           = Setting.inf_qlties.label

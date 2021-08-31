@@ -2,7 +2,7 @@
 #controller的名字均为程序中controller名称的单数，如AnalysesController为Analysis，必须有对应的model,可以建空model
 -
   controller: day_pdts_controller
-  actions: [index, show, new, create, edit, update, verify_index, verify_show, verifying, rejected, upreport]
+  actions: [index, show, new, create, edit, update, verify_index, verify_show, verifying, rejected, cmp_verifying, cmp_verify_index, cmp_verify_show, cmp_rejected, upreport]
 
 -
   controller: day_pdt_rpts_controller

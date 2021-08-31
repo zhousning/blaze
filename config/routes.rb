@@ -104,6 +104,10 @@ Rails.application.routes.draw do
       get :rejected, :on => :member
       get :verify_index, :on => :collection
       get :verify_show, :on => :member
+      get :cmp_verifying, :on => :member
+      get :cmp_rejected, :on => :member
+      get :cmp_verify_index, :on => :collection
+      get :cmp_verify_show, :on => :member
       get :emp_sync, :on => :member
     end
     resources :day_pdt_rpts, :only => [:index, :show] do

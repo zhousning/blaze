@@ -1,0 +1,18 @@
+- if day_pdt.state == Setting.day_pdts.complete
+  %span.p-1.text-success.border.border-success
+    = Setting.day_pdts.complete_t
+- elsif day_pdt.state == Setting.day_pdts.ongoing
+  %span.p-1.text-primary.border.border-primary
+    = Setting.day_pdts.ongoing_t
+- elsif day_pdt.state == Setting.day_pdts.verifying
+  %span.p-1.text-info.border.border-info
+    = Setting.day_pdts.verifying_t
+- elsif day_pdt.state == Setting.day_pdts.rejected
+  %span.p-1.text-danger.border.border-danger
+    = Setting.day_pdts.rejected_t
+- elsif day_pdt.state == Setting.day_pdts.cmp_verifying
+  %span.p-1.text-info.border.border-info
+    = Setting.day_pdts.cmp_verifying_t
+- elsif day_pdt.state == Setting.day_pdts.cmp_rejected
+  %span.p-1.text-danger.border.border-danger
+    = Setting.day_pdts.cmp_rejected_t
