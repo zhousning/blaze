@@ -6,33 +6,33 @@
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.bod, :class => "text-center"
       %td.p-3.text-center
-        = f.number_field :bod, :class => "form-control", :required => true, :step => '0.01', :step => '0.01'  
+        = f.number_field :bod, :class => "form-control", :required => true, :step => 'any'
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.cod, :class => "text-center"
       %td.p-3.text-center
-        = f.number_field :cod, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :cod, :class => "form-control", :required => true, :step => 'any' 
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.ss, :class => "text-center"
       %td.p-3.text-center
-        = f.number_field :ss, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :ss, :class => "form-control", :required => true, :step => 'any' 
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.nhn, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :nhn, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :nhn, :class => "form-control", :required => true, :step => 'any' 
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.tn, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :tn, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :tn, :class => "form-control", :required => true, :step => 'any' 
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.tp, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :tp, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :tp, :class => "form-control", :required => true, :step => 'any' 
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.ph, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :ph, :class => "form-control"
+        = f.number_field :ph, :class => "form-control", :step => "any"
       %td.p-3.text-center{:colspan => "4"}
 
 -#
@@ -40,37 +40,37 @@
     .form-group.row
       = f.label nil, Setting.inf_qlties.bod, :class => "col-sm-5 text-center"
       .col-sm-7
-        = f.number_field :bod, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :bod, :class => "form-control", :required => true, :step => 'any' 
       
   .col-sm-2
     .form-group.row
       = f.label nil, Setting.inf_qlties.cod, :class => "col-sm-5 text-center"
       .col-sm-7
-        = f.number_field :cod, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :cod, :class => "form-control", :required => true, :step => 'any' 
     
   .col-sm-2
     .form-group.row
       = f.label nil, Setting.inf_qlties.ss, :class => "col-sm-5 text-center"
       .col-sm-7
-        = f.number_field :ss, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :ss, :class => "form-control", :required => true, :step => 'any' 
       
   .col-sm-2
     .form-group.row
       = f.label nil, Setting.inf_qlties.nhn, :class => "col-sm-5 text-center"
       .col-sm-7
-        = f.number_field :nhn, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :nhn, :class => "form-control", :required => true, :step => 'any' 
       
   .col-sm-2
     .form-group.row
       = f.label nil, Setting.inf_qlties.tn, :class => "col-sm-5 text-center"
       .col-sm-7
-        = f.number_field :tn, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :tn, :class => "form-control", :required => true, :step => 'any' 
       
   .col-sm-2
     .form-group.row
       = f.label nil, Setting.inf_qlties.tp, :class => "col-sm-5 text-center"
       .col-sm-7
-        = f.number_field :tp, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :tp, :class => "form-control", :required => true, :step => 'any' 
       
   .col-sm-2
     .form-group.row

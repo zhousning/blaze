@@ -14,29 +14,29 @@
             %td.p-3.text-center
               = f.label Setting.chemicals.unprice, :class => "gtext-center"
             %td.p-3.text-center
-              =f.number_field :unprice, :class => "form-control rounded-0", :step => "0.01"  , :required => true
+              =f.number_field :unprice, :class => "form-control rounded-0", :step => "any"  , :required => true
             
           %tr
             %td.p-3.text-center
               = f.label Setting.chemicals.dosage, :class => "gtext-center"
             %td.p-3.text-center
-              =f.number_field :dosage, :class => "form-control rounded-0", :step => "0.01", :required => true
+              =f.number_field :dosage, :class => "form-control rounded-0", :step => "any", :required => true
 
             %td.p-3.text-center
               = f.label Setting.chemicals.cmptc, :class => "gtext-center"
             %td.p-3.text-center
-              =f.number_field :cmptc, :class => "form-control rounded-0", :step => "0.01", :required => true
+              =f.number_field :cmptc, :class => "form-control rounded-0", :step => "any", :required => true
           -#
             
             %td.p-3.text-center
               = f.label Setting.chemicals.dosptc, :class => "gtext-center"
             %td.p-3.text-center
-              =f.number_field :dosptc, :class => "form-control rounded-0", :step => "0.01"  , :required => true
+              =f.number_field :dosptc, :class => "form-control rounded-0", :step => "any"  , :required => true
             
             %td.p-3.text-center
               = f.label Setting.chemicals.per_cost, :class => "gtext-center"
             %td.p-3.text-center
-              =f.number_field :per_cost, :class => "form-control rounded-0", :step => "0.01"  , :required => true
+              =f.number_field :per_cost, :class => "form-control rounded-0", :step => "any"  , :required => true
           
       .form-group.row
         .col-sm-2.offset-10.mt-3
