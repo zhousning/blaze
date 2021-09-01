@@ -11,16 +11,15 @@
         = f.label nil, Setting.eff_qlties.cod, :class => "text-center col-form-label"
       %td.p-3.text-center
         = f.number_field :cod, :class => "form-control", :required => true, :step => '0.01' 
-    %tr
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.ss, :class => "text-center col-form-label"
       %td.p-3.text-center
         = f.number_field :ss, :class => "form-control", :required => true, :step => '0.01' 
+    %tr
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.nhn, :class => " text-center col-form-label"
       %td.p-3.text-center
         = f.number_field :nhn, :class => "form-control", :required => true, :step => '0.01' 
-    %tr
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.tn, :class => " text-center col-form-label"
       %td.p-3.text-center
@@ -33,11 +32,12 @@
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.ph, :class => " text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :ph, :class => "form-control", :step => '0.01'
-      %td.p-3.text-center
-        = f.label nil, Setting.eff_qlties.fecal, :class => "col-sm-4 text-left col-form-label"
-      %td.p-3.text-center
-        = f.number_field :fecal, :class => "form-control" , :step => '0.01'
+        = f.number_field :ph, :class => "form-control"
+      %td.p-3.text-center{:colspan => "4"}
+        .form-group.row.mb-0
+          = f.label nil, Setting.eff_qlties.fecal, :class => "col-sm-4 text-left col-form-label"
+          .col-sm-4
+            = f.number_field :fecal, :class => "form-control" 
 
 -#        
   .form-group.row

@@ -6,21 +6,20 @@
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.bod, :class => "text-center"
       %td.p-3.text-center
-        = f.number_field :bod, :class => "form-control", :required => true, :step => '0.01'  
+        = f.number_field :bod, :class => "form-control", :required => true, :step => '0.01', :step => '0.01'  
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.cod, :class => "text-center"
       %td.p-3.text-center
         = f.number_field :cod, :class => "form-control", :required => true, :step => '0.01' 
-    %tr
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.ss, :class => "text-center"
       %td.p-3.text-center
         = f.number_field :ss, :class => "form-control", :required => true, :step => '0.01' 
+    %tr
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.nhn, :class => " text-center"
       %td.p-3.text-center
         = f.number_field :nhn, :class => "form-control", :required => true, :step => '0.01' 
-    %tr
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.tn, :class => " text-center"
       %td.p-3.text-center
@@ -33,7 +32,7 @@
       %td.p-3.text-center
         = f.label nil, Setting.inf_qlties.ph, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :ph, :class => "form-control", :step => '0.01'
+        = f.number_field :ph, :class => "form-control"
       %td.p-3.text-center{:colspan => "4"}
 
 -#
