@@ -93,7 +93,7 @@
   permissions: 
     -
       controller: emp_infs_controller
-      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]
+      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel, grp_index]
 
 - 
   role_name: 集团环境监测系统出水
@@ -101,7 +101,7 @@
   permissions: 
     -
       controller: emp_effs_controller
-      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel]
+      actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel, grp_index]
 - 
   role_name: 数据立方
   level: 1

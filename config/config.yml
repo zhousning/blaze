@@ -948,7 +948,7 @@ defaults:
   admins: &104
     class_name: all
     email: myzn@world.com
-    phone: '17305372432'
+    phone: '17305379588'
     password: dagening@521
   users: &105
     class_name: User
@@ -1018,6 +1018,11 @@ defaults:
     grp_emp_eff: 集团环境监测系统进水
   permissions: &107
     super_admin: 管理系统所有资源
+    label: 权限管理
+    name: 名称
+    subject_class: controller单数名称
+    action: action
+    description: 描述
   citrines: &108
     exchange_max: 300
     count: 可用茶晶

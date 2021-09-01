@@ -17,7 +17,13 @@ namespace 'db' do
 
       role_name = r['role_name'].strip
       level = r['level'].to_s.strip
-      Role.create(:name => role_name, :level => level, :permissions => permission_arr)
+      role = Role.where(:name => role_name, :level => level).first
+      unless role
+        Role.create(:name => role_name, :level => level, :permissions => permission_arr) 
+      else
+        role.permissions = []
+        role.permissions << permission_arr
+      end
     end
   end
 end
