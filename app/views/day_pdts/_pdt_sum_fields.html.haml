@@ -13,42 +13,43 @@
       %td.p-3.text-center
         = f.number_field :outflow, :class => "form-control", :required => true, :step => '0.01' 
         
+    %tr
       %td.p-3.text-center
         = f.label nil, Setting.pdt_sums.power, :class => " text-center"
       %td.p-3.text-center
         = f.number_field :power, :class => "form-control", :required => true, :step => '0.01' 
-        
     %tr
-
       %td.p-3.text-center
         = f.label nil, Setting.pdt_sums.inmud, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :inmud, :class => "form-control"
+        = f.number_field :inmud, :class => "form-control" , :step => '0.01'
       %td.p-3.text-center
         = f.label nil, Setting.pdt_sums.outmud, :class => " text-center"
       %td.p-3.text-center
         = f.number_field :outmud, :class => "form-control", :required => true, :step => '0.01' 
+    %tr
       %td.p-3.text-center
         = f.label nil, Setting.pdt_sums.mst, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :mst, :class => "form-control"
+        = f.number_field :mst, :class => "form-control", :step => '0.01'
         
 
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.pdt_sums.mdflow, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :mdflow, :class => "form-control"
+        = f.number_field :mdflow, :class => "form-control", :step => '0.01'
         
       %td.p-3.text-center
         = f.label nil, Setting.pdt_sums.mdrcy, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :mdrcy, :class => "form-control"
+        = f.number_field :mdrcy, :class => "form-control", :step => '0.01'
         
+    %tr
       %td.p-3.text-center
         = f.label nil, Setting.pdt_sums.mdsell, :class => " text-center"
       %td.p-3.text-center
-        = f.number_field :mdsell, :class => "form-control"
+        = f.number_field :mdsell, :class => "form-control", :step => '0.01'
         
 
 

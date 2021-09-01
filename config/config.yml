@@ -1963,15 +1963,15 @@ development:
     tspvum: 转运泥量
     dealer: 处置单位
     rcpvum: 处置单位接收量
-    price: 价格元吨
+    price: 价格(元/吨)
     prtmtd: 处置方式
     goort: 后续产品走向
   chemicals: &166
     label: 药剂
     name: 名称
-    unprice: 单价元吨
-    dosage: 投加量
-    cmptc: 药剂浓度
+    unprice: 单价(元/吨)
+    dosage: 投加量(吨)
+    cmptc: 药剂浓度(%)
     dosptc: 药剂投加浓度
     per_cost: 吨水药剂成本
   chemical_ctgs: &167

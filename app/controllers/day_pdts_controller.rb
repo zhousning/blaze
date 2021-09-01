@@ -149,7 +149,7 @@ class DayPdtsController < ApplicationController
       inf_avg_tp   = format("%0.2f", @emp_infs.average(:tp)).to_f
       inf_avg_ph   = format("%0.2f", @emp_infs.average(:ph)).to_f
       inf_avg_temp = format("%0.2f", @emp_infs.average(:temp)).to_f
-      inf_sum_flow = format("%0.2f", @emp_infs.average(:flow)).to_f
+      inf_sum_flow = format("%0.2f", @emp_infs.sum(:flow)).to_f
       inf_qlty = {
         :cod => inf_avg_cod, 
         :nhn => inf_avg_nhn, 
@@ -166,7 +166,7 @@ class DayPdtsController < ApplicationController
       eff_avg_tp   = format("%0.2f", @emp_effs.average(:tp)).to_f
       eff_avg_ph   = format("%0.2f", @emp_effs.average(:ph)).to_f
       eff_avg_temp = format("%0.2f", @emp_effs.average(:temp)).to_f
-      eff_sum_flow = format("%0.2f", @emp_effs.average(:flow)).to_f
+      eff_sum_flow = format("%0.2f", @emp_effs.sum(:flow)).to_f
       eff_qlty = {
         :cod => eff_avg_cod, 
         :nhn => eff_avg_nhn, 
