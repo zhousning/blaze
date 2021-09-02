@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource
+  authorize_resource :except => [:query_day_reports]
 
   def index
     @factories = Factory.all
@@ -9,7 +9,41 @@ class ReportsController < ApplicationController
 
   def day_report
     @factories = Factory.all
-    @day_pdt_rpts = DayPdtRpt.all.order('pdt_date DESC').page( params[:page]).per( Setting.systems.per_page ) 
+    @day_pdt_rpts = DayPdtRpt.all.order('pdt_date DESC')
+  end
+
+  def query_day_reports 
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+    search_date = Date.parse(params[:search_date].gsub(/\s/, ''))
+
+    @factories = Factory.find(fcts)
+
+    obj = []
+    @factories.each do |fct|
+      day_pdt_rpts = fct.day_pdt_rpts.where(:pdt_date => search_date)
+      day_pdt_rpts.each do |day_pdt_rpt|
+        obj << { 
+          :id      => idencode(day_pdt_rpt.id),
+          :name    => day_pdt_rpt.name,
+          :inf_cod => day_pdt_rpt.inf_qlty_cod,
+          :eff_cod => day_pdt_rpt.eff_qlty_cod,
+          :inf_bod => day_pdt_rpt.inf_qlty_bod,
+          :eff_bod => day_pdt_rpt.eff_qlty_bod,
+          :inf_tn  => day_pdt_rpt.inf_qlty_tn,
+          :eff_tn  => day_pdt_rpt.eff_qlty_tn,
+          :inf_tp  => day_pdt_rpt.inf_qlty_tp,
+          :eff_tp  => day_pdt_rpt.eff_qlty_tp,
+          :inf_nhn => day_pdt_rpt.inf_qlty_nhn,
+          :eff_nhn => day_pdt_rpt.eff_qlty_nhn
+        }
+      end
+    end
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
   end
 
   def mth_report

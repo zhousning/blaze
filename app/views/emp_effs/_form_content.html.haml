@@ -1,6 +1,6 @@
 .form-group.row
   = f.label Setting.emp_effs.pdt_time, :class => "col-sm-3 col-form-label text-right"
-  .col-sm-6
+  .col-sm-9
     = f.datetime_select :pdt_time, :start_year => 2021, :order => [:year, :month, :day ], use_month_numbers: true, :class => "form-control rounded-0"
   
 .form-group.row

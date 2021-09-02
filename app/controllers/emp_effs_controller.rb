@@ -39,7 +39,7 @@ class EmpEffsController < ApplicationController
     
     exist_emp_eff = @factory.emp_effs.where( :pdt_time => DateTime.new(year, month, day, hour) ).first
 
-    if exist_emp_eff.nil?
+    if !exist_emp_eff.nil?
       flash[:pdt_time] = year.to_s + "年" + month.to_s + "月" + day.to_s + "日" + hour.to_s + '时数据已存在'
       redirect_to :action => :index
       return

@@ -10,6 +10,9 @@
           .col-2.pl-0
             = date_field_tag 'search_date', nil, class: 'form-control mr-1', :value => Date.today-1, :min => Date.new(2021, 01, 01), :max => Date.today-1
           .col-2
+            %button#report-search.button.button-royal.button-small{:type => "button"}
+              查询
+          .col-2
             %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载Excel
 
@@ -24,35 +27,37 @@
                     #home.tab-pane.active{:role => "tabpanel"}
                       .row
                         .col-12
-                          %table#day-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                          %table#day-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true", :'data-height' => "400", :'data-virtual-scroll' => "true", :'data-show-columns' => "true"}
                             %thead
                               %tr
-                                %th{:scope => "col"} #
+                                %th{:scope => "col", :'data-field' => "id"} #
                               
-                                %th{:scope => "col"}
+                                %th{:scope => "col", :'data-field' => "name"}
                                   = Setting.day_pdt_rpts.name
-                                %th.text-danger{:scope => "col"}
+                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_cod"}
                                   = Setting.day_pdt_rpts.inf_qlty_cod
-                                %th.text-success{:scope => "col"}
+                                %th.text-success{:scope => "col", :'data-field' => "eff_cod"}
                                   = Setting.day_pdt_rpts.eff_qlty_cod
-                                %th.text-danger{:scope => "col"}
+                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_bod"}
                                   = Setting.day_pdt_rpts.inf_qlty_bod
-                                %th.text-success{:scope => "col"}
+                                %th.text-success{:scope => "col", :'data-field' => "eff_bod"}
                                   = Setting.day_pdt_rpts.eff_qlty_bod
-                                %th.text-danger{:scope => "col"}
+                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_tn"}
                                   = Setting.day_pdt_rpts.inf_qlty_tn
-                                %th.text-success{:scope => "col"}
+                                %th.text-success{:scope => "col", :'data-field' => "eff_tn"}
                                   = Setting.day_pdt_rpts.eff_qlty_tn
-                                %th.text-danger{:scope => "col"}
+                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_tp"}
                                   = Setting.day_pdt_rpts.inf_qlty_tp
-                                %th.text-success{:scope => "col"}
+                                %th.text-success{:scope => "col", :'data-field' => "eff_tp"}
                                   = Setting.day_pdt_rpts.eff_qlty_tp
-                                %th.text-danger{:scope => "col"}
+                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_nhn"}
                                   = Setting.day_pdt_rpts.inf_qlty_nhn
-                                %th.text-success{:scope => "col"}
+                                %th.text-success{:scope => "col", :'data-field' => "eff_nhn"}
                                   = Setting.day_pdt_rpts.eff_qlty_nhn
-                                %th{:scope => "col"}
-                            %tbody
+                                -#
+                                  %th{:scope => "col", :'data-field' => ""}
+                            -#
+                              %tbody
                               - @day_pdt_rpts.each_with_index do |day_pdt_rpt, index|
                                 %tr
                                   %td{:scope => "row"}

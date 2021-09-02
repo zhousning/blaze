@@ -183,6 +183,7 @@ Rails.application.routes.draw do
     get :mth_report_show, :on => :member
     get :xls_day_download, :on => :collection
     get :xls_mth_download, :on => :collection
+    get :query_day_reports, :on => :collection
   end
   #resources :departments do
   #  get :download_append, :on => :member
