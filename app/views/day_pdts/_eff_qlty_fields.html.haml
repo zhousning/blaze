@@ -6,69 +6,69 @@
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.bod, :class => "text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :bod, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :bod, :class => "form-control", :required => true, :step => 'any'
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.cod, :class => "text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :cod, :class => "form-control", :required => true, :step => '0.01' 
-    %tr
+        = f.number_field :cod, :class => "form-control", :required => true, :step => 'any' 
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.ss, :class => "text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :ss, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :ss, :class => "form-control", :required => true, :step => 'any' 
+    %tr
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.nhn, :class => " text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :nhn, :class => "form-control", :required => true, :step => '0.01' 
-    %tr
+        = f.number_field :nhn, :class => "form-control", :required => true, :step => 'any' 
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.tn, :class => " text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :tn, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :tn, :class => "form-control", :required => true, :step => 'any' 
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.tp, :class => " text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :tp, :class => "form-control", :required => true, :step => '0.01' 
+        = f.number_field :tp, :class => "form-control", :required => true, :step => 'any' 
     %tr
       %td.p-3.text-center
         = f.label nil, Setting.eff_qlties.ph, :class => " text-center col-form-label"
       %td.p-3.text-center
-        = f.number_field :ph, :class => "form-control", :step => '0.01'
-      %td.p-3.text-center
-        = f.label nil, Setting.eff_qlties.fecal, :class => "col-sm-4 text-left col-form-label"
-      %td.p-3.text-center
-        = f.number_field :fecal, :class => "form-control" , :step => '0.01'
+        = f.number_field :ph, :class => "form-control", :step => "any"
+      %td.p-3.text-center{:colspan => "4"}
+        .form-group.row.mb-0
+          = f.label nil, Setting.eff_qlties.fecal, :class => "col-sm-4 text-left col-form-label"
+          .col-sm-4
+            = f.number_field :fecal, :class => "form-control" , :step => "any"
 
 -#        
   .form-group.row
     = f.label nil, Setting.eff_qlties.bod, :class => "col-sm-5 text-center col-form-label"
     .col-sm-7
-      = f.number_field :bod, :class => "form-control", :required => true, :step => '0.01' 
+      = f.number_field :bod, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
     = f.label nil, Setting.eff_qlties.cod, :class => "col-sm-5 text-center col-form-label"
     .col-sm-7
-      = f.number_field :cod, :class => "form-control", :required => true, :step => '0.01' 
+      = f.number_field :cod, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
     = f.label nil, Setting.eff_qlties.ss, :class => "col-sm-5 text-center col-form-label"
     .col-sm-7
-      = f.number_field :ss, :class => "form-control", :required => true, :step => '0.01' 
+      = f.number_field :ss, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
     = f.label nil, Setting.eff_qlties.nhn, :class => "col-sm-5 text-center col-form-label"
     .col-sm-7
-      = f.number_field :nhn, :class => "form-control", :required => true, :step => '0.01' 
+      = f.number_field :nhn, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
     = f.label nil, Setting.eff_qlties.tn, :class => "col-sm-5 text-center col-form-label"
     .col-sm-7
-      = f.number_field :tn, :class => "form-control", :required => true, :step => '0.01' 
+      = f.number_field :tn, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
     = f.label nil, Setting.eff_qlties.tp, :class => "col-sm-5 text-center col-form-label"
     .col-sm-7
-      = f.number_field :tp, :class => "form-control", :required => true, :step => '0.01' 
+      = f.number_field :tp, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
     = f.label nil, Setting.eff_qlties.ph, :class => "col-sm-5 text-center col-form-label"
@@ -78,5 +78,5 @@
   .form-group.row
     = f.label nil, Setting.eff_qlties.fecal, :class => "col-sm-5 text-center col-form-label"
     .col-sm-7
-      = f.number_field :fecal, :class => "form-control", :required => true, :step => '0.01' 
+      = f.number_field :fecal, :class => "form-control", :required => true, :step => 'any' 
     

@@ -9,7 +9,7 @@
             %td.p-3.text-center
               = f.label Setting.tspmuds.tspvum, :class => "text-center"
             %td.p-3.text-center
-              = f.number_field :tspvum, :class => "form-control", :required => true , :step => '0.01'
+              = f.number_field :tspvum, :class => "form-control", :required => true , :step => 'any'
               
             %td.p-3.text-center
               = f.label Setting.tspmuds.dealer, :class => "text-center"
@@ -20,12 +20,12 @@
             %td.p-3.text-center
               = f.label Setting.tspmuds.rcpvum, :class => "text-center"
             %td.p-3.text-center
-              = f.number_field :rcpvum, :class => "form-control", :required => true , :step => '0.01'
+              = f.number_field :rcpvum, :class => "form-control", :required => true , :step => 'any'
               
             %td.p-3.text-center
               = f.label Setting.tspmuds.price, :class => "text-center"
             %td.p-3.text-center
-              = f.number_field :price, :class => "form-control", :required => true , :step => '0.01'
+              = f.number_field :price, :class => "form-control", :required => true , :step => 'any'
               
           %tr
             %td.p-3.text-center
