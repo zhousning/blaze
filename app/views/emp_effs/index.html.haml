@@ -8,28 +8,33 @@
       - content_for :card_header do
         %h5
           = fa_icon "list", text: t(controller_name + "." + action_name + '.title') + "--" + @factory.name
-
           
-          - if current_user.has_role?(Setting.roles.grp_emp_eff) || current_user.has_role?(Setting.roles.super_admin)
-            = link_to xls_download_factory_emp_effs_path, :class => "button button-royal pull-right button-small mr-1" do
-              下载表格模板
-            
-            %button.button.button-caution.button-small.pull-right.mr-1{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
-              上传表格
-            
+          - if current_user.has_role?(Setting.roles.fct_emp_eff_mg) || current_user.has_role?(Setting.roles.super_admin)
+            -#
+              = link_to xls_download_factory_emp_effs_path, :class => "button button-royal pull-right button-small mr-1" do
+                下载表格模板
             %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
               = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+            
+            %button.button.button-royal.button-small.pull-right.mr-1{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
+              上传表格
+            
           %button.button.button-inverse.button-small.pull-right.mr-1{"data-target" => "#empModal", "data-toggle" => "modal", :type => "button"}
             数据看板
       - content_for :card_body do
         .container-fluid
           .row
             .col-md-12
-              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+              - if flash[:pdt_time]
+                #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                    %span{"aria-hidden" => "true"} x 
+                  %h3
+                    = flash[:pdt_time]
+              %table.text-center.table-sm{:'data-toggle' => "table", 'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
                 %thead
                   %tr
                     %th.py-2{:scope => "col"} #
-                  
                     %th.py-2{:scope => "col"}
                       = Setting.emp_effs.pdt_time
                     %th.py-2{:scope => "col"}
@@ -44,14 +49,13 @@
                       = Setting.emp_effs.ph
                     %th.py-2{:scope => "col"}
                       = Setting.emp_effs.temp
-                    - if current_user.has_role?(Setting.roles.super_admin)
+                    - if current_user.has_role?(Setting.roles.fct_emp_eff_mg) || current_user.has_role?(Setting.roles.super_admin)
                       %th{:scope => "col"}
                 %tbody
                   - @emp_effs.each_with_index do |emp_eff, index|
                     %tr
                       %td.py-2{:scope => "row"}
                         = index+1
-                    
                       %td.py-2
                         = emp_eff.pdt_time.strftime("%Y-%m-%d %H")
                       %td.py-2
@@ -66,12 +70,14 @@
                         = emp_eff.ph
                       %td.py-2
                         = emp_eff.temp
-                      - if current_user.has_role?(Setting.roles.grp_emp_eff) || current_user.has_role?(Setting.roles.super_admin)
+                      - if current_user.has_role?(Setting.roles.fct_emp_eff_mg) || current_user.has_role?(Setting.roles.super_admin)
                         %td
                           .container-fluid
                             .row.justify-content-center
-                              = link_to "编辑", edit_factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :class => "button button-highlight button-small mr-1" 
-                              = link_to "删除",  factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+                              = link_to "编辑", fct_edit_factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :class => "button button-primary button-small mr-1" 
+                              = link_to "删除",  fct_destroy_factory_emp_eff_path(idencode(@factory.id), idencode(emp_eff.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+                              -#
+                                = link_to "详情",  emp_eff_path(idencode(emp_eff.id)), :class => "button button-primary button-small mr-1" 
             .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
               = paginate @emp_effs, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
@@ -81,20 +87,23 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %h5#exampleModalLabel.modal-title 表格上传 
+        %h5#exampleModalLabel.modal-title 
+          表格上传 
+          %span.text-danger
+            上次xlsx格式文件
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} x 
       .modal-body
-        = form_tag "/factories/" + idencode(@factory.id).to_s + "/emp_effs/parse_excel", multipart: true, id: "form-parse-excel" do
-          -#
-            .form-group.row
+        = form_tag "/factories/" + idencode(@factory.id).to_s + "/emp_effs/parse_fct_excel", multipart: true, id: "form-parse-excel" do
+          .form-group.row
+            -#
               = label_tag "工厂", nil, :class => "col-4 text-right col-form-label col-form-label"
               .col-8
                 = select_tag "fcts", options_for_my_factory(@factories), :include_blank=>false, :class=>"form-control"
           .form-group.row
-            = label_tag "表格", nil, :class => "col-4 text-right col-form-label col-form-label"
+            = label_tag "环境监测系统出水水质表格", nil, :class => "col-4 text-right col-form-label col-form-label"
             .col-8
-              = file_field_tag "excel_file", :required => true 
+              = file_field_tag "excel_file", :required => true , accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
           .form-group.row
             .col-sm-12
               .progress.ctn-progress
@@ -131,3 +140,6 @@
         .row
           .col-12
             #chart-ctn{:style => "width: 1100px;height:500px;"}
+          -#
+            .col-4.d-flex.align-items-center.justify-content-center
+              #day-pdt-rpt-ctn

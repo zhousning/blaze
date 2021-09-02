@@ -1,7 +1,8 @@
 ActiveAdmin.register Permission  do
 
-  permit_params  :name, permission_ids: []
+  permit_params  :name, :subject_class, :action, :description, permission_ids: []
 
+      
   menu label: "权限管理" 
   config.per_page = 20
   config.sort_order = "id_asc"
@@ -27,7 +28,6 @@ ActiveAdmin.register Permission  do
 
   form do |f|
     f.inputs "添加" + Setting.permissions.label do
-      
       f.input :name, :label => Setting.permissions.name 
       f.input :subject_class, :label => Setting.permissions.subject_class 
       f.input :action, :label => Setting.permissions.action 

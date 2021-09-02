@@ -34,7 +34,7 @@ def eval_cancan_action(controller_name, action)
   when "edit", "update"
     cancan_action = "update"
   when "delete", "destroy"
-    cancan_action = "delete"
+    cancan_action = "destroy"
   else
     cancan_action = action
   end

@@ -60,20 +60,33 @@
       actions: [mth_report_finish_index, mth_report_finish_show, xls_mth_download, download_report]
 
 - 
-  role_name: 厂区环境监测系统进水
+  role_name: 厂区环境监测系统进水查看
   level: 1
   permissions: 
     -
       controller: emp_infs_controller
       actions: [index, watercms_flow]
-
 - 
-  role_name: 厂区环境监测系统出水
+  role_name: 厂区环境监测系统进水数据管理
+  level: 1
+  permissions: 
+    -
+      controller: emp_infs_controller
+      actions: [fct_edit, fct_update, fct_destroy, parse_fct_excel, create, watercms_flow]
+- 
+  role_name: 厂区环境监测系统出水查看
   level: 1
   permissions: 
     -
       controller: emp_effs_controller
       actions: [index, watercms_flow]
+- 
+  role_name: 厂区环境监测系统出水数据管理
+  level: 1
+  permissions: 
+    -
+      controller: emp_effs_controller
+      actions: [fct_edit, fct_update, fct_destroy, parse_fct_excel, create, watercms_flow]
 
 - 
   role_name: 集团用户 

@@ -2,7 +2,7 @@ class EmpEffsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
   #load_and_authorize_resource
-  authorize_resource 
+  authorize_resource
 
   include QuotaConfig
 
@@ -26,19 +26,68 @@ class EmpEffsController < ApplicationController
   #def new
   #  @emp_eff = EmpEff.new
   #end
-  # 
-  #def create
-  #  @factory = my_factory
-  #  @emp_eff = EmpEff.new(emp_eff_params)
-  #  @emp_eff.factory = @factory
-
-  #  if @emp_eff.save
-  #    redirect_to :action => :index
-  #  else
-  #    render :new
-  #  end
-  #end
    
+  def create
+    @factory = my_factory
+    @emp_eff = EmpEff.new(emp_eff_params)
+    @emp_eff.factory = @factory
+    year = emp_eff_params['pdt_time(1i)'].to_i
+    month = emp_eff_params['pdt_time(2i)'].to_i
+    day = emp_eff_params['pdt_time(3i)'].to_i
+    hour = emp_eff_params['pdt_time(4i)'].to_i
+    minute = emp_eff_params['pdt_time(5i)'].to_i
+    
+    exist_emp_eff = @factory.emp_effs.where( :pdt_time => DateTime.new(year, month, day, hour) ).first
+
+    if exist_emp_eff.nil?
+      flash[:pdt_time] = year.to_s + "年" + month.to_s + "月" + day.to_s + "日" + hour.to_s + '时数据已存在'
+      redirect_to :action => :index
+      return
+    end
+     
+    if @emp_eff.save
+      redirect_to :action => :index
+    else
+      render :index
+    end
+  end
+   
+  def fct_edit
+    @factory = my_factory
+    @emp_eff = @factory.emp_effs.find(iddecode(params[:id]))
+  end
+   
+  def fct_update
+    @factory = my_factory
+    @emp_eff = @factory.emp_effs.find(iddecode(params[:id]))
+    year = emp_eff_params['pdt_time(1i)'].to_i
+    month = emp_eff_params['pdt_time(2i)'].to_i
+    day = emp_eff_params['pdt_time(3i)'].to_i
+    hour = emp_eff_params['pdt_time(4i)'].to_i
+    minute = emp_eff_params['pdt_time(5i)'].to_i
+    
+    exist_emp_eff = @factory.emp_effs.where( :pdt_time => DateTime.new(year, month, day, hour) ).first
+
+    if !exist_emp_eff.nil? && exist_emp_eff.id != @emp_eff.id 
+      @emp_eff.errors[:pdt_time] = year.to_s + "年" + month.to_s + "月" + day.to_s + "日" + hour.to_s + '时数据已存在'
+      render :fct_edit
+      return
+    end
+
+    if @emp_eff.update(emp_eff_params)
+      redirect_to fct_edit_factory_emp_eff_path(idencode(@factory.id), idencode(@emp_eff.id)) 
+    else
+      render :fct_edit
+    end
+  end
+   
+  def fct_destroy
+    @factory = my_factory
+    @emp_eff = @factory.emp_effs.find(iddecode(params[:id]))
+    @emp_eff.destroy if @emp_eff
+    redirect_to :action => :index
+  end
+
    
   def edit
    
@@ -114,6 +163,45 @@ class EmpEffsController < ApplicationController
   def xls_download
     send_file File.join(Rails.root, "templates", "emp_eff.xlsx"), :filename => "环境监测出水水质模板.xlsx", :type => "application/force-download", :x_sendfile=>true
   end
+  
+  
+  def parse_fct_excel
+    tool = ExcelTool.new
+    @factory = my_factory
+    excel = params['excel_file']
+    if excel && File.extname(excel.path) == '.xlsx'
+      results = tool.parseExcel(excel.path)
+      values = results.first[1][4..-5]
+      if !values.nil?
+        begin
+          EmpEff.transaction do
+            values.each_with_index do |item, index|
+              index += 5 
+              time = item['A' + index.to_s].strip
+              next if time.blank?
+              datetime = time #DateTime.strptime(time, "%Y-%m-%d %H")
+              cod      = item['B' + index.to_s].nil? ? 0 : item['B' + index.to_s]
+              nhn      = item['D' + index.to_s].nil? ? 0 : item['D' + index.to_s]
+              tp       = item['F' + index.to_s].nil? ? 0 : item['F' + index.to_s]
+              tn       = item['H' + index.to_s].nil? ? 0 : item['H' + index.to_s]
+              efflow   = item['J' + index.to_s].nil? ? 0 : item['J' + index.to_s]
+              ph       = item['K' + index.to_s].nil? ? 0 : item['K' + index.to_s]
+              temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
+
+              @emp_eff = @factory.emp_effs.where(:pdt_time => datetime).first
+              EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => efflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_eff
+            end
+          end
+        rescue
+          flash[:pdt_time] = '解析失败，请按环境监测平台标准数据上传'
+          redirect_to factory_emp_effs_path(idencode(@factory.id))
+          return
+        end
+      end
+    end
+
+    redirect_to factory_emp_effs_path(idencode(@factory.id))
+  end 
   
   
   def parse_excel

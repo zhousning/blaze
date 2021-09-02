@@ -43,11 +43,13 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @role_report         = Role.where(:name =>  Setting.roles.report).first
 @role_fct_emp_inf    = Role.where(:name =>  Setting.roles.fct_emp_inf).first
 @role_fct_emp_eff    = Role.where(:name =>  Setting.roles.fct_emp_eff).first
+@role_fct_emp_inf_mg    = Role.where(:name =>  Setting.roles.fct_emp_inf_mg).first
+@role_fct_emp_eff_mg    = Role.where(:name =>  Setting.roles.fct_emp_eff_mg).first
 @role_grp_emp_inf    = Role.where(:name =>  Setting.roles.grp_emp_inf).first
 @role_grp_emp_eff    = Role.where(:name =>  Setting.roles.grp_emp_eff).first
 
 #厂区数据填报
-@data_filler  = [@role_fct, @role_day_pdt , @role_day_rpt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff]
+@data_filler  = [@role_fct, @role_day_pdt , @role_day_rpt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff, @role_fct_emp_inf_mg, @role_fct_emp_eff_mg]
 #厂区数据审核
 @data_verifer = [@role_fct, @role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time,  @role_fct_emp_inf, @role_fct_emp_eff]
 #厂区管理者

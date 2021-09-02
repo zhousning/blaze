@@ -133,11 +133,19 @@ Rails.application.routes.draw do
       get :mth_report_finish_show, :on => :member
       get :xls_mth_download, :on => :member
     end
-    resources :emp_infs, :only => [:index]  do
+    resources :emp_infs, :only => [:index, :create]  do
       get :watercms_flow, :on => :collection
+      post :parse_fct_excel, :on => :collection
+      get :fct_edit, :on => :member
+      patch :fct_update, :on => :member
+      delete :fct_destroy, :on => :member
     end
-    resources :emp_effs, :only => [:index] do
+    resources :emp_effs, :only => [:index, :create] do
       get :watercms_flow, :on => :collection
+      post :parse_fct_excel, :on => :collection
+      get :fct_edit, :on => :member
+      patch :fct_update, :on => :member
+      delete :fct_destroy, :on => :member
     end
   end
 

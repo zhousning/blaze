@@ -1012,8 +1012,10 @@ defaults:
     mth_pdt_rpt_cmp_verify: 公司月报表审核
     mth_pdt_rpt_index: 厂区月报表查看
     report: 集团报表管理
-    fct_emp_inf: 厂区环境监测系统进水
-    fct_emp_eff: 厂区环境监测系统出水
+    fct_emp_inf: 厂区环境监测系统进水查看
+    fct_emp_eff: 厂区环境监测系统出水查看
+    fct_emp_inf_mg: 厂区环境监测系统进水数据管理
+    fct_emp_eff_mg: 厂区环境监测系统出水数据管理
     grp_emp_inf: 集团环境监测系统出水
     grp_emp_eff: 集团环境监测系统进水
   permissions: &107

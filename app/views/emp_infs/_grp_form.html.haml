@@ -1,7 +1,7 @@
 .container-fluid
   .row.justify-content-sm-center
     .col-sm-12
-      = form_for @emp_inf, :url => "/factories/#{idencode(@factory.id)}/emp_infs/#{@emp_inf.id ? idencode(@emp_inf.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+      = form_for @emp_inf, :url => "/emp_infs/#{@emp_inf.id ? idencode(@emp_inf.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
         - if @emp_inf.errors.any?
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
@@ -10,5 +10,6 @@
             %ul
               - @emp_inf.errors.full_messages.each do |msg|
                 %li= msg
-
+      
         = render 'emp_infs/form_content', f:f
+      

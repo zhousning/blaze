@@ -1,0 +1,41 @@
+.form-group.row
+  = f.label Setting.emp_effs.pdt_time, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.datetime_select :pdt_time, :start_year => 2021, :order => [:year, :month, :day ], use_month_numbers: true, :class => "form-control rounded-0"
+  
+.form-group.row
+  = f.label Setting.emp_effs.cod, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.number_field :cod, :class => "form-control rounded-0" , :required => true, :step => "any"
+  
+.form-group.row
+  = f.label Setting.emp_effs.nhn, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.number_field :nhn, :class => "form-control rounded-0" , :required => true, :step => "any"
+  
+.form-group.row
+  = f.label Setting.emp_effs.tp, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.number_field :tp, :class => "form-control rounded-0" , :required => true, :step => "any"
+  
+.form-group.row
+  = f.label Setting.emp_effs.flow, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.number_field :flow, :class => "form-control rounded-0" , :required => true, :step => "any"
+  
+.form-group.row
+  = f.label Setting.emp_effs.ph, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.number_field :ph, :class => "form-control rounded-0" , :required => true, :step => "any"
+  
+.form-group.row
+  = f.label Setting.emp_effs.temp, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.number_field :temp, :class => "form-control rounded-0" , :required => true, :step => "any"
+  
+.form-group.row
+  .col-3.offset-3
+    = f.submit '保存', :class => "button  button-small button-action"
+-#
+  .col-3.offset-1
+    = link_to '返回', emp_effs_path, :class => "button button-small  button-caution"

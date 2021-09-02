@@ -741,46 +741,66 @@ zh-CN:
       title: 厂间分析曲线
   emp_infs:
     index:
-      title: 济宁环境监测系统进水水质数据 
-    edit:
-      title: 编辑环境监测系统进水水质数据
-    update:
-      title: 编辑环境监测系统进水水质数据
-    new:
-      title: 添加环境监测系统进水水质数据
+      title: 厂区-济宁环境监测系统进水水质数据 
+    fct_edit:
+      title: 厂区-环境监测系统进水水质数据-编辑
+    fct_update:
+      title: 厂区-环境监测系统进水水质数据-更新
+    fct_destroy:
+      title: 厂区-环境监测系统进水水质数据-删除
+    parse_fct_excel:
+      title: 厂区-环境监测系统进水水质数据-上传excel
     create:
-      title: 添加环境监测系统进水水质数据
+      title: 厂区-环境监测系统进水水质数据-创建
+    grp_index:
+      title: 集团-济宁环境监测系统进水水质数据
+    edit:
+      title: 集团-编辑环境监测系统进水水质数据
+    update:
+      title: 集团-编辑环境监测系统进水水质数据
+    new:
+      title: 集团-添加环境监测系统进水水质数据
+    create:
+      title: 集团-添加环境监测系统进水水质数据
     destroy:
-      title: 删除环境监测系统进水水质数据
+      title: 集团-删除环境监测系统进水水质数据
     watercms_flow:
       title: 水质流量
     xls_download:
-      title: 下载excel
+      title: 集团-下载excel
     parse_excel:
-      title: 解析excel
-    grp_index:
-      title: 济宁环境监测系统进水水质数据
+      title: 集团-解析excel
   emp_effs:
     index:
-      title: 济宁环境监测系统出水水质数据 
-    edit:
-      title: 编辑月环境监测系统出水水质数据
-    update:
-      title: 编辑月环境监测系统出水水质数据
-    new:
-      title: 添加环境监测系统出水水质数据
+      title: 厂区-济宁环境监测系统出水水质数据 
+    fct_edit:
+      title: 厂区-环境监测系统出水水质数据-编辑
+    fct_update:
+      title: 厂区-环境监测系统出水水质数据-更新
+    fct_destroy:
+      title: 厂区-环境监测系统出水水质数据-删除
+    parse_fct_excel:
+      title: 厂区-环境监测系统出水水质数据-上传excel
     create:
-      title: 添加环境监测系统出水水质数据
+      title: 厂区-环境监测系统出水水质数据-创建
+    grp_index:
+      title: 集团-济宁环境监测系统出水水质数据
+    edit:
+      title: 集团-编辑环境监测系统出水水质数据
+    update:
+      title: 集团-编辑环境监测系统出水水质数据
+    new:
+      title: 集团-添加环境监测系统出水水质数据
+    create:
+      title: 集团-添加环境监测系统出水水质数据
     destroy:
-      title: 删除环境监测系统出水水质数据
+      title: 集团-删除环境监测系统出水水质数据
     watercms_flow:
       title: 水质流量
     xls_download:
-      title: 下载excel
+      title: 集团-下载excel
     parse_excel:
-      title: 解析excel
-    grp_index:
-      title: 济宁环境监测系统出水水质数据
+      title: 集团-解析excel
   reports:
     index:
       title: 报表
