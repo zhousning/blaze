@@ -1,10 +1,10 @@
 .row.border.m-1.p-3
-  .col-2
+  .col-2.text-left
     %label.checkbox-inline.mr-5
       = check_box_tag 'select-all', nil 
       = '全选'
   - @factories.each do |f|
-    .col-2
+    .col-2.text-left
       %label.checkbox-inline.mr-5
         = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
         = f.name

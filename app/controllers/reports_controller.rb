@@ -26,7 +26,8 @@ class ReportsController < ApplicationController
       day_pdt_rpts = fct.day_pdt_rpts.where(:pdt_date => search_date)
       day_pdt_rpts.each do |day_pdt_rpt|
         obj << { 
-          :id      => idencode(day_pdt_rpt.id),
+          :id      => idencode(day_pdt_rpt.id).to_s,
+          :fct_id  => idencode(day_pdt_rpt.factory.id).to_s,
           :name    => day_pdt_rpt.name,
           :inf_cod => day_pdt_rpt.inf_qlty_cod,
           :eff_cod => day_pdt_rpt.eff_qlty_cod,

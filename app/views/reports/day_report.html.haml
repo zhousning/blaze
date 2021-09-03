@@ -9,7 +9,7 @@
         .row.ml-1.my-3.pl-0
           .col-2.pl-0
             = date_field_tag 'search_date', nil, class: 'form-control mr-1', :value => Date.today-1, :min => Date.new(2021, 01, 01), :max => Date.today-1
-          .col-2
+          .col-1
             %button#report-search.button.button-royal.button-small{:type => "button"}
               查询
           .col-2
@@ -27,12 +27,12 @@
                     #home.tab-pane.active{:role => "tabpanel"}
                       .row
                         .col-12
-                          %table#day-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true", :'data-height' => "400", :'data-virtual-scroll' => "true", :'data-show-columns' => "true"}
+                          %table#day-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true", :'data-height' => "600", :'data-virtual-scroll' => "true", :'data-show-columns' => "true", :'data-page-size' => "15"}
                             %thead
                               %tr
                                 %th{:scope => "col", :'data-field' => "id"} #
                               
-                                %th{:scope => "col", :'data-field' => "name"}
+                                %th.text-left{:scope => "col", :'data-field' => "name"}
                                   = Setting.day_pdt_rpts.name
                                 %th.text-danger{:scope => "col", :'data-field' =>  "inf_cod"}
                                   = Setting.day_pdt_rpts.inf_qlty_cod
@@ -54,6 +54,7 @@
                                   = Setting.day_pdt_rpts.inf_qlty_nhn
                                 %th.text-success{:scope => "col", :'data-field' => "eff_nhn"}
                                   = Setting.day_pdt_rpts.eff_qlty_nhn
+                                %th.text-success{:scope => "col", :'data-field' => "search"}
                                 -#
                                   %th{:scope => "col", :'data-field' => ""}
                             -#
@@ -80,6 +81,7 @@
                                   %td
                                     = day_pdt_rpt.inf_qlty_tp
                                   %td
+
                                     = day_pdt_rpt.eff_qlty_tp
                                   %td
                                     = day_pdt_rpt.inf_qlty_nhn
@@ -102,11 +104,34 @@
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} x 
       .modal-body
-        .row
-          .col-8
-            #chart-ctn{:style => "width: 800px;height:400px;"}
-          .col-4.d-flex.align-items-center.justify-content-center
-            #day-pdt-rpt-ctn
+        .card.w-100
+          .card-header.bg-white
+            %ul.nav.nav-tabs{:role => "tablist"}
+              %li.nav-item
+                %a.nav-link.active{"data-toggle" => "tab", :href => "#home", :role => "tab"}
+                  水质分析
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#profile", :role => "tab"}
+                  污泥分析
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#messages", :role => "tab"}
+                  能耗分析
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#settings", :role => "tab"}
+                  中水分析
+          .card-body
+            .tab-content
+              #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-center
+                    #chart-ctn{:style => "width: 900px;height:400px;"}
+                .row
+                  .col-12
+                    %ul#day-pdt-rpt-ctn.list-group.list-group-horizontal.d-flex.flex-wrap
+                    
+              #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
+              #messages.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
+              #settings.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
 -#
   %h5
     = fa_icon "list", text: t(controller_name + "." + action_name + '.title')

@@ -33,8 +33,9 @@ $(".reports").ready(function() {
         var data = [];
         $.get(url, {fcts: fcts, search_date: search_date}).done(function (objs) {
           $.each(objs, function(index, item) {
+            var button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + item.id + "' data-fct = '" + item.fct_id +"'>查看</button>"; 
             data.push({
-              'id'      : item.id,
+              'id'      : index + 1,
               'name'    : item.name,
               'inf_cod' : item.inf_cod,
               'eff_cod' : item.eff_cod,
@@ -45,7 +46,8 @@ $(".reports").ready(function() {
               'inf_tp'  : item.inf_tp,
               'eff_tp'  : item.eff_tp,
               'inf_nhn' : item.inf_nhn,
-              'eff_nhn' : item.eff_nhn
+              'eff_nhn' : item.eff_nhn,
+              'search'  : button
             });
           });
           $table.bootstrapTable('load', data);

@@ -38,15 +38,12 @@
                 .card-body
                   .tab-content.text-center
                     #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
-                        %li.list-group-item
-                          - @factories.each do |f|
-                            %label.checkbox-inline.mr-5
-                              = check_box_tag 'fcts', idencode(f.id), nil, {array: true} 
-                              = f.name
-                        %li.list-group-item
+                      .row
+                        .col-1.mb-2
                           %button.area-time-search.button.button-primary.button-small{:type => "button"}
                             查询 
+                        .col-12
+                          = render 'reports/date_fct_panel'
                       .row
                         .col-12.my-5.chart-statistic-wrapper
                           .chart-statistic-ctn.my-chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_cms, :'data-pos' => Setting.quota.pos_inf}
