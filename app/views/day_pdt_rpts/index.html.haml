@@ -101,7 +101,8 @@
                           .row.justify-content-center
                             %button#info-btn.button.button-primary.button-small.mr-1{:type => "button", :'data-rpt' => idencode(day_pdt_rpt.id), :'data-fct' => idencode(@factory.id)}
                               查看
-                            = link_to "详情",  factory_day_pdt_rpt_path(idencode(@factory.id), idencode(day_pdt_rpt.id)), :class => "button button-royal button-small" 
+                            -#
+                              = link_to "详情",  factory_day_pdt_rpt_path(idencode(@factory.id), idencode(day_pdt_rpt.id)), :class => "button button-royal button-small" 
                             -#
                               = link_to "编辑", edit_day_pdt_rpt_path(idencode(day_pdt_rpt.id)), :class => "button button-highlight button-small mr-1" 
                               = link_to "删除",  day_pdt_rpt_path(idencode(day_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
@@ -109,20 +110,7 @@
               = paginate @day_pdt_rpts, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
 
-
-#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
-  .modal-dialog.modal-xl.modal-dialog-centered
-    .modal-content
-      .modal-header
-        %h3#day-pdt-rpt-header.modal-title.text-center
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} x 
-      .modal-body
-        .row
-          .col-8
-            #chart-ctn{:style => "width: 800px;height:400px;"}
-          .col-4.d-flex.align-items-center.justify-content-center
-            #day-pdt-rpt-ctn
+= render "day_pdt_rpts/day_pdt_rpt_modal"
 -#
   %th{:scope => "col"}
     = Setting.day_pdt_rpts.name

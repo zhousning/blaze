@@ -98,6 +98,15 @@ class ApplicationController < ActionController::Base
 
     end
   
+    def chemicals_hash
+      hash = Hash.new
+      ctgs = ChemicalCtg.all
+      ctgs.each do |f|
+        hash[f.code] = f.name
+      end
+      hash
+    end
+
     def my_factory
       @factory = current_user.factories.find(iddecode(params[:factory_id]))
     end

@@ -121,7 +121,7 @@
   permissions: 
     -
       controller: day_pdt_rpts_controller
-      actions: [sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report]
+      actions: [sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report, xls_day_download]
 
 - 
   role_name: 数据对比

@@ -1412,6 +1412,7 @@ defaults:
     mdflow: 中水量(吨)
     mdrcy: 中水回用量(吨)
     mdsell: 中水销售水量(吨)
+    per_cost: 吨水药剂成本合计
   quota: &145
     label: 指标
     name: 名称

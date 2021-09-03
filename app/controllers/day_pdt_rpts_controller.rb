@@ -135,21 +135,24 @@ class DayPdtRptsController < ApplicationController
       :weather => @day_pdt_rpt.weather, 
       :temper => @day_pdt_rpt.temper,
     }
-    cms = {
+    flow = {
       Setting.day_pdt_rpts.inflow => @day_pdt_rpt.inflow, 
-      Setting.day_pdt_rpts.outflow => @day_pdt_rpt.outflow, 
-
+      Setting.day_pdt_rpts.outflow => @day_pdt_rpt.outflow,
       Setting.day_rpt_stcs.bcr => @day_rpt_stc.bcr,
       Setting.day_rpt_stcs.bnr => @day_rpt_stc.bnr,
-      Setting.day_rpt_stcs.bpr => @day_rpt_stc.bpr,
+      Setting.day_rpt_stcs.bpr => @day_rpt_stc.bpr
+    }
 
+    cms_emq = {
       Setting.day_rpt_stcs.cod_emq => @day_rpt_stc.cod_emq,
       Setting.day_rpt_stcs.bod_emq => @day_rpt_stc.bod_emq,
       Setting.day_rpt_stcs.nhn_emq => @day_rpt_stc.nhn_emq,
       Setting.day_rpt_stcs.tp_emq => @day_rpt_stc.tp_emq,
       Setting.day_rpt_stcs.tn_emq => @day_rpt_stc.tn_emq,
-      Setting.day_rpt_stcs.ss_emq => @day_rpt_stc.ss_emq,
+      Setting.day_rpt_stcs.ss_emq => @day_rpt_stc.ss_emq
+    }
 
+    cms_emr = {
       Setting.day_rpt_stcs.cod_emr => @day_rpt_stc.cod_emr,
       Setting.day_rpt_stcs.bod_emr => @day_rpt_stc.bod_emr,
       Setting.day_rpt_stcs.nhn_emr => @day_rpt_stc.nhn_emr,
@@ -180,8 +183,8 @@ class DayPdtRptsController < ApplicationController
     tspmuds = []
     @day_pdt_rpt.tspmuds.each do |tspmud|
       tspmuds << {
-        Setting.tspmuds.tspvum => tspmud.tspvum,
         Setting.tspmuds.dealer => tspmud.dealer,
+        Setting.tspmuds.tspvum => tspmud.tspvum,
         Setting.tspmuds.rcpvum => tspmud.rcpvum,
         Setting.tspmuds.price => tspmud.price,
         Setting.tspmuds.prtmtd => tspmud.prtmtd,
@@ -189,9 +192,9 @@ class DayPdtRptsController < ApplicationController
       }
     end
     chemicals = {}
-    chemicals_dta = []
+    chemicals_data = []
     @day_pdt_rpt.chemicals.each do |chemical|
-      chemicals_dta << {
+      chemicals_data << {
         Setting.chemicals.name => chemicals_hash[chemical.name],
         Setting.chemicals.unprice => chemical.unprice,
         Setting.chemicals.cmptc => chemical.cmptc,
@@ -201,7 +204,7 @@ class DayPdtRptsController < ApplicationController
       }
     end
     chemicals = {
-      chemicals_dta: chemicals_dta,
+      chemicals_data: chemicals_data,
       per_cost: @day_pdt_rpt.per_cost
     }
 
@@ -216,8 +219,12 @@ class DayPdtRptsController < ApplicationController
             {:source => "NH3-N", :'进水' => @day_pdt_rpt.inf_qlty_nhn, :'出水' => @day_pdt_rpt.eff_qlty_nhn},
             {:source => "PH", :'进水' => @day_pdt_rpt.inf_qlty_ph, :'出水' => @day_pdt_rpt.eff_qlty_ph}
           ],
+          :fct_id => idencode(@factory.id),
+          :day_rpt_id => idencode(@day_pdt_rpt.id),
           :header => header,
-          :cms => cms,
+          :flow     => flow, 
+          :cms_emq  => cms_emq,
+          :cms_emr  => cms_emr,
           :power => power,
           :mud => mud,
           :md  => md,

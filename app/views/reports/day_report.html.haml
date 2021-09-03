@@ -55,83 +55,11 @@
                                 %th.text-success{:scope => "col", :'data-field' => "eff_nhn"}
                                   = Setting.day_pdt_rpts.eff_qlty_nhn
                                 %th.text-success{:scope => "col", :'data-field' => "search"}
-                                -#
-                                  %th{:scope => "col", :'data-field' => ""}
-                            -#
-                              %tbody
-                              - @day_pdt_rpts.each_with_index do |day_pdt_rpt, index|
-                                %tr
-                                  %td{:scope => "row"}
-                                    = index+1
-                                
-                                  %td
-                                    = day_pdt_rpt.name
-                                  %td
-                                    = day_pdt_rpt.inf_qlty_cod
-                                  %td
-                                    = day_pdt_rpt.eff_qlty_cod
-                                  %td
-                                    = day_pdt_rpt.inf_qlty_bod
-                                  %td
-                                    = day_pdt_rpt.eff_qlty_bod
-                                  %td
-                                    = day_pdt_rpt.inf_qlty_tn
-                                  %td
-                                    = day_pdt_rpt.eff_qlty_tn
-                                  %td
-                                    = day_pdt_rpt.inf_qlty_tp
-                                  %td
-
-                                    = day_pdt_rpt.eff_qlty_tp
-                                  %td
-                                    = day_pdt_rpt.inf_qlty_nhn
-                                  %td
-                                    = day_pdt_rpt.eff_qlty_nhn
-                                  %td
-                                    .container-fluid
-                                      .row.justify-content-center
-                                        %button#info-btn.button.button-primary.button-small{:type => "button", :'data-rpt' => idencode(day_pdt_rpt.id), :'data-fct' => idencode(day_pdt_rpt.factory.id)}
-                                          查看
 
       = render "layouts/bootstrap/card"
 
+= render "day_pdt_rpts/day_pdt_rpt_modal"
 
-#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
-  .modal-dialog.modal-xl.modal-dialog-centered
-    .modal-content
-      .modal-header
-        %h3#day-pdt-rpt-header.modal-title.text-center
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} x 
-      .modal-body
-        .card.w-100
-          .card-header.bg-white
-            %ul.nav.nav-tabs{:role => "tablist"}
-              %li.nav-item
-                %a.nav-link.active{"data-toggle" => "tab", :href => "#home", :role => "tab"}
-                  水质分析
-              %li.nav-item
-                %a.nav-link{"data-toggle" => "tab", :href => "#profile", :role => "tab"}
-                  污泥分析
-              %li.nav-item
-                %a.nav-link{"data-toggle" => "tab", :href => "#messages", :role => "tab"}
-                  能耗分析
-              %li.nav-item
-                %a.nav-link{"data-toggle" => "tab", :href => "#settings", :role => "tab"}
-                  中水分析
-          .card-body
-            .tab-content
-              #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
-                .row
-                  .col-12.d-flex.align-items-center.justify-content-center
-                    #chart-ctn{:style => "width: 900px;height:400px;"}
-                .row
-                  .col-12
-                    %ul#day-pdt-rpt-ctn.list-group.list-group-horizontal.d-flex.flex-wrap
-                    
-              #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-              #messages.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-              #settings.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
 -#
   %h5
     = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
@@ -159,3 +87,40 @@
 
         = label_tag Setting.quota.outflow_t, nil, :class => "form-check-label"
 
+                                -#
+                                  %th{:scope => "col", :'data-field' => ""}
+-#
+  %tbody
+  - @day_pdt_rpts.each_with_index do |day_pdt_rpt, index|
+    %tr
+      %td{:scope => "row"}
+        = index+1
+    
+      %td
+        = day_pdt_rpt.name
+      %td
+        = day_pdt_rpt.inf_qlty_cod
+      %td
+        = day_pdt_rpt.eff_qlty_cod
+      %td
+        = day_pdt_rpt.inf_qlty_bod
+      %td
+        = day_pdt_rpt.eff_qlty_bod
+      %td
+        = day_pdt_rpt.inf_qlty_tn
+      %td
+        = day_pdt_rpt.eff_qlty_tn
+      %td
+        = day_pdt_rpt.inf_qlty_tp
+      %td
+
+        = day_pdt_rpt.eff_qlty_tp
+      %td
+        = day_pdt_rpt.inf_qlty_nhn
+      %td
+        = day_pdt_rpt.eff_qlty_nhn
+      %td
+        .container-fluid
+          .row.justify-content-center
+            %button#info-btn.button.button-primary.button-small{:type => "button", :'data-rpt' => idencode(day_pdt_rpt.id), :'data-fct' => idencode(day_pdt_rpt.factory.id)}
+              查看
