@@ -109,6 +109,7 @@ Rails.application.routes.draw do
       get :cmp_verify_index, :on => :collection
       get :cmp_verify_show, :on => :member
       get :emp_sync, :on => :member
+      get :only_emp_sync, :on => :collection
     end
     resources :day_pdt_rpts, :only => [:index, :show] do
       get :produce_report, :on => :member

@@ -1,73 +1,76 @@
-%table.table-bordered.day-pdt-table
-  %caption.text-center
+.card.border-dark.mb-3.rounded-0
+  .card-header.bg-transparent.border-dark
+    3 
     = Setting.sed_qlties.label
-  %tbody
-    %tr
-      %td.p-3.text-center
-        = f.label nil, Setting.sed_qlties.bod, :class => "text-center"
-      %td.p-3.text-center
-        = f.number_field :bod, :class => "form-control", :required => true, :step => 'any' 
-      %td.p-3.text-center
-        = f.label nil, Setting.sed_qlties.cod, :class => "text-center"
-      %td.p-3.text-center
-        = f.number_field :cod, :class => "form-control", :required => true, :step => 'any' 
-      %td.p-3.text-center
-        = f.label nil, Setting.sed_qlties.ss, :class => "text-center"
-      %td.p-3.text-center
-        = f.number_field :ss, :class => "form-control", :required => true, :step => 'any' 
-    %tr
-      %td.p-3.text-center
-        = f.label nil, Setting.sed_qlties.nhn, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :nhn, :class => "form-control", :required => true, :step => 'any' 
-      %td.p-3.text-center
-        = f.label nil, Setting.sed_qlties.tn, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :tn, :class => "form-control", :required => true, :step => 'any' 
-      %td.p-3.text-center
-        = f.label nil, Setting.sed_qlties.tp, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :tp, :class => "form-control", :required => true, :step => 'any' 
-    %tr
-      %td.p-3.text-center
-        = f.label nil, Setting.sed_qlties.ph, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :ph, :class => "form-control", :step => "any"
-      %td.p-3.text-center{:colspan => "4"}
+  .card-body
+    %table.w-100.table-bordered.day-pdt-table
+      %tbody
+        %tr
+          %td.p-2.text-center
+            = f.label nil, cms_sub_pref(Setting.sed_qlties.cod), :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :cod, :class => "form-control", :required => true, :step => 'any' 
+          %td.p-2.text-center
+            = f.label nil, cms_sub_pref(Setting.sed_qlties.nhn), :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :nhn, :class => "form-control", :required => true, :step => 'any' 
+          %td.p-2.text-center
+            = f.label nil, cms_sub_pref(Setting.sed_qlties.tn), :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :tn, :class => "form-control", :required => true, :step => 'any' 
+        %tr
+          %td.p-2.text-center
+            = f.label nil, cms_sub_pref(Setting.sed_qlties.tp), :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :tp, :class => "form-control", :required => true, :step => 'any' 
+          %td.p-2.text-center
+            = f.label nil, cms_sub_pref(Setting.sed_qlties.bod), :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :bod, :class => "form-control", :required => true, :step => 'any' 
+          %td.p-2.text-center
+            = f.label nil, cms_sub_pref(Setting.sed_qlties.ss), :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :ss, :class => "form-control", :required => true, :step => 'any' 
+        %tr
+          %td.p-2.text-center
+            = f.label nil, cms_sub_pref(Setting.sed_qlties.ph), :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :ph, :class => "form-control", :step => "any"
+          %td.p-2.text-center{:colspan => "4"}
 
 -#
   .form-group.row
-    = f.label nil, Setting.sed_qlties.bod, :class => "col-sm-5 text-center"
+    = f.label nil, cms_sub_pref(Setting.sed_qlties.bod, :class => "col-sm-5 text-center"
     .col-sm-7
       = f.number_field :bod, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
-    = f.label nil, Setting.sed_qlties.cod, :class => "col-sm-5 text-center"
+    = f.label nil, cms_sub_pref(Setting.sed_qlties.cod, :class => "col-sm-5 text-center"
     .col-sm-7
       = f.number_field :cod, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
-    = f.label nil, Setting.sed_qlties.ss, :class => "col-sm-5 text-center"
+    = f.label nil, cms_sub_pref(Setting.sed_qlties.ss, :class => "col-sm-5 text-center"
     .col-sm-7
       = f.number_field :ss, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
-    = f.label nil, Setting.sed_qlties.nhn, :class => "col-sm-5 text-center"
+    = f.label nil, cms_sub_pref(Setting.sed_qlties.nhn, :class => "col-sm-5 text-center"
     .col-sm-7
       = f.number_field :nhn, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
-    = f.label nil, Setting.sed_qlties.tn, :class => "col-sm-5 text-center"
+    = f.label nil, cms_sub_pref(Setting.sed_qlties.tn, :class => "col-sm-5 text-center"
     .col-sm-7
       = f.number_field :tn, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
-    = f.label nil, Setting.sed_qlties.tp, :class => "col-sm-5 text-center"
+    = f.label nil, cms_sub_pref(Setting.sed_qlties.tp, :class => "col-sm-5 text-center"
     .col-sm-7
       = f.number_field :tp, :class => "form-control", :required => true, :step => 'any' 
     
   .form-group.row
-    = f.label nil, Setting.sed_qlties.ph, :class => "col-sm-5 text-center"
+    = f.label nil, cms_sub_pref(Setting.sed_qlties.ph, :class => "col-sm-5 text-center"
     .col-sm-7
       = f.number_field :ph, :class => "form-control"
     

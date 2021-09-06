@@ -24,6 +24,14 @@
                     %th{:scope => "col"}
                       = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod)
                     %th{:scope => "col"}
+                      = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod)
+                    %th{:scope => "col"}
+                      = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod)
+                    %th{:scope => "col"}
+                      = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn)
+                    %th{:scope => "col"}
+                      = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn)
+                    %th{:scope => "col"}
                       = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn)
                     %th{:scope => "col"}
                       = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn)
@@ -31,15 +39,7 @@
                       = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp)
                     %th{:scope => "col"}
                       = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp)
-                    %th{:scope => "col"}
-                      = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn)
-                    %th{:scope => "col"}
-                      = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn)
                     -#
-                      %th{:scope => "col"}
-                        = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod)
-                      %th{:scope => "col"}
-                        = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod)
                       %th{:scope => "col"}
                         = Setting.day_pdt_rpts.inf_qlty_ss
                       %th{:scope => "col"}
@@ -60,6 +60,14 @@
                       %td
                         = day_pdt_rpt.eff_qlty_cod
                       %td
+                        = day_pdt_rpt.inf_qlty_bod
+                      %td
+                        = day_pdt_rpt.eff_qlty_bod
+                      %td
+                        = day_pdt_rpt.inf_qlty_nhn
+                      %td
+                        = day_pdt_rpt.eff_qlty_nhn
+                      %td
                         = day_pdt_rpt.inf_qlty_tn
                       %td
                         = day_pdt_rpt.eff_qlty_tn
@@ -67,15 +75,7 @@
                         = day_pdt_rpt.inf_qlty_tp
                       %td
                         = day_pdt_rpt.eff_qlty_tp
-                      %td
-                        = day_pdt_rpt.inf_qlty_nhn
-                      %td
-                        = day_pdt_rpt.eff_qlty_nhn
                       -#
-                        %td
-                          = day_pdt_rpt.inf_qlty_bod
-                        %td
-                          = day_pdt_rpt.eff_qlty_bod
                         %td
                           = day_pdt_rpt.inf_qlty_ss
                         %td

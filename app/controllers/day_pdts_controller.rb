@@ -1,7 +1,7 @@
 class DayPdtsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:emp_sync]
+  authorize_resource :except => [:emp_sync,:only_emp_sync]
 
   include FormulaLib
 
@@ -131,6 +131,66 @@ class DayPdtsController < ApplicationController
       else
         render :new
       end
+    end
+  end
+
+  #1点-00点
+  def only_emp_sync
+    @factory = my_factory
+    date = params[:search_date].to_date
+    _start = date.to_s + "00:10:00"
+    _end = (date + 1).to_s + "00:10:00"
+    @emp_infs = @factory.emp_infs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
+    @emp_effs = @factory.emp_effs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
+    state = 'success'
+
+    unless @emp_infs.blank?
+      inf_avg_cod  = format("%0.2f", @emp_infs.average(:cod)).to_f
+      inf_avg_nhn  = format("%0.2f", @emp_infs.average(:nhn)).to_f
+      inf_avg_tp   = format("%0.2f", @emp_infs.average(:tp)).to_f
+      inf_avg_tn   = format("%0.2f", @emp_infs.average(:tn)).to_f
+      inf_avg_ph   = format("%0.2f", @emp_infs.average(:ph)).to_f
+      inf_avg_temp = format("%0.2f", @emp_infs.average(:temp)).to_f
+      inf_sum_flow = format("%0.2f", @emp_infs.sum(:flow)).to_f
+      @inf_qlty = {
+        :cod => inf_avg_cod, 
+        :nhn => inf_avg_nhn, 
+        :tp  => inf_avg_tp , 
+        :tn  => inf_avg_tn , 
+        :ph  => inf_avg_ph , 
+        :inflow => inf_sum_flow
+      }
+    else
+      state = "error"
+    end
+
+    unless @emp_effs.blank?
+      eff_avg_cod  = format("%0.2f", @emp_effs.average(:cod)).to_f
+      eff_avg_nhn  = format("%0.2f", @emp_effs.average(:nhn)).to_f
+      eff_avg_tp   = format("%0.2f", @emp_effs.average(:tp)).to_f
+      eff_avg_tn   = format("%0.2f", @emp_effs.average(:tn)).to_f
+      eff_avg_ph   = format("%0.2f", @emp_effs.average(:ph)).to_f
+      eff_avg_temp = format("%0.2f", @emp_effs.average(:temp)).to_f
+      eff_sum_flow = format("%0.2f", @emp_effs.sum(:flow)).to_f
+      @eff_qlty = {
+        :cod => eff_avg_cod, 
+        :nhn => eff_avg_nhn, 
+        :tp  => eff_avg_tp , 
+        :tn  => eff_avg_tn , 
+        :ph  => eff_avg_ph ,
+        :outflow => eff_sum_flow 
+      }
+    else
+      state = "error"
+    end
+    result = {
+      :inf => @inf_qlty,
+      :eff => @eff_qlty,
+      :state => state
+    }
+
+    respond_to do |f|
+      f.json{ render :json => result.to_json}
     end
   end
 
