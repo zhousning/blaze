@@ -4,6 +4,21 @@ zh-CN:
       default: "%Y/%m/%d"
       short: "%b %d"
       long: "%B %d, %Y"
+  activerecord:
+    errors:
+      models:
+        day_pdt:
+          attributes:
+            min_temper:
+              blank: '最低温度必填, 没有值请填 0'
+            max_temper:
+              blank: '最高温度必填, 没有值请填 0'
+            pdt_date:
+              blank: '日期必填'
+            signer:
+              blank: '填报人必填'
+            weather:
+              blank: '天气必填'
   layouts:
     application:
       site_title: "山东公用水务集团生产运营智能平台"
@@ -814,3 +829,4 @@ zh-CN:
       title: 下载excel日报表
     xls_mth_download:
       title: 下载excel月报表
+

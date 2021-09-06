@@ -60,4 +60,9 @@ module DayPdtRptsHelper
     raw(str)
   end
 
+  def cms_sub_pref(title)
+    title = title.gsub(/在线-|化验-/, '')
+    title
+  end
+
 end  

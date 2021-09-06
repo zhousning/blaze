@@ -1,6 +1,6 @@
 ActiveAdmin.register DayPdtRpt  do
 
-  permit_params :name, :pdt_date, :weather, :temper, 
+  permit_params :name, :pdt_date, :weather, :min_temper,  :max_temper,
       :inf_qlty_bod, :inf_qlty_cod, :inf_qlty_ss, :inf_qlty_nhn, :inf_qlty_tn, :inf_qlty_tp, :inf_qlty_ph, 
       :eff_qlty_bod, :eff_qlty_cod, :eff_qlty_ss, :eff_qlty_nhn, :eff_qlty_tn, :eff_qlty_tp, :eff_qlty_ph, :eff_qlty_fecal,  
       :sed_qlty_bod, :sed_qlty_cod, :sed_qlty_ss, :sed_qlty_nhn, :sed_qlty_tn, :sed_qlty_tp, :sed_qlty_ph, 
@@ -14,7 +14,8 @@ ActiveAdmin.register DayPdtRpt  do
   filter :name, :label => Setting.day_pdt_rpts.name
   filter :pdt_date, :label => Setting.day_pdt_rpts.pdt_date
   filter :weather, :label => Setting.day_pdt_rpts.weather
-  filter :temper, :label => Setting.day_pdt_rpts.temper
+  filter :min_temper, :label => Setting.day_pdt_rpts.min_temper
+  filter :max_temper, :label => Setting.day_pdt_rpts.max_temper
   filter :inf_qlty_bod, :label => Setting.day_pdt_rpts.inf_qlty_bod
   filter :inf_qlty_cod, :label => Setting.day_pdt_rpts.inf_qlty_cod
   filter :inf_qlty_ss, :label => Setting.day_pdt_rpts.inf_qlty_ss
@@ -57,7 +58,8 @@ ActiveAdmin.register DayPdtRpt  do
       f.pdt_date.strftime('%Y-%m-%d')
     end
     column Setting.day_pdt_rpts.weather, :weather
-    column Setting.day_pdt_rpts.temper, :temper
+    column Setting.day_pdt_rpts.min_temper, :min_temper
+    column Setting.day_pdt_rpts.max_temper, :max_temper
     column Setting.day_pdt_rpts.inf_qlty_bod, :inf_qlty_bod
     column Setting.day_pdt_rpts.inf_qlty_cod, :inf_qlty_cod
     column Setting.day_pdt_rpts.inf_qlty_ss, :inf_qlty_ss
@@ -105,7 +107,8 @@ ActiveAdmin.register DayPdtRpt  do
       f.input :name, :label => Setting.day_pdt_rpts.name 
       f.input :pdt_date, :label => Setting.day_pdt_rpts.pdt_date 
       f.input :weather, :label => Setting.day_pdt_rpts.weather 
-      f.input :temper, :label => Setting.day_pdt_rpts.temper 
+      f.input :min_temper, :label => Setting.day_pdt_rpts.min_temper 
+      f.input :max_temper, :label => Setting.day_pdt_rpts.max_temper 
       f.input :inf_qlty_bod, :label => Setting.day_pdt_rpts.inf_qlty_bod 
       f.input :inf_qlty_cod, :label => Setting.day_pdt_rpts.inf_qlty_cod 
       f.input :inf_qlty_ss, :label => Setting.day_pdt_rpts.inf_qlty_ss 
@@ -156,8 +159,11 @@ ActiveAdmin.register DayPdtRpt  do
       row Setting.day_pdt_rpts.weather do
         day_pdt_rpt.weather
       end
-      row Setting.day_pdt_rpts.temper do
-        day_pdt_rpt.temper
+      row Setting.day_pdt_rpts.min_temper do
+        day_pdt_rpt.min_temper
+      end
+      row Setting.day_pdt_rpts.max_temper do
+        day_pdt_rpt.max_temper
       end
       row Setting.day_pdt_rpts.inf_qlty_bod do
         day_pdt_rpt.inf_qlty_bod

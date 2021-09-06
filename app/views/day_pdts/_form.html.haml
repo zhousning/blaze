@@ -26,7 +26,7 @@
               = f.label Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
               .col-sm-6
                 = f.text_field :signer, :class => "form-control rounded-0" , :required => true
-          .col-6.offset-3.p-5.border
+          .col-md-8.offset-md-2.p-5.border
             .row
               .col-6
                 .form-group.row
@@ -37,12 +37,18 @@
                 .form-group.row
                   = f.label Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
                   .col-sm-6
-                    = f.text_field :weather, :class => "form-control rounded-0" 
+                    = f.text_field :weather, :class => "form-control rounded-0" , :required => true
               .col-6
                 .form-group.row
-                  = f.label Setting.day_pdts.temper, :class => "col-sm-3 col-form-label text-right"
+                  = f.label Setting.day_pdts.min_temper, :class => "col-sm-3 col-form-label text-right"
                   .col-sm-6
-                    = f.number_field :temper, :class => "form-control rounded-0", :step => "any" 
+                    = f.number_field :min_temper, :class => "form-control rounded-0" , :required => true, :step => "any" 
+              .col-6
+                .form-group.row
+                  = f.label Setting.day_pdts.max_temper, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.number_field :max_temper, :class => "form-control rounded-0", :required => true, :step => "any" 
+
             = f.fields_for :inf_qlty do |inf_qlty|
               = render 'inf_qlty_fields', f: inf_qlty 
 

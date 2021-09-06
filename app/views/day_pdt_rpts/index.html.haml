@@ -8,20 +8,6 @@
       - content_for :card_header do
         %h5
           = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
-
-          
-          -#
-            = link_to xls_download_factories_day_pdt_rpts_path(idencode(@factory.id)), :class => "button button-royal pull-right button-small mr-1" do
-              下载表格模板
-          
-
-          
-
-          -#
-            = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
-              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
-            %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
-              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
       - content_for :card_body do
         .container-fluid
           .row
@@ -30,34 +16,34 @@
                 %thead
                   %tr
                     %th{:scope => "col"} #
-                  
+
                     %th{:scope => "col"}
                       = Setting.day_pdt_rpts.pdt_date
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.inf_qlty_cod
+                      = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_cod)
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.eff_qlty_cod
+                      = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod)
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.inf_qlty_bod
+                      = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn)
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.eff_qlty_bod
+                      = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn)
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.inf_qlty_tn
+                      = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp)
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.eff_qlty_tn
+                      = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp)
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.inf_qlty_tp
+                      = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn)
                     %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.eff_qlty_tp
-                    %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.inf_qlty_nhn
-                    %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.eff_qlty_nhn
-                    %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.inf_qlty_ss
-                    %th{:scope => "col"}
-                      = Setting.day_pdt_rpts.eff_qlty_ss
+                      = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn)
                     -#
+                      %th{:scope => "col"}
+                        = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod)
+                      %th{:scope => "col"}
+                        = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod)
+                      %th{:scope => "col"}
+                        = Setting.day_pdt_rpts.inf_qlty_ss
+                      %th{:scope => "col"}
+                        = Setting.day_pdt_rpts.eff_qlty_ss
                       %th{:scope => "col"}
                         = Setting.day_pdt_rpts.eff_qlty_fecal
                     %th{:scope => "col"}
@@ -74,10 +60,6 @@
                       %td
                         = day_pdt_rpt.eff_qlty_cod
                       %td
-                        = day_pdt_rpt.inf_qlty_bod
-                      %td
-                        = day_pdt_rpt.eff_qlty_bod
-                      %td
                         = day_pdt_rpt.inf_qlty_tn
                       %td
                         = day_pdt_rpt.eff_qlty_tn
@@ -89,11 +71,15 @@
                         = day_pdt_rpt.inf_qlty_nhn
                       %td
                         = day_pdt_rpt.eff_qlty_nhn
-                      %td
-                        = day_pdt_rpt.inf_qlty_ss
-                      %td
-                        = day_pdt_rpt.eff_qlty_ss
                       -#
+                        %td
+                          = day_pdt_rpt.inf_qlty_bod
+                        %td
+                          = day_pdt_rpt.eff_qlty_bod
+                        %td
+                          = day_pdt_rpt.inf_qlty_ss
+                        %td
+                          = day_pdt_rpt.eff_qlty_ss
                         %td
                           = day_pdt_rpt.eff_qlty_fecal
                       %td
@@ -101,16 +87,17 @@
                           .row.justify-content-center
                             %button#info-btn.button.button-primary.button-small.mr-1{:type => "button", :'data-rpt' => idencode(day_pdt_rpt.id), :'data-fct' => idencode(@factory.id)}
                               查看
-                            -#
-                              = link_to "详情",  factory_day_pdt_rpt_path(idencode(@factory.id), idencode(day_pdt_rpt.id)), :class => "button button-royal button-small" 
-                            -#
-                              = link_to "编辑", edit_day_pdt_rpt_path(idencode(day_pdt_rpt.id)), :class => "button button-highlight button-small mr-1" 
-                              = link_to "删除",  day_pdt_rpt_path(idencode(day_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
             .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
               = paginate @day_pdt_rpts, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
 
 = render "day_pdt_rpts/day_pdt_rpt_modal"
+
+-#
+  = link_to "详情",  factory_day_pdt_rpt_path(idencode(@factory.id), idencode(day_pdt_rpt.id)), :class => "button button-royal button-small" 
+-#
+  = link_to "编辑", edit_day_pdt_rpt_path(idencode(day_pdt_rpt.id)), :class => "button button-highlight button-small mr-1" 
+  = link_to "删除",  day_pdt_rpt_path(idencode(day_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
 -#
   %th{:scope => "col"}
     = Setting.day_pdt_rpts.name
@@ -253,3 +240,17 @@
     = day_pdt_rpt.mdrcy
   %td
     = day_pdt_rpt.mdsell
+
+          
+-#
+  = link_to xls_download_factories_day_pdt_rpts_path(idencode(@factory.id)), :class => "button button-royal pull-right button-small mr-1" do
+    下载表格模板
+
+
+
+
+-#
+  = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+    = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+  %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+    = fa_icon "plus", text: Setting.systems.btn_new, right: false 

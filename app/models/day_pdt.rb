@@ -1,5 +1,5 @@
 class DayPdt < ActiveRecord::Base
-
+  validates :min_temper, :max_temper, :pdt_date, :signer, :weather, :presence => true 
   #validates :pdt_date, :presence => { :message => "日期必填" }
   #:uniqueness => { :message => "当前日期运营数据已存在,不能重复创建" }
   #validate :pdt_date_validation

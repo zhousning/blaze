@@ -77,16 +77,20 @@ class DayPdtsController < ApplicationController
       @chemicals = @day_pdt.chemicals
       @pdt_sum = @day_pdt.pdt_sum
 
+
       @day_pdt_rpt = DayPdtRpt.new(
         :factory => @factory,
         :day_pdt => @day_pdt,
         :tspmuds => @tspmuds,
         :chemicals => @chemicals,
-        :name => @day_pdt.name, :pdt_date => @day_pdt.pdt_date, :weather => @day_pdt.weather, :temper => @day_pdt.temper, 
+        :name => @day_pdt.name, :pdt_date => @day_pdt.pdt_date, :weather => @day_pdt.weather, :min_temper => @day_pdt.min_temper,  :max_temper => @day_pdt.max_temper,
         :inf_qlty_bod => @inf.bod, :inf_qlty_cod => @inf.cod, :inf_qlty_ss => @inf.ss, :inf_qlty_nhn => @inf.nhn, :inf_qlty_tn => @inf.tn, :inf_qlty_tp => @inf.tp, :inf_qlty_ph => @inf.ph, 
         :eff_qlty_bod => @eff.bod, :eff_qlty_cod => @eff.cod, :eff_qlty_ss => @eff.ss, :eff_qlty_nhn => @eff.nhn, :eff_qlty_tn => @eff.tn, :eff_qlty_tp => @eff.tp, :eff_qlty_ph => @eff.ph, :eff_qlty_fecal => @eff.fecal,
         :sed_qlty_bod => @sed.bod, :sed_qlty_cod => @sed.cod, :sed_qlty_ss => @sed.ss, :sed_qlty_nhn => @sed.nhn, :sed_qlty_tn => @sed.tn, :sed_qlty_tp => @sed.tp, :sed_qlty_ph => @sed.ph, 
-        :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell, :per_cost => @pdt_sum.per_cost
+        :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell, :per_cost => @pdt_sum.per_cost,
+       :inf_asy_cod => @inf.asy_cod, inf_asy_nhn => @inf.asy_nhn, inf_asy_tp => @inf.asy_tp, inf_asy_tn => @inf.asy_tn,
+       :eff_asy_cod => @eff.asy_cod, eff_asy_nhn => @eff.asy_nhn, eff_asy_tp => @eff.asy_tp, eff_asy_tn => @eff.asy_tn,
+       :sed_asy_cod => @sed.asy_cod, sed_asy_nhn => @sed.asy_nhn, sed_asy_tp => @sed.asy_tp, sed_asy_tn => @sed.asy_tn
       )
 
       if @day_pdt_rpt.save
@@ -147,6 +151,7 @@ class DayPdtsController < ApplicationController
       inf_avg_cod  = format("%0.2f", @emp_infs.average(:cod)).to_f
       inf_avg_nhn  = format("%0.2f", @emp_infs.average(:nhn)).to_f
       inf_avg_tp   = format("%0.2f", @emp_infs.average(:tp)).to_f
+      inf_avg_tn   = format("%0.2f", @emp_infs.average(:tn)).to_f
       inf_avg_ph   = format("%0.2f", @emp_infs.average(:ph)).to_f
       inf_avg_temp = format("%0.2f", @emp_infs.average(:temp)).to_f
       inf_sum_flow = format("%0.2f", @emp_infs.sum(:flow)).to_f
@@ -154,6 +159,7 @@ class DayPdtsController < ApplicationController
         :cod => inf_avg_cod, 
         :nhn => inf_avg_nhn, 
         :tp  => inf_avg_tp , 
+        :tn  => inf_avg_tn , 
         :ph  => inf_avg_ph  
       }
       @inf_qlty.update_attributes(inf_qlty)
@@ -164,6 +170,7 @@ class DayPdtsController < ApplicationController
       eff_avg_cod  = format("%0.2f", @emp_effs.average(:cod)).to_f
       eff_avg_nhn  = format("%0.2f", @emp_effs.average(:nhn)).to_f
       eff_avg_tp   = format("%0.2f", @emp_effs.average(:tp)).to_f
+      eff_avg_tn   = format("%0.2f", @emp_effs.average(:tn)).to_f
       eff_avg_ph   = format("%0.2f", @emp_effs.average(:ph)).to_f
       eff_avg_temp = format("%0.2f", @emp_effs.average(:temp)).to_f
       eff_sum_flow = format("%0.2f", @emp_effs.sum(:flow)).to_f
@@ -171,6 +178,7 @@ class DayPdtsController < ApplicationController
         :cod => eff_avg_cod, 
         :nhn => eff_avg_nhn, 
         :tp  => eff_avg_tp , 
+        :tn  => eff_avg_tn , 
         :ph  => eff_avg_ph  
       }
       @eff_qlty.update_attributes(eff_qlty)
@@ -262,7 +270,7 @@ class DayPdtsController < ApplicationController
 
   private
     def day_pdt_params
-      params.require(:day_pdt).permit( :pdt_date, :name, :signer, :weather, :temper, :desc , enclosures_attributes: enclosure_params, inf_qlty_attributes: inf_qlty_params, eff_qlty_attributes: eff_qlty_params, sed_qlty_attributes: sed_qlty_params, pdt_sum_attributes: pdt_sum_params, tspmuds_attributes: tspmud_params, chemicals_attributes: chemical_params)
+      params.require(:day_pdt).permit( :pdt_date, :name, :signer, :weather, :min_temper, :max_temper, :desc , enclosures_attributes: enclosure_params, inf_qlty_attributes: inf_qlty_params, eff_qlty_attributes: eff_qlty_params, sed_qlty_attributes: sed_qlty_params, pdt_sum_attributes: pdt_sum_params, tspmuds_attributes: tspmud_params, chemicals_attributes: chemical_params)
     end
   
     def enclosure_params
@@ -280,15 +288,15 @@ class DayPdtsController < ApplicationController
    
   
     def inf_qlty_params
-      [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph ,:_destroy]
+      [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph , :asy_cod, :asy_nhn, :asy_tp, :asy_tn, :_destroy]
     end
   
     def eff_qlty_params
-      [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph, :fecal ,:_destroy]
+      [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph, :fecal , :asy_cod, :asy_nhn, :asy_tp, :asy_tn, :_destroy]
     end
   
     def sed_qlty_params
-      [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph ,:_destroy]
+      [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph , :asy_cod, :asy_nhn, :asy_tp, :asy_tn, :_destroy]
     end
   
     def pdt_sum_params
@@ -302,9 +310,5 @@ class DayPdtsController < ApplicationController
       [:id, :name, :unprice, :cmptc, :dosage , :dosptc, :per_cost, :_destroy]
     end
 
-    def my_factory
-      @factory = current_user.factories.find(iddecode(params[:factory_id]))
-    end
-   
 end
 

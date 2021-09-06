@@ -8,7 +8,8 @@ class CreateDayPdtRpts < ActiveRecord::Migration
     
       t.string :weather,  null: false, default: Setting.systems.default_str
     
-      t.float :temper,  null: false, default: Setting.systems.default_num 
+      t.float :min_temper,  null: false, default: Setting.systems.default_num 
+      t.float :max_temper,  null: false, default: Setting.systems.default_num 
     
       t.float :inf_qlty_bod,  null: false, default: Setting.systems.default_num 
     
@@ -74,13 +75,25 @@ class CreateDayPdtRpts < ActiveRecord::Migration
     
       t.float :per_cost,  null: false, default: Setting.systems.default_num 
     
+      t.float :inf_asy_cod,  null: false, default: Setting.systems.default_num 
+      t.float :inf_asy_nhn,  null: false, default: Setting.systems.default_num 
+      t.float :inf_asy_tp,   null: false, default: Setting.systems.default_num 
+      t.float :inf_asy_tn,   null: false, default: Setting.systems.default_num 
 
+      t.float :eff_asy_cod,  null: false, default: Setting.systems.default_num 
+      t.float :eff_asy_nhn,  null: false, default: Setting.systems.default_num 
+      t.float :eff_asy_tp,   null: false, default: Setting.systems.default_num 
+      t.float :eff_asy_tn,   null: false, default: Setting.systems.default_num 
+
+      t.float :sed_asy_cod,  null: false, default: Setting.systems.default_num 
+      t.float :sed_asy_nhn,  null: false, default: Setting.systems.default_num 
+      t.float :sed_asy_tp,   null: false, default: Setting.systems.default_num 
+      t.float :sed_asy_tn,   null: false, default: Setting.systems.default_num 
     
       t.references :day_pdt
     
       t.references :factory
     
-
     
       t.references :user
     

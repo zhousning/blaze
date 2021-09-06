@@ -19,6 +19,11 @@
     = f.number_field :tp, :class => "form-control rounded-0" , :required => true, :step => "any"
   
 .form-group.row
+  = f.label Setting.emp_effs.tp, :class => "col-sm-3 col-form-label text-right"
+  .col-sm-6
+    = f.number_field :tn, :class => "form-control rounded-0" , :required => true, :step => "any"
+
+.form-group.row
   = f.label Setting.emp_effs.flow, :class => "col-sm-3 col-form-label text-right"
   .col-sm-6
     = f.number_field :flow, :class => "form-control rounded-0" , :required => true, :step => "any"

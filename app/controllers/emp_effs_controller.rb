@@ -189,7 +189,7 @@ class EmpEffsController < ApplicationController
               temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
               @emp_eff = @factory.emp_effs.where(:pdt_time => datetime).first
-              EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => efflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_eff
+              EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :tn => tn, :flow => efflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_eff
             end
           end
         rescue
@@ -231,7 +231,7 @@ class EmpEffsController < ApplicationController
                 temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
                 @emp_eff = factory.emp_effs.where(:pdt_time => datetime).first
-                EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => efflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_eff
+                EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :tn => tn,  :flow => efflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_eff
               end
             end
           end
@@ -248,7 +248,7 @@ class EmpEffsController < ApplicationController
 
   private
     def emp_eff_params
-      params.require(:emp_eff).permit( :pdt_time, :cod, :nhn, :tp, :flow, :ph, :temp)
+      params.require(:emp_eff).permit( :pdt_time, :cod, :nhn, :tp, :tn, :flow, :ph, :temp)
     end
   
   

@@ -18,8 +18,12 @@ class CreateEffQlties < ActiveRecord::Migration
     
       t.integer :fecal,  null: false, default: Setting.systems.default_num 
     
+      t.float :asy_cod,  null: false, default: Setting.systems.default_num 
+      t.float :asy_nhn,  null: false, default: Setting.systems.default_num 
+      t.float :asy_tp,  null: false, default: Setting.systems.default_num 
+      t.float :asy_tn,  null: false, default: Setting.systems.default_num 
 
-    
+   
 
     
 

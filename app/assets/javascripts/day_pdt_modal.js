@@ -9,7 +9,7 @@ function day_pdt_modal() {
     var url = "/factories/" + data_fct + "/day_pdt_rpts/" + data_rpt + "/produce_report";
     $.get(url).done(function (data) {
       myChart.hideLoading();
-      var header = data.header.name + "&nbsp&nbsp<small class='text-success'>" + data.header.weather + " | " + data.header.temper + "摄氏度</small>"
+      var header = data.header.name + "&nbsp&nbsp<small class='text-success'>" + data.header.weather + " | " + data.header.min_temper + "一" + data.header.max_temper + "摄氏度 </small>"
       $("#day-pdt-rpt-header").html(header);
 
       var flow = data.flow;

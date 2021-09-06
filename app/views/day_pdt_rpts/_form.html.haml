@@ -28,9 +28,13 @@
             = f.text_field :weather, :class => "form-control rounded-0" 
           
         .form-group.row
-          = f.label Setting.day_pdt_rpts.temper, :class => "col-sm-3 col-form-label text-right"
+          = f.label Setting.day_pdt_rpts.min_temper, :class => "col-sm-3 col-form-label text-right"
           .col-sm-6
-            = f.number_field :temper, :class => "form-control rounded-0" 
+            = f.number_field :min_temper, :class => "form-control rounded-0" 
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.max_temper, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :max_temper, :class => "form-control rounded-0" 
           
         .form-group.row
           = f.label Setting.day_pdt_rpts.inf_qlty_bod, :class => "col-sm-3 col-form-label text-right"

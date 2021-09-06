@@ -1313,8 +1313,7 @@ defaults:
     label: 部门
     name: 名称
     info: 简介
-  pdt_sums: &139
-    label: 日处理水量、日总耗电量
+  day_pdt_sum: &day_pdt_sum
     inflow: 进水量(吨)
     outflow: 出水量(吨)
     inmud: 进泥量(吨)
@@ -1324,44 +1323,47 @@ defaults:
     mdflow: 中水量(吨)
     mdrcy: 中水回用量(吨)
     mdsell: 中水销售水量(吨)
+    per_cost: 吨水药剂成本合计
     tspmud: 转运泥量(吨)
     rcpmud: 处置单位接收量(吨)
     dlemud: 处置单位名称
+  water_cms: &water_cms
+    ph: PH
+    fecal:    化验-粪大肠菌群数(个/l)
+    bod:      化验-BOD5(mg/l)
+    ss:       化验-SS(mg/l)
+    tn:       化验-TN(mg/l)
+    asy_cod:  化验-COD(mg/l)
+    asy_nhn:  化验-NH3-N(mg/l)
+    asy_tp:   化验-TP(mg/l)
+    asy_tn:   化验-TN(mg/l)
+    cod:      在线-COD(mg/l)
+    nhn:      在线-NH3-N(mg/l)
+    tp:       在线-TP(mg/l)
+    tn:       在线-TN(mg/l)
+    pdt_time: 监测时间
+    flow:     小时流量(m3/小时)
+    temp:     水温(摄氏度)
+  pdt_sums: &139
+    <<: *day_pdt_sum
+    label: 日处理水量、日总耗电量
   sed_qlties: &140
+    <<: *water_cms
     label: 二沉池出水
-    bod: BOD5(mg/l)
-    cod: COD(mg/l)
-    ss: SS(mg/l)
-    nhn: NH3-N(mg/l)
-    tn: TN(mg/l)
-    tp: TP(mg/l)
-    ph: PH
   eff_qlties: &141
+    <<: *water_cms
     label: 出水水质
-    bod: BOD5(mg/l)
-    cod: COD(mg/l)
-    ss: SS(mg/l)
-    nhn: NH3-N(mg/l)
-    tn: TN(mg/l)
-    tp: TP(mg/l)
-    ph: PH
-    fecal: 粪大肠菌群数(个/l)
   inf_qlties: &142
+    <<: *water_cms
     label: 进水水质
-    bod: BOD5(mg/l)
-    cod: COD(mg/l)
-    ss: SS(mg/l)
-    nhn: NH3-N(mg/l)
-    tn: TN(mg/l)
-    tp: TP(mg/l)
-    ph: PH
   day_pdts: &143
     label: 生产运营数据
     pdt_date: 日期
     name: 名称
     signer: 填报人
     weather: 天气
-    temper: 气温
+    min_temper: 最低气温
+    max_temper: 最高气温
     desc: 其他说明
     ongoing: 0
     ongoing_t: 填报中
@@ -1376,43 +1378,47 @@ defaults:
     complete: 5
     complete_t: 已上报水务集团
   day_pdt_rpts: &144
+    <<: *day_pdt_sum
     label: 生产运营日报表
     name: 名称
     pdt_date: 日期
     weather: 天气
-    temper: 温度(摄氏度)
-    inf_qlty_bod: 进水BOD(mg/l)
-    inf_qlty_cod: 进水COD(mg/l)
-    inf_qlty_ss: 进水SS(mg/l)
-    inf_qlty_nhn: 进水氨氮(mg/l)
-    inf_qlty_tn: 进水TN(mg/l)
-    inf_qlty_tp: 进水TP(mg/l)
-    inf_qlty_ph: 进水PH
-    eff_qlty_bod: 出水BOD(mg/l)
-    eff_qlty_cod: 出水COD(mg/l)
-    eff_qlty_ss: 出水SS(mg/l)
-    eff_qlty_nhn: 出水氨氮(mg/l)
-    eff_qlty_tn: 出水TN(mg/l)
-    eff_qlty_tp: 出水TP(mg/l)
-    eff_qlty_ph: 出水PH
+    min_temper: 最低气温(摄氏度)
+    max_temper: 最高气温(摄氏度)
+    inf_qlty_ph:  进水PH
+    inf_qlty_bod: 化验-进水BOD(mg/l)
+    inf_qlty_ss:  化验-进水SS(mg/l)
+    inf_asy_cod:  化验-进水COD(mg/l)
+    inf_asy_nhn:  化验-进水NH3-N(mg/l)
+    inf_asy_tp:   化验-进水TP(mg/l)
+    inf_asy_tn:   化验-进水TN(mg/l)
+    inf_qlty_cod: 在线-进水COD(mg/l)
+    inf_qlty_nhn: 在线-进水NH3-N(mg/l)
+    inf_qlty_tp:  在线-进水TP(mg/l)
+    inf_qlty_tn:  在线-进水TN(mg/l)
+    eff_qlty_ph:  出水PH
+    eff_qlty_bod: 化验-出水BOD(mg/l)
+    eff_qlty_ss:  化验-出水SS(mg/l)
+    eff_asy_cod:  化验-出水COD(mg/l)
+    eff_asy_nhn:  化验-出水NH3-N(mg/l)
+    eff_asy_tp:   化验-出水TP(mg/l)
+    eff_asy_tn:   化验-出水TN(mg/l)
+    eff_qlty_cod: 在线-出水COD(mg/l)
+    eff_qlty_nhn: 在线-出水NH3-N(mg/l)
+    eff_qlty_tp:  在线-出水TP(mg/l)
+    eff_qlty_tn:  在线-出水TN(mg/l)
     eff_qlty_fecal: 出水粪大肠菌群(个)
-    sed_qlty_bod: 二沉池BOD(mg/l)
-    sed_qlty_cod: 二沉池COD(mg/l)
-    sed_qlty_ss: 二沉池SS(mg/l)
-    sed_qlty_nhn: 二沉池氨氮(mg/l)
-    sed_qlty_tn: 二沉池TN(mg/l)
-    sed_qlty_tp: 二沉池TP(mg/l)
-    sed_qlty_ph: 二沉池PH
-    inflow: 进水量(吨)
-    outflow: 出水量(吨)
-    inmud: 进泥量(吨)
-    outmud: 出泥量(吨)
-    mst: 污泥含水率(%)
-    power: 耗电量(度)
-    mdflow: 中水量(吨)
-    mdrcy: 中水回用量(吨)
-    mdsell: 中水销售水量(吨)
-    per_cost: 吨水药剂成本合计
+    sed_qlty_ph:  二沉池PH
+    sed_qlty_bod: 化验-二沉池BOD(mg/l)
+    sed_qlty_ss:  化验-二沉池SS(mg/l)
+    sed_asy_cod:  化验-二沉池COD(mg/l)
+    sed_asy_nhn:  化验-二沉池NH3-N(mg/l)
+    sed_asy_tp:   化验-二沉池TP(mg/l)
+    sed_asy_tn:   化验-二沉池TN(mg/l)
+    sed_qlty_cod: 在线-二沉池COD(mg/l)
+    sed_qlty_nhn: 在线-二沉池NH3-N(mg/l)
+    sed_qlty_tp:  在线-二沉池TP(mg/l)
+    sed_qlty_tn:  在线-二沉池TN(mg/l)
   quota: &145
     label: 指标
     name: 名称
@@ -1451,15 +1457,8 @@ defaults:
     mdsell: '15'
     fecal: '16'
   level_ones: &146
+    <<: *water_cms
     label: 一级A出水标准
-    bod: BOD5(mg/l)
-    cod: COD(50mg/l)
-    ss: SS(10mg/l)
-    nhn: NH3-N(5mg/l)
-    tn: TN(15mg/l)
-    tp: TP(mg/l)
-    ph: PH
-    fecal: 粪大肠菌群数(1000个/l)
     bod_s: 10
     cod_s: 50
     ss_s: 10
@@ -1666,9 +1665,6 @@ defaults:
     complete_t: 已上报水务集团
   emp_infs: &162
     label: 济宁市环境自动监测系统进水口
-    pdt_time: 监测时间
-    flow: 小时流量(m3/小时)
-    temp: 水温(摄氏度)
     bod: BOD5(mg/l)
     cod: COD(mg/l)
     ss: SS(mg/l)
@@ -1676,6 +1672,9 @@ defaults:
     tn: TN(mg/l)
     tp: TP(mg/l)
     ph: PH
+    pdt_time: 监测时间
+    flow:     小时流量(m3/小时)
+    temp:     水温(摄氏度)
   emp_effs: &163
     label: 济宁市环境自动监测系统出水口
     pdt_time: 监测时间
@@ -1688,6 +1687,9 @@ defaults:
     tn: TN(mg/l)
     tp: TP(mg/l)
     ph: PH
+    pdt_time: 监测时间
+    flow:     小时流量(m3/小时)
+    temp:     水温(摄氏度)
   day_rpt_stcs: &164
     label: 日报表统计分析
     bcr: BOD/COD(>0.3)
@@ -1989,19 +1991,21 @@ development:
     xxty_t: 新型碳源
     pac: '4'
     pac_t: PAC
-    pam: '5'
-    pam_t: PAM
-    slht: '6'
+    pam_yin: '5'
+    pam_yin_t: PAM阴离子
+    pam_yang: '6'
+    pam_yang_t: PAM阳离子
+    slht: '7'
     slht_t: 三氯化铁
-    jhlst: '7'
+    jhlst: '8'
     jhlst_t: 聚合硫酸铁
-    clsn: '8'
+    clsn: '9'
     clsn_t: 次氯酸钠
-    swj: '9'
+    swj: '10'
     swj_t: 水烷洁
-    yy: '10'
+    yy: '11'
     yy_t: 液氧
-    hxt: '11'
+    hxt: '12'
     hxt_t: 活性炭
 test:
   admins: *104

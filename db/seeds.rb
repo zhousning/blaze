@@ -168,13 +168,14 @@ ChemicalCtg.create!(:code => Setting.chemical_ctgs.csn ,  :name => Setting.chemi
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.jc ,   :name => Setting.chemical_ctgs.jc_t    )
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.xxty , :name => Setting.chemical_ctgs.xxty_t  )
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.pac ,  :name => Setting.chemical_ctgs.pac_t   )
-ChemicalCtg.create!(:code => Setting.chemical_ctgs.pam ,  :name => Setting.chemical_ctgs.pam_t   )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.pam_yin ,  :name => Setting.chemical_ctgs.pam_yin_t   )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.pam_yang ,  :name => Setting.chemical_ctgs.pam_yang_t   )
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.slht , :name => Setting.chemical_ctgs.slht_t  )
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.jhlst ,:name => Setting.chemical_ctgs.jhlst_t )
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.clsn , :name => Setting.chemical_ctgs.clsn_t  )
+ChemicalCtg.create!(:code => Setting.chemical_ctgs.hxt ,  :name => Setting.chemical_ctgs.hxt_t   )
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.swj ,  :name => Setting.chemical_ctgs.swj_t   )
 ChemicalCtg.create!(:code => Setting.chemical_ctgs.yy ,   :name => Setting.chemical_ctgs.yy_t    )
-ChemicalCtg.create!(:code => Setting.chemical_ctgs.hxt ,  :name => Setting.chemical_ctgs.hxt_t   )
 
 #Factory.all.each do |f|
 #  fake = Faker::Date

@@ -9,6 +9,7 @@ class CreateEmpInfs < ActiveRecord::Migration
       t.float :nhn,  null: false, default: Setting.systems.default_num 
     
       t.float :tp,  null: false, default: Setting.systems.default_num 
+      t.float :tn,  null: false, default: Setting.systems.default_num 
     
       t.float :flow,  null: false, default: Setting.systems.default_num 
     

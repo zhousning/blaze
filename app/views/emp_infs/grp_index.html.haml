@@ -51,7 +51,9 @@
                     %th.py-2{:scope => "col"}
                       = Setting.emp_infs.nhn
                     %th.py-2{:scope => "col"}
-                      = Setting.emp_infs.tp
+                      = setting.emp_infs.tp
+                    %th.py-2{:scope => "col"}
+                      = setting.emp_infs.tn
                     %th.py-2{:scope => "col"}
                       = Setting.emp_infs.flow
                     %th.py-2{:scope => "col"}
@@ -77,6 +79,8 @@
                         = emp_inf.nhn
                       %td.py-2
                         = emp_inf.tp
+                      %td.py-2
+                        = emp_inf.tn
                       %td.py-2
                         = emp_inf.flow
                       %td.py-2

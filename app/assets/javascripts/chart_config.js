@@ -106,9 +106,15 @@ function radarOption(my_title, my_series, my_dimensions, my_datasets, my_indicat
 function newOption(my_title, my_series, my_dimensions, my_source) {
   var new_Option = {
     title: {
-      text: my_title 
+      text: my_title, 
+      subtext: 'COD,NH3-N,TP,TN取在线仪表平均值',
+      left: 'center',
+      align: 'right'
     },
-    legend: { data: my_dimensions},
+    legend: { 
+      data: my_dimensions,
+      left: 10
+    },
     label: { show: true },
     tooltip: { trigger: 'axis' },
     xAxis: {type: 'category'},

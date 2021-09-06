@@ -188,7 +188,7 @@ class EmpInfsController < ApplicationController
               temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
               @emp_inf = @factory.emp_infs.where(:pdt_time => datetime).first
-              EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => inflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_inf
+              EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :tn => tn, :flow => inflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_inf
             end
           end
         rescue
@@ -230,7 +230,7 @@ class EmpInfsController < ApplicationController
                 temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
                 @emp_inf = factory.emp_infs.where(:pdt_time => datetime).first
-                EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :flow => inflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_inf
+                EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :tn => tn, :flow => inflow, :ph => ph, :temp => temp, :factory => factory) unless @emp_inf
               end
             end
           end
@@ -255,6 +255,7 @@ class EmpInfsController < ApplicationController
         :cod       => inf.cod,     
         :nhn       => inf.nhn,     
         :tp        => inf.tp,      
+        :tn        => inf.tn,      
         :flow      => inf.flow,    
         :ph        => inf.ph,      
         :temp      => inf.temp    
@@ -269,7 +270,7 @@ class EmpInfsController < ApplicationController
 
   private
     def emp_inf_params
-      params.require(:emp_inf).permit( :pdt_time, :cod, :nhn, :tp, :flow, :ph, :temp)
+      params.require(:emp_inf).permit( :pdt_time, :cod, :nhn, :tp, :tn, :flow, :ph, :temp)
     end
   
   

@@ -10,7 +10,9 @@ class CreateDayPdts < ActiveRecord::Migration
     
       t.string :weather,  null: false, default: Setting.systems.default_str
     
-      t.float :temper,  null: false, default: Setting.systems.default_num 
+      t.float :min_temper,  null: false, default: Setting.systems.default_num 
+
+      t.float :max_temper,  null: false, default: Setting.systems.default_num 
     
       t.text :desc
     

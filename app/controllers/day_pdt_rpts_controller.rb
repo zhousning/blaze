@@ -133,11 +133,15 @@ class DayPdtRptsController < ApplicationController
     header = {
       :name => @day_pdt_rpt.name, 
       :weather => @day_pdt_rpt.weather, 
-      :temper => @day_pdt_rpt.temper,
+      :min_temper => @day_pdt_rpt.min_temper,
+      :max_temper => @day_pdt_rpt.max_temper
     }
     flow = {
       Setting.day_pdt_rpts.inflow => @day_pdt_rpt.inflow, 
       Setting.day_pdt_rpts.outflow => @day_pdt_rpt.outflow,
+      Setting.day_pdt_rpts.eff_qlty_fecal => @day_pdt_rpt.eff_qlty_fecal,
+      Setting.day_pdt_rpts.inf_qlty_ph => @day_pdt_rpt.inf_qlty_ph, 
+      Setting.day_pdt_rpts.eff_qlty_ph => @day_pdt_rpt.eff_qlty_ph, 
       Setting.day_rpt_stcs.bcr => @day_rpt_stc.bcr,
       Setting.day_rpt_stcs.bnr => @day_rpt_stc.bnr,
       Setting.day_rpt_stcs.bpr => @day_rpt_stc.bpr
@@ -214,10 +218,10 @@ class DayPdtRptsController < ApplicationController
           :datasets => [
             {:source => "COD", :'进水' => @day_pdt_rpt.inf_qlty_cod, :'出水' => @day_pdt_rpt.eff_qlty_cod},
             {:source => "BOD", :'进水' => @day_pdt_rpt.inf_qlty_bod, :'出水' => @day_pdt_rpt.eff_qlty_bod},
+            {:source => "NH3-N", :'进水' => @day_pdt_rpt.inf_qlty_nhn, :'出水' => @day_pdt_rpt.eff_qlty_nhn},
             {:source => "TN", :'进水' => @day_pdt_rpt.inf_qlty_tn, :'出水' => @day_pdt_rpt.eff_qlty_tn},
             {:source => "TP", :'进水' => @day_pdt_rpt.inf_qlty_tp, :'出水' => @day_pdt_rpt.eff_qlty_tp},
-            {:source => "NH3-N", :'进水' => @day_pdt_rpt.inf_qlty_nhn, :'出水' => @day_pdt_rpt.eff_qlty_nhn},
-            {:source => "PH", :'进水' => @day_pdt_rpt.inf_qlty_ph, :'出水' => @day_pdt_rpt.eff_qlty_ph}
+            {:source => "SS", :'进水' => @day_pdt_rpt.inf_qlty_ss, :'出水' => @day_pdt_rpt.eff_qlty_ss}
           ],
           :fct_id => idencode(@factory.id),
           :day_rpt_id => idencode(@day_pdt_rpt.id),
@@ -250,10 +254,13 @@ class DayPdtRptsController < ApplicationController
 
   private
     def day_pdt_rpt_params
-      params.require(:day_pdt_rpt).permit(:name, :pdt_date, :weather, :temper, 
+      params.require(:day_pdt_rpt).permit(:name, :pdt_date, :weather, :min_temper, :max_temper, 
       :inf_qlty_bod, :inf_qlty_cod, :inf_qlty_ss, :inf_qlty_nhn, :inf_qlty_tn, :inf_qlty_tp, :inf_qlty_ph, 
       :eff_qlty_bod, :eff_qlty_cod, :eff_qlty_ss, :eff_qlty_nhn, :eff_qlty_tn, :eff_qlty_tp, :eff_qlty_ph, :eff_qlty_fecal,  
       :sed_qlty_bod, :sed_qlty_cod, :sed_qlty_ss, :sed_qlty_nhn, :sed_qlty_tn, :sed_qlty_tp, :sed_qlty_ph, 
+      :inf_asy_cod, :inf_asy_nhn, :inf_asy_tn, :inf_asy_tp, 
+      :eff_asy_cod, :eff_asy_nhn, :eff_asy_tn, :eff_asy_tp,
+      :sed_asy_cod, :sed_asy_nhn, :sed_asy_tn, :sed_asy_tp, 
       :inflow, :outflow, :inmud, :outmud, :mst, :power, :mdflow, :mdrcy, :mdsell)
     end
   
