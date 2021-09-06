@@ -119,7 +119,7 @@ class DayPdtsController < ApplicationController
     @day_pdt = DayPdt.new(day_pdt_params)
 
     if day_pdt || day_pdt_rpt
-      @day_pdt.errors[:date_error] = "当前日期运营数据已存在,请重新填报"
+      @day_pdt.errors[:date_error] = day_pdt_params[:pdt_date] + "运营数据已存在,请重新填报"
       render :new
     else
       @day_pdt.name = @day_pdt.pdt_date.to_s + @factory.name + "生产运营报表"
@@ -256,11 +256,11 @@ class DayPdtsController < ApplicationController
   def update
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
-    day_pdt = @factory.day_pdts.where(:pdt_date => day_pdt_params[:pdt_date]).first
+    day_pdt = @factory.day_pdts.where(['id != ? and pdt_date = ?', @day_pdt.id, day_pdt_params[:pdt_date]]).first
     day_pdt_rpt = @factory.day_pdt_rpts.where(:pdt_date => day_pdt_params[:pdt_date]).first
 
     if day_pdt || day_pdt_rpt
-      flash[:warning] = "当前日期运营数据已存在,请重新填报"
+      @day_pdt.errors[:date_error] = day_pdt_params[:pdt_date] + "运营数据已存在,请重新填报"
       render :edit
     else
       @day_pdt.name = day_pdt_params[:pdt_date].to_s + @factory.name + "生产运营报表"
