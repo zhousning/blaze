@@ -2045,6 +2045,8 @@ test:
   statistics: *134
   meter_standards: *135
 production:
+  day_pdt_sum: *day_pdt_sum
+  water_cms: *water_cms
   wares: *126
   notices: *1
   reports: *3
