@@ -14,7 +14,8 @@
       - content_for :card_header do
         %h5
           = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
-          %span.text-danger
+          -#
+            %span.text-danger
             = fa_icon "question-circle-o", text: Setting.systems.produce_mth_rpt 
         %ul.list-group.list-group-horizontal
           %li.list-group-item.pl-0.border-0

@@ -3,8 +3,8 @@
     .field.d-inline
       .card.border-dark.mb-3.rounded-0
         .card-header.bg-transparent.border-dark
-          5 
-          = Setting.tspmuds.label
+          6 
+          = Setting.chemicals.label
           %span.text-danger
             (PAM药剂浓度为固体药剂溶解后浓度)
           = link_to_remove_association "删除", f, :class => "btn btn-danger btn-sm d-inline pull-right"
@@ -12,33 +12,33 @@
           %table.table-bordered.day-pdt-table.ml-2
             %tbody
               %tr
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = f.label Setting.chemicals.name, :class => "gtext-center"
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = f.select :name, options_for_chemicals, {:include_blank=>false}, {:class=>"form-control"}
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = f.label Setting.chemicals.unprice, :class => "gtext-center"
-                %td.p-3.text-center
+                %td.p-2.text-center
                   =f.number_field :unprice, :class => "form-control rounded-0", :step => "any"  , :required => true
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = f.label Setting.chemicals.dosage, :class => "gtext-center"
-                %td.p-3.text-center
+                %td.p-2.text-center
                   =f.number_field :dosage, :class => "form-control rounded-0", :step => "any", :required => true
 
               %tr
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = f.label Setting.chemicals.cmptc, :class => "gtext-center"
-                %td.p-3.text-center
+                %td.p-2.text-center
                   =f.number_field :cmptc, :class => "form-control rounded-0", :step => "any", :required => true
                 %td.p-2.text-center{:colspan => "4"}
 -#
   
-  %td.p-3.text-center
+  %td.p-2.text-center
     = f.label Setting.chemicals.dosptc, :class => "gtext-center"
-  %td.p-3.text-center
+  %td.p-2.text-center
     =f.number_field :dosptc, :class => "form-control rounded-0", :step => "any"  , :required => true
   
-  %td.p-3.text-center
+  %td.p-2.text-center
     = f.label Setting.chemicals.per_cost, :class => "gtext-center"
-  %td.p-3.text-center
+  %td.p-2.text-center
     =f.number_field :per_cost, :class => "form-control rounded-0", :step => "any"  , :required => true

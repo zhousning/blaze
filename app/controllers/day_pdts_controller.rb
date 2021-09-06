@@ -256,13 +256,21 @@ class DayPdtsController < ApplicationController
   def update
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
-    @day_pdt.name = day_pdt_params[:pdt_date].to_s + @factory.name + "生产运营报表"
+    day_pdt = @factory.day_pdts.where(:pdt_date => day_pdt_params[:pdt_date]).first
+    day_pdt_rpt = @factory.day_pdt_rpts.where(:pdt_date => day_pdt_params[:pdt_date]).first
 
-    if @day_pdt.update(day_pdt_params)
-      cal_per_cost(@day_pdt)
-      redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
-    else
+    if day_pdt || day_pdt_rpt
+      flash[:warning] = "当前日期运营数据已存在,请重新填报"
       render :edit
+    else
+      @day_pdt.name = day_pdt_params[:pdt_date].to_s + @factory.name + "生产运营报表"
+
+      if @day_pdt.update(day_pdt_params)
+        cal_per_cost(@day_pdt)
+        redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+      else
+        render :edit
+      end
     end
   end
 
@@ -282,50 +290,6 @@ class DayPdtsController < ApplicationController
   #  @day_pdt.destroy
   #  redirect_to :action => :index
   #end
-   
-
-  def xls_download
-    send_file File.join(Rails.root, "templates", "表格模板.xlsx"), :filename => "表格模板.xlsx", :type => "application/force-download", :x_sendfile=>true
-  end
-  
-  
-  
-  def parse_excel
-    excel = params["excel_file"]
-    tool = ExcelTool.new
-    results = tool.parseExcel(excel.path)
-
-    a_str = ""
-    b_str = ""
-    c_str = "" 
-    d_str = ""
-    e_str = ""
-    f_str = ""
-    g_str = ""
-
-    results["Sheet1"][1..-1].each do |items|
-      items.each do |k, v|
-        if !(/A/ =~ k).nil?
-          a_str = v.nil? ? "" : v 
-        elsif !(/B/ =~ k).nil?
-          b_str = v.nil? ? "" : v 
-        elsif !(/C/ =~ k).nil?
-          c_str = v.nil? ? "" : v 
-        elsif !(/D/ =~ k).nil?
-          d_str = v.nil? ? "" : v 
-        elsif !(/E/ =~ k).nil?
-          e_str = v.nil? ? "" : v 
-        elsif !(/F/ =~ k).nil?
-          f_str = v.nil? ? "" : v 
-        elsif !(/G/ =~ k).nil?
-          g_str = v.nil? ? "" : v 
-          break
-        end
-      end
-    end
-
-    redirect_to :action => :index
-  end 
   
 
   private

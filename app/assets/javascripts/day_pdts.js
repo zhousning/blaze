@@ -1,5 +1,5 @@
 $(".day_pdts").ready(function() {
-  if ($(".day_pdts.new, .day_pdts.edit").length > 0) {
+  if ($(".day_pdts.new, .day_pdts.edit, .day_pdts.update").length > 0) {
     $("#day-pdt-date").blur(function() {
       var that = this;
       var date = $(that).val();
