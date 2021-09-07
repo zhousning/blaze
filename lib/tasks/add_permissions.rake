@@ -45,7 +45,6 @@ end
 
 
 def write_permission(class_name, cancan_action, name, description)
-  puts class_name
   permission  = Permission.where(["subject_class = ? and action = ?", class_name, cancan_action]).first 
   unless permission
     permission = Permission.new
