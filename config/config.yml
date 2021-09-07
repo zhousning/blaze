@@ -1016,8 +1016,10 @@ defaults:
     fct_emp_eff: 厂区环境监测系统出水查看
     fct_emp_inf_mg: 厂区环境监测系统进水数据管理
     fct_emp_eff_mg: 厂区环境监测系统出水数据管理
-    grp_emp_inf: 集团环境监测系统出水
-    grp_emp_eff: 集团环境监测系统进水
+    grp_emp_inf: 集团运营环境监测系统出水
+    grp_emp_eff: 集团运营环境监测系统进水
+    grp_mgn_emp_inf: 集团管理者环境监测系统出水
+    grp_mgn_emp_eff: 集团管理者环境监测系统进水
   permissions: &107
     super_admin: 管理系统所有资源
     label: 权限管理

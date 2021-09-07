@@ -47,6 +47,8 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @role_fct_emp_eff_mg    = Role.where(:name =>  Setting.roles.fct_emp_eff_mg).first
 @role_grp_emp_inf    = Role.where(:name =>  Setting.roles.grp_emp_inf).first
 @role_grp_emp_eff    = Role.where(:name =>  Setting.roles.grp_emp_eff).first
+@role_grp_mgn_emp_inf    = Role.where(:name =>  Setting.roles.grp_mgn_emp_inf).first
+@role_grp_mgn_emp_eff    = Role.where(:name =>  Setting.roles.grp_mgn_emp_eff).first
 
 #厂区数据填报
 @data_filler  = [@role_fct, @role_day_pdt , @role_day_rpt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff, @role_fct_emp_inf_mg, @role_fct_emp_eff_mg]
@@ -60,6 +62,7 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @grp_opt = [@role_grp, @role_data_compare ,@role_data_cube, @role_area_time, @role_report, @role_grp_emp_inf, @role_grp_emp_eff] 
 
 #集团管理者
+@grp_mgn = [@role_grp, @role_data_compare ,@role_data_cube, @role_area_time, @role_report, @role_grp_mgn_emp_inf, @role_grp_mgn_emp_eff] 
                                                               
 @renc = Company.create!(:area => "任城区", :name => "任城污水处理厂")
 @jinx = Company.create!(:area => "金乡县", :name => "达斯玛特污水处理厂")
@@ -144,6 +147,9 @@ user.factories << all_factories
 
 #集团运营
 grp_opt = User.create!(:phone => "15763703588", :password => "swjt3588", :password_confirmation => "swjt3588", :name => "水务集团运营", :roles => @grp_opt, :factories => all_factories)
+
+#集团管理
+grp_mgn = User.create!(:phone => "1236688", :password => "swjt6688", :password_confirmation => "swjt6688", :name => "水务集团管理者", :roles => @grp_mgn, :factories => all_factories)
 
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.cod.gsub(/在线-|化验-/, ''),      :max => Setting.level_ones.cod_s, :name => Setting.inf_qlties.cod)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ss.gsub(/在线-|化验-/, ''),       :max => Setting.level_ones.ss_s, :name => Setting.inf_qlties.ss)

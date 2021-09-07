@@ -5,29 +5,33 @@
         .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success
           综合分析
         .card-body.py-0
-          - if current_user.has_role?(Setting.roles.data_cube)
-            = link_to sglfct_statistic_day_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-              = fa_icon "cubes", text: "数据立方"
-          - if current_user.has_role?(Setting.roles.data_compare)
-            = link_to compare_analyses_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-              = fa_icon "object-ungroup", text: "指标对比"
+          -#
+            - if current_user.has_role?(Setting.roles.data_cube)
+          = link_to sglfct_statistic_day_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+            = fa_icon "cubes", text: "数据立方"
+          -#
+            - if current_user.has_role?(Setting.roles.data_compare)
+          = link_to compare_analyses_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+            = fa_icon "object-ungroup", text: "指标对比"
           = link_to area_time_analyses_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
             = fa_icon "object-ungroup", text: "厂间分析"
-      - if current_user.has_role?(Setting.roles.report)
-        .card.border-0.rounded-0
-          .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success
-            报表管理
-          .card-body.py-0
-            = link_to day_report_reports_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-              = fa_icon "cubes", text: "日报表"
-            = link_to mth_report_reports_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-              = fa_icon "object-ungroup", text: "月报表"
-      - if current_user.has_role?(Setting.roles.grp_emp_inf) || current_user.has_role?(Setting.roles.grp_emp_eff)
-        .card.border-0.rounded-0
-          .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success
-            济宁环境监测系统
-          .card-body.py-0
-            = link_to grp_index_emp_infs_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-              = fa_icon "sign-in", text: "进水口"
-            = link_to grp_index_emp_effs_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-              = fa_icon "sign-out", text: "出水口"
+      -#
+        - if current_user.has_role?(Setting.roles.report)
+      .card.border-0.rounded-0
+        .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success
+          报表管理
+        .card-body.py-0
+          = link_to day_report_reports_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+            = fa_icon "cubes", text: "日报表"
+          = link_to mth_report_reports_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+            = fa_icon "object-ungroup", text: "月报表"
+      -#
+        - if current_user.has_role?(Setting.roles.grp_emp_inf) || current_user.has_role?(Setting.roles.grp_emp_eff)
+      .card.border-0.rounded-0
+        .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success
+          济宁环境监测系统
+        .card-body.py-0
+          = link_to grp_index_emp_infs_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+            = fa_icon "sign-in", text: "进水口"
+          = link_to grp_index_emp_effs_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+            = fa_icon "sign-out", text: "出水口"

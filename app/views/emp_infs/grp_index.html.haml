@@ -28,7 +28,8 @@
             %span
               一
             = date_field_tag 'search_end', nil, class: 'form-control ml-1', :value => Date.today
-          .col-2
+          -#
+            .col-2
             %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载Excel
 

@@ -15,7 +15,7 @@
               下载表格模板
             
             %button.button.button-caution.button-small.pull-right.mr-1{"data-target" => "#exampleModal", "data-toggle" => "modal", :type => "button"}
-              上传表格
+              上传出水表格
             
             -#
               %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
@@ -28,7 +28,8 @@
             %span
               一
             = date_field_tag 'search_end', nil, class: 'form-control ml-1', :value => Date.today
-          .col-2
+          -#
+            .col-2
             %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载Excel
 
