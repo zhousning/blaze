@@ -7,6 +7,78 @@ zh-CN:
   activerecord:
     errors:
       models:
+        inf_qlty:
+          attributes:
+            cod: 
+              blank: '在线COD必填, 没有值请填 0'
+            ss: 
+              blank: '在线SS必填, 没有值请填 0'
+            nhn: 
+              blank: '在线NH3-N必填, 没有值请填 0'
+            tn: 
+              blank: '在线TN必填, 没有值请填 0'
+            tp: 
+              blank: '在线TP必填, 没有值请填 0'
+            ph: 
+              blank: 'PH必填, 没有值请填 0'
+            bod: 
+              blank: '化验BOD必填, 没有值请填 0'
+            asy_cod: 
+              blank: '化验COD必填, 没有值请填 0'
+            asy_nhn: 
+              blank: '化验NH3-N必填, 没有值请填 0'
+            asy_tp: 
+              blank: '化验TP必填, 没有值请填 0'
+            asy_tn:
+              blank: '化验TN必填, 没有值请填 0'
+        eff_qlty:
+          attributes:
+            cod: 
+              blank: '在线COD必填, 没有值请填 0'
+            ss: 
+              blank: '在线SS必填, 没有值请填 0'
+            nhn: 
+              blank: '在线NH3-N必填, 没有值请填 0'
+            tn: 
+              blank: '在线TN必填, 没有值请填 0'
+            tp: 
+              blank: '在线TP必填, 没有值请填 0'
+            ph: 
+              blank: 'PH必填, 没有值请填 0'
+            bod: 
+              blank: '化验BOD必填, 没有值请填 0'
+            asy_cod: 
+              blank: '化验COD必填, 没有值请填 0'
+            asy_nhn: 
+              blank: '化验NH3-N必填, 没有值请填 0'
+            asy_tp: 
+              blank: '化验TP必填, 没有值请填 0'
+            asy_tn:
+              blank: '化验TN必填, 没有值请填 0'
+        sed_qlty:
+          attributes:
+            cod: 
+              blank: '在线COD必填, 没有值请填 0'
+            ss: 
+              blank: '在线SS必填, 没有值请填 0'
+            nhn: 
+              blank: '在线NH3-N必填, 没有值请填 0'
+            tn: 
+              blank: '在线TN必填, 没有值请填 0'
+            tp: 
+              blank: '在线TP必填, 没有值请填 0'
+            ph: 
+              blank: 'PH必填, 没有值请填 0'
+            bod: 
+              blank: '化验BOD必填, 没有值请填 0'
+            asy_cod: 
+              blank: '化验COD必填, 没有值请填 0'
+            asy_nhn: 
+              blank: '化验NH3-N必填, 没有值请填 0'
+            asy_tp: 
+              blank: '化验TP必填, 没有值请填 0'
+            asy_tn:
+              blank: '化验TN必填, 没有值请填 0'
         day_pdt:
           attributes:
             min_temper:
@@ -19,6 +91,7 @@ zh-CN:
               blank: '填报人必填'
             weather:
               blank: '天气必填'
+
   layouts:
     application:
       site_title: "山东公用水务集团生产运营智能平台"

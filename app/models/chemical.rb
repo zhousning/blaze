@@ -13,6 +13,7 @@ class Chemical < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: chemicals
@@ -20,6 +21,7 @@ end
 #  id             :integer         not null, primary key
 #  name           :string          default(""), not null
 #  unprice        :float           default("0.0"), not null
+#  dosage         :float           default("0.0"), not null
 #  cmptc          :float           default("0.0"), not null
 #  dosptc         :float           default("0.0"), not null
 #  per_cost       :float           default("0.0"), not null

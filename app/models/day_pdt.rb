@@ -97,6 +97,7 @@ class DayPdt < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: day_pdts
@@ -106,7 +107,8 @@ end
 #  name       :string          default(""), not null
 #  signer     :string          default(""), not null
 #  weather    :string          default(""), not null
-#  temper     :float           default("0.0"), not null
+#  min_temper :float           default("0.0"), not null
+#  max_temper :float           default("0.0"), not null
 #  desc       :text
 #  state      :integer         default("0"), not null
 #  factory_id :integer

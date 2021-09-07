@@ -42,7 +42,7 @@
                           - @quota_cms.each do |q|
                             %label.checkbox-inline.mr-5
                               = check_box_tag 'qcodes', q.code, nil, {array: true} 
-                              = q.name
+                              = cms_sub_pref(q.name)
                         %li.list-group-item
                           %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
                             查询 

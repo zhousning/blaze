@@ -11,6 +11,7 @@ class EmpInf < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: emp_infs
@@ -20,6 +21,7 @@ end
 #  cod        :float           default("0.0"), not null
 #  nhn        :float           default("0.0"), not null
 #  tp         :float           default("0.0"), not null
+#  tn         :float           default("0.0"), not null
 #  flow       :float           default("0.0"), not null
 #  ph         :float           default("0.0"), not null
 #  temp       :float           default("0.0"), not null

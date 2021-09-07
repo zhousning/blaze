@@ -1,11 +1,12 @@
 .nested-fields.mt-2
   .form-group
     .field.d-inline
-      .card.border-dark.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          5 
-          = Setting.tspmuds.label
-          = link_to_remove_association "删除", f, :class => "btn btn-danger btn-sm d-inline pull-right"
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-info
+          %h5
+            5 
+            = Setting.tspmuds.label
+            = link_to_remove_association "删除", f, :class => "btn btn-danger btn-sm d-inline pull-right"
         .card-body
           %table.w-100.table-bordered.day-pdt-table
             %tbody

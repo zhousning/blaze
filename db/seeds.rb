@@ -145,12 +145,12 @@ user.factories << all_factories
 #集团运营
 grp_opt = User.create!(:phone => "15763703588", :password => "swjt3588", :password_confirmation => "swjt3588", :name => "水务集团运营", :roles => @grp_opt, :factories => all_factories)
 
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.cod,      :max => Setting.level_ones.cod_s, :name => Setting.inf_qlties.cod)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.cod.gsub(/在线-|化验-/, ''),      :max => Setting.level_ones.cod_s, :name => Setting.inf_qlties.cod)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ss.gsub(/在线-|化验-/, ''),       :max => Setting.level_ones.ss_s, :name => Setting.inf_qlties.ss)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.nhn.gsub(/在线-|化验-/, ''),      :max => Setting.level_ones.nhn_s, :name => Setting.inf_qlties.nhn)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tn.gsub(/在线-|化验-/, ''),       :max => Setting.level_ones.tn_s, :name => Setting.inf_qlties.tn)
+Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tp.gsub(/在线-|化验-/, ''),       :max => Setting.level_ones.tp_s, :name => Setting.inf_qlties.tp)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.bod,      :max => Setting.level_ones.bod_s, :name => Setting.inf_qlties.bod)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ss,       :max => Setting.level_ones.ss_s, :name => Setting.inf_qlties.ss)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.nhn,      :max => Setting.level_ones.nhn_s, :name => Setting.inf_qlties.nhn)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tn,       :max => Setting.level_ones.tn_s, :name => Setting.inf_qlties.tn)
-Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.tp,       :max => Setting.level_ones.tp_s, :name => Setting.inf_qlties.tp)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.ph,       :max => Setting.level_ones.ph_s, :name => Setting.inf_qlties.ph)
 Quota.create!(:ctg => Setting.quota.ctg_cms, :code => Setting.quota.fecal,    :max => Setting.level_ones.fecal_s, :name => Setting.eff_qlties.fecal)
 Quota.create!(:ctg => Setting.quota.ctg_flow, :code => Setting.quota.inflow , :name => Setting.day_pdt_rpts.inflow  )

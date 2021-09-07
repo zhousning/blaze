@@ -9,6 +9,7 @@ class PdtSum < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: pdt_sums
@@ -26,6 +27,7 @@ end
 #  mdflow     :float           default("0.0"), not null
 #  mdrcy      :float           default("0.0"), not null
 #  mdsell     :float           default("0.0"), not null
+#  per_cost   :float           default("0.0"), not null
 #  day_pdt_id :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null

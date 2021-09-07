@@ -68,6 +68,7 @@ class DayPdtRpt < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: day_pdt_rpts
@@ -76,7 +77,8 @@ end
 #  name           :string          default(""), not null
 #  pdt_date       :date
 #  weather        :string          default(""), not null
-#  temper         :float           default("0.0"), not null
+#  min_temper     :float           default("0.0"), not null
+#  max_temper     :float           default("0.0"), not null
 #  inf_qlty_bod   :float           default("0.0"), not null
 #  inf_qlty_cod   :float           default("0.0"), not null
 #  inf_qlty_ss    :float           default("0.0"), not null
@@ -108,9 +110,19 @@ end
 #  mdflow         :float           default("0.0"), not null
 #  mdrcy          :float           default("0.0"), not null
 #  mdsell         :float           default("0.0"), not null
-#  tspmud         :float           default("0.0"), not null
-#  rcpmud         :float           default("0.0"), not null
-#  dlemud         :string          default(""), not null
+#  per_cost       :float           default("0.0"), not null
+#  inf_asy_cod    :float           default("0.0"), not null
+#  inf_asy_nhn    :float           default("0.0"), not null
+#  inf_asy_tp     :float           default("0.0"), not null
+#  inf_asy_tn     :float           default("0.0"), not null
+#  eff_asy_cod    :float           default("0.0"), not null
+#  eff_asy_nhn    :float           default("0.0"), not null
+#  eff_asy_tp     :float           default("0.0"), not null
+#  eff_asy_tn     :float           default("0.0"), not null
+#  sed_asy_cod    :float           default("0.0"), not null
+#  sed_asy_nhn    :float           default("0.0"), not null
+#  sed_asy_tp     :float           default("0.0"), not null
+#  sed_asy_tn     :float           default("0.0"), not null
 #  day_pdt_id     :integer
 #  factory_id     :integer
 #  user_id        :integer

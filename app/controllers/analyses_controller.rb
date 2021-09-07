@@ -127,7 +127,9 @@ class AnalysesController < ApplicationController
       series << {type: chart_type(chart_type)}
       dimensions << factory.name 
     end
-    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => obj} 
+    combo = obj.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
 
     respond_to do |f|
       f.json{ render :json => result_config.to_json}

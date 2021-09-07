@@ -1,4 +1,5 @@
 class SedQlty < ActiveRecord::Base
+  validates  :bod, :cod, :ss, :nhn, :tn, :tp, :ph, :asy_cod, :asy_nhn, :asy_tp, :asy_tn, :presence => true 
 
 
 
@@ -10,6 +11,7 @@ class SedQlty < ActiveRecord::Base
 
 
 end
+
 
 # == Schema Information
 #
@@ -23,6 +25,10 @@ end
 #  tn         :float           default("0.0"), not null
 #  tp         :float           default("0.0"), not null
 #  ph         :float           default("0.0"), not null
+#  asy_cod    :float           default("0.0"), not null
+#  asy_nhn    :float           default("0.0"), not null
+#  asy_tp     :float           default("0.0"), not null
+#  asy_tn     :float           default("0.0"), not null
 #  day_pdt_id :integer
 #  created_at :datetime        not null
 #  updated_at :datetime        not null

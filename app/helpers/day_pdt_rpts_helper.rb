@@ -13,7 +13,8 @@ module DayPdtRptsHelper
     str = ""
     quotas = Quota.all
     quotas.each do |f|
-      str += "<option value='" + f.code.to_s + "'>" + f.name + "</option>"
+      title = f.name.gsub(/在线-|化验-/, '')
+      str += "<option value='" + f.code.to_s + "'>" + title + "</option>"
     end
 
     raw(str)

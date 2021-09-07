@@ -34,27 +34,27 @@
                               
                                 %th.text-left{:scope => "col", :'data-field' => "name"}
                                   = Setting.day_pdt_rpts.name
-                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_cod"}
-                                  = Setting.day_pdt_rpts.inf_qlty_cod
-                                %th.text-success{:scope => "col", :'data-field' => "eff_cod"}
-                                  = Setting.day_pdt_rpts.eff_qlty_cod
-                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_bod"}
-                                  = Setting.day_pdt_rpts.inf_qlty_bod
-                                %th.text-success{:scope => "col", :'data-field' => "eff_bod"}
-                                  = Setting.day_pdt_rpts.eff_qlty_bod
-                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_tn"}
-                                  = Setting.day_pdt_rpts.inf_qlty_tn
-                                %th.text-success{:scope => "col", :'data-field' => "eff_tn"}
-                                  = Setting.day_pdt_rpts.eff_qlty_tn
-                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_tp"}
-                                  = Setting.day_pdt_rpts.inf_qlty_tp
-                                %th.text-success{:scope => "col", :'data-field' => "eff_tp"}
-                                  = Setting.day_pdt_rpts.eff_qlty_tp
-                                %th.text-danger{:scope => "col", :'data-field' =>  "inf_nhn"}
-                                  = Setting.day_pdt_rpts.inf_qlty_nhn
-                                %th.text-success{:scope => "col", :'data-field' => "eff_nhn"}
-                                  = Setting.day_pdt_rpts.eff_qlty_nhn
-                                %th.text-success{:scope => "col", :'data-field' => "search"}
+                                %th{:scope => "col", :'data-field' =>  "inf_cod"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_cod)
+                                %th{:scope => "col", :'data-field' => "eff_cod"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod)
+                                %th{:scope => "col", :'data-field' =>  "inf_bod"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod)
+                                %th{:scope => "col", :'data-field' => "eff_bod"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod)
+                                %th{:scope => "col", :'data-field' =>  "inf_tn"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn)
+                                %th{:scope => "col", :'data-field' => "eff_tn"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn)
+                                %th{:scope => "col", :'data-field' =>  "inf_tp"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp)
+                                %th{:scope => "col", :'data-field' => "eff_tp"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp)
+                                %th{:scope => "col", :'data-field' =>  "inf_nhn"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn)
+                                %th{:scope => "col", :'data-field' => "eff_nhn"}
+                                  = cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn)
+                                %th{:scope => "col", :'data-field' => "search"}
 
       = render "layouts/bootstrap/card"
 
