@@ -8,14 +8,15 @@
       %p
         = Setting.day_pdts.signer
         = @day_pdt.signer
-    .col-sm-6.offset-3.p-5.border
+    .col-sm-8.offset-2.p-5.border
       .col-sm-5.offset-7.mb-5
         %h2
           = render 'day_pdts/state', :day_pdt => @day_pdt
-      .card.mb-3.rounded-0
-        .card-header.bg-transparent
-          1
-          = Setting.inf_qlties.label
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-dark
+          %h5
+            1
+            = Setting.inf_qlties.label
         .card-body
           .card-title
             %p
@@ -79,10 +80,11 @@
                   = @day_pdt.inf_qlty.tp 
 
 
-      .card.mb-3.rounded-0
-        .card-header.bg-transparent
-          2 
-          = Setting.eff_qlties.label
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-danger
+          %h5
+            2 
+            = Setting.eff_qlties.label
         .card-body
           .card-title
             %p
@@ -147,10 +149,11 @@
                 %td.p-2.text-center
                   = @day_pdt.eff_qlty.tp 
 
-      .card.mb-3.rounded-0
-        .card-header.bg-transparent
-          3 
-          = Setting.sed_qlties.label
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-success
+          %h5
+            3 
+            = Setting.sed_qlties.label
         .card-body
           %table.table-bordered.day-pdt-table.w-100
             %tbody
@@ -187,10 +190,11 @@
                   = @day_pdt.sed_qlty.ph
                 %td.p-3.text-center{:colspan => "4"}
 
-      .card.mb-3.rounded-0
-        .card-header.bg-transparent
-          4 
-          = Setting.pdt_sums.label
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-primary
+          %h5
+            4 
+            = Setting.pdt_sums.label
         .card-body
           %table.table-bordered.day-pdt-table.w-100
             %tbody
@@ -241,85 +245,91 @@
                 %td.p-3.text-center
                   = @day_pdt.pdt_sum.mdsell
 
-      %table.table-bordered.day-pdt-table.w-100
-        %caption.text-left
-          5
-          = Setting.tspmuds.label
-        %tbody
-          - @day_pdt.tspmuds.each do |tspmud|
-            %tr
-              %td.p-3.text-center
-                = Setting.tspmuds.dealer
-              %td.p-3.text-center{:colspan => "5"}
-                = tspmud.dealer
-            %tr
-              %td.p-3.text-center
-                = Setting.tspmuds.tspvum
-              %td.p-3.text-center
-                = tspmud.tspvum
-              %td.p-3.text-center
-                = Setting.tspmuds.rcpvum
-              %td.p-3.text-center
-                = tspmud.rcpvum
-              %td.p-3.text-center
-                = Setting.tspmuds.price
-              %td.p-3.text-center
-                = tspmud.price
-            
-            %tr
-              %td.p-3.text-center
-                = Setting.tspmuds.prtmtd
-              %td.p-3.text-left{:colspan => "5"}
-                = tspmud.prtmtd
-            
-            %tr
-              %td.p-3.text-center
-                = Setting.tspmuds.goort
-              %td.p-3.text-left{:colspan => "5"}
-                = tspmud.goort
-              
-      %table.table-bordered.day-pdt-table.w-100
-        %caption.text-left
-          6
-          = Setting.chemicals.label
-        %tbody
-          - @day_pdt.chemicals.each do |chemical|
-            %tr
-              %td.p-3.text-center
-                = Setting.chemicals.name
-              %td.p-3.text-center
-                = chemicals_hash[chemical.name]
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-info
+          %h5
+            5
+            = Setting.tspmuds.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              - @day_pdt.tspmuds.each do |tspmud|
+                %tr
+                  %td.p-3.text-center
+                    = Setting.tspmuds.dealer
+                  %td.p-3.text-center{:colspan => "5"}
+                    = tspmud.dealer
+                %tr
+                  %td.p-3.text-center
+                    = Setting.tspmuds.tspvum
+                  %td.p-3.text-center
+                    = tspmud.tspvum
+                  %td.p-3.text-center
+                    = Setting.tspmuds.rcpvum
+                  %td.p-3.text-center
+                    = tspmud.rcpvum
+                  %td.p-3.text-center
+                    = Setting.tspmuds.price
+                  %td.p-3.text-center
+                    = tspmud.price
+                
+                %tr
+                  %td.p-3.text-center
+                    = Setting.tspmuds.prtmtd
+                  %td.p-3.text-left{:colspan => "5"}
+                    = tspmud.prtmtd
+                
+                %tr
+                  %td.p-3.text-center
+                    = Setting.tspmuds.goort
+                  %td.p-3.text-left{:colspan => "5"}
+                    = tspmud.goort
+                  
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-warning
+          %h5
+            6
+            = Setting.chemicals.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              - @day_pdt.chemicals.each do |chemical|
+                %tr
+                  %td.p-3.text-center
+                    = Setting.chemicals.name
+                  %td.p-3.text-center
+                    = chemicals_hash[chemical.name]
 
-              %td.p-3.text-center
-                = Setting.chemicals.unprice
-              %td.p-3.text-center
-                = chemical.unprice
+                  %td.p-3.text-center
+                    = Setting.chemicals.unprice
+                  %td.p-3.text-center
+                    = chemical.unprice
 
-              %td.p-3.text-center
-                = Setting.chemicals.cmptc
-              %td.p-3.text-center
-                = chemical.cmptc
+                  %td.p-3.text-center
+                    = Setting.chemicals.cmptc
+                  %td.p-3.text-center
+                    = chemical.cmptc
 
-            %tr
-              %td.p-3.text-center
-                = Setting.chemicals.dosage
-              %td.p-3.text-center
-                = chemical.dosage
+                %tr
+                  %td.p-3.text-center
+                    = Setting.chemicals.dosage
+                  %td.p-3.text-center
+                    = chemical.dosage
 
-              %td.p-3.text-center
-                = Setting.chemicals.dosptc
-              %td.p-3.text-center
-                = chemical.dosptc
+                  %td.p-3.text-center
+                    = Setting.chemicals.dosptc
+                  %td.p-3.text-center
+                    = chemical.dosptc
 
-              %td.p-3.text-center
-                = Setting.chemicals.per_cost
-              %td.p-3.text-center
-                = chemical.per_cost
-          %tr
-            %td.p-3.text-center
-              = Setting.chemicals.per_cost + '合计'
-            %td.p-3.text-center
-              = @day_pdt.pdt_sum.per_cost
+                  %td.p-3.text-center
+                    = Setting.chemicals.per_cost
+                  %td.p-3.text-center
+                    = chemical.per_cost
+              %tr
+                %td.p-3.text-center
+                  = Setting.chemicals.per_cost + '合计'
+                %td.p-3.text-center
+                  = @day_pdt.pdt_sum.per_cost
               
 
       .row.my-3

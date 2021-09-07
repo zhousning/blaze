@@ -127,7 +127,7 @@ class DayPdtsController < ApplicationController
 
       if @day_pdt.save
         cal_per_cost(@day_pdt)
-        redirect_to :action => :index
+        redirect_to factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
       else
         render :new
       end

@@ -1,0 +1,23 @@
+.nested-fields.nestd-item
+  .form-group
+    .field.d-inline
+      .card.border-0.mb-3.rounded-0
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100.mb-3
+            %tbody
+              %tr
+                %td.p-2.text-center
+                  = f.label Setting.mudfcts.label, :class => "col-3  text-right col-form-label"
+    
+      .form-group.row
+        = f.label Setting.mudfcts.name, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.text_field :name, :class => "form-control", :required => true 
+        
+      -#
+        .form-group.row
+        = f.label Setting.mudfcts.ability, :class => "col-sm-5 text-right"
+        .col-sm-7
+          = f.number_field :ability, :class => "form-control", :rows => "20"
+        
+    = link_to_remove_association "X", f, :class => "nestd-notify-badge"

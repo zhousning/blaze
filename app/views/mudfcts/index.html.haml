@@ -1,0 +1,65 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+
+          
+
+          
+
+          -#
+            = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+          %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+            = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      = Setting.mudfcts.name
+                    %th{:scope => "col"}
+                      = Setting.mudfcts.ability
+                    %th{:scope => "col"}
+                      设置
+                %tbody
+                  - @mudfcts.each_with_index do |mudfct, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = mudfct.name
+                      %td
+                        = mudfct.ability
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            = link_to "编辑", edit_mudfct_path(idencode(mudfct.id)), :class => "button button-highlight button-small mr-1" 
+                            = link_to "详情",  mudfct_path(idencode(mudfct.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "删除",  mudfct_path(idencode(mudfct.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+            .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
+              = paginate @mudfcts, window: 2, left: 1, right: 1 
+      = render "layouts/bootstrap/card"
+
+
+
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = render 'form'

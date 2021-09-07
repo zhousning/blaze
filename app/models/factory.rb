@@ -44,6 +44,9 @@ class Factory < ActiveRecord::Base
 
   has_many :emp_effs, :dependent => :destroy
   accepts_nested_attributes_for :emp_effs, reject_if: :all_blank, allow_destroy: true
+
+  has_many :mudfcts, :dependent => :destroy
+  accepts_nested_attributes_for :mudfcts, reject_if: :all_blank, allow_destroy: true
 end
 
 

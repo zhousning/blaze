@@ -48,7 +48,7 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])
+    inflow  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],   last_year_result[:inflow][:sum])
     power   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     
     bom     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     
     emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        
@@ -63,7 +63,7 @@ module MathCube
     fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
 
     {
-      :outflow  =>  outflow,
+      :inflow   =>  inflow,
       :power    =>  power,
       :bom      =>  bom,
       :emq_tn   =>  emq_tn ,
@@ -97,7 +97,7 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    outflow = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outflow][:sum],   last_year_result[:outflow][:sum])   
+    inflow = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],    last_year_result[:inflow][:sum])   
     power   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     
     bom     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     
     emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        
@@ -112,7 +112,7 @@ module MathCube
     fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
 
     {
-      :outflow  =>  outflow,
+      :inflow  =>  inflow,
       :power    =>  power,
       :bom      =>  bom,
       :emq_tn   =>  emq_tn, 
@@ -251,7 +251,8 @@ module MathCube
   def search_str
     "
       count(id)             counts,
-      sum(temper)           sum_temper,
+      sum(min_temper)       sum_min_temper,
+      sum(max_temper)       sum_max_temper,
       sum(inf_qlty_bod)     sum_inf_qlty_bod,
       sum(inf_qlty_cod)     sum_inf_qlty_cod,
       sum(inf_qlty_ss)      sum_inf_qlty_ss,

@@ -13,6 +13,7 @@ class CreateFactories < ActiveRecord::Migration
       t.string :lat,  null: false, default: Setting.systems.default_str
     
       t.float :design,  null: false, default: Setting.systems.default_num
+
       t.float :plan,  null: false, default: Setting.systems.default_num
 
     

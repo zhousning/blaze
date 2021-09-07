@@ -40,7 +40,7 @@
                     %th{:scope => "col"}
                       = Setting.day_pdts.weather
                     %th{:scope => "col"}
-                      = Setting.day_pdts.temper
+                      = Setting.day_pdts.min_temper
                     %th{:scope => "col"}
                       进度
                     %th{:scope => "col"}
@@ -60,7 +60,7 @@
                       %td
                         = day_pdt.weather
                       %td
-                        = day_pdt.temper
+                        = day_pdt.min_temper
                       %td
                         = render 'day_pdts/state', :day_pdt => day_pdt
                       %td

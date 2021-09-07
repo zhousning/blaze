@@ -96,7 +96,7 @@ Rails.application.routes.draw do
 
   resources :selectors
  
-  resources :factories, :only => [] do
+  resources :factories, :only => [:edit, :update] do
     get :bigscreen, :on => :member
     resources :day_pdts, :only => [:index, :show, :new, :create, :edit, :update] do
       get :upreport, :on => :member
@@ -211,6 +211,9 @@ Rails.application.routes.draw do
     get :download_append, :on => :member
   end
   resources :chemical_ctgs do
+    get :download_append, :on => :member
+  end
+  resources :mudfcts do
     get :download_append, :on => :member
   end
   resources :flower
