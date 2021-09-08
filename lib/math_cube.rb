@@ -15,7 +15,7 @@ module MathCube
   def up_standard_days(factory_id, _start, _end)
     quotas = MathCube.quota_hash
     bod_max = quotas[Setting.quota.bod][:max]
-    cod_max = quotas[Setting.quota.bod][:max]
+    cod_max = quotas[Setting.quota.cod][:max]
     tn_max = quotas[Setting.quota.tn][:max]
     tp_max = quotas[Setting.quota.tp][:max]
     nhn_max = quotas[Setting.quota.nhn][:max]

@@ -44,10 +44,11 @@ module DayPdtRptsHelper
   end
 
   def options_for_years
+    year = Time.new.year
     str = ""
-    years = ["2021"]
+    years = [year, year-1]
     years.each do |year|
-      str += "<option value='" + year + "'>" + year + "</option>"
+      str += "<option value='" + year.to_s + "'>" + year.to_s + "</option>"
     end
 
     raw(str)
