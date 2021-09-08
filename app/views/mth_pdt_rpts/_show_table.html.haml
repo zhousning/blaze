@@ -8,12 +8,58 @@
       .col-sm-5.offset-7
         %h2
           = render 'mth_pdt_rpts/state', :mth_pdt_rpt => @mth_pdt_rpt
-       .col-md-6
-         = Setting.mth_pdt_rpts.cmc_bill_url
-         = image_tag @mth_pdt_rpt.cmc_bill_url, :class => "w-100"
-       = Setting.mth_pdt_rpts.ecm_ans_rpt_url
-       - unless @mth_pdt_rpt.ecm_ans_rpt.blank?
-         = link_to URI.decode(File.basename(@mth_pdt_rpt.ecm_ans_rpt_url)), download_append_factories_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id))
+        .col-md-6
+          = Setting.mth_pdt_rpts.cmc_bill
+          = image_tag @mth_pdt_rpt.cmc_bill_url, :class => "w-100"
+        = Setting.mth_pdt_rpts.ecm_ans_rpt
+        - unless @mth_pdt_rpt.ecm_ans_rpt.blank?
+          = link_to URI.decode(File.basename(@mth_pdt_rpt.ecm_ans_rpt_url)), download_append_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id))
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-warning
+          %h5
+            6
+            = Setting.chemicals.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              - @day_pdt.chemicals.each do |chemical|
+                %tr
+                  %td.p-3.text-center
+                    = Setting.chemicals.name
+                  %td.p-3.text-center
+                    = chemicals_hash[chemical.name]
+
+                  %td.p-3.text-center
+                    = Setting.chemicals.unprice
+                  %td.p-3.text-center
+                    = chemical.unprice
+
+                  %td.p-3.text-center
+                    = Setting.chemicals.cmptc
+                  %td.p-3.text-center
+                    = chemical.cmptc
+
+                %tr
+                  %td.p-3.text-center
+                    = Setting.chemicals.dosage
+                  %td.p-3.text-center
+                    = chemical.dosage
+
+                  %td.p-3.text-center
+                    = Setting.chemicals.dosptc
+                  %td.p-3.text-center
+                    = chemical.dosptc
+
+                  %td.p-3.text-center
+                    = Setting.chemicals.per_cost
+                  %td.p-3.text-center
+                    = chemical.per_cost
+              %tr
+                %td.p-3.text-center
+                  = Setting.chemicals.per_cost + '合计'
+                %td.p-3.text-center
+                  = @day_pdt.pdt_sum.per_cost
+              
       %table.table-bordered.day-pdt-table.w-100
         %caption.text-center
           = Setting.mth_pdt_rpts.label

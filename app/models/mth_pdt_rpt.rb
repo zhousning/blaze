@@ -6,6 +6,8 @@ class MthPdtRpt < ActiveRecord::Base
 
   mount_uploader :ecm_ans_rpt, AttachmentUploader
 
+  has_many :mth_chemicals, :dependent => :destroy
+  accepts_nested_attributes_for :mth_chemicals, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :document

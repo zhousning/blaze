@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   #  post :analyze, :on => :collection
   #end
 
-  #resources :notices
+  resources :notices
   #resources :articles do
   #  get :export, :on => :collection
   #  get :main_image, :on => :member

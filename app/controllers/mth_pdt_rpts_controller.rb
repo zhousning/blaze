@@ -1,7 +1,7 @@
 class MthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource
+  authorize_resource :except => [:download_append]
 
   include MathCube 
 
@@ -103,6 +103,8 @@ class MthPdtRptsController < ApplicationController
       redirect_to :action => :index
       return
     end
+
+    sql = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", '1', '2020-01-01', '2020-01-31']).select("chemicals.name, sum(dosage) sum_dosage, avg(dosage) avg_dosage").group(:name)
 
     _year_start = Date.new(year, 1, 1)
     _start = Date.new(year, month, 1)
@@ -249,7 +251,11 @@ class MthPdtRptsController < ApplicationController
   private
   
     def mth_pdt_rpt_params
-      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params)
+      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params,  chemicals_attributes: chemical_params)
+    end
+
+    def chemical_params
+      [:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
     end
   
     def month_cod_params
