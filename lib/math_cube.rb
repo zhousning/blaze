@@ -1,7 +1,7 @@
 module MathCube
   include FormulaLib
   
-  def QuotaConfig.quota_hash 
+  def MathCube.quota_hash 
     quota_hash = Hash.new
     quotas = Quota.all
     quotas.each do |q|
@@ -10,10 +10,13 @@ module MathCube
     quota_hash
   end
 
-  MYQUOTAS = QuotaConfig.quota_hash
+  MYQUOTAS = MathCube.quota_hash
 
 
   def up_standard_days(factory_id, _start, _end)
+    puts '............'
+    puts MYQUOTAS
+    puts '............'
     bod_max = MYQUOTAS[Setting.quota.bod][:max]
     cod_max = MYQUOTAS[Setting.quota.bod][:max]
     tn_max = MYQUOTAS[Setting.quota.tn][:max]
@@ -97,7 +100,7 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    inflow = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],    last_year_result[:inflow][:sum])   
+    inflow  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],    last_year_result[:inflow][:sum])   
     power   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     
     bom     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     
     emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        

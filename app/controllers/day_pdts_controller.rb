@@ -88,9 +88,9 @@ class DayPdtsController < ApplicationController
         :eff_qlty_bod => @eff.bod, :eff_qlty_cod => @eff.cod, :eff_qlty_ss => @eff.ss, :eff_qlty_nhn => @eff.nhn, :eff_qlty_tn => @eff.tn, :eff_qlty_tp => @eff.tp, :eff_qlty_ph => @eff.ph, :eff_qlty_fecal => @eff.fecal,
         :sed_qlty_bod => @sed.bod, :sed_qlty_cod => @sed.cod, :sed_qlty_ss => @sed.ss, :sed_qlty_nhn => @sed.nhn, :sed_qlty_tn => @sed.tn, :sed_qlty_tp => @sed.tp, :sed_qlty_ph => @sed.ph, 
         :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell, :per_cost => @pdt_sum.per_cost,
-       :inf_asy_cod => @inf.asy_cod, inf_asy_nhn => @inf.asy_nhn, inf_asy_tp => @inf.asy_tp, inf_asy_tn => @inf.asy_tn,
-       :eff_asy_cod => @eff.asy_cod, eff_asy_nhn => @eff.asy_nhn, eff_asy_tp => @eff.asy_tp, eff_asy_tn => @eff.asy_tn,
-       :sed_asy_cod => @sed.asy_cod, sed_asy_nhn => @sed.asy_nhn, sed_asy_tp => @sed.asy_tp, sed_asy_tn => @sed.asy_tn
+       :inf_asy_cod => @inf.asy_cod, :inf_asy_nhn => @inf.asy_nhn, :inf_asy_tp => @inf.asy_tp, :inf_asy_tn => @inf.asy_tn,
+       :eff_asy_cod => @eff.asy_cod, :eff_asy_nhn => @eff.asy_nhn, :eff_asy_tp => @eff.asy_tp, :eff_asy_tn => @eff.asy_tn,
+       :sed_asy_cod => @sed.asy_cod, :sed_asy_nhn => @sed.asy_nhn, :sed_asy_tp => @sed.asy_tp, :sed_asy_tn => @sed.asy_tn
       )
 
       if @day_pdt_rpt.save

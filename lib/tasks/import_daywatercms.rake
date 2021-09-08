@@ -56,7 +56,10 @@ def parse_watercms_excel(xls)
       :inf_qlty_tp    =>   row['L' + index].blank? ? 0 : row['L' + index],
       :eff_qlty_tp    =>   row['M' + index].blank? ? 0 : row['M' + index],
       :inf_qlty_ss    =>   row['H' + index].blank? ? 0 : row['H' + index],
-      :eff_qlty_ss    =>   row['I' + index].blank? ? 0 : row['I' + index]
+      :eff_qlty_ss    =>   row['I' + index].blank? ? 0 : row['I' + index],
+      :eff_qlty_fecal =>   row['P' + index].blank? ? 0 : row['P' + index],
+      :outmud         =>   row['Q' + index].blank? ? 0 : row['Q' + index],
+      :mst            =>   row['R' + index].blank? ? 0 : row['R' + index]
     }
     DayPdtRpt.create!(option)
     ##puts "index: " + index.to_s + "  " + a_str.to_s + " " +  b_str.to_s + " " +   c_str.to_s + " " +   d_str.to_s + " " +   e_str.to_s + " " +   f_str.to_s + " " +   g_str.to_s

@@ -71,7 +71,6 @@ class MthPdtRptsController < ApplicationController
     redirect_to cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
 
-
   def upreport
     @factory = my_factory
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
@@ -79,13 +78,6 @@ class MthPdtRptsController < ApplicationController
     @mth_pdt_rpt.complete
     redirect_to cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
-
-
-   
-   
-
-
-
 
   def mth_report_finish_index
     @factory = my_factory
