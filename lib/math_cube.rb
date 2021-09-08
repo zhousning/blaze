@@ -12,19 +12,16 @@ module MathCube
 
   MYQUOTAS = MathCube.quota_hash
 
-
   def up_standard_days(factory_id, _start, _end)
-    puts '............'
-    puts MYQUOTAS
-    puts '............'
-    bod_max = MYQUOTAS[Setting.quota.bod][:max]
-    cod_max = MYQUOTAS[Setting.quota.bod][:max]
-    tn_max = MYQUOTAS[Setting.quota.tn][:max]
-    tp_max = MYQUOTAS[Setting.quota.tp][:max]
-    nhn_max = MYQUOTAS[Setting.quota.nhn][:max]
-    ss_max = MYQUOTAS[Setting.quota.ss][:max]
-    fecal_max = MYQUOTAS[Setting.quota.fecal][:max]
-    mst_max = MYQUOTAS[Setting.quota.mst][:max]
+    quotas = MathCube.quota_hash
+    bod_max = quotas[Setting.quota.bod][:max]
+    cod_max = quotas[Setting.quota.bod][:max]
+    tn_max = quotas[Setting.quota.tn][:max]
+    tp_max = quotas[Setting.quota.tp][:max]
+    nhn_max = quotas[Setting.quota.nhn][:max]
+    ss_max = quotas[Setting.quota.ss][:max]
+    fecal_max = quotas[Setting.quota.fecal][:max]
+    mst_max = quotas[Setting.quota.mst][:max]
 
     bod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_bod <= ?", factory_id, _start, _end, bod_max]).count
     cod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_cod <= ?", factory_id, _start, _end, cod_max]).count

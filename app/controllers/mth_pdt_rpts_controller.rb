@@ -93,12 +93,12 @@ class MthPdtRptsController < ApplicationController
   def mth_rpt_create
     @factory = my_factory
     month = params[:month].strip.to_i
-    search_year = params[:year].strip.to_i
+    year = params[:year].strip.to_i
     time = Time.new
-    year = time.year
+    now_year = time.year
 
-    search_month = Date.new(search_year, month)
-    now_month = Date.new(year, time.month)
+    search_month = Date.new(year, month)
+    now_month = Date.new(now_year, time.month)
     if now_month <= search_month
       redirect_to :action => :index
       return
@@ -246,6 +246,7 @@ class MthPdtRptsController < ApplicationController
       [:id, :ypdr ]
     end
   
+
     def month_tp_params
       [:id, :ypdr ]
     end
