@@ -26,3 +26,7 @@
 -
   controller: emp_effs_controller
   actions: [index, new, create, edit, update, destroy, watercms_flow, xls_download, parse_excel, grp_index, fct_edit, fct_update, fct_destroy, parse_fct_excel, create]
+
+-
+  controller: factories_controller
+  actions: [edit, update]

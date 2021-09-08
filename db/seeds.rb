@@ -26,6 +26,8 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @role_fct            = Role.where(:name => Setting.roles.role_fct).first
 @role_grp            = Role.where(:name => Setting.roles.role_grp).first
 
+@role_fct_setting    = Role.where(:name => Setting.roles.fct_setting).first
+
 @role_day_pdt        = Role.where(:name => Setting.roles.day_pdt).first
 @role_day_rpt        = Role.where(:name => Setting.roles.day_pdt_rpt).first
 @role_mth_rpt_filler = Role.where(:name => Setting.roles.mth_pdt_rpt).first
@@ -55,7 +57,7 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 #厂区数据审核
 @data_verifer = [@role_fct, @role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time,  @role_fct_emp_inf, @role_fct_emp_eff]
 #厂区管理者
-@fct_mgn  = [@role_fct, @role_day_rpt, @role_day_pdt_cmp_verify, @role_mth_pdt_rpt_cmp_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff]
+@fct_mgn  = [@role_fct, @role_fct_setting, @role_day_rpt, @role_day_pdt_cmp_verify, @role_mth_pdt_rpt_cmp_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff]
 
 
 #集团运营

@@ -133,6 +133,7 @@ Rails.application.routes.draw do
       get :mth_report_finish_index, :on => :collection
       get :mth_report_finish_show, :on => :member
       get :xls_mth_download, :on => :member
+      get :download_append, :on => :member
     end
     resources :emp_infs, :only => [:index, :create]  do
       get :watercms_flow, :on => :collection
@@ -200,21 +201,16 @@ Rails.application.routes.draw do
   #resources :inf_qlties do
   #end
   resources :emp_rffs do
-    get :download_append, :on => :member
     post :parse_excel, :on => :collection
     get :xls_download, :on => :collection
   end
   resources :day_rpt_stcs do
-    get :download_append, :on => :member
   end
   resources :chemicals do
-    get :download_append, :on => :member
   end
   resources :chemical_ctgs do
-    get :download_append, :on => :member
   end
   resources :mudfcts do
-    get :download_append, :on => :member
   end
   resources :flower
 

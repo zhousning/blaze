@@ -1016,6 +1016,7 @@ defaults:
     fct_emp_eff: 厂区环境监测系统出水查看
     fct_emp_inf_mg: 厂区环境监测系统进水数据管理
     fct_emp_eff_mg: 厂区环境监测系统出水数据管理
+    fct_setting: 厂区基本信息设置
     grp_emp_inf: 集团运营环境监测系统出水
     grp_emp_eff: 集团运营环境监测系统进水
     grp_mgn_emp_inf: 集团管理者环境监测系统出水
@@ -1730,6 +1731,8 @@ defaults:
     label: 综合统计月报表
     name: 名称
     date: 月份
+    cmc_bill: 药剂发票
+    ecm_ans_rpt: 经济运行分析报告
     design: 设计污水处理量(吨/日)
     outflow: 本月污水处理量(吨)
     avg_outflow: 平均污水处理量(吨/日)
@@ -2091,6 +2094,9 @@ development:
     label: 污泥处置厂家
     name: 污泥处置厂家名
     ability: 处理能力
+  dogs:
+    label: dog
+    name: 厂名
 test:
   admins: *104
   users: *105

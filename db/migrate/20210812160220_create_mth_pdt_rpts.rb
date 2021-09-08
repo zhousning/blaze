@@ -15,6 +15,10 @@ class CreateMthPdtRpts < ActiveRecord::Migration
       t.float :avg_outflow,  null: false, default: Setting.systems.default_num
     
       t.float :end_outflow,  null: false, default: Setting.systems.default_num
+    
+      t.string :cmc_bill,  null: false, default: Setting.systems.default_str
+    
+      t.string :ecm_ans_rpt,  null: false, default: Setting.systems.default_str
 
 
       t.integer :state,  null: false, default: Setting.systems.default_num 

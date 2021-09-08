@@ -827,6 +827,11 @@ zh-CN:
       title: 厂间分析
     area_time_compare:
       title: 厂间分析曲线
+  factories:
+    edit:
+      title: 厂区-编辑厂区信息
+    update:
+      title: 厂区-编辑厂区信息
   emp_infs:
     index:
       title: 厂区-济宁环境监测系统进水水质数据 

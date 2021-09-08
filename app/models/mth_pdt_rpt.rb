@@ -1,5 +1,13 @@
 class MthPdtRpt < ActiveRecord::Base
 
+  mount_uploader :cmc_bill, EnclosureUploader
+
+
+
+  mount_uploader :ecm_ans_rpt, AttachmentUploader
+
+
+
   has_one :document
 
 

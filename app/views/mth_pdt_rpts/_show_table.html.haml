@@ -8,6 +8,12 @@
       .col-sm-5.offset-7
         %h2
           = render 'mth_pdt_rpts/state', :mth_pdt_rpt => @mth_pdt_rpt
+       .col-md-6
+         = Setting.mth_pdt_rpts.cmc_bill_url
+         = image_tag @mth_pdt_rpt.cmc_bill_url, :class => "w-100"
+       = Setting.mth_pdt_rpts.ecm_ans_rpt_url
+       - unless @mth_pdt_rpt.ecm_ans_rpt.blank?
+         = link_to URI.decode(File.basename(@mth_pdt_rpt.ecm_ans_rpt_url)), download_append_factories_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id))
       %table.table-bordered.day-pdt-table.w-100
         %caption.text-center
           = Setting.mth_pdt_rpts.label

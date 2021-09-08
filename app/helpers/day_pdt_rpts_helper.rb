@@ -21,13 +21,12 @@ module DayPdtRptsHelper
   end
 
   def options_for_mudfcts(factory)
-    str = ""
+    hash = Hash.new
     mudfcts = factory.mudfcts
     mudfcts.each do |f|
-      str += "<option value='" + f.id.to_s + "'>" + f.name + "</option>"
+      hash[f.name] = f.id.to_s
     end
-
-    raw(str)
+    hash
   end
 
   def mudfcts_hash(factory)

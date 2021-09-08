@@ -3,6 +3,13 @@
   role_name: 厂区用户
   level: 1
 - 
+  role_name: 厂区基本信息设置 
+  level: 1
+  permissions: 
+    -
+      controller: factories_controller
+      actions: [edit, update]
+- 
   role_name: 厂区生产运营数据填报 
   level: 1
   permissions: 
