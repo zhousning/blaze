@@ -19,7 +19,7 @@
                 %td.p-2.text-center
                   = f.label Setting.tspmuds.dealer, :class => "text-center"
                 %td.p-2.text-center
-                  = f.text_field :dealer, :class => "form-control", :required => true 
+                  = f.select :dealer, options_for_mudfcts(@factory), {:include_blank=>false}, {:class=>"form-control"}
                   
                 %td.p-2.text-center
                   = f.label Setting.tspmuds.rcpvum, :class => "text-center"

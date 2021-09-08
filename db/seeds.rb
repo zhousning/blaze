@@ -89,6 +89,49 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @zcds  = Factory.create!(:area => "邹城市",     :name => "邹城第三污水处理厂", :company => @zouc, :lnt => 116.892618, :lat => 35.369115, :design => 20000)
 @dsmt  = Factory.create!(:area => "金乡县",     :name => "达斯玛特污水处理厂", :company => @jinx, :lnt => 116.33235,  :lat => 35.095662, :design => 20000)
 
+Mudfct.create!(:factory => @rcws, :name => '华能济宁运河发电有限公司')
+
+Mudfct.create!(:factory => @zcdy, :name => '华能济宁运河发电有限公司')
+Mudfct.create!(:factory => @zcdy, :name => '邹城光大环保能源有限公司')
+Mudfct.create!(:factory => @zcdy, :name => '微山光大环保能源有限公司')
+Mudfct.create!(:factory => @zcdy, :name => '微山鼎祥生态农业发展有限公司')
+
+Mudfct.create!(:factory => @zcde, :name => '华能济宁运河发电有限公司')
+Mudfct.create!(:factory => @zcde, :name => '邹城光大环保能源有限公司')
+Mudfct.create!(:factory => @zcde, :name => '微山光大环保能源有限公司')
+Mudfct.create!(:factory => @zcde, :name => '微山鼎祥生态农业发展有限公司')
+
+Mudfct.create!(:factory => @zcds, :name => '华能济宁运河发电有限公司')
+Mudfct.create!(:factory => @zcds, :name => '邹城光大环保能源有限公司')
+Mudfct.create!(:factory => @zcds, :name => '微山光大环保能源有限公司')
+Mudfct.create!(:factory => @zcds, :name => '微山鼎祥生态农业发展有限公司')
+
+Mudfct.create!(:factory => @yzws, :name => '嘉祥县鹿富农业科技有限公司')
+Mudfct.create!(:factory => @yzws, :name => '山东群青生态农业发展有限公司')
+Mudfct.create!(:factory => @yzsw, :name => '嘉祥县鹿富农业科技有限公司')
+Mudfct.create!(:factory => @yzsw, :name => '山东群青生态农业发展有限公司')
+Mudfct.create!(:factory => @yzdy, :name => '嘉祥县鹿富农业科技有限公司')
+Mudfct.create!(:factory => @yzdy, :name => '山东群青生态农业发展有限公司')
+
+Mudfct.create!(:factory => @bhws, :name => '嘉祥县鹿富农业科技有限公司')
+
+Mudfct.create!(:factory => @jxws, :name => '嘉祥县鹿富农业科技有限公司')
+Mudfct.create!(:factory => @jxws, :name => '山东群青生态农业发展有限公司')
+
+Mudfct.create!(:factory => @wsfd, :name => '济宁泽众资源综合利用有限公司')
+Mudfct.create!(:factory => @wsfd, :name => '济宁隆晟特种养殖有限公司')
+Mudfct.create!(:factory => @wsfd, :name => '山东群青生态农业发展有限公司')
+Mudfct.create!(:factory => @wsqq, :name => '济宁泽众资源综合利用有限公司')
+Mudfct.create!(:factory => @wsqq, :name => '济宁隆晟特种养殖有限公司')
+Mudfct.create!(:factory => @wsqq, :name => '山东群青生态农业发展有限公司')
+Mudfct.create!(:factory => @wsqy, :name => '济宁泽众资源综合利用有限公司')
+Mudfct.create!(:factory => @wsqy, :name => '济宁隆晟特种养殖有限公司')
+Mudfct.create!(:factory => @wsqy, :name => '山东群青生态农业发展有限公司')
+
+Mudfct.create!(:factory => @qfyw, :name => '中联水泥')
+Mudfct.create!(:factory => @qfsw, :name => '中联水泥')
+
+
 User.create!(:phone => "053766880909", :password => "zcds0909", :password_confirmation => "zcds0909", :name => "邹城三污数据填报员", :roles => @data_filler, :factories => [@zcds])
 User.create!(:phone => "053700006666", :password => "zcds6666", :password_confirmation => "zcds6666", :name => "邹城三污数据审核员", :roles => @data_verifer, :factories => [@zcds])
 User.create!(:phone => "053700009999", :password => "zcds9999", :password_confirmation => "zcds9999", :name => "邹城三污管理者", :roles => @fct_mgn, :factories => [@zcds])

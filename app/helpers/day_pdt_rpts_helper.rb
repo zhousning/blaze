@@ -20,6 +20,25 @@ module DayPdtRptsHelper
     raw(str)
   end
 
+  def options_for_mudfcts(factory)
+    str = ""
+    mudfcts = factory.mudfcts
+    mudfcts.each do |f|
+      str += "<option value='" + f.id.to_s + "'>" + f.name + "</option>"
+    end
+
+    raw(str)
+  end
+
+  def mudfcts_hash(factory)
+    hash = Hash.new
+    mudfcts = factory.mudfcts
+    mudfcts.each do |f|
+      hash[f.id.to_s] = f.name
+    end
+    hash
+  end
+
   def options_for_chemicals
     hash = Hash.new
     ctgs = ChemicalCtg.all

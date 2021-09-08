@@ -2089,7 +2089,7 @@ development:
     hxt_t: 活性炭
   mudfcts:
     label: 污泥处置厂家
-    name: 厂名
+    name: 污泥处置厂家名
     ability: 处理能力
 test:
   admins: *104
