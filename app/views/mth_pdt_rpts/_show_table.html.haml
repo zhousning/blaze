@@ -21,65 +21,70 @@
           = Setting.mth_pdt_rpts.label
         %tbody
           %tr
-            %td.p-3.text-center
-              = label_tag nil, Setting.mth_pdt_rpts.design
-            %td.p-3.text-center
+            %td.p-2.text-center
+              =  Setting.mth_pdt_rpts.design
+            %td.p-2.text-center
               = @mth_pdt_rpt.design
           
-            %td.p-3.text-center
-              = label_tag nil, Setting.mth_pdt_rpts.outflow
-            %td.p-3.text-center
+            %td.p-2.text-center
+              =  Setting.mth_pdt_rpts.outflow
+            %td.p-2.text-center
               = @mth_pdt_rpt.outflow
           
           %tr
-            %td.p-3.text-center
-              = label_tag nil, Setting.mth_pdt_rpts.avg_outflow
-            %td.p-3.text-center
+            %td.p-2.text-center
+              =  Setting.mth_pdt_rpts.avg_outflow
+            %td.p-2.text-center
               = @mth_pdt_rpt.avg_outflow
           
-            %td.p-3.text-center
-              = label_tag nil, Setting.mth_pdt_rpts.end_outflow
-            %td.p-3.text-center
+            %td.p-2.text-center
+              =  Setting.mth_pdt_rpts.end_outflow
+            %td.p-2.text-center
               = @mth_pdt_rpt.end_outflow
       .card.border-0.mb-3.rounded-0
         .card-header.bg-transparent.border-warning
           %h5
-            = Setting.chemicals.label
+            = Setting.mth_chemicals.label
         .card-body
           %table.table-bordered.day-pdt-table.w-100
             %tbody
+              %tr
+                %td.p-2.text-center
+                %td.p-2.text-center
+                  = Setting.mth_chemicals.unprice
+                %td.p-2.text-center
+                  = Setting.mth_chemicals.cmptc
+                %td.p-2.text-center
+                  = Setting.mth_chemicals.dosage
+                %td.p-2.text-center
+                  = Setting.mth_chemicals.act_dosage
+                %td.p-2.text-center
+                  = Setting.mth_chemicals.avg_dosage
+                %td.p-2.text-center
+                  = Setting.mth_chemicals.dosptc
+                %td.p-2.text-center
+                  = Setting.mth_chemicals.per_cost
               - @mth_pdt_rpt.mth_chemicals.each do |chemical|
                 %tr
-                  %td.p-3.text-center
-                    = Setting.chemicals.name
-                  %td.p-3.text-center
+                  %td.p-2.text-center
                     = chemicals_hash[chemical.name]
-
-                  %td.p-3.text-center
-                    = Setting.chemicals.unprice
-                  %td.p-3.text-center
+                  %td.p-2.text-center
                     = chemical.unprice
-
-                  %td.p-3.text-center
-                    = Setting.chemicals.cmptc
-                  %td.p-3.text-center
+                  %td.p-2.text-center
                     = chemical.cmptc
-
-                %tr
-                  %td.p-3.text-center
-                    = Setting.chemicals.dosage
-                  %td.p-3.text-center
+                  %td.p-2.text-center
                     = chemical.dosage
-
-                  %td.p-3.text-center
-                    = Setting.chemicals.dosptc
-                  %td.p-3.text-center
+                  %td.p-2.text-center
+                    = chemical.act_dosage
+                  %td.p-2.text-center
+                    = chemical.avg_dosage
+                  %td.p-2.text-center
                     = chemical.dosptc
-
-                  %td.p-3.text-center
-                    = Setting.chemicals.per_cost
-                  %td.p-3.text-center
+                  %td.p-2.text-center
                     = chemical.per_cost
+          %p.m-3
+            = Setting.mth_chemicals.per_cost + '合计: '
+            = @mth_pdt_rpt.per_cost
           
           = image_tag @mth_pdt_rpt.cmc_bill_url, :class => "w-100"
               
@@ -87,532 +92,269 @@
       .card.border-0.mb-3.rounded-0
         .card-header.bg-transparent.border-dark
           %h5
-            1 
-            = Setting.month_cods.label
+            进出水水质
         .card-body
           %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_cods.label
+            %thead
+              %tr
+                %th.p-2.text-center
+                %th.p-2.text-center
+                  = Setting.month_cods.label
+                %th.p-2.text-center
+                  = Setting.month_bods.label
+                %th.p-2.text-center
+                  = Setting.month_nhns.label
+                %th.p-2.text-center
+                  = Setting.month_tns.label
+                %th.p-2.text-center
+                  = Setting.month_tps.label
+                %th.p-2.text-center
+                  = Setting.month_sses.label
+                %th.p-2.text-center
+                  = Setting.month_fecals.label
+
             %tbody
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.avg_inf
-                %td.p-3.text-center
+                %td.p-2.text-center
+                  =  Setting.month_cods.avg_inf.gsub('COD','')
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.avg_inf
-
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.avg_eff
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.avg_eff
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.emr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.emr
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.avg_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.avg_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.emq
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.end_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.end_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.up_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.up_std
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.end_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.end_std
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.yoy
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.yoy
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.mom
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.mom
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_cods.ypdr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_cod.ypdr
-                  
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          %h5
-            2 
-            = Setting.month_bods.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_bods.label
-            %tbody
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.avg_inf
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.avg_inf
-
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.avg_eff
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.avg_eff
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.emr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.emr
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.avg_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.avg_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.emq
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.end_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.end_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.up_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.up_std
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.end_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.end_std
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.yoy
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.yoy
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.mom
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.mom
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_bods.ypdr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_bod.ypdr
-                  
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          %h5
-            3 
-            = Setting.month_nhns.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_nhns.label
-            %tbody
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.avg_inf
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.avg_inf
-
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.avg_eff
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.avg_eff
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.emr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.emr
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.avg_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.avg_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.emq
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.end_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.end_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.up_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.up_std
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.end_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.end_std
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.yoy
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.yoy
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.mom
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.mom
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_nhns.ypdr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_nhn.ypdr
-
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          %h5
-            4
-            = Setting.month_tns.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_tns.label
-            %tbody
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.avg_inf
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.avg_inf
-
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.avg_eff
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.avg_eff
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.emr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.emr
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.avg_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.avg_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.emq
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.end_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.end_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.up_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.up_std
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.end_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.end_std
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.yoy
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.yoy
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.mom
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.mom
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tns.ypdr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tn.ypdr
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          %h5
-            5 
-            = Setting.month_tps.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_tps.label
-            %tbody
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.avg_inf
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.avg_inf
-
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.avg_eff
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.avg_eff
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.emr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.emr
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.avg_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.avg_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.emq
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.end_emq
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.end_emq
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.up_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.up_std
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.end_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.end_std
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.yoy
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.yoy
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.mom
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.mom
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_tps.ypdr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_tp.ypdr
-
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          %h5
-            6 
-            = Setting.month_sses.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_sses.label
-            %tbody
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.avg_inf
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_inf
-
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.avg_eff
-                %td.p-3.text-center
+                %td.p-2.text-center
+              %tr
+                %td.p-2.text-center
+                  =  Setting.month_cods.avg_eff.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.avg_eff
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.avg_eff
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.avg_eff
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.avg_eff
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.avg_eff
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_eff
-                 
+                %td.p-2.text-center
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.emr
-                %td.p-3.text-center
+                %td.p-2.text-center
+                  =  Setting.month_cods.emr.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.emr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.emr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.emr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.emr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.emr
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.emr
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.avg_emq
-                %td.p-3.text-center
+                %td.p-2.text-center
+              %tr
+                %td.p-2.text-center
+                  =  Setting.month_cods.avg_emq.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.avg_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.avg_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.avg_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.avg_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.avg_emq
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_emq
-                 
+                %td.p-2.text-center
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.emq
-                %td.p-3.text-center
+                %td.p-2.text-center
+                  =  Setting.month_cods.emq.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.emq
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.emq
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.end_emq
-                %td.p-3.text-center
+                %td.p-2.text-center
+              %tr
+                %td.p-2.text-center
+                  =  Setting.month_cods.end_emq.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.end_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.end_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.end_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.end_emq
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.end_emq
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.end_emq
-                 
+                %td.p-2.text-center
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.up_std
-                %td.p-3.text-center
+                %td.p-2.text-center
+                  =  Setting.month_cods.up_std.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.up_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.up_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.up_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.up_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.up_std
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.up_std
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.end_std
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_ss.end_std
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.yoy
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_ss.yoy
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.mom
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_ss.mom
-                 
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_sses.ypdr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_ss.ypdr
-              
-
-
-                   
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          %h5
-            7 
-            = Setting.month_fecals.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_fecals.label
-            %tbody
-              %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_fecals.up_std
-                %td.p-3.text-center
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_fecal.up_std
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_fecals.end_std
-                %td.p-3.text-center
+              %tr
+                %td.p-2.text-center
+                  =  Setting.month_cods.end_std.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.end_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.end_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.end_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.end_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.end_std
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_ss.end_std
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_fecal.end_std
-                 
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_fecals.yoy
-                %td.p-3.text-center
+                %td.p-2.text-center
+                  =  Setting.month_cods.yoy.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_ss.yoy
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_fecal.yoy
-                 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_fecals.mom
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_fecal.mom
-                 
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_fecals.ypdr
-                %td.p-3.text-center
+                %td.p-2.text-center
+                  =  Setting.month_cods.mom.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_ss.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_fecal.mom
+              %tr
+                %td.p-2.text-center
+                  =  Setting.month_cods.ypdr.gsub('COD','')
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_cod.ypdr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_bod.ypdr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_nhn.ypdr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tn.ypdr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_tp.ypdr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_ss.ypdr
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_fecal.ypdr
                   
-              
       .card.border-0.mb-3.rounded-0
         .card-header.bg-transparent.border-primary
           %h5
-            8 
             = Setting.month_powers.label
         .card-body
           %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_powers.label
             %tbody
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.power
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.power
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.power
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.end_power
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.end_power
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.end_power
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.bom
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.bom
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.bom
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.bom_power
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.bom_power
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.bom_power
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.yoy_power
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.yoy_power
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.yoy_power
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.mom_power
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.mom_power
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.mom_power
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.yoy_bom
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.yoy_bom
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.yoy_bom
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.mom_bom
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.mom_bom
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.mom_bom
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.ypdr_power
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.ypdr_power
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.ypdr_power
 
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_powers.ypdr_bom
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_powers.ypdr_bom
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.ypdr_bom
                   
               
@@ -620,120 +362,114 @@
       .card.border-0.mb-3.rounded-0
         .card-header.bg-transparent.border-success
           %h5
-            9 
             = Setting.month_muds.label
         .card-body
           %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_muds.label
             %tbody
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.inmud
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_muds.inmud
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_mud.inmud
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.end_inmud
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_muds.end_inmud
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_mud.end_inmud
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.outmud
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_muds.outmud
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_mud.outmud
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.end_outmud
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_muds.end_outmud
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_mud.end_outmud
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.mst_up
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_muds.mst_up
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_mud.mst_up
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.yoy
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_mud.yoy
+                %td.p-2.text-right
+                  =  Setting.month_muds.ypdr
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_mud.ypdr
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.mom
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_muds.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_mud.yoy
+                %td.p-2.text-right
+                  =  Setting.month_muds.mom
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_mud.mom
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_muds.ypdr
-                %td.p-3.text-center
-                  = @mth_pdt_rpt.month_mud.ypdr
                   
               
       .card.border-0.mb-3.rounded-0
         .card-header.bg-transparent.border-info
           %h5
-            10 
             = Setting.month_mds.label
         .card-body
           %table.table-bordered.day-pdt-table.w-100
-            %caption.text-center
-              = Setting.month_mds.label
             %tbody
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.mdrcy
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.mdrcy
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.mdrcy
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.end_mdrcy
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.end_mdrcy
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.end_mdrcy
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.mdsell
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.mdsell
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.mdsell
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.end_mdsell
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.end_mdsell
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.end_mdsell
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.yoy_mdrcy
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.yoy_mdrcy
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.yoy_mdrcy
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.mom_mdrcy
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.mom_mdrcy
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.mom_mdrcy
 
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.yoy_mdsell
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.yoy_mdsell
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.yoy_mdsell
                  
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.mom_mdsell
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.mom_mdsell
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.mom_mdsell
                  
               %tr
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.ypdr_mdsell
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.ypdr_mdsell
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.ypdr_mdsell
-                %td.p-3.text-right
-                  = label_tag nil, Setting.month_mds.ypdr_mdrcy
-                %td.p-3.text-center
+                %td.p-2.text-right
+                  =  Setting.month_mds.ypdr_mdrcy
+                %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.ypdr_mdrcy
 
 -#      
@@ -742,53 +478,53 @@
       = Setting.month_devices.label
     %tbody
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.wsyxts
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.wsyxts
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.wsyxts
          
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.wswdyxts
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.wswdyxts
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.wswdyxts
          
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.sbwhl
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.sbwhl
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.sbwhl
          
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.gysbwhl
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.gysbwhl
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.gysbwhl
          
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.wbywhl
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.wbywhl
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.wbywhl
          
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.gzwwhl
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.gzwwhl
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.gzwwhl
          
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.yoy
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.yoy
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.yoy
          
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.mom
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.mom
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.mom
          
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_devices.ypdr
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_devices.ypdr
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_device.ypdr
           
       
@@ -797,31 +533,31 @@
       = Setting.month_stuffs.label
     %tbody
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_stuffs.xdjtjl
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_stuffs.xdjtjl
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_stuff.xdjtjl
          
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_stuffs.end_xdjtjl
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_stuffs.end_xdjtjl
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_stuff.end_xdjtjl
          
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_stuffs.yoy
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_stuffs.yoy
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_stuff.yoy
          
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_stuffs.mom
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_stuffs.mom
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_stuff.mom
          
       %tr
-        %td.p-3.text-center
-          = label_tag nil, Setting.month_stuffs.ypdr
-        %td.p-3.text-center
+        %td.p-2.text-center
+          =  Setting.month_stuffs.ypdr
+        %td.p-2.text-center
           = @mth_pdt_rpt.month_stuff.ypdr
           
       

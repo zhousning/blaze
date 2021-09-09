@@ -2065,6 +2065,17 @@ development:
     dosptc: 药剂投加浓度
     per_cost: 吨水药剂成本
     std_dev: 偏差率
+  mth_chemicals: &170
+    label: 药剂
+    name: 名称
+    unprice: 单价(元/吨)
+    dosage: 累计投加量(吨)
+    avg_dosage: 每日投加量(吨/天)
+    act_dosage: 修正累计投加量(吨)
+    cmptc: 药剂浓度(%)
+    dosptc: 药剂投加浓度
+    per_cost: 吨水药剂成本
+    std_dev: 偏差率
   chemical_ctgs: &169
     label: 化学药剂分类
     code: 编码
@@ -2097,9 +2108,6 @@ development:
     label: 污泥处置厂家
     name: 污泥处置厂家名
     ability: 处理能力
-  dogs:
-    label: dog
-    name: 厂名
 test:
   admins: *104
   users: *105

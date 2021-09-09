@@ -301,16 +301,6 @@ class DayPdtsController < ApplicationController
       [:id, :file, :_destroy]
     end
 
-    def new_params(day_pdt_params)
-      cmptc = day_pdt_params["chemicals_attributes"]["dosage"]
-      dosage = day_pdt_params["chemicals_attributes"]["cmptc"]
-      inflow = day_pdt_params["pdt_sum_attributes"]["inflow"]
-
-      dosptc = FormulaLib.dosptc(dosage, cmptc, inflow) 
-      day_pdt_params["chemicals_attributes"]["dosptc"] = dosptc
-    end
-   
-  
     def inf_qlty_params
       [:id, :bod, :cod, :ss, :nhn, :tn, :tp, :ph , :asy_cod, :asy_nhn, :asy_tp, :asy_tn, :_destroy]
     end

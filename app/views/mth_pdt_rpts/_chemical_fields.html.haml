@@ -7,25 +7,25 @@
             %td.p-2.text-center{:colspan => '2'}
               = f.select :name, options_for_chemicals, {:include_blank=>false}, {:class=>"form-control", :disabled => true}
             %td.p-2.text-center
-              = f.label Setting.chemicals.dosage, :class => "text-center"
+              = f.label Setting.mth_chemicals.dosage, :class => "text-center"
             %td.p-2.text-center
               =f.number_field :dosage, :class => "form-control rounded-0", :step => "any", :disabled => true, :required => true
             %td.p-2.text-center
-              = f.label Setting.chemicals.avg_dosage, :class => "text-center"
+              = f.label Setting.mth_chemicals.avg_dosage, :class => "text-center"
             %td.p-2.text-center
               =f.number_field :avg_dosage, :class => "form-control rounded-0", :step => "any", :disabled => true, :required => true
 
           %tr
             %td.p-2.text-center
-              = f.label Setting.chemicals.unprice, :class => "text-center"
+              = f.label Setting.mth_chemicals.unprice, :class => "text-center"
             %td.p-2.text-center
               =f.number_field :unprice, :class => "form-control rounded-0 border-danger", :step => "any"  , :required => true
             %td.p-2.text-center
-              = f.label Setting.chemicals.cmptc, :class => "text-center"
+              = f.label Setting.mth_chemicals.cmptc, :class => "text-center"
             %td.p-2.text-center
               =f.number_field :cmptc, :class => "form-control rounded-0 border-danger", :step => "any", :required => true
             %td.p-2.text-center
-              = f.label Setting.chemicals.act_dosage, :class => "text-center"
+              = f.label Setting.mth_chemicals.act_dosage, :class => "text-center"
             %td.p-2.text-center
               =f.number_field :act_dosage, :class => "form-control rounded-0 border-danger", :step => "any", :required => true
     -#
@@ -33,7 +33,7 @@
         .card-header.bg-transparent.border-warning
           %h5
             6 
-            = Setting.chemicals.label
+            = Setting.mth_chemicals.label
             %span.text-danger
               (PAM药剂浓度为固体药剂溶解后浓度)
             -#
@@ -42,11 +42,11 @@
 -#
   
   %td.p-2.text-center
-    = f.label Setting.chemicals.dosptc, :class => "text-center"
+    = f.label Setting.mth_chemicals.dosptc, :class => "text-center"
   %td.p-2.text-center
     =f.number_field :dosptc, :class => "form-control rounded-0", :step => "any"  , :required => true
   
   %td.p-2.text-center
-    = f.label Setting.chemicals.per_cost, :class => "text-center"
+    = f.label Setting.mth_chemicals.per_cost, :class => "text-center"
   %td.p-2.text-center
     =f.number_field :per_cost, :class => "form-control rounded-0", :step => "any"  , :required => true

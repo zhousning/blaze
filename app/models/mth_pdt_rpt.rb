@@ -114,6 +114,9 @@ class MthPdtRpt < ActiveRecord::Base
     end
   end
 
+  def update_per_cost(per_cost)
+    self.update_attribute :per_cost, per_cost 
+  end
 end
 
 # == Schema Information

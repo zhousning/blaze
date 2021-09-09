@@ -20,6 +20,7 @@ class CreateMthPdtRpts < ActiveRecord::Migration
     
       t.string :ecm_ans_rpt,  null: false, default: Setting.systems.default_str
 
+      t.float :per_cost,  null: false, default: Setting.systems.default_num
 
       t.integer :state,  null: false, default: Setting.systems.default_num 
 

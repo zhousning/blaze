@@ -213,6 +213,7 @@ class MthPdtRptsController < ApplicationController
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
    
     if @mth_pdt_rpt.update(mth_pdt_rpt_params)
+      cal_per_cost(@mth_pdt_rpt)
       redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else
       render :edit
@@ -355,6 +356,15 @@ class MthPdtRptsController < ApplicationController
     
     def my_factory
       @factory = current_user.factories.find(iddecode(params[:factory_id]))
+    end
+
+    def cal_per_cost(mth_pdt_rpt)
+      inflow = mth_pdt_rpt.outflow
+      per_cost = 0
+      mth_pdt_rpt.mth_chemicals.each do |c|
+        per_cost += c.update_ptc(inflow)
+      end
+      mth_pdt_rpt.update_per_cost(per_cost)
     end
 
     def mth_pdt_rpt(start_date, end_date, design, outflow, avg_outflow, end_outflow, factory_id, name)
