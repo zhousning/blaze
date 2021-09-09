@@ -1,17 +1,12 @@
-require 'spreadsheet'
-
-
+require 'spreadsheet' 
 
 class SpreadSheetTool
-  cms = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
-  var = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom', 'ypdr']  
-  cms.each do |c|
-    var.each do |v|
-      define_singleton_method "#{c}_#{v}" do |obj|
-        obj[v]
-        #month_obj = mth_pdt_rpt.method("month_#{c}".to_sym)
-        #obj = month_obj.call
-        #obj[v]
+  CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
+  VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom', 'ypdr']  
+  CMS.each do |c|
+    VARVALUE.each do |v|
+      define_method "#{c}_#{v}" do |obj|
+        obj[v].nil? ? '' : obj[v]
       end
     end
   end
@@ -49,9 +44,7 @@ class SpreadSheetTool
     obj.each_with_index do |mth_pdt_rpt, row|
       name = mth_pdt_rpt.name
 
-      def cod
-        mth_pdt_rpt.month_cod
-      end
+      cod = mth_pdt_rpt.month_cod
       bod = mth_pdt_rpt.month_bod
       nhn = mth_pdt_rpt.month_nhn
       tn = mth_pdt_rpt.month_tn
@@ -64,35 +57,53 @@ class SpreadSheetTool
       md = mth_pdt_rpt.month_md
 
       cms_arr = []
-      cms = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
-      var = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom', 'ypdr']  
       cms_title = ['']
-      cms.each do |c|
+      CMS.each do |c|
         cms_title << Setting["month_#{c}".pluralize.to_sym]['label']
       end
-
-      puts '..........'
-      puts SpreadSheetTool.cod_avg_inf(cod)
-      puts '..........'
-
       cms_arr << cms_title
 
+      targets = [cod, bod, nhn, tn, tp, ss, fecal]
+      result = []
+      VARVALUE.each do |v|
+        title = Setting.month_cods[v].gsub('COD','')
+        result = [title]
+        CMS.each_with_index do |c, cms_index|
+          mObj = method("#{c}_#{v}".to_sym)
+          result << mObj.call(targets[cms_index]) 
+        end
+        cms_arr << result 
+      end
 
-      #chemicals = mth_pdt_rpt.mth_chemicals
-      #chemical_title = ['', Setting.mth_chemicals.unprice, Setting.mth_chemicals.cmptc, Setting.mth_chemicals.dosage, Setting.mth_chemicals.act_dosage, Setting.mth_chemicals.avg_dosage, Setting.mth_chemicals.dosptc, Setting.mth_chemicals.per_cost]
-      #chemical_arr = [chemical_title]
-      #chemicals.each do |chemical|
-      #  chemical_arr << [
-      #    chemicals_hash[chemical.name],
-      #    chemical.unprice,
-      #    chemical.cmptc,
-      #    chemical.dosage,
-      #    chemical.act_dosage,
-      #    chemical.avg_dosage,
-      #    chemical.dosptc,
-      #    chemical.per_cost
-      #  ]
-      #end
+      cms_start = 5
+      cms_arr.each_with_index do |item, index|
+        yuebaobiao.row(cms_start + index).concat item 
+      end
+
+
+      chemical_start = cms_start + cms_arr.size + 1
+      chemicals = mth_pdt_rpt.mth_chemicals
+      chemical_targets = ['name', 'unprice', 'cmptc', 'dosage', 'act_dosage', 'avg_dosage', 'dosptc', 'per_cost']
+      chemical_arr = []
+      chemical_title = []
+      chemical_targets.each do |t|
+        chemical_title << Setting.mth_chemicals[t]
+      end
+      chemical_arr << chemical_title
+      chemicals.each do |chemical|
+        arr = []
+        chemical_targets.each_with_index do |t, index|
+          if index == 0
+            arr << chemicals_hash[chemical[t]]
+          else
+            arr << chemical[t]
+          end
+        end
+        chemical_arr << arr
+      end
+      chemical_arr.each_with_index do |item, index|
+        yuebaobiao.row(chemical_start + index).concat item 
+      end
 
       #arr = [name, mud.inmud, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
       #arr.each_with_index do |item, col|
@@ -301,5 +312,14 @@ class SpreadSheetTool
         day_pdt_rpt.mdrcy,         
         day_pdt_rpt.mdsell
       ]
+    end
+
+    def chemicals_hash
+      hash = Hash.new
+      ctgs = ChemicalCtg.all
+      ctgs.each do |f|
+        hash[f.code] = f.name
+      end
+      hash
     end
 end
