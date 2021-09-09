@@ -35,7 +35,7 @@
                     %label.newbutton
                       = image_tag f.one_image("cmc_bill"), :class => "blah"
                       = f.file_field :cmc_bill, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
-            = f.fields_for :chemicals do |chemical|
+            = f.fields_for :mth_chemicals do |chemical|
               = render 'chemical_fields', f: chemical
             .row
               .col-6

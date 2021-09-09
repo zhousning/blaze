@@ -104,8 +104,6 @@ class MthPdtRptsController < ApplicationController
       return
     end
 
-    sql = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", '1', '2020-01-01', '2020-01-31']).select("chemicals.name, sum(dosage) sum_dosage, avg(dosage) avg_dosage").group(:name)
-
     _year_start = Date.new(year, 1, 1)
     _start = Date.new(year, month, 1)
     _end = Date.new(year, month, -1)
@@ -141,7 +139,7 @@ class MthPdtRptsController < ApplicationController
     ss = month_cms(result[:inf_ss][:avg], result[:eff_ss][:avg], result[:emr][:ss], result[:avg_emq][:ss], result[:emq][:ss], year_result[:emq][:ss], up_std[:ss] , end_std[:ss], yoy_result[:emq_ss], mom_result[:emq_ss], 0)
     nhn = month_cms(result[:inf_nhn][:avg], result[:eff_nhn][:avg], result[:emr][:nhn], result[:avg_emq][:nhn], result[:emq][:nhn], year_result[:emq][:nhn], up_std[:nhn] , end_std[:nhn], yoy_result[:emq_nhn], mom_result[:emq_nhn], 0)
 
-    #todo 现在是0-缺少bom_power
+    # 现在是0-缺少bom_power
     power = month_power(result[:power][:sum], year_result[:power][:sum], result[:power][:bom], 0, yoy_result[:power], mom_result[:power], 0, yoy_result[:bom], mom_result[:bom], 0)
 
     mud = month_mud(result[:inmud][:sum], year_result[:inmud][:sum], result[:outmud][:sum], year_result[:outmud][:sum], up_std[:mud], yoy_result[:mud], mom_result[:mud], 0)
@@ -154,6 +152,11 @@ class MthPdtRptsController < ApplicationController
       rpt = MthPdtRpt.new(rpt)
 
       if rpt.save!
+        chemicals = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", @factory.id, _start, _end]).select("chemicals.name chemical_id, sum(dosage) sum_dosage, avg(dosage) avg_dosage").group(:name)
+        chemicals.each do |chemical|
+          MthChemical.create!(:name => chemical.chemical_id, :dosage => chemical.sum_dosage, :avg_dosage => chemical.avg_dosage, :mth_pdt_rpt => rpt) 
+        end
+
         mthbod = MonthBod.new(bod)
         mthbod.mth_pdt_rpt = rpt
         mthbod.save!
