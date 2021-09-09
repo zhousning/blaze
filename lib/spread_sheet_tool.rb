@@ -3,6 +3,18 @@ require 'spreadsheet'
 
 
 class SpreadSheetTool
+  cms = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
+  var = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom', 'ypdr']  
+  cms.each do |c|
+    var.each do |v|
+      define_singleton_method "#{c}_#{v}" do |obj|
+        obj[v]
+        #month_obj = mth_pdt_rpt.method("month_#{c}".to_sym)
+        #obj = month_obj.call
+        #obj[v]
+      end
+    end
+  end
 
   def parseExcel(path)
     Spreadsheet.client_encoding = 'UTF-8'
@@ -14,7 +26,89 @@ class SpreadSheetTool
     end
   end
 
+  #水务集团月报表
   def exportMthPdtRptToExcel(obj)
+    Spreadsheet.client_encoding = 'UTF-8'
+    filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
+    mth_report_template = File.join(Rails.root, "templates", "swjt_mth_report.xls")
+    target_excel = File.join(Rails.root, "public", "excel", filename + '.xls') 
+
+    book = Spreadsheet.open mth_report_template 
+
+    yuebaobiao = book.worksheet 'yuebaobiao'
+    mingxi = book.worksheet 'mingxi'
+    mth_sheets(obj, yuebaobiao, mingxi)
+
+    book.write target_excel
+
+    return target_excel
+  end
+
+  def mth_sheets(obj, yuebaobiao, mingxi)
+    row_size = obj.size
+    obj.each_with_index do |mth_pdt_rpt, row|
+      name = mth_pdt_rpt.name
+
+      def cod
+        mth_pdt_rpt.month_cod
+      end
+      bod = mth_pdt_rpt.month_bod
+      nhn = mth_pdt_rpt.month_nhn
+      tn = mth_pdt_rpt.month_tn
+      tp = mth_pdt_rpt.month_tp
+      ss = mth_pdt_rpt.month_ss
+      fecal = mth_pdt_rpt.month_fecal
+      
+      power = mth_pdt_rpt.month_power
+      mud = mth_pdt_rpt.month_mud
+      md = mth_pdt_rpt.month_md
+
+      cms_arr = []
+      cms = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
+      var = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom', 'ypdr']  
+      cms_title = ['']
+      cms.each do |c|
+        cms_title << Setting["month_#{c}".pluralize.to_sym]['label']
+      end
+
+      puts '..........'
+      puts SpreadSheetTool.cod_avg_inf(cod)
+      puts '..........'
+
+      cms_arr << cms_title
+
+
+      #chemicals = mth_pdt_rpt.mth_chemicals
+      #chemical_title = ['', Setting.mth_chemicals.unprice, Setting.mth_chemicals.cmptc, Setting.mth_chemicals.dosage, Setting.mth_chemicals.act_dosage, Setting.mth_chemicals.avg_dosage, Setting.mth_chemicals.dosptc, Setting.mth_chemicals.per_cost]
+      #chemical_arr = [chemical_title]
+      #chemicals.each do |chemical|
+      #  chemical_arr << [
+      #    chemicals_hash[chemical.name],
+      #    chemical.unprice,
+      #    chemical.cmptc,
+      #    chemical.dosage,
+      #    chemical.act_dosage,
+      #    chemical.avg_dosage,
+      #    chemical.dosptc,
+      #    chemical.per_cost
+      #  ]
+      #end
+
+      #arr = [name, mud.inmud, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
+      #arr.each_with_index do |item, col|
+      #  yuebaobiao.rows[row + 4][col] = item 
+      #end
+
+      #_start = mth_pdt_rpt.start_date
+      #_end = mth_pdt_rpt.end_date
+      #factory = mth_pdt_rpt.factory
+      #@day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ? ", _start, _end]).order("pdt_date ASC")
+      #mingxi_sheet(@day_pdt_rpts, mingxi)
+    end
+  end
+
+  #控股月度汇总模板
+  def exportKgMthPdtRptToExcel(obj)
     Spreadsheet.client_encoding = 'UTF-8'
     filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
     mth_report_template = File.join(Rails.root, "templates", "mth_report.xls")
@@ -24,14 +118,14 @@ class SpreadSheetTool
 
     yuehuizong = book.worksheet 'yuehuizong'
     mingxi = book.worksheet 'mingxi'
-    mth_sheets(obj, yuehuizong, mingxi)
+    kg_mth_sheets(obj, yuehuizong, mingxi)
 
     book.write target_excel
 
     return target_excel
   end
 
-  def mth_sheets(obj, yuehuizong, mingxi)
+  def kg_mth_sheets(obj, yuehuizong, mingxi)
     row_size = obj.size
     obj.each_with_index do |mth_pdt_rpt, row|
       name = mth_pdt_rpt.factory.name
@@ -118,24 +212,24 @@ class SpreadSheetTool
     def day_pdt_rpt_title
       [
         "厂区",
+        Setting.day_pdt_rpts.inflow,        
+        Setting.day_pdt_rpts.outflow,       
         Setting.day_pdt_rpts.pdt_date,  
-        Setting.day_pdt_rpts.inf_qlty_cod,  
-        Setting.day_pdt_rpts.eff_qlty_cod,  
-        Setting.day_pdt_rpts.inf_qlty_bod,  
-        Setting.day_pdt_rpts.eff_qlty_bod,  
-        Setting.day_pdt_rpts.inf_qlty_nhn,  
-        Setting.day_pdt_rpts.eff_qlty_nhn,  
-        Setting.day_pdt_rpts.inf_qlty_tn,   
-        Setting.day_pdt_rpts.eff_qlty_tn,   
-        Setting.day_pdt_rpts.inf_qlty_tp,   
-        Setting.day_pdt_rpts.eff_qlty_tp,   
-        Setting.day_pdt_rpts.inf_qlty_ss,   
-        Setting.day_pdt_rpts.eff_qlty_ss,   
+        Setting.day_pdt_rpts.inf_qlty_cod.gsub(/在线-|化验-/, ''),  
+        Setting.day_pdt_rpts.eff_qlty_cod.gsub(/在线-|化验-/, ''),  
+        Setting.day_pdt_rpts.inf_qlty_bod.gsub(/在线-|化验-/, ''),  
+        Setting.day_pdt_rpts.eff_qlty_bod.gsub(/在线-|化验-/, ''),  
+        Setting.day_pdt_rpts.inf_qlty_nhn.gsub(/在线-|化验-/, ''),  
+        Setting.day_pdt_rpts.eff_qlty_nhn.gsub(/在线-|化验-/, ''),  
+        Setting.day_pdt_rpts.inf_qlty_tn.gsub(/在线-|化验-/, ''),   
+        Setting.day_pdt_rpts.eff_qlty_tn.gsub(/在线-|化验-/, ''),   
+        Setting.day_pdt_rpts.inf_qlty_tp.gsub(/在线-|化验-/, ''),   
+        Setting.day_pdt_rpts.eff_qlty_tp.gsub(/在线-|化验-/, ''),   
+        Setting.day_pdt_rpts.inf_qlty_ss.gsub(/在线-|化验-/, ''),   
+        Setting.day_pdt_rpts.eff_qlty_ss.gsub(/在线-|化验-/, ''),   
         Setting.day_pdt_rpts.inf_qlty_ph,   
         Setting.day_pdt_rpts.eff_qlty_ph,   
         Setting.day_pdt_rpts.eff_qlty_fecal,
-        Setting.day_pdt_rpts.inflow,        
-        Setting.day_pdt_rpts.outflow,       
         Setting.day_rpt_stcs.bcr,
         Setting.day_rpt_stcs.bnr,
         Setting.day_rpt_stcs.bpr,
@@ -165,6 +259,8 @@ class SpreadSheetTool
     def day_pdt_rpt_obj(day_pdt_rpt)
       [
         day_pdt_rpt.factory.name,
+        day_pdt_rpt.inflow,        
+        day_pdt_rpt.outflow,       
         day_pdt_rpt.pdt_date.to_s,  
         day_pdt_rpt.inf_qlty_cod,  
         day_pdt_rpt.eff_qlty_cod,  
@@ -181,8 +277,6 @@ class SpreadSheetTool
         day_pdt_rpt.inf_qlty_ph,   
         day_pdt_rpt.eff_qlty_ph,   
         day_pdt_rpt.eff_qlty_fecal,
-        day_pdt_rpt.inflow,        
-        day_pdt_rpt.outflow,       
         day_pdt_rpt.day_rpt_stc.bcr,
         day_pdt_rpt.day_rpt_stc.bnr,
         day_pdt_rpt.day_rpt_stc.bpr,
