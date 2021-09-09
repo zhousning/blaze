@@ -17,6 +17,8 @@ class CreateMthChemicals < ActiveRecord::Migration
       t.float :dosptc,  null: false, default: Setting.systems.default_num 
     
       t.float :per_cost,  null: false, default: Setting.systems.default_num 
+
+      t.float :std_dev,  null: false, default: Setting.systems.default_num 
     
 
     

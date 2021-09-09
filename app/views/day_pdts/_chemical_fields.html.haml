@@ -30,14 +30,7 @@
                   = f.label Setting.chemicals.dosage, :class => "text-center"
                 %td.p-2.text-center
                   =f.number_field :dosage, :class => "form-control rounded-0", :step => "any", :required => true
-                %td.p-2.text-center
-                  = f.label Setting.chemicals.avg_dosage, :class => "text-center"
-                %td.p-2.text-center
-                  =f.number_field :avg_dosage, :class => "form-control rounded-0", :step => "any", :required => true
-                %td.p-2.text-center
-                  = f.label Setting.chemicals.act_dosage, :class => "text-center"
-                %td.p-2.text-center
-                  =f.number_field :act_dosage, :class => "form-control rounded-0", :step => "any", :required => true
+                %td.p-2.text-center{:colspan => '4'}
 -#
   
   %td.p-2.text-center

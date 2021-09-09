@@ -154,7 +154,9 @@ class MthPdtRptsController < ApplicationController
       if rpt.save!
         chemicals = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", @factory.id, _start, _end]).select("chemicals.name chemical_id, sum(dosage) sum_dosage, avg(dosage) avg_dosage").group(:name)
         chemicals.each do |chemical|
-          MthChemical.create!(:name => chemical.chemical_id, :dosage => chemical.sum_dosage, :avg_dosage => chemical.avg_dosage, :mth_pdt_rpt => rpt) 
+          sum_dosage = format("%0.2f", chemical.sum_dosage).to_f
+          avg_dosage = format("%0.2f", chemical.avg_dosage).to_f
+          MthChemical.create!(:name => chemical.chemical_id, :dosage => sum_dosage, :avg_dosage => avg_dosage, :mth_pdt_rpt => rpt) 
         end
 
         mthbod = MonthBod.new(bod)
@@ -254,11 +256,12 @@ class MthPdtRptsController < ApplicationController
   private
   
     def mth_pdt_rpt_params
-      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params,  chemicals_attributes: chemical_params)
+      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params,  mth_chemicals_attributes: mth_chemical_params)
     end
 
-    def chemical_params
-      [:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
+    def mth_chemical_params
+      #[:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
+      [:id, :unprice, :cmptc, :act_dosage ]
     end
   
     def month_cod_params

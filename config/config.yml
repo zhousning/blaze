@@ -2064,6 +2064,7 @@ development:
     cmptc: 药剂浓度(%)
     dosptc: 药剂投加浓度
     per_cost: 吨水药剂成本
+    std_dev: 偏差率
   chemical_ctgs: &169
     label: 化学药剂分类
     code: 编码

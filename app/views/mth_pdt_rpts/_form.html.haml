@@ -17,26 +17,8 @@
               = image_tag "gykg.jpg"
               = @mth_pdt_rpt.name
       
+      
           .col-sm-8.offset-2.p-5.border
-            .row
-              .col-12
-                .form-group.row
-                  = f.label Setting.mth_pdt_rpts.ecm_ans_rpt + 'word文件(必上传)', :class => "col-sm-3 col-form-label text-right text-primary"
-                  .col-sm-9
-                    %label.newbutton.button.button-primary
-                      %p.append-url
-                        = f.one_attachment("ecm_ans_rpt")
-                      = f.file_field :ecm_ans_rpt, :accept => ".doc,.docx", :class => "select-file", :onchange => "readFileName(this);"
-            .row
-              .col-12
-                .form-group.row
-                  = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传)', :class => "col-sm-3 col-form-label text-right text-danger"
-                  .col-sm-9
-                    %label.newbutton
-                      = image_tag f.one_image("cmc_bill"), :class => "blah"
-                      = f.file_field :cmc_bill, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
-            = f.fields_for :mth_chemicals do |chemical|
-              = render 'chemical_fields', f: chemical
             .row
               .col-6
                 .form-group.row
@@ -59,10 +41,30 @@
                   .col-sm-6
                     = f.text_field :end_outflow, :class => "form-control rounded-0" , :required => true, :disabled => true
           
-      
-      
-      
-      
+            .row
+              .col-12
+                .form-group.row
+                  = f.label Setting.mth_pdt_rpts.ecm_ans_rpt + 'word文件(必上传)', :class => "col-sm-3 col-form-label text-right text-primary"
+                  .col-sm-9
+                    %label.newbutton.button.button-primary
+                      %p.append-url
+                        = f.one_attachment("ecm_ans_rpt")
+                      = f.file_field :ecm_ans_rpt, :accept => ".doc,.docx", :class => "select-file", :onchange => "readFileName(this);"
+            .card.border-0.mb-3.rounded-0
+              .card-header.bg-transparent.border-warning
+                %h5
+                  = Setting.chemicals.label
+                  %span.text-danger
+                    (PAM药剂浓度为固体药剂溶解后浓度)
+              .card-body
+                = f.fields_for :mth_chemicals do |chemical|
+                  = render 'chemical_fields', f: chemical
+                .form-group.row
+                  = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传)', :class => "col-sm-3 col-form-label text-right text-danger"
+                  .col-sm-9
+                    %label.newbutton
+                      = image_tag f.one_image("cmc_bill"), :class => "blah"
+                      = f.file_field :cmc_bill, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
       
             = f.fields_for :month_cod do |month_cod|
               = render 'month_cod_fields', f: month_cod 
@@ -70,15 +72,15 @@
             = f.fields_for :month_bod do |month_bod|
               = render 'month_bod_fields', f: month_bod 
    
-            = f.fields_for :month_tp do |month_tp|
-              = render 'month_tp_fields', f: month_tp 
+            = f.fields_for :month_nhn do |month_nhn|
+              = render 'month_nhn_fields', f: month_nhn 
    
             = f.fields_for :month_tn do |month_tn|
               = render 'month_tn_fields', f: month_tn 
    
-            = f.fields_for :month_nhn do |month_nhn|
-              = render 'month_nhn_fields', f: month_nhn 
-   
+            = f.fields_for :month_tp do |month_tp|
+              = render 'month_tp_fields', f: month_tp 
+
             = f.fields_for :month_ss do |month_nhn|
               = render 'month_ss_fields', f: month_nhn 
    
@@ -94,11 +96,12 @@
             = f.fields_for :month_md do |month_md|
               = render 'month_md_fields', f: month_md 
    
-            = f.fields_for :month_device do |month_device|
-              = render 'month_device_fields', f: month_device 
+            -#
+              = f.fields_for :month_device do |month_device|
+                = render 'month_device_fields', f: month_device 
    
-            = f.fields_for :month_stuff do |month_stuff|
-              = render 'month_stuff_fields', f: month_stuff 
+              = f.fields_for :month_stuff do |month_stuff|
+                = render 'month_stuff_fields', f: month_stuff 
       
         .form-group.row
           .col-3.offset-3

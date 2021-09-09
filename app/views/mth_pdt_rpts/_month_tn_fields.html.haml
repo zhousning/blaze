@@ -1,65 +1,69 @@
-%table.w-100.table-bordered.day-pdt-table
-  %caption.text-center
-    = Setting.month_tns.label
-  %tbody
-    %tr
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.avg_inf, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :avg_inf, :class => "form-control", :disabled => true, :required => true 
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.avg_eff, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :avg_eff, :class => "form-control", :disabled => true, :required => true 
-    %tr
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.emr, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :emr, :class => "form-control", :disabled => true, :required => true 
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.avg_emq, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :avg_emq, :class => "form-control", :disabled => true, :required => true 
-    %tr
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.emq, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :emq, :class => "form-control", :disabled => true, :required => true 
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.end_emq, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :end_emq, :class => "form-control", :disabled => true, :required => true 
-    %tr
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.up_std, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :up_std, :class => "form-control", :disabled => true, :required => true 
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.end_std, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :end_std, :class => "form-control", :disabled => true, :required => true 
-        
-    %tr
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.yoy, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :yoy, :class => "form-control", :disabled => true
-        
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.mom, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :mom, :class => "form-control", :disabled => true
-        
-    %tr
-      %td.p-3.text-center
-        = f.label nil, Setting.month_tns.ypdr, :class => " text-center"
-      %td.p-3.text-center
-        = f.number_field :ypdr, :class => "form-control"
-        
+.card.border-0.mb-3.rounded-0
+  .card-header.bg-transparent.border-dark
+    %h5
+      4 
+      = Setting.month_tns.label
+  .card-body
+    %table.w-100.table-bordered.day-pdt-table
+      %tbody
+        %tr
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.avg_inf, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :avg_inf, :class => "form-control", :disabled => true, :required => true 
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.avg_eff, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :avg_eff, :class => "form-control", :disabled => true, :required => true 
+        %tr
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.emr, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :emr, :class => "form-control", :disabled => true, :required => true 
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.avg_emq, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :avg_emq, :class => "form-control", :disabled => true, :required => true 
+        %tr
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.emq, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :emq, :class => "form-control", :disabled => true, :required => true 
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.end_emq, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :end_emq, :class => "form-control", :disabled => true, :required => true 
+        %tr
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.up_std, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :up_std, :class => "form-control", :disabled => true, :required => true 
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.end_std, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :end_std, :class => "form-control", :disabled => true, :required => true 
+            
+        %tr
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.yoy, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :yoy, :class => "form-control", :disabled => true
+            
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.mom, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :mom, :class => "form-control", :disabled => true
+            
+        %tr
+          %td.p-3.text-center
+            = f.label nil, Setting.month_tns.ypdr, :class => " text-center"
+          %td.p-3.text-center
+            = f.number_field :ypdr, :class => "form-control border-danger"
+            
