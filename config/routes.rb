@@ -119,6 +119,7 @@ Rails.application.routes.draw do
       get :month_compare, :on => :collection
     end
     resources :mth_pdt_rpts, :only => [:index, :edit, :update, :show] do
+      get :produce_report, :on => :member
       get :mth_rpt_create, :on => :collection
       get :download_report, :on => :member
       get :upreport, :on => :member

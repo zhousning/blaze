@@ -1,9 +1,19 @@
 class MthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:download_append]
+  authorize_resource :except => [:download_append, :produce_report]
 
   include MathCube 
+
+  CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
+  VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom']  
+  CMS.each do |c|
+    VARVALUE.each do |v|
+      define_method "#{c}_#{v}" do |obj|
+        obj[v].nil? ? '' : obj[v]
+      end
+    end
+  end
 
   def index
     @mth_pdt_rpt = MthPdtRpt.new
@@ -252,7 +262,156 @@ class MthPdtRptsController < ApplicationController
     target_excel = excel_tool.exportMthPdtRptToExcel(obj)
     send_file target_excel, :filename => "月报表.xls", :type => "application/force-download", :x_sendfile=>true
   end
+
+  def produce_report 
+    @factory = my_factory
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    header = {
+      :name => @mth_pdt_rpt.name
+    }
+
+    flow = flow_content(@mth_pdt_rpt) 
+    cms = cms_content(@mth_pdt_rpt) 
+    chemical = chemical_content(@mth_pdt_rpt) 
+    power = power_content(@mth_pdt_rpt) 
+    mud = mud_content(@mth_pdt_rpt) 
+    md = md_content(@mth_pdt_rpt) 
+    
+    respond_to do |format|
+      format.json{ render :json => 
+        {
+          :fct_id => idencode(@factory.id),
+          :mth_rpt_id => idencode(@mth_pdt_rpt.id),
+          :header => header,
+          :flow   => flow, 
+          :cms    => cms,
+          :power => power,
+          :mud => mud,
+          :md  => md,
+          :chemical => chemical
+        }.to_json}
+    end
+  end
+
+  def flow_content(mth_pdt_rpt)
+    flow_targets =['design', 'outflow', 'avg_outflow', 'end_outflow']
+    flow_arr = []
+    flow_title = []
+    flow_targets.each_with_index do |t, index|
+      flow_title += [Setting.mth_pdt_rpts[t], mth_pdt_rpt[t]]
+      if (index+1)%2 == 0
+        flow_arr << flow_title
+        flow_title = []
+      end
+    end
+    flow_arr
+  end
+
+  def md_content(mth_pdt_rpt)
+    md = mth_pdt_rpt.month_md
+    md_targets =['mdrcy', 'end_mdrcy', 'mdsell', 'end_mdsell', 'yoy_mdrcy', 'mom_mdrcy', 'yoy_mdsell', 'mom_mdsell']
+    md_arr = []
+    md_title = []
+    md_targets.each_with_index do |t, index|
+      md_title += [Setting.month_mds[t], md[t]]
+      if (index+1)%2 == 0
+        md_arr << md_title
+        md_title = []
+      end
+    end
+    md_arr
+  end
+
+  def mud_content(mth_pdt_rpt)
+    mud = mth_pdt_rpt.month_mud
+    mud_targets =['inmud', 'end_inmud', 'outmud', 'end_outmud', 'yoy', 'mom']
+    mud_arr = []
+    mud_title = []
+    mud_targets.each_with_index do |t, index|
+      mud_title += [Setting.month_muds[t], mud[t]]
+      if (index+1)%2 == 0
+        mud_arr << mud_title
+        mud_title = []
+      end
+    end
+    mud_arr
+  end
+
+  def power_content(mth_pdt_rpt)
+    power = mth_pdt_rpt.month_power
+    power_targets =['power', 'end_power', 'bom', 'bom_power', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom' ]
+    power_arr = []
+    power_title = []
+    power_targets.each_with_index do |t, index|
+      power_title += [Setting.month_powers[t], power[t]]
+      if (index+1)%2 == 0
+        power_arr << power_title
+        power_title = []
+      end
+    end
+    power_arr
+  end
+
+  #[
+  #  ['', '', ''],
+  #  ['', '', '']
+  #]
+  def cms_content(mth_pdt_rpt)
+    cod = mth_pdt_rpt.month_cod
+    bod = mth_pdt_rpt.month_bod
+    nhn = mth_pdt_rpt.month_nhn
+    tn = mth_pdt_rpt.month_tn
+    tp = mth_pdt_rpt.month_tp
+    ss = mth_pdt_rpt.month_ss
+    fecal = mth_pdt_rpt.month_fecal
   
+    cms_arr = []
+    cms_title = ['']
+    CMS.each do |c|
+      cms_title << Setting["month_#{c}".pluralize.to_sym]['label']
+    end
+    cms_arr << cms_title
+
+    targets = [cod, bod, nhn, tn, tp, ss, fecal]
+    result = []
+    VARVALUE.each do |v|
+      title = Setting.month_cods[v].gsub('COD','')
+      result = [title]
+      CMS.each_with_index do |c, cms_index|
+        mObj = method("#{c}_#{v}".to_sym)
+        result << mObj.call(targets[cms_index]) 
+      end
+      cms_arr << result 
+    end
+    cms_arr
+  end
+
+  #[
+  #  ['', '', ''],
+  #  ['', '', '']
+  #]
+  def chemical_content(mth_pdt_rpt)
+    chemicals = mth_pdt_rpt.mth_chemicals
+    chemical_targets = ['name', 'unprice', 'cmptc', 'dosage', 'act_dosage', 'avg_dosage', 'dosptc', 'per_cost']
+    chemical_arr = []
+    chemical_title = []
+    chemical_targets.each do |t|
+      chemical_title << Setting.mth_chemicals[t]
+    end
+    chemical_arr << chemical_title
+    chemicals.each do |chemical|
+      arr = []
+      chemical_targets.each_with_index do |t, index|
+        if index == 0
+          arr << chemicals_hash[chemical[t]]
+        else
+          arr << chemical[t]
+        end
+      end
+      chemical_arr << arr
+    end
+    chemical_arr
+  end
 
   private
   
