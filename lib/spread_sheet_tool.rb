@@ -244,6 +244,8 @@ class SpreadSheetTool
 
   def kg_mth_sheets(obj, yuehuizong, mingxi)
     row_size = obj.size
+    mingxi.row(0).concat  day_pdt_rpt_title
+    mingxi_start = 1
     obj.each_with_index do |mth_pdt_rpt, row|
       name = mth_pdt_rpt.factory.name
       cod = mth_pdt_rpt.month_cod
@@ -267,7 +269,10 @@ class SpreadSheetTool
       _end = mth_pdt_rpt.end_date
       factory = mth_pdt_rpt.factory
       @day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ? ", _start, _end]).order("pdt_date ASC")
-      mingxi_sheet(@day_pdt_rpts, mingxi)
+      @day_pdt_rpts.each_with_index do |day_pdt_rpt, index|
+        mingxi.row(mingxi_start + index).concat  day_pdt_rpt_obj(day_pdt_rpt)
+      end
+      mingxi_start += @day_pdt_rpts.size
     end
   end
 
@@ -324,6 +329,7 @@ class SpreadSheetTool
       obj.each_with_index do |day_pdt_rpt, index|
         sheet.row(start + index).concat  day_pdt_rpt_obj(day_pdt_rpt)
       end
+      start + obj.size
     end
 
     def day_pdt_rpt_title

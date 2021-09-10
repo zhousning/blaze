@@ -33,7 +33,7 @@
                 .form-group.row
                   = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
                   .col-sm-6
-                    = f.date_field :pdt_date, :class => "form-control rounded-0" , :id => "day-pdt-date", :required => true, :min => Date.new(2021, 01, 01), :max => Date.today-1
+                    = f.date_field :pdt_date, :class => "form-control rounded-0" , :id => "day-pdt-date", :required => true, :min => Date.new(2021, 9, 01), :max => Date.today-1
               .col-6
                 .form-group.row
                   = f.label Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"

@@ -106,6 +106,9 @@
     -
       controller: reports_controller
       actions: [index, mth_report_show, day_report, mth_report, xls_day_download, xls_mth_download]
+    -
+      controller: mth_pdt_rpts_controller
+      actions: [xls_mth_download, download_report]
 
 - 
   role_name: 集团运营环境监测系统进水

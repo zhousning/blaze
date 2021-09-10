@@ -49,7 +49,7 @@ class ReportsController < ApplicationController
 
   def mth_report
     @factories = Factory.all
-    @mth_pdt_rpts = MthPdtRpt.where(:state => Setting.mth_pdt_rpts.complete).order('start_date DESC').page( params[:page]).per( Setting.systems.per_page ) 
+    @mth_pdt_rpts = MthPdtRpt.where(:state => Setting.mth_pdt_rpts.complete).order('start_date DESC') 
   end
   
   def mth_report_show
@@ -96,8 +96,8 @@ class ReportsController < ApplicationController
     end
 
     excel_tool = SpreadSheetTool.new
-    target_excel = excel_tool.exportMthPdtRptToExcel(obj)
-    send_file target_excel, :filename => "月报表.xls", :type => "application/force-download", :x_sendfile=>true
+    target_excel = excel_tool.exportKgMthPdtRptToExcel(obj)
+    send_file target_excel, :filename => "月报汇总表.xls", :type => "application/force-download", :x_sendfile=>true
   end
   
 end
