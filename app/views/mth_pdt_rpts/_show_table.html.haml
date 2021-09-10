@@ -278,6 +278,7 @@
                   = @mth_pdt_rpt.month_ss.mom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_fecal.mom
+            -#
               %tr
                 %td.p-2.text-center
                   =  Setting.month_cods.ypdr.gsub('COD','')
@@ -346,6 +347,7 @@
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.mom_bom
                  
+            -#
               %tr
                 %td.p-2.text-right
                   =  Setting.month_powers.ypdr_power
@@ -388,16 +390,17 @@
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_mud.end_outmud
                  
-              %tr
-                %td.p-2.text-right
-                  =  Setting.month_muds.mst_up
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_mud.mst_up
-                 
-                %td.p-2.text-right
-                  =  Setting.month_muds.ypdr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_mud.ypdr
+              -#
+                %tr
+                  %td.p-2.text-right
+                    =  Setting.month_muds.mst_up
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_mud.mst_up
+                   
+                  %td.p-2.text-right
+                    =  Setting.month_muds.ypdr
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_mud.ypdr
                  
               %tr
                 %td.p-2.text-right
@@ -462,7 +465,8 @@
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_md.mom_mdsell
                  
-              %tr
+              -#
+                %tr
                 %td.p-2.text-right
                   =  Setting.month_mds.ypdr_mdsell
                 %td.p-2.text-center

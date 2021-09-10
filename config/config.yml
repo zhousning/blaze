@@ -2062,7 +2062,7 @@ development:
     avg_dosage: 平均投加量(吨/天)
     act_dosage: 实际投加量(吨)
     cmptc: 药剂浓度(%)
-    dosptc: 药剂投加浓度
+    dosptc: 药剂投加浓度(mg/l)
     per_cost: 吨水药剂成本
     std_dev: 偏差率
   mth_chemicals: &170
@@ -2073,7 +2073,7 @@ development:
     avg_dosage: 平均每日投加量(吨/天)
     act_dosage: 修正累计投加量(吨)
     cmptc: 药剂浓度(%)
-    dosptc: 药剂投加浓度
+    dosptc: 药剂投加浓度(mg/l)
     per_cost: 吨水药剂成本
     std_dev: 偏差率
   chemical_ctgs: &169

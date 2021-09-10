@@ -2,7 +2,7 @@ require 'spreadsheet'
 
 class SpreadSheetTool
   CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
-  VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom', 'ypdr']  
+  VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom']  
   CMS.each do |c|
     VARVALUE.each do |v|
       define_method "#{c}_#{v}" do |obj|
@@ -31,6 +31,8 @@ class SpreadSheetTool
     book = Spreadsheet.open mth_report_template 
 
     yuebaobiao = book.worksheet 'yuebaobiao'
+    yuebaobiao.column(0).width = 25 
+    yuebaobiao.column(2).width = 25 
     mingxi = book.worksheet 'mingxi'
     mth_sheets(obj, yuebaobiao, mingxi)
 
@@ -43,30 +45,31 @@ class SpreadSheetTool
     row_size = obj.size
     obj.each_with_index do |mth_pdt_rpt, row|
       name = mth_pdt_rpt.name
+      yuebaobiao.row(0)[0] = name 
 
       flow_start = 5
       flow_arr_size = flow_content(mth_pdt_rpt, flow_start, yuebaobiao)
 
-      cms_start = flow_start + flow_arr_size + 1 
+      cms_start = 8 
       cms_arr_size = cms_content(mth_pdt_rpt, cms_start, yuebaobiao)
 
-      chemical_start = cms_start + cms_arr_size + 1
+      chemical_start = 20 
       chemical_arr_size = chemical_content(mth_pdt_rpt, chemical_start, yuebaobiao)
 
-      power_start = chemical_start + chemical_arr_size + 1
+      power_start = 36
       power_arr_size = power_content(mth_pdt_rpt, power_start, yuebaobiao)
 
-      mud_start = power_start + power_arr_size + 1
+      mud_start = 41
       mud_arr_size = mud_content(mth_pdt_rpt, mud_start, yuebaobiao)
 
-      md_start = mud_start + mud_arr_size + 1
+      md_start = 45
       md_arr_size = md_content(mth_pdt_rpt, md_start, yuebaobiao)
 
-      #_start = mth_pdt_rpt.start_date
-      #_end = mth_pdt_rpt.end_date
-      #factory = mth_pdt_rpt.factory
-      #@day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ? ", _start, _end]).order("pdt_date ASC")
-      #mingxi_sheet(@day_pdt_rpts, mingxi)
+      _start = mth_pdt_rpt.start_date
+      _end = mth_pdt_rpt.end_date
+      factory = mth_pdt_rpt.factory
+      @day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ? ", _start, _end]).order("pdt_date ASC")
+      mingxi_sheet(@day_pdt_rpts, mingxi)
     end
   end
 
@@ -81,17 +84,19 @@ class SpreadSheetTool
         flow_title = []
       end
     end
-    flow_arr.each_with_index do |item, index|
-      yuebaobiao.row(start + index).concat item 
+    flow_arr.each_with_index do |items, index|
+      items.each_with_index do |item, i|
+        yuebaobiao.row(start + index).height = 30
+        yuebaobiao.row(start + index)[i] = item 
+      end
     end
     flow_arr.size
   end
 
   def md_content(mth_pdt_rpt, start, yuebaobiao)
-    format = Spreadsheet::Format.new :color => :blue, :weight => :bold, :size => 18
 
     md = mth_pdt_rpt.month_md
-    md_targets =['mdrcy', 'end_mdrcy', 'mdsell', 'end_mdsell', 'yoy_mdrcy', 'mom_mdrcy', 'yoy_mdsell', 'mom_mdsell', 'ypdr_mdsell', 'ypdr_mdrcy']
+    md_targets =['mdrcy', 'end_mdrcy', 'mdsell', 'end_mdsell', 'yoy_mdrcy', 'mom_mdrcy', 'yoy_mdsell', 'mom_mdsell']
     md_arr = []
     md_title = []
     md_targets.each_with_index do |t, index|
@@ -101,16 +106,18 @@ class SpreadSheetTool
         md_title = []
       end
     end
-    md_arr.each_with_index do |item, index|
-      yuebaobiao.row(start + index).default_format = format
-      yuebaobiao.row(start + index).concat item 
+    md_arr.each_with_index do |items, index|
+      items.each_with_index do |item, i|
+        yuebaobiao.row(start + index).height = 30
+        yuebaobiao.row(start + index)[i] = item 
+      end
     end
     md_arr.size
   end
 
   def mud_content(mth_pdt_rpt, start, yuebaobiao)
     mud = mth_pdt_rpt.month_mud
-    mud_targets =['inmud', 'end_inmud', 'outmud', 'end_outmud', 'mst_up', 'ypdr', 'yoy', 'mom']
+    mud_targets =['inmud', 'end_inmud', 'outmud', 'end_outmud', 'yoy', 'mom']
     mud_arr = []
     mud_title = []
     mud_targets.each_with_index do |t, index|
@@ -120,15 +127,18 @@ class SpreadSheetTool
         mud_title = []
       end
     end
-    mud_arr.each_with_index do |item, index|
-      yuebaobiao.row(start + index).concat item 
+    mud_arr.each_with_index do |items, index|
+      items.each_with_index do |item, i|
+        yuebaobiao.row(start + index).height = 30
+        yuebaobiao.row(start + index)[i] = item 
+      end
     end
     mud_arr.size
   end
 
   def power_content(mth_pdt_rpt, start, yuebaobiao)
     power = mth_pdt_rpt.month_power
-    power_targets =['power', 'end_power', 'bom', 'bom_power', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom', 'ypdr_power', 'ypdr_bom']
+    power_targets =['power', 'end_power', 'bom', 'bom_power', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom' ]
     power_arr = []
     power_title = []
     power_targets.each_with_index do |t, index|
@@ -138,8 +148,11 @@ class SpreadSheetTool
         power_title = []
       end
     end
-    power_arr.each_with_index do |item, index|
-      yuebaobiao.row(start + index).concat item 
+    power_arr.each_with_index do |items, index|
+      items.each_with_index do |item, i|
+        yuebaobiao.row(start + index).height = 30
+        yuebaobiao.row(start + index)[i] = item 
+      end
     end
     power_arr.size
   end
@@ -172,8 +185,11 @@ class SpreadSheetTool
       cms_arr << result 
     end
 
-    cms_arr.each_with_index do |item, index|
-      yuebaobiao.row(start + index).concat item 
+    cms_arr.each_with_index do |items, index|
+      items.each_with_index do |item, i|
+        yuebaobiao.row(start + index).height = 30
+        yuebaobiao.row(start + index)[i] = item 
+      end
     end
     cms_arr.size
   end
@@ -199,8 +215,11 @@ class SpreadSheetTool
       end
       chemical_arr << arr
     end
-    chemical_arr.each_with_index do |item, index|
-      yuebaobiao.row(start + index).concat item 
+    chemical_arr.each_with_index do |items, index|
+      items.each_with_index do |item, i|
+        yuebaobiao.row(start + index).height = 30
+        yuebaobiao.row(start + index)[i] = item 
+      end
     end
     chemical_arr.size
   end
