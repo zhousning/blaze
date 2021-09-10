@@ -44,71 +44,23 @@ class SpreadSheetTool
     obj.each_with_index do |mth_pdt_rpt, row|
       name = mth_pdt_rpt.name
 
-      cod = mth_pdt_rpt.month_cod
-      bod = mth_pdt_rpt.month_bod
-      nhn = mth_pdt_rpt.month_nhn
-      tn = mth_pdt_rpt.month_tn
-      tp = mth_pdt_rpt.month_tp
-      ss = mth_pdt_rpt.month_ss
-      fecal = mth_pdt_rpt.month_fecal
-      
-      power = mth_pdt_rpt.month_power
-      mud = mth_pdt_rpt.month_mud
-      md = mth_pdt_rpt.month_md
+      flow_start = 5
+      flow_arr_size = flow_content(mth_pdt_rpt, flow_start, yuebaobiao)
 
-      cms_arr = []
-      cms_title = ['']
-      CMS.each do |c|
-        cms_title << Setting["month_#{c}".pluralize.to_sym]['label']
-      end
-      cms_arr << cms_title
+      cms_start = flow_start + flow_arr_size + 1 
+      cms_arr_size = cms_content(mth_pdt_rpt, cms_start, yuebaobiao)
 
-      targets = [cod, bod, nhn, tn, tp, ss, fecal]
-      result = []
-      VARVALUE.each do |v|
-        title = Setting.month_cods[v].gsub('COD','')
-        result = [title]
-        CMS.each_with_index do |c, cms_index|
-          mObj = method("#{c}_#{v}".to_sym)
-          result << mObj.call(targets[cms_index]) 
-        end
-        cms_arr << result 
-      end
+      chemical_start = cms_start + cms_arr_size + 1
+      chemical_arr_size = chemical_content(mth_pdt_rpt, chemical_start, yuebaobiao)
 
-      cms_start = 5
-      cms_arr.each_with_index do |item, index|
-        yuebaobiao.row(cms_start + index).concat item 
-      end
+      power_start = chemical_start + chemical_arr_size + 1
+      power_arr_size = power_content(mth_pdt_rpt, power_start, yuebaobiao)
 
+      mud_start = power_start + power_arr_size + 1
+      mud_arr_size = mud_content(mth_pdt_rpt, mud_start, yuebaobiao)
 
-      chemical_start = cms_start + cms_arr.size + 1
-      chemicals = mth_pdt_rpt.mth_chemicals
-      chemical_targets = ['name', 'unprice', 'cmptc', 'dosage', 'act_dosage', 'avg_dosage', 'dosptc', 'per_cost']
-      chemical_arr = []
-      chemical_title = []
-      chemical_targets.each do |t|
-        chemical_title << Setting.mth_chemicals[t]
-      end
-      chemical_arr << chemical_title
-      chemicals.each do |chemical|
-        arr = []
-        chemical_targets.each_with_index do |t, index|
-          if index == 0
-            arr << chemicals_hash[chemical[t]]
-          else
-            arr << chemical[t]
-          end
-        end
-        chemical_arr << arr
-      end
-      chemical_arr.each_with_index do |item, index|
-        yuebaobiao.row(chemical_start + index).concat item 
-      end
-
-      #arr = [name, mud.inmud, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
-      #arr.each_with_index do |item, col|
-      #  yuebaobiao.rows[row + 4][col] = item 
-      #end
+      md_start = mud_start + mud_arr_size + 1
+      md_arr_size = md_content(mth_pdt_rpt, md_start, yuebaobiao)
 
       #_start = mth_pdt_rpt.start_date
       #_end = mth_pdt_rpt.end_date
@@ -116,6 +68,141 @@ class SpreadSheetTool
       #@day_pdt_rpts = factory.day_pdt_rpts.where(["pdt_date between ? and ? ", _start, _end]).order("pdt_date ASC")
       #mingxi_sheet(@day_pdt_rpts, mingxi)
     end
+  end
+
+  def flow_content(mth_pdt_rpt, start, yuebaobiao)
+    flow_targets =['design', 'outflow', 'avg_outflow', 'end_outflow']
+    flow_arr = []
+    flow_title = []
+    flow_targets.each_with_index do |t, index|
+      flow_title += [Setting.mth_pdt_rpts[t], mth_pdt_rpt[t]]
+      if (index+1)%2 == 0
+        flow_arr << flow_title
+        flow_title = []
+      end
+    end
+    flow_arr.each_with_index do |item, index|
+      yuebaobiao.row(start + index).concat item 
+    end
+    flow_arr.size
+  end
+
+  def md_content(mth_pdt_rpt, start, yuebaobiao)
+    format = Spreadsheet::Format.new :color => :blue, :weight => :bold, :size => 18
+
+    md = mth_pdt_rpt.month_md
+    md_targets =['mdrcy', 'end_mdrcy', 'mdsell', 'end_mdsell', 'yoy_mdrcy', 'mom_mdrcy', 'yoy_mdsell', 'mom_mdsell', 'ypdr_mdsell', 'ypdr_mdrcy']
+    md_arr = []
+    md_title = []
+    md_targets.each_with_index do |t, index|
+      md_title += [Setting.month_mds[t], md[t]]
+      if (index+1)%2 == 0
+        md_arr << md_title
+        md_title = []
+      end
+    end
+    md_arr.each_with_index do |item, index|
+      yuebaobiao.row(start + index).default_format = format
+      yuebaobiao.row(start + index).concat item 
+    end
+    md_arr.size
+  end
+
+  def mud_content(mth_pdt_rpt, start, yuebaobiao)
+    mud = mth_pdt_rpt.month_mud
+    mud_targets =['inmud', 'end_inmud', 'outmud', 'end_outmud', 'mst_up', 'ypdr', 'yoy', 'mom']
+    mud_arr = []
+    mud_title = []
+    mud_targets.each_with_index do |t, index|
+      mud_title += [Setting.month_muds[t], mud[t]]
+      if (index+1)%2 == 0
+        mud_arr << mud_title
+        mud_title = []
+      end
+    end
+    mud_arr.each_with_index do |item, index|
+      yuebaobiao.row(start + index).concat item 
+    end
+    mud_arr.size
+  end
+
+  def power_content(mth_pdt_rpt, start, yuebaobiao)
+    power = mth_pdt_rpt.month_power
+    power_targets =['power', 'end_power', 'bom', 'bom_power', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom', 'ypdr_power', 'ypdr_bom']
+    power_arr = []
+    power_title = []
+    power_targets.each_with_index do |t, index|
+      power_title += [Setting.month_powers[t], power[t]]
+      if (index+1)%2 == 0
+        power_arr << power_title
+        power_title = []
+      end
+    end
+    power_arr.each_with_index do |item, index|
+      yuebaobiao.row(start + index).concat item 
+    end
+    power_arr.size
+  end
+
+  def cms_content(mth_pdt_rpt, start, yuebaobiao)
+    cod = mth_pdt_rpt.month_cod
+    bod = mth_pdt_rpt.month_bod
+    nhn = mth_pdt_rpt.month_nhn
+    tn = mth_pdt_rpt.month_tn
+    tp = mth_pdt_rpt.month_tp
+    ss = mth_pdt_rpt.month_ss
+    fecal = mth_pdt_rpt.month_fecal
+  
+    cms_arr = []
+    cms_title = ['']
+    CMS.each do |c|
+      cms_title << Setting["month_#{c}".pluralize.to_sym]['label']
+    end
+    cms_arr << cms_title
+
+    targets = [cod, bod, nhn, tn, tp, ss, fecal]
+    result = []
+    VARVALUE.each do |v|
+      title = Setting.month_cods[v].gsub('COD','')
+      result = [title]
+      CMS.each_with_index do |c, cms_index|
+        mObj = method("#{c}_#{v}".to_sym)
+        result << mObj.call(targets[cms_index]) 
+      end
+      cms_arr << result 
+    end
+
+    cms_arr.each_with_index do |item, index|
+      yuebaobiao.row(start + index).concat item 
+    end
+    cms_arr.size
+  end
+
+
+  def chemical_content(mth_pdt_rpt, start, yuebaobiao)
+    chemicals = mth_pdt_rpt.mth_chemicals
+    chemical_targets = ['name', 'unprice', 'cmptc', 'dosage', 'act_dosage', 'avg_dosage', 'dosptc', 'per_cost']
+    chemical_arr = []
+    chemical_title = []
+    chemical_targets.each do |t|
+      chemical_title << Setting.mth_chemicals[t]
+    end
+    chemical_arr << chemical_title
+    chemicals.each do |chemical|
+      arr = []
+      chemical_targets.each_with_index do |t, index|
+        if index == 0
+          arr << chemicals_hash[chemical[t]]
+        else
+          arr << chemical[t]
+        end
+      end
+      chemical_arr << arr
+    end
+    chemical_arr.each_with_index do |item, index|
+      yuebaobiao.row(start + index).concat item 
+    end
+    chemical_arr.size
   end
 
   #控股月度汇总模板

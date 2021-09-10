@@ -2070,7 +2070,7 @@ development:
     name: 名称
     unprice: 单价(元/吨)
     dosage: 累计投加量(吨)
-    avg_dosage: 每日投加量(吨/天)
+    avg_dosage: 平均每日投加量(吨/天)
     act_dosage: 修正累计投加量(吨)
     cmptc: 药剂浓度(%)
     dosptc: 药剂投加浓度
