@@ -6,12 +6,15 @@
     = render "layouts/control_sidebar"
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
-        %ul.list-group.list-group-horizontal
-          %li.list-group-item.pl-0.border-0
+        .row.ml-1.my-3.pl-0
+          .col-1.pl-0
             = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.pl-0.border-0
+          .col-1.pl-0
             = select_tag "month", options_for_mth_months, :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.border-0.d-flex.flex-row
+          .col-1
+            %button#report-search.button.button-royal.button-small{:type => "button"}
+              查询
+          .col-2
             %button#report-download-excel.button.button-primary.button-small{:type => "button"}
               下载月报汇总Excel
 
@@ -27,95 +30,99 @@
                     #home.tab-pane.active{:role => "tabpanel"}
                       .row
                         .col-12
-                          %table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable"}
+                          %table#mth-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true", :'data-height' => "600", :'data-virtual-scroll' => "true", :'data-show-columns' => "true", :'data-page-size' => "15"}
                             %thead
                               %tr
-                                %th{:scope => "col"} #
+                                %th{:scope => "col", :'data-field' => "id"} #
                               
-                                %th{:scope => "col"}
+                                %th{:scope => "col", :'data-field' => "name"}
                                   = Setting.mth_pdt_rpts.name
-                                %th{:scope => "col"}
+                                %th{:scope => "col", :'data-field' => "outflow"}
                                   = Setting.mth_pdt_rpts.outflow
-                                %th{:scope => "col"}
+                                %th{:scope => "col", :'data-field' => "avg_outflow"}
                                   = Setting.mth_pdt_rpts.avg_outflow
-                                %th{:scope => "col"}
+                                %th{:scope => "col", :'data-field' => "end_outflow"}
                                   = Setting.mth_pdt_rpts.end_outflow
-                                %th{:scope => "col"}
-                                  设置
-                            %tbody
-                              - @mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
-                                %tr
-                                  %td{:scope => "row"}
-                                    = index+1
-                                
-                                  %td
-                                    = mth_pdt_rpt.name
-                                  %td
-                                    = mth_pdt_rpt.outflow
-                                  %td
-                                    = mth_pdt_rpt.avg_outflow
-                                  %td
-                                    = mth_pdt_rpt.end_outflow
-                                  %td
-                                    .container-fluid
-                                      .row.justify-content-center
-                                        = link_to "查看",  mth_report_show_report_path(idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
-                  -#
-                    #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
-                        %li.list-group-item
-                          - @quota_flows.each do |q|
-                            %label.checkbox-inline.mr-5
-                              = check_box_tag 'qcodes', q.code, nil, {array: true} 
-                              = q.name
-                          - @quota_muds.each do |q|
-                            %label.checkbox-inline.mr-5
-                              = check_box_tag 'qcodes', q.code, nil, {array: true} 
-                              = q.name
-                        %li.list-group-item
-                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
-                            查询 
-                      .row
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_mud, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
-                      .row.mt-5
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_mud}
-                     
-                    #messages.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
-                        %li.list-group-item
-                          - @quota_powers.each do |q|
-                            %label.checkbox-inline.mr-5
-                              = check_box_tag 'qcodes', q.code, nil, {array: true} 
-                              = q.name
-                        %li.list-group-item
-                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
-                            查询 
-                      .row
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_power, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
-                      .row.mt-5
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_power}
-                    #settings.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
-                        %li.list-group-item
-                          - @quota_mds.each do |q|
-                            %label.checkbox-inline.mr-5
-                              = check_box_tag 'qcodes', q.code, nil, {array: true} 
-                              = q.name
-                        %li.list-group-item
-                          %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
-                            查询 
-                      .row
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_md, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
-                      .row.mt-5
-                        .col-12.d-flex.justify-content-center
-                          .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_md}
+                                %th{:scope => "col", :'data-field' => "search"}
 
       = render "layouts/bootstrap/card"
+= render "mth_pdt_rpts/mth_pdt_rpt_modal"
+
+-#
+  %th{:scope => "col"}
+    设置
+  %tbody
+    - @mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
+      %tr
+        %td{:scope => "row"}
+          = index+1
+      
+        %td
+          = mth_pdt_rpt.name
+        %td
+          = mth_pdt_rpt.outflow
+        %td
+          = mth_pdt_rpt.avg_outflow
+        %td
+          = mth_pdt_rpt.end_outflow
+        %td
+          .container-fluid
+            .row.justify-content-center
+              = link_to "查看",  mth_report_show_report_path(idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
+  #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
+    %ul.list-group.list-group-horizontal
+      %li.list-group-item
+        - @quota_flows.each do |q|
+          %label.checkbox-inline.mr-5
+            = check_box_tag 'qcodes', q.code, nil, {array: true} 
+            = q.name
+        - @quota_muds.each do |q|
+          %label.checkbox-inline.mr-5
+            = check_box_tag 'qcodes', q.code, nil, {array: true} 
+            = q.name
+      %li.list-group-item
+        %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
+          查询 
+    .row
+      .col-12.d-flex.justify-content-center
+        .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_mud, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
+    .row.mt-5
+      .col-12.d-flex.justify-content-center
+        .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_mud}
+   
+  #messages.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
+    %ul.list-group.list-group-horizontal
+      %li.list-group-item
+        - @quota_powers.each do |q|
+          %label.checkbox-inline.mr-5
+            = check_box_tag 'qcodes', q.code, nil, {array: true} 
+            = q.name
+      %li.list-group-item
+        %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
+          查询 
+    .row
+      .col-12.d-flex.justify-content-center
+        .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_power, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
+    .row.mt-5
+      .col-12.d-flex.justify-content-center
+        .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_power}
+  #settings.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
+    %ul.list-group.list-group-horizontal
+      %li.list-group-item
+        - @quota_mds.each do |q|
+          %label.checkbox-inline.mr-5
+            = check_box_tag 'qcodes', q.code, nil, {array: true} 
+            = q.name
+      %li.list-group-item
+        %button.sglfct-statistic-search.button.button-primary.button-small{:type => "button"}
+          查询 
+    .row
+      .col-12.d-flex.justify-content-center
+        .chart-statistic-ctn{:'data-chart' => Setting.charts.line, :'data-type' => Setting.quota.ctg_md, :'data-pos' => Setting.quota.pos_other, :style => "width: 1000px;height:400px;"}
+    .row.mt-5
+      .col-12.d-flex.justify-content-center
+        .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_md}
+
 
 -#
   %h5
@@ -124,7 +131,7 @@
       查看
 
   -#
-    = link_to xls_download_factories_day_pdt_rpts_path(idencode(@factory.id)), :class => "button button-royal pull-right button-small mr-1" do
+    = link_to xls_download_factories_mth_pdt_rpts_path(idencode(@factory.id)), :class => "button button-royal pull-right button-small mr-1" do
       下载表格模板
 
   -#

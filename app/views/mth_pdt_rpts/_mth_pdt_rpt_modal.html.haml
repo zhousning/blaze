@@ -1,0 +1,58 @@
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered
+    .modal-content
+      .modal-header
+        %h3#mth-pdt-rpt-header.modal-title.text-center
+        = link_to '下载excel', nil, {:id => "xls-download", :class => "button button-royal button-small pull-right"} 
+      .modal-body
+        .card.w-100
+          .card-header.bg-white
+            %ul.nav.nav-tabs{:role => "tablist"}
+              %li.nav-item
+                %a.nav-link.active{"data-toggle" => "tab", :href => "#rpts", :role => "tab"}
+                  水质
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#chemicals", :role => "tab"}
+                  药耗
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#power", :role => "tab"}
+                  能耗
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#mds", :role => "tab"}
+                  污泥
+              %li.nav-item
+                %a.nav-link{"data-toggle" => "tab", :href => "#muds", :role => "tab"}
+                  中水
+          .card-body.min-height-450
+            .tab-content.text-center
+              #rpts.tab-pane.active{:role => "tabpanel"}
+                .row
+                  .col-12.d-flex.align-items-center.justify-content-center
+                    #chart-ctn{:style => "width: 900px;height:400px;"}
+                .row
+                  .col-12
+                    %ul#mth-flow-ctn.list-group.list-group-horizontal.d-flex.flex-wrap
+                  .col-12
+                    %table#mth-emq-ctn.table.table-bordered
+              #chemicals.tab-pane{:role => "tabpanel"}
+                .row
+                  .col-12
+                    %table#mth-chemical-ctn.table.table-bordered
+                    %p.text-left
+                      = Setting.mth_chemicals.per_cost + '合计: '
+                      %span#mth-chemical-per-cost
+              #power.tab-pane{:role => "tabpanel"}
+                .row
+                  .col-12
+                    %ul#mth-power-ctn.list-group.list-group-horizontal.d-flex.flex-wrap
+              #mds.tab-pane{:role => "tabpanel"}
+                .row
+                  .col-12
+                    %ul#mth-mud-ctn.list-group.list-group-horizontal.d-flex.flex-wrap
+                    %table#mth-tspmud-ctn.table.table-bordered
+                  .col-12
+              #muds.tab-pane{:role => "tabpanel"}
+                .row
+                  .col-12
+                    %ul#mth-md-ctn.list-group.list-group-horizontal.d-flex.flex-wrap
+                    

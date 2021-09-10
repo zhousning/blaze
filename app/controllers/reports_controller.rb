@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:query_day_reports]
+  authorize_resource :except => [:query_day_reports, :query_mth_reports ]
 
   def index
     @factories = Factory.all
@@ -39,6 +39,36 @@ class ReportsController < ApplicationController
           :eff_tp  => day_pdt_rpt.eff_qlty_tp,
           :inf_nhn => day_pdt_rpt.inf_qlty_nhn,
           :eff_nhn => day_pdt_rpt.eff_qlty_nhn
+        }
+      end
+    end
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
+  end
+
+  def query_mth_reports 
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+    year = params[:year].strip.to_i
+    month = params[:month].strip.to_i
+
+    _start = Date.new(year, month, 1)
+    @factories = Factory.find(fcts)
+
+    obj = []
+    @factories.each do |fct|
+      mth_pdt_rpts = fct.mth_pdt_rpts.where(:start_date => _start)
+      mth_pdt_rpts.each do |mth_pdt_rpt|
+        obj << { 
+          :id          => idencode(mth_pdt_rpt.id).to_s,
+          :fct_id      => idencode(mth_pdt_rpt.factory.id).to_s,
+          :name        => mth_pdt_rpt.name,
+          :outflow     => mth_pdt_rpt.outflow,
+          :avg_outflow => mth_pdt_rpt.avg_outflow,
+          :end_outflow => mth_pdt_rpt.avg_outflow
         }
       end
     end
