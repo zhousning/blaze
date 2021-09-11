@@ -43,8 +43,9 @@
               - if current_user.has_role?(Setting.roles.fct_emp_eff)
                 = link_to factory_emp_effs_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
                   = fa_icon "sign-out", text: "环境监测出水口"
-              = link_to bigscreen_factory_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-                = fa_icon "sign-out", text: "大屏看板"
+              -#
+                = link_to bigscreen_factory_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                  = fa_icon "sign-out", text: "大屏看板"
               - if current_user.has_role?(Setting.roles.fct_setting)
                 = link_to edit_factory_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
                   = fa_icon "cog", text: "基本信息"

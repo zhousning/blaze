@@ -146,40 +146,40 @@ module MathCube
 
   def result_hash(rpt, stc)
     counts = rpt.counts
-    inf_bod   =  rpt.sum_inf_qlty_bod   
-    eff_bod   =  rpt.sum_eff_qlty_bod   
-    inf_cod   =  rpt.sum_inf_qlty_cod   
-    eff_cod   =  rpt.sum_eff_qlty_cod   
-    inf_ss    =  rpt.sum_inf_qlty_ss    
-    eff_ss    =  rpt.sum_eff_qlty_ss    
-    inf_nhn   =  rpt.sum_inf_qlty_nhn   
-    eff_nhn   =  rpt.sum_eff_qlty_nhn   
-    inf_tn    =  rpt.sum_inf_qlty_tn    
-    eff_tn    =  rpt.sum_eff_qlty_tn    
-    inf_tp    =  rpt.sum_inf_qlty_tp    
-    eff_tp    =  rpt.sum_eff_qlty_tp    
-    inf_ph    =  rpt.sum_inf_qlty_ph    
-    eff_ph    =  rpt.sum_eff_qlty_ph    
-    eff_fecal =  rpt.sum_eff_qlty_fecal 
-    inflow    =  rpt.sum_inflow
-    outflow   =  rpt.sum_outflow
-    inmud     =  rpt.sum_inmud 
-    outmud    =  rpt.sum_outmud
-    mst       =  rpt.sum_mst   
-    power     =  rpt.sum_power 
-    mdflow    =  rpt.sum_mdflow
-    mdrcy     =  rpt.sum_mdrcy 
-    mdsell    =  rpt.sum_mdsell
+    inf_bod   =  FormulaLib.format_num(rpt.sum_inf_qlty_bod)
+    eff_bod   =  FormulaLib.format_num(rpt.sum_eff_qlty_bod) 
+    inf_cod   =  FormulaLib.format_num(rpt.sum_inf_qlty_cod) 
+    eff_cod   =  FormulaLib.format_num(rpt.sum_eff_qlty_cod) 
+    inf_ss    =  FormulaLib.format_num(rpt.sum_inf_qlty_ss ) 
+    eff_ss    =  FormulaLib.format_num(rpt.sum_eff_qlty_ss ) 
+    inf_nhn   =  FormulaLib.format_num(rpt.sum_inf_qlty_nhn) 
+    eff_nhn   =  FormulaLib.format_num(rpt.sum_eff_qlty_nhn) 
+    inf_tn    =  FormulaLib.format_num(rpt.sum_inf_qlty_tn ) 
+    eff_tn    =  FormulaLib.format_num(rpt.sum_eff_qlty_tn ) 
+    inf_tp    =  FormulaLib.format_num(rpt.sum_inf_qlty_tp ) 
+    eff_tp    =  FormulaLib.format_num(rpt.sum_eff_qlty_tp ) 
+    inf_ph    =  FormulaLib.format_num(rpt.sum_inf_qlty_ph ) 
+    eff_ph    =  FormulaLib.format_num(rpt.sum_eff_qlty_ph ) 
+    eff_fecal =  FormulaLib.format_num(rpt.sum_eff_qlty_fecal) 
+    inflow    =  FormulaLib.format_num(rpt.sum_inflow)
+    outflow   =  FormulaLib.format_num(rpt.sum_outflow)
+    inmud     =  FormulaLib.format_num(rpt.sum_inmud )
+    outmud    =  FormulaLib.format_num(rpt.sum_outmud)
+    mst       =  FormulaLib.format_num(rpt.sum_mst   )
+    power     =  FormulaLib.format_num(rpt.sum_power )
+    mdflow    =  FormulaLib.format_num(rpt.sum_mdflow)
+    mdrcy     =  FormulaLib.format_num(rpt.sum_mdrcy )
+    mdsell    =  FormulaLib.format_num(rpt.sum_mdsell)
 
     bom = FormulaLib.bom(power, inflow) 
 
     #本月削减量
-    emq_bod = stc.sum_bod_emq
-    emq_cod = stc.sum_cod_emq
-    emq_tp  = stc.sum_tp_emq 
-    emq_tn  = stc.sum_tn_emq 
-    emq_ss  = stc.sum_ss_emq 
-    emq_nhn = stc.sum_nhn_emq
+    emq_bod = FormulaLib.format_num(stc.sum_bod_emq)
+    emq_cod = FormulaLib.format_num(stc.sum_cod_emq)
+    emq_tp  = FormulaLib.format_num(stc.sum_tp_emq )
+    emq_tn  = FormulaLib.format_num(stc.sum_tn_emq )
+    emq_ss  = FormulaLib.format_num(stc.sum_ss_emq )
+    emq_nhn = FormulaLib.format_num(stc.sum_nhn_emq)
 
     #bom_power = 
     #平均削减率

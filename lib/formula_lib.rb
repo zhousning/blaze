@@ -1,5 +1,9 @@
 module FormulaLib
   #处理水量指进水量
+  #
+  def self.format_num(a)
+    a.blank? ? 0 : format("%0.2f", a).to_f
+  end
 
   def self.multiply(a, b)
     a.nil? || b.nil? ? 0 : format("%0.2f",a*b).to_f
