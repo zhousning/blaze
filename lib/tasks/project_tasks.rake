@@ -12,6 +12,7 @@ namespace :project do
     Rake::Task["db:seed"].invoke
     Rake::Task["db:import_daywatercms"].invoke
     Rake::Task["db:import_emps"].invoke
+    Rake::Task["db:create_day_pdt_rpts"].invoke
     Rake::Task["db:create_mth_rpts"].invoke
     
     #Rake::Task["db:import_users"].invoke

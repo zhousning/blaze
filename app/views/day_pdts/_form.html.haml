@@ -1,7 +1,7 @@
 .container-fluid
   .row.justify-content-sm-center
     .col-sm-12
-      = form_for @day_pdt, :url => "/factories/#{idencode(@factory.id)}/day_pdts/#{@day_pdt.id ? idencode(@day_pdt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+      = form_for @day_pdt, :url => "/factories/#{idencode(@factory.id)}/day_pdts/#{@day_pdt.id ? idencode(@day_pdt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:id => 'day-pdt-form', :'data-parsley-validate' => true} do |f|
         - if flash[:warning]
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
@@ -16,11 +16,12 @@
               - @day_pdt.errors.full_messages.each do |msg|
                 %li= msg
       
+        = f.hidden_field :pdt_date
         .row
           .col-sm-12
             %h2.text-center
               = image_tag "gykg.jpg"
-              = @day_pdt.pdt_date.to_s + @factory.name + "运营数据"
+              = @day_pdt.name
           .col-3.offset-6
             .form-group.row
               = f.label Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
@@ -29,16 +30,12 @@
           .col-md-8.offset-md-2.p-5.border
             #flash_explanation
             .row
-              .col-6
-                .form-group.row
-                  = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
-                  .col-sm-6
-                    = f.date_field :pdt_date, :class => "form-control rounded-0" , :id => "day-pdt-date", :required => true, :min => Date.new(2021, 9, 01), :max => Date.today-1
-              .col-6
-                .form-group.row
-                  = f.label Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
-                  .col-sm-6
-                    = f.text_field :weather, :class => "form-control rounded-0" , :required => true
+              -#
+                .col-6
+                  .form-group.row
+                    = f.label Setting.day_pdts.pdt_date, :class => "col-sm-3 col-form-label text-right"
+                    .col-sm-6
+                      = f.date_field :pdt_date, :class => "form-control rounded-0" , :id => "day-pdt-date", :required => true, :min => Date.new(2021, 9, 01), :max => Date.today-1
               .col-6
                 .form-group.row
                   = f.label Setting.day_pdts.min_temper, :class => "col-sm-3 col-form-label text-right"
@@ -49,6 +46,11 @@
                   = f.label Setting.day_pdts.max_temper, :class => "col-sm-3 col-form-label text-right"
                   .col-sm-6
                     = f.number_field :max_temper, :class => "form-control rounded-0", :required => true, :step => "any" 
+              .col-6
+                .form-group.row
+                  = f.label Setting.day_pdts.weather, :class => "col-sm-3 col-form-label text-right"
+                  .col-sm-6
+                    = f.text_field :weather, :class => "form-control rounded-0" , :required => true
 
             = f.fields_for :inf_qlty do |inf_qlty|
               = render 'inf_qlty_fields', f: inf_qlty 
