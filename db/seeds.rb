@@ -53,7 +53,7 @@ AdminUser.create!(:phone => Setting.admins.phone, :email => Setting.admins.email
 @role_grp_mgn_emp_eff    = Role.where(:name =>  Setting.roles.grp_mgn_emp_eff).first
 
 #厂区数据填报
-@data_filler  = [@role_fct, @role_day_pdt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff, @role_fct_emp_inf_mg, @role_fct_emp_eff_mg]
+@data_filler  = [@role_fct, @role_day_pdt, @role_day_rpt, @role_mth_rpt_filler, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time, @role_fct_emp_inf, @role_fct_emp_eff, @role_fct_emp_inf_mg, @role_fct_emp_eff_mg]
 #厂区数据审核
 @data_verifer = [@role_fct, @role_day_rpt, @role_day_pdt_verify, @role_mth_rpt_verify, @role_mth_rpt_index, @role_data_compare ,@role_data_cube, @role_area_time,  @role_fct_emp_inf, @role_fct_emp_eff]
 #厂区管理者
@@ -139,7 +139,7 @@ User.create!(:phone => "12305376699", :password => "rcws6699", :password_confirm
 User.create!(:phone => "12305378888", :password => "dsmt8888", :password_confirmation => "dsmt8888", :name => "达斯玛特数据填报员", :roles => @data_filler, :factories => [@dsmt])
 User.create!(:phone => "12305379999", :password => "dsmt9999", :password_confirmation => "dsmt9999", :name => "达斯玛特数据审核员", :roles => @data_verifer, :factories => [@dsmt])
 User.create!(:phone => "12305376688", :password => "dsmt6688", :password_confirmation => "dsmt6688", :name => "达斯玛特管理者", :roles => @fct_mgn, :factories => [@dsmt])
-User.create!(:phone => "12305379988", :password => "dsmt9988", :password_confirmation => "dsmt9988", :name => "达斯玛特管理者", :roles => @fct_leader, :factories => [@dsmt])
+User.create!(:phone => "12305379988", :password => "dsmt9988", :password_confirmation => "dsmt9988", :name => "达斯玛特领导", :roles => @fct_leader, :factories => [@dsmt])
 #-----------
 User.create!(:phone => "12305371818", :password => "jxws1818", :password_confirmation => "jxws1818", :name => "嘉祥污水数据填报员", :roles => @data_filler, :factories => [@jxws])
 User.create!(:phone => "12305370101", :password => "jxws0101", :password_confirmation => "jxws0101", :name => "嘉祥污水数据审核员", :roles => @data_verifer, :factories => [@jxws])

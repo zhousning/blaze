@@ -47,10 +47,11 @@ $(".notices.index, .wares.index").ready(function() {
   }
 });
 
-$('.newbtn').bind("click" , function () {
-  file = $(this).find(".select-file")[0]
-  $(file).click();
-});
+function form_parse_submit() {
+  $(".btn-parse-submit").attr("disabled",true);
+  $(".ctn-progress").css("display","flex");
+}
+
  
 function readURL(input) {
   if (input.files && input.files[0]) {

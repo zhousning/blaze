@@ -188,7 +188,7 @@ class EmpEffsController < ApplicationController
               ph       = item['K' + index.to_s].nil? ? 0 : item['K' + index.to_s]
               temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
-              @emp_eff = @factory.emp_effs.where(:pdt_time => datetime).first
+              @emp_eff = @factory.emp_effs.where(:pdt_time => datetime.to_datetime).first
               EmpEff.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :tn => tn, :flow => efflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_eff
             end
           end

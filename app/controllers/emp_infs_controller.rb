@@ -187,7 +187,7 @@ class EmpInfsController < ApplicationController
               ph       = item['K' + index.to_s].nil? ? 0 : item['K' + index.to_s]
               temp     = item['L' + index.to_s].nil? ? 0 : item['L' + index.to_s]
 
-              @emp_inf = @factory.emp_infs.where(:pdt_time => datetime).first
+              @emp_inf = @factory.emp_infs.where(:pdt_time => datetime.to_datetime).first
               EmpInf.create!(:pdt_time => datetime, :cod => cod, :nhn => nhn, :tp => tp, :tn => tn, :flow => inflow, :ph => ph, :temp => temp, :factory => @factory) unless @emp_inf
             end
           end

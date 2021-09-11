@@ -138,8 +138,10 @@ class DayPdtsController < ApplicationController
   def only_emp_sync
     @factory = my_factory
     date = params[:search_date].to_date
-    _start = date.to_s + "00:10:00"
-    _end = (date + 1).to_s + "00:10:00"
+    #_start = date.to_s + "00:10:00"
+    #_end = (date + 1).to_s + "00:10:00"
+    _start = date - 1
+    _end = date + 1
     @emp_infs = @factory.emp_infs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
     @emp_effs = @factory.emp_effs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
     state = 'success'

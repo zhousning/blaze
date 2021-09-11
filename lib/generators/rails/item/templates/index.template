@@ -57,14 +57,14 @@
 
 <% if @upload %>
 #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :tabindex => "-1"}
-  .modal-dialog
+  .modal-dialog.modal-xl.modal-dialog-centered
     .modal-content
       .modal-header
         %h5#exampleModalLabel.modal-title 表格上传 
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} x 
       .modal-body
-        = form_tag "/<%= @mpu %>/parse_excel", multipart: true, id: "form-parse-excel" do
+        = form_tag "/<%= @mpu %>/parse_excel", multipart: true, id: "form-parse-excel", onsubmit: 'form_parse_submit()' do
           .form-group.row
             = label_tag "表格", nil, :class => "col-4 text-right col-form-label col-form-label"
             .col-8
