@@ -32,7 +32,7 @@ $(".day_pdts").ready(function() {
             inflow .val(data.inf.inflow);
             outflow.val(data.eff.outflow);
           } else if (data.state == 'error') {
-            $("#flash_explanation").html("<div class='alert alert-danger text-left'>当前日期暂无环境监测系统数据，请先上传数据, 上传后系统自动计算在线数据!</div>");
+            $("#flash_explanation").html("<div class='alert alert-danger text-left'>当前日期暂无 环境监测" + data.info + ",请先上传数据, 上传后系统自动计算在线数据!</div>");
           } else if (data.state == 'exist') {
             $("#flash_explanation").html("<div class='alert alert-danger text-left'>当前日期运营数据已存在,请重新选择日期!</div>");
           }

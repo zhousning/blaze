@@ -63,4 +63,4 @@
                 = fa_icon "object-ungroup", text: "指标对比"
             - if current_user.has_role?(Setting.roles.area_time)
               = link_to area_time_analyses_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
-                = fa_icon "object-ungroup", text: "厂间分析"
+                = fa_icon "clone", text: "厂间分析"

@@ -56,7 +56,7 @@ class DayPdtsController < ApplicationController
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
     @day_pdt.cmp_verifying
-    redirect_to verify_index_factory_day_pdts_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+    redirect_to verify_show_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
   end
   
   def cmp_rejected
@@ -135,16 +135,18 @@ class DayPdtsController < ApplicationController
   end
 
   #1点-00点
+  #_start = date.to_s + "00:10:00"
+  #_end = (date + 1).to_s + "00:10:00"
   def only_emp_sync
     @factory = my_factory
     date = params[:search_date].to_date
-    #_start = date.to_s + "00:10:00"
-    #_end = (date + 1).to_s + "00:10:00"
-    _start = date - 1
+    #00-23点
+    _start = date
     _end = date + 1
     @emp_infs = @factory.emp_infs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
     @emp_effs = @factory.emp_effs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
     state = 'success'
+    info = ''
 
     unless @emp_infs.blank?
       inf_avg_cod  = format("%0.2f", @emp_infs.average(:cod)).to_f
@@ -164,6 +166,7 @@ class DayPdtsController < ApplicationController
       }
     else
       state = "error"
+      info = "进水口数据 "
     end
 
     unless @emp_effs.blank?
@@ -184,11 +187,13 @@ class DayPdtsController < ApplicationController
       }
     else
       state = "error"
+      info += "出水口数据 "
     end
     result = {
       :inf => @inf_qlty,
       :eff => @eff_qlty,
-      :state => state
+      :state => state,
+      :info => info
     }
 
     respond_to do |f|

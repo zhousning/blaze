@@ -1,19 +1,11 @@
 module MathCube
+  include MyCommon 
   include FormulaLib
   
-  def MathCube.quota_hash 
-    quota_hash = Hash.new
-    quotas = Quota.all
-    quotas.each do |q|
-      quota_hash[q.code.strip] = {:name => q.name, :max => q.max }
-    end
-    quota_hash
-  end
-
-  MYQUOTAS = MathCube.quota_hash
+  MYQUOTAS = MyCommon.quota_hash
 
   def up_standard_days(factory_id, _start, _end)
-    quotas = MathCube.quota_hash
+    quotas = MyCommon.quota_hash
     bod_max = quotas[Setting.quota.bod][:max]
     cod_max = quotas[Setting.quota.cod][:max]
     tn_max = quotas[Setting.quota.tn][:max]
@@ -200,18 +192,18 @@ module MathCube
     avg_emq_nhn = FormulaLib.avg_emq(emq_nhn, inflow) 
 
     result = {
-      :inf_bod =>   { code: Setting.quota.bod,     title: Setting.day_pdt_rpts.inf_qlty_bod,   sum: inf_bod,   avg: FormulaLib.ratio(inf_bod,   counts) },
-      :eff_bod =>   { code: Setting.quota.bod,     title: Setting.day_pdt_rpts.eff_qlty_bod,   sum: eff_bod,   avg: FormulaLib.ratio(eff_bod,   counts) },
-      :inf_cod =>   { code: Setting.quota.cod,     title: Setting.day_pdt_rpts.inf_qlty_cod,   sum: inf_cod,   avg: FormulaLib.ratio(inf_cod,   counts) },
-      :eff_cod =>   { code: Setting.quota.cod,     title: Setting.day_pdt_rpts.eff_qlty_cod,   sum: eff_cod,   avg: FormulaLib.ratio(eff_cod,   counts) },
-      :inf_ss =>    { code: Setting.quota.ss,      title: Setting.day_pdt_rpts.inf_qlty_ss,    sum: inf_ss,    avg: FormulaLib.ratio(inf_ss,    counts) },
-      :eff_ss =>    { code: Setting.quota.ss,      title: Setting.day_pdt_rpts.eff_qlty_ss,    sum: eff_ss,    avg: FormulaLib.ratio(eff_ss,    counts) },
-      :inf_nhn =>   { code: Setting.quota.nhn,     title: Setting.day_pdt_rpts.inf_qlty_nhn,   sum: inf_nhn,   avg: FormulaLib.ratio(inf_nhn,   counts) },
-      :eff_nhn =>   { code: Setting.quota.nhn,     title: Setting.day_pdt_rpts.eff_qlty_nhn,   sum: eff_nhn,   avg: FormulaLib.ratio(eff_nhn,   counts) },
-      :inf_tn =>    { code: Setting.quota.tn,      title: Setting.day_pdt_rpts.inf_qlty_tn,    sum: inf_tn,    avg: FormulaLib.ratio(inf_tn,    counts) },
-      :eff_tn =>    { code: Setting.quota.tn,      title: Setting.day_pdt_rpts.eff_qlty_tn,    sum: eff_tn,    avg: FormulaLib.ratio(eff_tn,    counts) },
-      :inf_tp =>    { code: Setting.quota.tp,      title: Setting.day_pdt_rpts.inf_qlty_tp,    sum: inf_tp,    avg: FormulaLib.ratio(inf_tp,    counts) },
-      :eff_tp =>    { code: Setting.quota.tp,      title: Setting.day_pdt_rpts.eff_qlty_tp,    sum: eff_tp,    avg: FormulaLib.ratio(eff_tp,    counts) },
+      :inf_bod =>   { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod),   sum: inf_bod,   avg: FormulaLib.ratio(inf_bod,   counts) },
+      :eff_bod =>   { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod),   sum: eff_bod,   avg: FormulaLib.ratio(eff_bod,   counts) },
+      :inf_cod =>   { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_cod),   sum: inf_cod,   avg: FormulaLib.ratio(inf_cod,   counts) },
+      :eff_cod =>   { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod),   sum: eff_cod,   avg: FormulaLib.ratio(eff_cod,   counts) },
+      :inf_ss =>    { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_ss),    sum: inf_ss,    avg: FormulaLib.ratio(inf_ss,    counts) },
+      :eff_ss =>    { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_ss),    sum: eff_ss,    avg: FormulaLib.ratio(eff_ss,    counts) },
+      :inf_nhn =>   { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn),   sum: inf_nhn,   avg: FormulaLib.ratio(inf_nhn,   counts) },
+      :eff_nhn =>   { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn),   sum: eff_nhn,   avg: FormulaLib.ratio(eff_nhn,   counts) },
+      :inf_tn =>    { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn),    sum: inf_tn,    avg: FormulaLib.ratio(inf_tn,    counts) },
+      :eff_tn =>    { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn),    sum: eff_tn,    avg: FormulaLib.ratio(eff_tn,    counts) },
+      :inf_tp =>    { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp),    sum: inf_tp,    avg: FormulaLib.ratio(inf_tp,    counts) },
+      :eff_tp =>    { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp),    sum: eff_tp,    avg: FormulaLib.ratio(eff_tp,    counts) },
       :inf_ph =>    { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.inf_qlty_ph,    sum: inf_ph,    avg: FormulaLib.ratio(inf_ph,    counts) },
       :eff_ph =>    { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.eff_qlty_ph,    sum: eff_ph,    avg: FormulaLib.ratio(eff_ph,    counts) },
       :eff_fecal => { code: Setting.quota.fecal,   title: Setting.day_pdt_rpts.eff_qlty_fecal, sum: eff_fecal, avg: FormulaLib.ratio(eff_fecal, counts) },

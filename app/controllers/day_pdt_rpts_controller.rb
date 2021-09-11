@@ -187,7 +187,7 @@ class DayPdtRptsController < ApplicationController
     tspmuds = []
     @day_pdt_rpt.tspmuds.each do |tspmud|
       tspmuds << {
-        Setting.tspmuds.dealer => tspmud.dealer,
+        Setting.tspmuds.dealer => mudfcts_hash(@factory)[tspmud.dealer],
         Setting.tspmuds.tspvum => tspmud.tspvum,
         Setting.tspmuds.rcpvum => tspmud.rcpvum,
         Setting.tspmuds.price => tspmud.price,

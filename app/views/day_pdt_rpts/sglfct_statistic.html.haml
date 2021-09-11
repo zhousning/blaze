@@ -37,7 +37,7 @@
                 .card-body
                   .tab-content.text-center
                     #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
+                      %ul.list-group.list-group-horizontal.mb-3
                         %li.list-group-item
                           - @quota_cms.each do |q|
                             %label.checkbox-inline.mr-5
@@ -55,7 +55,7 @@
                         .col-12.d-flex.justify-content-center
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_cms}
                     #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
+                      %ul.list-group.list-group-horizontal.mb-3
                         %li.list-group-item
                           - @quota_flows.each do |q|
                             %label.checkbox-inline.mr-5
@@ -76,7 +76,7 @@
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_mud}
                      
                     #messages.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
+                      %ul.list-group.list-group-horizontal.mb-3
                         %li.list-group-item
                           - @quota_powers.each do |q|
                             %label.checkbox-inline.mr-5
@@ -92,7 +92,7 @@
                         .col-12.d-flex.justify-content-center
                           .chart-statistic-ctn{:'data-chart' => Setting.charts.table, :'data-type' => Setting.quota.ctg_power}
                     #settings.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
-                      %ul.list-group.list-group-horizontal
+                      %ul.list-group.list-group-horizontal.mb-3
                         %li.list-group-item
                           - @quota_mds.each do |q|
                             %label.checkbox-inline.mr-5

@@ -1,14 +1,7 @@
 module ChartConfig
-  def QuotaConfig.quota_hash 
-    quota_hash = Hash.new
-    quotas = Quota.all
-    quotas.each do |q|
-      quota_hash[q.code] = {:name => q.name, :max => q.max }
-    end
-    quota_hash
-  end
+  include MyCommon
 
-  MYQUOTAS = QuotaConfig.quota_hash
+  MYQUOTAS = MyCommon.quota_hash
 
   def my_factory
     @factory = current_user.factories.find(iddecode(params[:factory_id]))

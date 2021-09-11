@@ -107,6 +107,15 @@ class ApplicationController < ActionController::Base
       hash
     end
 
+    def mudfcts_hash(factory)
+      hash = Hash.new
+      mudfcts = factory.mudfcts
+      mudfcts.each do |f|
+        hash[f.id.to_s] = f.name
+      end
+      hash
+    end
+
     def my_factory
       @factory = current_user.factories.find(iddecode(params[:factory_id]))
     end

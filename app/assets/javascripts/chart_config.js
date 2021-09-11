@@ -107,7 +107,7 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
   var new_Option = {
     title: {
       text: my_title, 
-      subtext: 'COD,NH3-N,TP,TN取在线仪表平均值',
+      subtext: '生产运营数据',
       left: 'center',
       align: 'right'
     },
