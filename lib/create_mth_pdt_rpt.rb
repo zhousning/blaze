@@ -8,7 +8,7 @@ module CreateMthPdtRpt
     result = static_sum(factory.id, _start, _end)
 
     #判断选定的月份是否有数据
-    if result.state == 'zero'
+    if result[:state] == 'zero'
       process_result = 'zero'
       return process_result
     end
