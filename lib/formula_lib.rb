@@ -1,12 +1,14 @@
+#传入的必须是纯数字
 module FormulaLib
+  #s.is_a?(Number)
+  
   #处理水量指进水量
-  #
   def self.format_num(a)
     a.blank? ? 0 : format("%0.2f", a).to_f
   end
 
   def self.multiply(a, b)
-    a.nil? || b.nil? ? 0 : format("%0.2f",a*b).to_f
+    a.blank? || b.blank? ? 0 : format("%0.2f",a*b).to_f
   end
 
   #进水
@@ -68,6 +70,11 @@ module FormulaLib
   #药剂单价*投加量/污水处理量
   def self.chemical_per_cost(unprice, dosage, inflow)
     inflow == 0 ? 0 : format("%0.2f", unprice*dosage/inflow).to_f
+  end
+
+  #偏差率
+  def self.std_dev(act, theory)
+    theory == 0 ? 0 : format("%0.2f",(act - theory)/theory*10*10).to_f
   end
 
 end

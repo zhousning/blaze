@@ -26,7 +26,8 @@ class MthPdtRptWorker
         up_std = up_standard_days(factory.id, _start, _end)
         end_std = up_standard_days(factory.id, _year_start, _end)
 
-        rpt_param = mth_pdt_rpt(start_date, end_date, factory.design, result[:inflow][:sum], result[:inflow][:avg], year_result[:inflow][:sum], factory.id, name)
+        rpt_param = mth_pdt_rpt(start_date, end_date, factory.design, result[:inflow][:sum], result[:inflow][:avg], year_result[:inflow][:sum], factory.id, name, Setting.mth_pdt_rpts.ongoing)
+         
 
         bod = month_cms(result[:inf_bod][:avg], result[:eff_bod][:avg], result[:emr][:bod], result[:avg_emq][:bod], result[:emq][:bod], year_result[:emq][:bod], up_std[:bod] , end_std[:bod], yoy_result[:emq_bod], mom_result[:emq_bod], 0)
         cod = month_cms(result[:inf_cod][:avg], result[:eff_cod][:avg], result[:emr][:cod], result[:avg_emq][:cod], result[:emq][:cod], year_result[:emq][:cod], up_std[:cod] , end_std[:cod], yoy_result[:emq_cod], mom_result[:emq_cod], 0)
@@ -84,7 +85,7 @@ class MthPdtRptWorker
         end
       else
         MthPdtRpt.transaction do
-          rpt_param = mth_pdt_rpt(start_date, end_date, factory.design, 0, 0, 0, factory.id, name)
+          rpt_param = mth_pdt_rpt(start_date, end_date, factory.design, 0, 0, 0, factory.id, name, Setting.mth_pdt_rpts.ongoing)
           rpt = MthPdtRpt.new(rpt_param)
 
           if rpt.save!
@@ -106,9 +107,9 @@ class MthPdtRptWorker
   end 
 
   private
-    def mth_pdt_rpt(start_date, end_date, design, outflow, avg_outflow, end_outflow, factory_id, name)
+    def mth_pdt_rpt(start_date, end_date, design, outflow, avg_outflow, end_outflow, factory_id, name, state)
       {
-        :state => Setting.mth_pdt_rpts.complete,
+        :state => state,
         :name => name,
         :start_date =>  start_date, 
         :end_date =>  end_date, 

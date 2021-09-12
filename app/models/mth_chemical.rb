@@ -7,7 +7,8 @@ class MthChemical < ActiveRecord::Base
   def update_ptc(inflow)
     dosptc = FormulaLib.dosptc(self.act_dosage, self.cmptc, inflow) 
     per_cost = FormulaLib.chemical_per_cost(self.unprice, self.act_dosage, inflow)
-    self.update_attributes(:dosptc => dosptc, :per_cost => per_cost)
+    std_dev = FormulaLib.std_dev(self.act_dosage, self.dosage)
+    self.update_attributes(:dosptc => dosptc, :per_cost => per_cost, :std_dev => std_dev)
     per_cost
   end
 end
