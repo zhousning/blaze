@@ -4,7 +4,7 @@ namespace 'db' do
   task(:create_day_pdt_rpts => :environment) do
     @factories = Factory.all
     start_date = Date.new(2021, 9, 1)
-    end_date = Date.new(2021, 9, 12)
+    end_date = Date.new(2021, 9, 11)
     
     (start_date..end_date).each do |pdt_date|
       @factories.each do |factory|

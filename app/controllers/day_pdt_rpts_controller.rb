@@ -299,7 +299,7 @@ class DayPdtRptsController < ApplicationController
       static_pools = static_sum(factory_id, _start, _end)
       static_pool = [] 
       static_pools.each_pair do |k, v|
-        if real_codes.include?(v[:code])
+        if k.to_s != 'state' && real_codes.include?(v[:code])
           static_pool << { :title => v[:title], :sum => v[:sum], :avg => v[:avg] } 
         end
       end

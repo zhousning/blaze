@@ -1,5 +1,5 @@
 produce_day_pdt:
-  cron: "30 3 * * *"
+  cron: "30 4 * * *"
   class: "DayPdtWorker"
   queue: default
 produce_mth_pdt_rpt:
