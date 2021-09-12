@@ -250,18 +250,18 @@ Mudfct.create!(:factory => @qfsw, :name => '中联水泥')
 #  end
 #end
 
-rcws = Factory.first
-31.times.each do |t|
-  pdt_date = Date.new(2021, 1, t+1) 
-  day_rpt = DayPdtRpt.create!(
-    :factory => rcws,
-    :name => pdt_date.to_s + rcws.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :min_temper => Faker::Number.between(from: -10, to: 35), 
-    :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
-    :eff_qlty_bod => Faker::Number.within(range: 1..10), :eff_qlty_cod => Faker::Number.within(range: 10..50), :eff_qlty_ss => Faker::Number.within(range: 1..10), :eff_qlty_nhn => Faker::Number.within(range: 1..5), :eff_qlty_tn => Faker::Number.within(range: 1..15), :eff_qlty_tp => format("%0.2f", Faker::Number.within(range: 0.1..0.5)), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..500),  
-    :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 
-    :inflow => Faker::Number.within(range: 10..100), :outflow => Faker::Number.within(range: 10..100), :inmud => Faker::Number.within(range: 10..100), :outmud => Faker::Number.within(range: 10..100), :mst => Faker::Number.within(range: 10..100), :power => Faker::Number.within(range: 10..100), :mdflow => Faker::Number.within(range: 10..100), :mdrcy => Faker::Number.within(range: 10..100), :mdsell => Faker::Number.within(range: 10..100)
-  )
-  [1,2,3,4,5,6].each do |chemical|
-    Chemical.create!(:name => chemical, :unprice => Faker::Number.within(range: 10..100), :dosage => Faker::Number.within(range: 10..100), :cmptc => Faker::Number.within(range: 10..100), :day_pdt_rpt => day_rpt)
-  end
-end
+#rcws = Factory.first
+#31.times.each do |t|
+#  pdt_date = Date.new(2021, 1, t+1) 
+#  day_rpt = DayPdtRpt.create!(
+#    :factory => rcws,
+#    :name => pdt_date.to_s + rcws.name + "生产运营数据", :pdt_date => pdt_date, :weather => '晴', :min_temper => Faker::Number.between(from: -10, to: 35), 
+#    :inf_qlty_bod => Faker::Number.within(range: 10..100), :inf_qlty_cod => Faker::Number.within(range: 10..100), :inf_qlty_ss => Faker::Number.within(range: 10..100), :inf_qlty_nhn => Faker::Number.within(range: 10..100), :inf_qlty_tn => Faker::Number.within(range: 10..100), :inf_qlty_tp => Faker::Number.within(range: 10..100), :inf_qlty_ph => Faker::Number.between(from: 0, to: 14), 
+#    :eff_qlty_bod => Faker::Number.within(range: 1..10), :eff_qlty_cod => Faker::Number.within(range: 10..50), :eff_qlty_ss => Faker::Number.within(range: 1..10), :eff_qlty_nhn => Faker::Number.within(range: 1..5), :eff_qlty_tn => Faker::Number.within(range: 1..15), :eff_qlty_tp => format("%0.2f", Faker::Number.within(range: 0.1..0.5)), :eff_qlty_ph => Faker::Number.between(from: 0, to: 14), :eff_qlty_fecal => Faker::Number.within(range: 10..500),  
+#    :sed_qlty_bod => Faker::Number.within(range: 10..100), :sed_qlty_cod => Faker::Number.within(range: 10..100), :sed_qlty_ss => Faker::Number.within(range: 10..100), :sed_qlty_nhn => Faker::Number.within(range: 10..100), :sed_qlty_tn => Faker::Number.within(range: 10..100), :sed_qlty_tp => Faker::Number.within(range: 10..100), :sed_qlty_ph => Faker::Number.between(from: 0, to: 14), 
+#    :inflow => Faker::Number.within(range: 10..100), :outflow => Faker::Number.within(range: 10..100), :inmud => Faker::Number.within(range: 10..100), :outmud => Faker::Number.within(range: 10..100), :mst => Faker::Number.within(range: 10..100), :power => Faker::Number.within(range: 10..100), :mdflow => Faker::Number.within(range: 10..100), :mdrcy => Faker::Number.within(range: 10..100), :mdsell => Faker::Number.within(range: 10..100)
+#  )
+#  [1,2,3,4,5,6].each do |chemical|
+#    Chemical.create!(:name => chemical, :unprice => Faker::Number.within(range: 10..100), :dosage => Faker::Number.within(range: 10..100), :cmptc => Faker::Number.within(range: 10..100), :day_pdt_rpt => day_rpt)
+#  end
+#end

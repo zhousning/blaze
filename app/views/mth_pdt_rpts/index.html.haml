@@ -19,14 +19,15 @@
           -#
             %span.text-danger
             = fa_icon "question-circle-o", text: Setting.systems.produce_mth_rpt 
-        %ul.list-group.list-group-horizontal
-          %li.list-group-item.pl-0.border-0
-            = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.pl-0.border-0
-            = select_tag "months", options_for_mth_months, :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.pl-0.border-0
-            %button#mth-rpt-create.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
-              生成月报表
+        -#
+          %ul.list-group.list-group-horizontal
+            %li.list-group-item.pl-0.border-0
+              = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
+            %li.list-group-item.pl-0.border-0
+              = select_tag "months", options_for_mth_months, :include_blank=>false, :class=>"form-control"
+            %li.list-group-item.pl-0.border-0
+              %button#mth-rpt-create.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
+                生成月报表
       - content_for :card_body do
         .container-fluid
           .row
