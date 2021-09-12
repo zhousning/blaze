@@ -1,5 +1,5 @@
 class HardWorker
-  include Sidekiq::Worker
+  #include Sidekiq::Worker
 
   def perform(color, id)
     content = BlockContent.find(id)

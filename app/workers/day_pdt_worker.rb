@@ -2,7 +2,7 @@ class DayPdtWorker
   include Sidekiq::Worker
 
   def perform
-    puts 'qidong day pdt'
+    puts Time.new.to_s + '  day pdt worker process'
     @factories = Factory.all
     @factories.each do |factory|
       pdt_date = Date.today-1

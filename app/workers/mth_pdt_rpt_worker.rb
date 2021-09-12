@@ -4,6 +4,7 @@ class MthPdtRptWorker
   include CreateMthPdtRpt
 
   def perform
+    puts Time.new.to_s + '  mth pdt worker process'
     factories = Factory.all
     t = Time.new.last_month
     year = t.year 
