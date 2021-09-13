@@ -8,6 +8,7 @@
             = Setting.chemicals.label
             %span.text-danger
               (PAM药剂浓度为固体药剂溶解后浓度)
+            = link_to_remove_association "删除", f, :class => "btn btn-danger btn-sm d-inline pull-right"
         .card-body
           %table.w-100.table-bordered.day-pdt-table.ml-2
             %tbody
