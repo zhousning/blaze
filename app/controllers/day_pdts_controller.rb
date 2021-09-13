@@ -143,8 +143,9 @@ class DayPdtsController < ApplicationController
     #00-23点
     _start = date
     _end = date + 1
-    @emp_infs = @factory.emp_infs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
-    @emp_effs = @factory.emp_effs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
+    #mysql 得取>= ,sqlite >
+    @emp_infs = @factory.emp_infs.where(["pdt_time >= ? and pdt_time < ?", _start, _end])
+    @emp_effs = @factory.emp_effs.where(["pdt_time >= ? and pdt_time < ?", _start, _end])
     state = 'success'
     info = ''
 
@@ -211,7 +212,7 @@ class DayPdtsController < ApplicationController
     date = @day_pdt.pdt_date
     _start = date.to_s + "00:10:00"
     _end = (date + 1).to_s + "00:10:00"
-    @emp_infs = @factory.emp_infs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
+    @emp_infs = @factory.emp_infs.where(["pdt_time >= ? and pdt_time < ?", _start, _end])
     @emp_effs = @factory.emp_effs.where(["pdt_time > ? and pdt_time < ?", _start, _end])
 
     unless @emp_infs.blank?
