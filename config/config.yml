@@ -1328,7 +1328,7 @@ defaults:
     mdflow: 中水量(吨)
     mdrcy: 中水回用量(吨)
     mdsell: 中水销售水量(吨)
-    per_cost: 吨水药剂成本合计
+    per_cost: 吨水药剂成本合计(元/千吨)
     tspmud: 转运泥量(吨)
     rcpmud: 处置单位接收量(吨)
     dlemud: 处置单位名称
@@ -1358,7 +1358,7 @@ defaults:
     mdflow: 中水量(吨)
     mdrcy: 中水回用量(吨)
     mdsell: 中水销售水量(吨)
-    per_cost: 吨水药剂成本合计
+    per_cost: 吨水药剂成本合计(元/千吨)
     tspmud: 转运泥量(吨)
     rcpmud: 处置单位接收量(吨)
     dlemud: 处置单位名称
@@ -1445,7 +1445,7 @@ defaults:
     mdflow: 中水量(吨)
     mdrcy: 中水回用量(吨)
     mdsell: 中水销售水量(吨)
-    per_cost: 吨水药剂成本合计
+    per_cost: 吨水药剂成本合计(元/千吨)
     tspmud: 转运泥量(吨)
     rcpmud: 处置单位接收量(吨)
     dlemud: 处置单位名称
@@ -2063,7 +2063,7 @@ development:
     act_dosage: 实际投加量(吨)
     cmptc: 药剂浓度(%)
     dosptc: 药剂投加浓度(mg/l)
-    per_cost: 吨水药剂成本
+    per_cost: 吨水药剂成本(元/千吨)
     std_dev: 偏差率
   mth_chemicals: &170
     label: 药剂
@@ -2074,7 +2074,7 @@ development:
     act_dosage: 修正累计投加量(吨)
     cmptc: 药剂浓度(%)
     dosptc: 药剂投加浓度(mg/l)
-    per_cost: 吨水药剂成本
+    per_cost: 吨水药剂成本(元/千吨)
     std_dev: 偏差率
   chemical_ctgs: &169
     label: 化学药剂分类

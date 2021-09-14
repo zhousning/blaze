@@ -63,13 +63,13 @@ module FormulaLib
   #药剂投加浓度
   #药剂量*药剂浓度/污水处理量
   def self.dosptc(dosage, cmptc, inflow)
-    inflow == 0 ? 0 : format("%0.2f", dosage*cmptc/inflow).to_f
+    inflow == 0 ? 0 : format("%0.2f", dosage*cmptc/inflow*10000).to_f
   end
 
-  #吨水药剂成本
+  #吨水药剂成本(元/千吨)
   #药剂单价*投加量/污水处理量
   def self.chemical_per_cost(unprice, dosage, inflow)
-    inflow == 0 ? 0 : format("%0.2f", unprice*dosage/inflow).to_f
+    inflow == 0 ? 0 : format("%0.2f", unprice*dosage/inflow*1000).to_f
   end
 
   #偏差率
