@@ -56,7 +56,7 @@ function day_pdt_modal() {
       $("#day-power-ctn").html(day_power_ctn);
 
 
-      var chemical_table = '<tr><th></th><th>单价(元/吨)</th><th>药剂浓度(%)</th><th>投加量(吨)</th><th>药剂投加浓度</th><th>吨水药剂成本</th></tr>';
+      var chemical_table = '<tr><th></th><th>单价(元/吨)</th><th>药剂浓度(%)</th><th>投加量(吨)</th><th>药剂投加浓度(mg/l)</th><th>吨水药剂成本(元/千吨)</th></tr>';
       for (var i=0; i<chemicals.length; i++){
         chemical_table += '<tr>';
         $.each(chemicals[i], function(k, v) {
