@@ -233,6 +233,7 @@ GEM
     minitest (5.12.2)
     multi_json (1.13.1)
     multipart-post (2.1.1)
+    mysql2 (0.3.21)
     netrc (0.11.0)
     newrelic_rpm (6.7.0.359)
     nokogiri (1.10.4)
@@ -436,6 +437,7 @@ DEPENDENCIES
   kaminari
   mini_magick
   mini_racer
+  mysql2 (~> 0.3.13)
   newrelic_rpm
   open_uri_redirections
   parsley-rails

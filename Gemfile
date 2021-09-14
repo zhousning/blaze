@@ -62,6 +62,7 @@ group :development, :test do
   gem 'spring'
 end
 
+gem 'mysql2', '~> 0.3.13'
 group :production do
   #gem 'mysql2', '~> 0.3.13'
 end
