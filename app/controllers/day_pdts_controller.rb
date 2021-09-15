@@ -155,7 +155,7 @@ class DayPdtsController < ApplicationController
       ifnull(ROUND(avg(nullif(tn, 0))    , 2), 0) tn,
       ifnull(ROUND(avg(nullif(ph, 0))    , 2), 0) ph,
       ifnull(ROUND(avg(nullif(temp, 0))  , 2), 0) temp,
-      ifnull(ROUND(avg(nullif(flow, 0))  , 2), 0) flow
+      ifnull(ROUND(sum(nullif(flow, 0))  , 2), 0) flow
     "
     emp_inf_stc = @emp_infs.select(search_str) 
     emp_eff_stc = @emp_effs.select(search_str) 
