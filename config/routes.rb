@@ -170,6 +170,8 @@ Rails.application.routes.draw do
 
   resources :day_pdt_rpts, :only => [] do
     get :sglfct_statistic, :on => :collection
+    get :emq_cau, :on => :collection
+    get :emr_cau, :on => :collection
     get :sglfct_stc_cau, :on => :collection
     get :static_pool, :on => :collection
     get :radar_chart, :on => :collection

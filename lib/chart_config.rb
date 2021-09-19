@@ -58,6 +58,98 @@ module ChartConfig
     chart_config
   end
 
+  #获取特定时期多个指标削减量
+  def period_quota_emq(have_date, day_pdt_rpts, search_type, chart_type, _qcodes)
+    #避免传递非当前分类中的数据
+    my_real_codes = my_real_codes(search_type)
+    real_codes = _qcodes.nil? ? my_real_codes : _qcodes & my_real_codes #查询哪些指标 
+
+    #图表配置项
+    series = []
+    dimensions = ['date']
+    real_codes.each do |code|
+      series << {type: chart_type(chart_type)}
+      dimensions << MYQUOTAS[code][:name]
+    end
+
+    chart_config = {} 
+
+    #图表数据
+    datasets = get_emq_datasets(have_date, day_pdt_rpts, real_codes)
+    chart_config = my_chart_config('', series, dimensions, datasets)
+
+    chart_config
+  end
+
+  #获取特定时期多个指标削减率
+  def period_quota_emr(have_date, day_pdt_rpts, search_type, chart_type, _qcodes)
+    #避免传递非当前分类中的数据
+    my_real_codes = my_real_codes(search_type)
+    real_codes = _qcodes.nil? ? my_real_codes : _qcodes & my_real_codes #查询哪些指标 
+
+    #图表配置项
+    series = []
+    dimensions = ['date']
+    real_codes.each do |code|
+      series << {type: chart_type(chart_type)}
+      dimensions << MYQUOTAS[code][:name]
+    end
+
+    chart_config = {} 
+
+    #图表数据
+    datasets = get_emr_datasets(have_date, day_pdt_rpts, real_codes)
+    chart_config = my_chart_config('', series, dimensions, datasets)
+
+    chart_config
+  end
+
+  #带日期数据
+  #[
+  # { :date => '2021-02-01', 'cod' => 2, 'bod' => 5 },
+  # { :date => '2021-02-02', 'cod' => 2, 'bod' => 5 },
+  #]
+  def get_emq_datasets(have_date, day_pdt_rpts, real_codes)
+    datasets = []
+    day_pdt_rpts.each do |rpt|
+      if have_date
+        dataset_item = {'date': rpt.pdt_date}
+      else
+        dataset_item = {}
+      end
+
+      real_codes.each do |code|
+        quota_emq(dataset_item, code, rpt)
+      end
+
+      datasets << dataset_item
+    end
+    datasets
+  end
+
+  #带日期数据
+  #[
+  # { :date => '2021-02-01', 'cod' => 2, 'bod' => 5 },
+  # { :date => '2021-02-02', 'cod' => 2, 'bod' => 5 },
+  #]
+  def get_emr_datasets(have_date, day_pdt_rpts, real_codes)
+    datasets = []
+    day_pdt_rpts.each do |rpt|
+      if have_date
+        dataset_item = {'date': rpt.pdt_date}
+      else
+        dataset_item = {}
+      end
+
+      real_codes.each do |code|
+        quota_emr(dataset_item, code, rpt)
+      end
+
+      datasets << dataset_item
+    end
+    datasets
+  end
+
   #带日期数据
   #[
   # { :date => '2021-02-01', 'cod' => 2, 'bod' => 5 },

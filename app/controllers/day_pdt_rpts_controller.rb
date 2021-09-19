@@ -1,7 +1,7 @@
 class DayPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource
+  authorize_resource :except => [:emq_cau, :emr_cau]
   
   include MathCube
   include QuotaConfig 
@@ -45,6 +45,48 @@ class DayPdtRptsController < ApplicationController
       chart_config = period_multiple_quota(have_date, @day_pdt_rpts, search_type, pos_type, chart_type, _qcodes)
     end
 
+    respond_to do |f|
+      f.json{ render :json => chart_config.to_json}
+    end
+  end
+
+  def emq_cau
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+    chart_type = params[:chart_type].gsub(/\s/, '')
+    search_type = params[:search_type].gsub(/\s/, '')
+    _qcodes = params[:qcodes].gsub(/\s/, '').split(",")
+
+    chart_config = {}
+    @factory = my_factory
+    if @factory
+      @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+      have_date = true
+      chart_config = period_quota_emq(have_date, @day_pdt_rpts, search_type, chart_type, _qcodes)
+    end
+    
+    chart_config['title'] = '削减量(吨)'
+    respond_to do |f|
+      f.json{ render :json => chart_config.to_json}
+    end
+  end
+
+  def emr_cau
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+    search_type = params[:search_type].gsub(/\s/, '')
+    chart_type = params[:chart_type].gsub(/\s/, '')
+    _qcodes = params[:qcodes].gsub(/\s/, '').split(",")
+
+    chart_config = {}
+    @factory = my_factory
+    if @factory
+      @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+      have_date = true
+      chart_config = period_quota_emr(have_date, @day_pdt_rpts, search_type, chart_type, _qcodes)
+    end
+
+    chart_config['title'] = '削减率(%)'
     respond_to do |f|
       f.json{ render :json => chart_config.to_json}
     end

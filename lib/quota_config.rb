@@ -95,6 +95,60 @@ module QuotaConfig
     end
   end
 
+  def quota_emq(ctg_hash, code, rpt)
+    code = code.strip
+    stc = rpt.day_rpt_stc
+    if code == Setting.quota.cod 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.cod_emq 
+    elsif code == Setting.quota.bod 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.bod_emq
+    elsif code == Setting.quota.ss  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.ss_emq
+    elsif code == Setting.quota.nhn 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.nhn_emq
+    elsif code == Setting.quota.tn  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.tn_emq
+    elsif code == Setting.quota.tp  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.tp_emq
+    end
+  end
+
+  def quota_emr(ctg_hash, code, rpt)
+    code = code.strip
+    stc = rpt.day_rpt_stc
+    if code == Setting.quota.cod 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.cod_emr 
+    elsif code == Setting.quota.bod 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.bod_emr
+    elsif code == Setting.quota.ss  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.ss_emr
+    elsif code == Setting.quota.nhn 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.nhn_emr
+    elsif code == Setting.quota.tn  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.tn_emr
+    elsif code == Setting.quota.tp  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.tp_emr
+    end
+  end
+
+  def quota_bom(ctg_hash, code, rpt)
+    code = code.strip
+    stc = rpt.day_pdt_rpt
+    if code == Setting.quota.cod 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.cod_bom 
+    elsif code == Setting.quota.bod 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.bod_bom
+    elsif code == Setting.quota.ss  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.ss_bom
+    elsif code == Setting.quota.nhn 
+      ctg_hash[MYQUOTAS[code][:name]] = stc.nhn_bom
+    elsif code == Setting.quota.tn  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.tn_bom
+    elsif code == Setting.quota.tp  
+      ctg_hash[MYQUOTAS[code][:name]] = stc.tp_bom
+    end
+  end
+
   def quotas 
     @quota_flows = Quota.where(:ctg => Setting.quota.ctg_flow)
     @quota_cms = Quota.where(:ctg => Setting.quota.ctg_cms) 

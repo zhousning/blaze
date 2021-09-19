@@ -41,6 +41,23 @@ function chartSet(that_search) {
       chartTable(that_chart, factory_id, start, end, qcodes, search_type)
     }
   })
+
+  emq_chart_nodes = $(chart_ctn).find(".chart-statistic-emq-ctn")
+  if (emq_chart_nodes.length > 0) {
+    var emq_url = "/day_pdt_rpts/emq_cau";
+    var that_chart = emq_chart_nodes[0];
+    var chart = emqChartConfig(emq_url, that_chart, factory_id, start, end, qcodes)
+    charts.push(chart);
+  }
+
+  emr_chart_nodes = $(chart_ctn).find(".chart-statistic-emr-ctn")
+  if (emr_chart_nodes.length > 0) {
+    var emr_url = "/day_pdt_rpts/emr_cau";
+    var that_chart = emr_chart_nodes[0];
+    var chart = emrChartConfig(emr_url, that_chart, factory_id, start, end, qcodes)
+    charts.push(chart);
+  }
+
   chartResize(charts);
 }
 
