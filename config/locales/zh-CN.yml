@@ -773,6 +773,14 @@ zh-CN:
       title: 数据立方
     sglfct_stc_cau:
       title: 数据立方-时间区间内单厂多指标
+    emq_cau:
+      title: 数据立方-削减量
+    emr_cau:
+      title: 数据立方-削减率
+    bom_cau:
+      title: 数据立方-削减电单耗
+    power_cau:
+      title: 数据立方-耗电量、电单耗
     radar_chart:
       title: 首页-雷达图
     new_quota_chart:

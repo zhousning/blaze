@@ -1,7 +1,7 @@
 class DayPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:emq_cau, :emr_cau]
+  authorize_resource
   
   include MathCube
   include QuotaConfig 
@@ -50,6 +50,73 @@ class DayPdtRptsController < ApplicationController
     end
   end
 
+  def power_cau
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+    chart_type = params[:chart_type].gsub(/\s/, '')
+
+    chart_config = {}
+    @factory = my_factory
+    if @factory
+      @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+      colors = ['#5470C6', '#91CC75']
+      legend = ['耗电量', '电单耗']
+      unit = ['度', 'kw.h/m3'] 
+      xAxis = []
+      yAxis = []
+      series_hash = Hash.new
+      legend.each_with_index do |l, index|
+        series_hash[l] = []
+        yAxis << {
+          type: 'value',
+          name: l,
+          position: index == 0 ? 'left' : 'right',
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: colors[index]
+            }
+          },
+          axisLabel: {
+            formatter: '{value} ' + unit[index]
+          }
+        }
+      end
+
+      @day_pdt_rpts.each do |rpt|
+        xAxis << rpt.pdt_date
+        series_hash[legend[0]] << rpt.power
+        series_hash[legend[1]] << rpt.day_rpt_stc.bom 
+      end
+
+      series = [
+        {
+          name: legend[0],
+          type: 'line',
+          data: series_hash[legend[0]]
+        },
+        {
+          name: legend[1],
+          yAxisIndex: 1,
+          type: 'line',
+          data: series_hash[legend[1]]
+        }
+      ]
+      chart_config = {
+        title: '耗电量、处理水量电单耗',
+        xaxis: xAxis,
+        yaxis: yAxis,
+        colors: colors,
+        legend: legend,
+        series: series
+      }
+    end
+
+    respond_to do |f|
+      f.json{ render :json => chart_config.to_json}
+    end
+  end
+
   def emq_cau
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
@@ -87,6 +154,49 @@ class DayPdtRptsController < ApplicationController
     end
 
     chart_config['title'] = '削减率(%)'
+    respond_to do |f|
+      f.json{ render :json => chart_config.to_json}
+    end
+  end
+
+  #[
+  # { :date => '2021-02-01', 'cod' => 2, 'bod' => 5 },
+  # { :date => '2021-02-02', 'cod' => 2, 'bod' => 5 },
+  #]
+  def bom_cau
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+    chart_type = params[:chart_type].gsub(/\s/, '')
+
+    chart_config = {}
+    @factory = my_factory
+    if @factory
+      @day_pdt_rpts = @factory.day_pdt_rpts.where(["pdt_date between ? and ?", _start, _end]).order('pdt_date')
+      cms = ['COD', 'NH3-N']
+      series = []
+      dimensions = ['date'] + cms
+      cms.each do |d| 
+        series << {type: 'line'}
+      end
+
+      datasets = []
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data['COD'] = rpt.day_rpt_stc.cod_bom 
+        data['NH3-N'] = rpt.day_rpt_stc.nhn_bom
+        datasets << data 
+      end
+
+      chart_config = {
+        title: '削减电单耗(kw.h/kg)',
+        series: series,
+        dimensions: dimensions,
+        datasets: datasets
+      }
+
+    end
+
     respond_to do |f|
       f.json{ render :json => chart_config.to_json}
     end

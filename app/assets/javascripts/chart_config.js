@@ -107,7 +107,7 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
   var new_Option = {
     title: {
       text: my_title, 
-      subtext: '生产运营数据',
+      subtext: '',
       left: 'center',
       align: 'right'
     },
@@ -124,7 +124,7 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
       feature: {
          dataView: {readOnly: false},
          magicType: {type: ['line', 'bar']},
-         restore: {},
+         restore: {show: true},
          saveAsImage: {}
       }
     },
@@ -169,7 +169,7 @@ function rainOption(data) {
                   yAxisIndex: 'none'
               },
               magicType: {type: ['line', 'bar']},
-              restore: {},
+              restore: {show: true},
               saveAsImage: {}
           }
       },
@@ -278,6 +278,58 @@ function rainOption(data) {
   return option
 }
 
+function multYaxisOption(my_title, my_colors, my_legend, my_xaxis, my_yAxis, my_series) {
+  var colors = my_colors;
+  
+  option = {
+      color: colors,
+      toolbox: {
+        show: true,
+        feature: {
+           dataView: {readOnly: false},
+           magicType: {type: ['line', 'bar']},
+           restore: {show: true},
+           saveAsImage: {}
+        }
+      },
+      dataZoom: [
+        {            
+          type: 'slider',
+          show: true,
+          xAxisIndex: [0],
+          startValue: '0'
+        },
+        {            
+          type: 'slider',
+          show: true,
+          yAxisIndex: [0],
+          startValue: '0'
+        }
+      ],
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross'
+          }
+      },
+      legend: {
+          data: my_legend 
+      },
+      xAxis: [
+          {
+              type: 'category',
+              axisTick: {
+                  alignWithLabel: true
+              },
+              data: my_xaxis 
+          }
+      ],
+      yAxis: my_yAxis,
+      series: my_series
+  }
+  return option;
+}
+
 //取特定时期的数据
 function periodChartConfig(url, that_chart, factory_id, start, end, qcodes){
   var chart_type = that_chart.dataset['chart'];
@@ -326,6 +378,35 @@ function emrChartConfig(url, that_chart, factory_id, start, end, qcodes) {
   return chart;
 }
 
+function powerChartConfig(url, that_chart, factory_id, start, end, qcodes) {
+  var chart = echarts.init(that_chart);
+  chart.showLoading();
+  var chart_type = that_chart.dataset['chart'];
+  var search_type = that_chart.dataset['type'];
+  var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type, chart_type: chart_type}
+  $.get(url, obj).done(function (data) {
+    chart.hideLoading();
+    
+    var mul_Option =  multYaxisOption(data.title, data.colors, data.legend, data.xaxis, data.yaxis, data.series)
+    chart.setOption(mul_Option, true);
+  });
+  return chart;
+}
+
+function bomChartConfig(url, that_chart, factory_id, start, end, qcodes) {
+  var chart = echarts.init(that_chart);
+  chart.showLoading();
+  var chart_type = that_chart.dataset['chart'];
+  var search_type = that_chart.dataset['type'];
+  var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type, chart_type: chart_type}
+  $.get(url, obj).done(function (data) {
+    chart.hideLoading();
+    
+    var new_Option = newOption(data.title, data.series, data.dimensions, data.datasets)
+    chart.setOption(new_Option, true);
+  });
+  return chart;
+}
 //search_type 当前页面的checkbox
 function chartTable(ctnid, factory_id, start, end, qcodes, search_type){
   var obj = {factory_id: factory_id, start: start, end: end, qcodes: qcodes, search_type: search_type}

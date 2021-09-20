@@ -6,7 +6,7 @@
 
 -
   controller: day_pdt_rpts_controller
-  actions: [index, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report, xls_day_download]
+  actions: [index, show, sglfct_statistic, sglfct_stc_cau, radar_chart, new_quota_chart, static_pool, produce_report, xls_day_download, emq_cau, emr_cau, bom_cau, power_cau]
 
 -
   controller: mth_pdt_rpts_controller

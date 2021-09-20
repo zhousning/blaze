@@ -172,6 +172,8 @@ Rails.application.routes.draw do
     get :sglfct_statistic, :on => :collection
     get :emq_cau, :on => :collection
     get :emr_cau, :on => :collection
+    get :power_cau, :on => :collection
+    get :bom_cau, :on => :collection
     get :sglfct_stc_cau, :on => :collection
     get :static_pool, :on => :collection
     get :radar_chart, :on => :collection
