@@ -110,7 +110,8 @@
                   = Setting.month_tps.label
                 %th.p-2.text-center
                   = Setting.month_sses.label
-                %th.p-2.text-center
+                -#
+                  %th.p-2.text-center
                   = Setting.month_fecals.label
 
             %tbody
@@ -129,7 +130,8 @@
                   = @mth_pdt_rpt.month_tp.avg_inf
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_inf
-                %td.p-2.text-center
+                -#
+                  %td.p-2.text-center
               %tr
                 %td.p-2.text-center
                   =  Setting.month_cods.avg_eff.gsub('COD','')
@@ -145,7 +147,8 @@
                   = @mth_pdt_rpt.month_tp.avg_eff
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_eff
-                %td.p-2.text-center
+                -#
+                  %td.p-2.text-center
               %tr
                 %td.p-2.text-center
                   =  Setting.month_cods.emr.gsub('COD','')
@@ -161,7 +164,8 @@
                   = @mth_pdt_rpt.month_tp.emr
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.emr
-                %td.p-2.text-center
+                -#
+                  %td.p-2.text-center
               %tr
                 %td.p-2.text-center
                   =  Setting.month_cods.avg_emq.gsub('COD','')
@@ -177,7 +181,8 @@
                   = @mth_pdt_rpt.month_tp.avg_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_emq
-                %td.p-2.text-center
+                -#
+                  %td.p-2.text-center
               %tr
                 %td.p-2.text-center
                   =  Setting.month_cods.emq.gsub('COD','')
@@ -193,7 +198,8 @@
                   = @mth_pdt_rpt.month_tp.emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.emq
-                %td.p-2.text-center
+                -#
+                  %td.p-2.text-center
               %tr
                 %td.p-2.text-center
                   =  Setting.month_cods.end_emq.gsub('COD','')
@@ -209,41 +215,43 @@
                   = @mth_pdt_rpt.month_tp.end_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.end_emq
-                %td.p-2.text-center
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.up_std.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.up_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.up_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.up_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.up_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.up_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.up_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_fecal.up_std
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.end_std.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.end_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.end_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.end_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.end_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.end_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.end_std
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_fecal.end_std
+                -#
+                  %td.p-2.text-center
+              -#
+                %tr
+                  %td.p-2.text-center
+                    =  Setting.month_cods.up_std.gsub('COD','')
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_cod.up_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_bod.up_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_nhn.up_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_tn.up_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_tp.up_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_ss.up_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_fecal.up_std
+                %tr
+                  %td.p-2.text-center
+                    =  Setting.month_cods.end_std.gsub('COD','')
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_cod.end_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_bod.end_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_nhn.end_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_tn.end_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_tp.end_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_ss.end_std
+                  %td.p-2.text-center
+                    = @mth_pdt_rpt.month_fecal.end_std
               %tr
                 %td.p-2.text-center
                   =  Setting.month_cods.yoy.gsub('COD','')
@@ -259,7 +267,8 @@
                   = @mth_pdt_rpt.month_tp.yoy
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.yoy
-                %td.p-2.text-center
+                -#
+                  %td.p-2.text-center
                   = @mth_pdt_rpt.month_fecal.yoy
               %tr
                 %td.p-2.text-center
@@ -276,7 +285,8 @@
                   = @mth_pdt_rpt.month_tp.mom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.mom
-                %td.p-2.text-center
+                -#
+                  %td.p-2.text-center
                   = @mth_pdt_rpt.month_fecal.mom
             -#
               %tr

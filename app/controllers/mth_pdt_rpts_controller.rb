@@ -61,15 +61,6 @@ class MthPdtRptsController < ApplicationController
     @factory = my_factory
 
     @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order("start_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
-    def cal_per_cost(mth_pdt_rpt)
-      inflow = mth_pdt_rpt.outflow
-      per_cost = 0
-      mth_pdt_rpt.mth_chemicals.each do |c|
-        per_cost += c.update_ptc(inflow)
-      end
-      mth_pdt_rpt.update_per_cost(per_cost)
-    end
-
   end
   
   def cmp_verify_show
