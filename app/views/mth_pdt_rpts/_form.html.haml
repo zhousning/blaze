@@ -84,7 +84,8 @@
             = f.fields_for :month_ss do |month_nhn|
               = render 'month_ss_fields', f: month_nhn 
    
-            = f.fields_for :month_fecal do |month_fecal|
+            -#
+              = f.fields_for :month_fecal do |month_fecal|
               = render 'month_fecal_fields', f: month_fecal 
    
             = f.fields_for :month_power do |month_power|

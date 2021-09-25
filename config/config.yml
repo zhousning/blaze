@@ -1321,7 +1321,7 @@ defaults:
   day_pdt_sum: &165
     inflow: 进水量(吨)
     outflow: 出水量(吨)
-    inmud: 进泥量(吨)
+    inmud: 进泥量(m3)
     outmud: 出泥量(吨)
     mst: 污泥含水率(%)
     power: 耗电量(度)
@@ -1351,7 +1351,7 @@ defaults:
   pdt_sums: &139
     inflow: 进水量(吨)
     outflow: 出水量(吨)
-    inmud: 进泥量(吨)
+    inmud: 进泥量(m3)
     outmud: 出泥量(吨)
     mst: 污泥含水率(%)
     power: 耗电量(度)
@@ -1438,7 +1438,7 @@ defaults:
   day_pdt_rpts: &144
     inflow: 进水量(吨)
     outflow: 出水量(吨)
-    inmud: 进泥量(吨)
+    inmud: 进泥量(m3)
     outmud: 出泥量(吨)
     mst: 污泥含水率(%)
     power: 耗电量(度)
@@ -1697,8 +1697,8 @@ defaults:
     ypdr_bom: 单耗截止本月累计完成全年计划占比(%)
   month_muds: &157
     label: 污泥处理
-    inmud: 进泥量(吨)
-    end_inmud: 本月止累计进泥量(吨)
+    inmud: 进泥量(m3)
+    end_inmud: 本月止累计进泥量(m3)
     outmud: 出泥量(吨)
     end_outmud: 本月止累计出泥量(吨)
     mst_up: 本月污泥含水率达标天数(天)
