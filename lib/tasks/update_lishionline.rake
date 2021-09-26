@@ -48,8 +48,7 @@ def parse_inf_avg_excel(xls)
     index = index + 6 
     index = index.to_s
     date = row['A' + index]
-    puts date.to_s
-    @day_pdt_rpt = DayPdtRpt.where(:pdt_date => date).first
+    @day_pdt_rpt = factory.day_pdt_rpts.where(:pdt_date => date).first
     if @day_pdt_rpt
       option = {
         :inf_qlty_cod    =>   row['B' + index].blank? ? 0 : FormulaLib.format_num(row['B' + index]), 
@@ -57,6 +56,7 @@ def parse_inf_avg_excel(xls)
         :inf_qlty_tp     =>   row['G' + index].blank? ? 0 : FormulaLib.format_num(row['G' + index]),
         :inf_qlty_tn     =>   row['I' + index].blank? ? 0 : FormulaLib.format_num(row['I' + index])
       }
+      @log.info 'update ' + @day_pdt_rpt.pdt_date.to_s + ' ' + option[:inf_qlty_cod].to_s 
       unless @day_pdt_rpt.update_attributes(option)
         @log.error 'inf update error: ' + @day_pdt_rpt.name 
       end
@@ -81,8 +81,7 @@ def parse_eff_avg_excel(xls)
     index = index + 6 
     index = index.to_s
     date = row['A' + index]
-    puts date.to_s
-    @day_pdt_rpt = DayPdtRpt.where(:pdt_date => date).first
+    @day_pdt_rpt = factory.day_pdt_rpts.where(:pdt_date => date).first
     if @day_pdt_rpt
       option = {
         :eff_qlty_cod    =>   row['B' + index].blank? ? 0 : FormulaLib.format_num(row['B' + index]), 
@@ -90,6 +89,7 @@ def parse_eff_avg_excel(xls)
         :eff_qlty_tp     =>   row['G' + index].blank? ? 0 : FormulaLib.format_num(row['G' + index]),
         :eff_qlty_tn     =>   row['I' + index].blank? ? 0 : FormulaLib.format_num(row['I' + index])
       }
+      @log.info 'update ' + @day_pdt_rpt.pdt_date.to_s + ' ' + option[:eff_qlty_cod].to_s 
       unless @day_pdt_rpt.update_attributes(option)
         @log.error 'eff update error: ' + @day_pdt_rpt.name 
       end
