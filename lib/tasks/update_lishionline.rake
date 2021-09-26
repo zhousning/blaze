@@ -35,6 +35,7 @@ def parse_inf_avg_excel(xls)
   file_name = File.basename(xls, '.xlsx')
   log_dir = "lib/tasks/data/inoutcms/logs/" 
   @log = Logger.new(log_dir + file_name + '.log')
+  @vslog = Logger.new(log_dir + file_name + 'vs.log')
 
   tool = ExcelTool.new
   results = tool.parseExcel(xls)
@@ -47,8 +48,7 @@ def parse_inf_avg_excel(xls)
     index = index + 6 
     index = index.to_s
     date = row['A' + index]
-    puts row
-    puts date
+    @vslog.info file_name + date 
     @day_pdt_rpt = DayPdtRpt.where(:pdt_date => date).first
     if @day_pdt_rpt
       option = {

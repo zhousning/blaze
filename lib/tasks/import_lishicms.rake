@@ -7,6 +7,7 @@ require 'spreadsheet'
 namespace 'db' do
   desc "import lishi cms"
   task(:import_lishicms => :environment) do
+    include FormulaLib
     exec_import_lishicms
   end
 end
@@ -18,12 +19,12 @@ def exec_import_lishicms
   Find.find(base_dir).each do |xls|
     unless File::directory?(xls)
       puts xls
-      parse_watercms_excel(xls)
+      parse_lishicms_excel(xls)
     end
   end
 end
 
-def parse_watercms_excel(xls)
+def parse_lishicms_excel(xls)
   Spreadsheet.client_encoding = 'UTF-8'
   log_dir = "lib/tasks/data/inoutcms/logs/" 
 
@@ -64,27 +65,27 @@ def parse_watercms_excel(xls)
       :factory        =>   factory,
       :name           =>   name,   
       :pdt_date       =>   date, 
-      :inflow         =>   row['B' + index].blank? ? 0 : row['B' + index],
-      :inf_asy_cod    =>   row['C' + index].blank? ? 0 : row['C' + index], 
-      :eff_asy_cod    =>   row['D' + index].blank? ? 0 : row['D' + index],
-      :inf_qlty_bod   =>   row['E' + index].blank? ? 0 : row['E' + index],
-      :eff_qlty_bod   =>   row['F' + index].blank? ? 0 : row['F' + index],
-      :inf_qlty_ss    =>   row['G' + index].blank? ? 0 : row['G' + index],
-      :eff_qlty_ss    =>   row['H' + index].blank? ? 0 : row['H' + index],
-      :inf_asy_nhn    =>   row['I' + index].blank? ? 0 : row['I' + index],
-      :eff_asy_nhn    =>   row['J' + index].blank? ? 0 : row['J' + index],
-      :inf_asy_tp     =>   row['K' + index].blank? ? 0 : row['K' + index],
-      :eff_asy_tp     =>   row['L' + index].blank? ? 0 : row['L' + index],
-      :inf_asy_tn     =>   row['M' + index].blank? ? 0 : row['M' + index],
-      :eff_asy_tn     =>   row['N' + index].blank? ? 0 : row['N' + index],
-      :eff_qlty_fecal =>   row['O' + index].blank? ? 0 : row['O' + index],
-      :outmud         =>   row['P' + index].blank? ? 0 : row['P' + index],
-      :mst            =>   row['Q' + index].blank? ? 0 : row['Q' + index],
-      :mdflow         =>   row['R' + index].blank? ? 0 : row['R' + index],
-      :mdrcy          =>   row['S' + index].blank? ? 0 : row['S' + index],
-      :mdsell         =>   row['T' + index].blank? ? 0 : row['T' + index],
-    }
-    @day_pdt_rpt = DayPdtRpt.new(option)
+      :inflow         =>   row['B' + index].blank? ? 0 : FormulaLib.format_num(row['B' + index]),
+      :inf_asy_cod    =>   row['C' + index].blank? ? 0 : FormulaLib.format_num(row['C' + index]), 
+      :eff_asy_cod    =>   row['D' + index].blank? ? 0 : FormulaLib.format_num(row['D' + index]),
+      :inf_qlty_bod   =>   row['E' + index].blank? ? 0 : FormulaLib.format_num(row['E' + index]),
+      :eff_qlty_bod   =>   row['F' + index].blank? ? 0 : FormulaLib.format_num(row['F' + index]),
+      :inf_qlty_ss    =>   row['G' + index].blank? ? 0 : FormulaLib.format_num(row['G' + index]),
+      :eff_qlty_ss    =>   row['H' + index].blank? ? 0 : FormulaLib.format_num(row['H' + index]),
+      :inf_asy_nhn    =>   row['I' + index].blank? ? 0 : FormulaLib.format_num(row['I' + index]),
+      :eff_asy_nhn    =>   row['J' + index].blank? ? 0 : FormulaLib.format_num(row['J' + index]),
+      :inf_asy_tp     =>   row['K' + index].blank? ? 0 : FormulaLib.format_num(row['K' + index]),
+      :eff_asy_tp     =>   row['L' + index].blank? ? 0 : FormulaLib.format_num(row['L' + index]),
+      :inf_asy_tn     =>   row['M' + index].blank? ? 0 : FormulaLib.format_num(row['M' + index]),
+      :eff_asy_tn     =>   row['N' + index].blank? ? 0 : FormulaLib.format_num(row['N' + index]),
+      :eff_qlty_fecal =>   row['O' + index].blank? ? 0 : FormulaLib.format_num(row['O' + index]),
+      :outmud         =>   row['P' + index].blank? ? 0 : FormulaLib.format_num(row['P' + index]),
+      :mst            =>   row['Q' + index].blank? ? 0 : FormulaLib.format_num(row['Q' + index]),
+      :mdflow         =>   row['R' + index].blank? ? 0 : FormulaLib.format_num(row['R' + index]),
+      :mdrcy          =>   row['S' + index].blank? ? 0 : FormulaLib.format_num(row['S' + index]),
+      :mdsell         =>   row['T' + index].blank? ? 0 : FormulaLib.format_num(row['T' + index]),
+    }                                                                                          
+    @day_pdt_rpt = DayPdtRpt.new(option)                                                       
 
     tspvums  = row['U' + index].blank? ? [] : row['U' + index].to_s.strip.split(/;|；/)
     dealers  = row['V' + index].blank? ? [] : row['V' + index].to_s.strip.split(/;|；/)
@@ -113,9 +114,9 @@ def parse_watercms_excel(xls)
              Tspmud.create!(
                :day_pdt_rpt => @day_pdt_rpt, 
                :dealer      => dealer_id.to_s, 
-               :tspvum      => tspvums[index], 
-               :rcpvum      => rcpvums[index], 
-               :price       => prices[index],
+               :tspvum      => FormulaLib.format_num(tspvums[index]), 
+               :rcpvum      => FormulaLib.format_num(rcpvums[index]), 
+               :price       => FormulaLib.format_num(prices[index]),
                :prtmtd      => prtmtd
              )
            end
