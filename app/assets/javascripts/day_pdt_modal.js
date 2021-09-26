@@ -15,6 +15,8 @@ function day_pdt_modal() {
       var flow = data.flow;
       var emq = data.cms_emq;
       var emr = data.cms_emr;
+      var inf_huayan = data.inf_huayan;
+      var eff_huayan = data.eff_huayan;
       var mud = data.mud;
       var power = data.power;
       var md = data.md;
@@ -34,13 +36,25 @@ function day_pdt_modal() {
       $("#day-flow-ctn").html(day_flow_ctn);
 
       var emq_table = '<tr><th></th><th>COD</th><th>BOD</th><th>NH3-N</th><th>TP</th><th>TN</th><th>SS</th></tr>';
-      emq_table += '<tr><td>削减量</td>'; 
+      emq_table += '<tr><td>进水化验(mg/l)</td>'; 
+      $.each(inf_huayan, function(k, v) {
+        emq_table += "<td>" + v + "</td>"; 
+      })
+      emq_table += '</tr>'; 
+
+      emq_table += '<tr><td>出水化验(mg/l)</td>'; 
+      $.each(eff_huayan, function(k, v) {
+        emq_table += "<td>" + v + "</td>"; 
+      })
+      emq_table += '</tr>'; 
+
+      emq_table += '<tr><td>削减量(吨)</td>'; 
       $.each(emq, function(k, v) {
         emq_table += "<td>" + v + "</td>"; 
       })
       emq_table += '</tr>'; 
 
-      emq_table += '<tr><td>削减率</td>'; 
+      emq_table += '<tr><td>削减率(%)</td>'; 
       $.each(emr, function(k, v) {
         emq_table += "<td>" + v + "</td>"; 
       })

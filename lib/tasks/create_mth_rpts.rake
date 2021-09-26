@@ -5,12 +5,12 @@ namespace 'db' do
     include MathCube 
     include CreateMthPdtRpt
     factories = Factory.all
-    years = [2020]
+    years = [2021]
     factories.each do |factory|
       years.each do |year|
         12.times.each do |t|
           month = t + 1
-          status = create_mth_pdt_rpt(factory, year, month, Setting.mth_pdt_rpts.complete)
+          status = create_mth_pdt_rpt(factory, year, month, Setting.mth_pdt_rpts.ongoing)
           title = factory.name + year.to_s + '年' + month.to_s
           if status == 'success'
             puts title + "月度报表生成成功"

@@ -299,6 +299,22 @@ class DayPdtRptsController < ApplicationController
       Setting.day_rpt_stcs.bpr => @day_rpt_stc.bpr
     }
 
+    inf_huayan = {
+      Setting.day_pdt_rpts.inf_asy_cod =>  @day_pdt_rpt.inf_asy_cod,
+      Setting.day_pdt_rpts.inf_qlty_bod => @day_pdt_rpt.inf_qlty_bod,
+      Setting.day_pdt_rpts.inf_asy_nhn =>  @day_pdt_rpt.inf_asy_nhn,
+      Setting.day_pdt_rpts.inf_asy_tp =>   @day_pdt_rpt.inf_asy_tp,
+      Setting.day_pdt_rpts.inf_asy_tn =>   @day_pdt_rpt.inf_asy_tn,
+      Setting.day_pdt_rpts.inf_qlty_ss =>  @day_pdt_rpt.inf_qlty_ss
+    }
+    eff_huayan = {
+      Setting.day_pdt_rpts.eff_asy_cod =>  @day_pdt_rpt.eff_asy_cod,
+      Setting.day_pdt_rpts.eff_qlty_bod => @day_pdt_rpt.eff_qlty_bod,
+      Setting.day_pdt_rpts.eff_asy_nhn =>  @day_pdt_rpt.eff_asy_nhn,
+      Setting.day_pdt_rpts.eff_asy_tp =>   @day_pdt_rpt.eff_asy_tp,
+      Setting.day_pdt_rpts.eff_asy_tn =>   @day_pdt_rpt.eff_asy_tn,
+      Setting.day_pdt_rpts.eff_qlty_ss =>  @day_pdt_rpt.eff_qlty_ss
+    }
     cms_emq = {
       Setting.day_rpt_stcs.cod_emq => @day_rpt_stc.cod_emq,
       Setting.day_rpt_stcs.bod_emq => @day_rpt_stc.bod_emq,
@@ -381,6 +397,8 @@ class DayPdtRptsController < ApplicationController
           :flow     => flow, 
           :cms_emq  => cms_emq,
           :cms_emr  => cms_emr,
+          :inf_huayan => inf_huayan,
+          :eff_huayan => eff_huayan,
           :power => power,
           :mud => mud,
           :md  => md,
