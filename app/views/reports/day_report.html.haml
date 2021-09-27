@@ -8,7 +8,7 @@
       - content_for :card_header do
         .row.ml-1.my-3.pl-0
           .col-2.pl-0
-            = date_field_tag 'search_date', nil, class: 'form-control mr-1', :value => Date.today-1, :min => Date.new(2018, 01, 01), :max => Date.today-1
+            = date_field_tag 'search_date', nil, class: 'form-control mr-1', :value => Date.today-1, :min => Date.new(2019, 01, 01), :max => Date.today-1
           .col-1
             %button#report-search.button.button-royal.button-small{:type => "button"}
               查询

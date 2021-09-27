@@ -107,9 +107,11 @@ def parse_lishicms_excel(xls)
                dealer_id = mfct.id
                mudfct_hash[mfct.name] = mfct.id
              end
-             lastprtmtd = prtmtds.last.nil? ? '' : prtmtds.last
-             prtmtd = prtmtds[index].nil? ? '' : lastprtmtd
-             unless tspvums[index].blank? || tspvums[index] == 0
+             prtmtd = prtmtds[index]
+             if prtmtd.blank?
+               prtmtd = prtmtds.last.nil? ? '' : prtmtds.last
+             end
+             if !tspvums[index].blank? && tspvums[index] != 0
                Tspmud.create!(
                  :day_pdt_rpt => @day_pdt_rpt, 
                  :dealer      => dealer_id.to_s, 

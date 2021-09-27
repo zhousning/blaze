@@ -6,8 +6,10 @@ class MthPdtRptsController < ApplicationController
   include MathCube 
   include CreateMthPdtRpt 
 
-  CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
-  VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom']  
+  #CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
+  #VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom']  
+  CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss']
+  VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq', 'yoy', 'mom']  
   CMS.each do |c|
     VARVALUE.each do |v|
       define_method "#{c}_#{v}" do |obj|

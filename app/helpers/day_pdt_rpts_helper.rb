@@ -64,7 +64,7 @@ module DayPdtRptsHelper
   def options_for_years
     year = Time.new.year
     str = ""
-    years = [year, year-1]
+    years = (2019..year).to_a.reverse
     years.each do |year|
       str += "<option value='" + year.to_s + "'>" + year.to_s + "</option>"
     end
