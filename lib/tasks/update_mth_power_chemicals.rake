@@ -7,6 +7,7 @@ require 'spreadsheet'
 namespace 'db' do
   desc "update_mth_power_chemicals"
   task(:update_mth_power_chemicals => :environment) do
+    include FormulaLib
     base_dir = "lib/tasks/data/inoutcms/lishimth/" 
     @log_dir = "lib/tasks/data/inoutcms/logs/" 
     @mthpowerchemicallog = Logger.new(@log_dir + '更新月数据错误.log')
@@ -35,6 +36,7 @@ def parse_mth_power_chemical(xls)
   factory_hash = my_factory_hash
   fct_name = factory_hash[file_name]
   factory = Factory.where(:name => fct_name).first 
+  power_sum = 0
 
   results['Sheet1'][2..-1].each_with_index do |row, index|
     index = index + 3 
@@ -42,9 +44,51 @@ def parse_mth_power_chemical(xls)
     date = row['A' + index]
     next if date.blank?
 
+    mydate = date.to_date
+    year = mydate.year
+    month = mydate.month
+
+    yoy_year = year - 1
+
+    mom_year = year
+    mom_month = month - 1
+    if mom_month == 0
+      mom_month = 12
+      mom_year = year - 1
+    end
+
+    last_year_date = Date.new(yoy_year, month, 1)
+    last_month_date = Date.new(mom_year, mom_month, 1)
+
+    @last_year_mth_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
+    @last_month_mth_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
+    last_year_power = @last_year_mth_rpt.nil?  ? 0 : @last_year_mth_rpt.power
+    last_year_bom   = @last_year_mth_rpt.nil?  ? 0 : @last_year_mth_rpt.bom
+    last_mth_power  = @last_month_mth_rpt.nil? ? 0 : @last_month_mth_rpt.power
+    last_mth_bom    = @last_month_mth_rpt.nil? ? 0 : @last_month_mth_rpt.bom
+
+    @mth_pdt_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
+
     @mth_pdt_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
     if @mth_pdt_rpt
       power = row['B' + index].blank? ? 0 : FormulaLib.format_num(row['B' + index])
+      power_sum = power_sum + power
+
+      end_power = power_sum
+      bom = FormulaLib.bom(power, @mth_pdt_rpt.outflow) 
+
+      yoy_power = FormulaLib.yoy(power, last_year_power)
+      mom_power = FormulaLib.mom(power, last_mth_power)
+
+      yoy_bom = FormulaLib.yoy(bom, last_year_bom)
+      mom_bom = FormulaLib.mom(bom, last_mth_bom)
+
+
+      mthpower = @mth_pdt_rpt.month_power
+      unless mthpower.update_attributes(:power => power, :bom => bom, :yoy_power => yoy_power, :mom_power => mom_power, :yoy_bom => yoy_bom, :mom_bom => mom_bom)
+        @mthpowerchemicallog.error 'mth power update error: ' + @mth_pdt_rpt.name 
+      end
+
       csn_price      =  row['C' + index]
       csn_cmptc      =  row['D' + index]
       csn_dosage     =  row['E' + index] 
@@ -120,7 +164,7 @@ def create_mthcmc(price, cmptc, dosage, type)
       :cmptc      => cmptc.blank?  ? 0 : FormulaLib.format_num(cmptc)
     ) 
     if @mth_chemical.save
-      @mth_chemical.update_ptc(@mth_pdt_rpt.inflow)
+      @mth_chemical.update_ptc(@mth_pdt_rpt.outflow)
     else
       @mthpowerchemicallog.error 'mth chemical save error: ' + @mth_pdt_rpt.name 
     end
