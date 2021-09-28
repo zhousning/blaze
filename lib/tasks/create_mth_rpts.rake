@@ -5,6 +5,9 @@ namespace 'db' do
     include MathCube 
     include CreateMthPdtRpt
     factories = Factory.all
+    @log_dir = "lib/tasks/data/inoutcms/logs/" 
+    @mthcreatelog = Logger.new(@log_dir + '创建月数据错误.log')
+
     years = [2019, 2020, 2021]
     factories.each do |factory|
       years.each do |year|
@@ -15,9 +18,9 @@ namespace 'db' do
           if status == 'success'
             puts title + "月度报表生成成功"
           elsif status == 'fail'
-            puts title + "月度报表生成失败"
+            @mthcreatelog.error title + "月度报表生成失败"
           elsif status == 'zero'
-            puts title + "暂无数据"
+            @mthcreatelog.error title + "暂无数据"
           end
         end
       end

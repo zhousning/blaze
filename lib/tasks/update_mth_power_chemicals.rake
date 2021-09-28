@@ -14,7 +14,7 @@ namespace 'db' do
 
     @chemical_ctg = {}
     ChemicalCtg.all.each do |c|
-      chemical_ctg[c.name] = c.id
+      @chemical_ctg[c.name] = c.id
     end
 
 
@@ -57,25 +57,35 @@ def parse_mth_power_chemical(xls)
       mom_year = year - 1
     end
 
-    last_year_date = Date.new(yoy_year, month, 1)
+    last_year_date  = Date.new(yoy_year, month, 1)
     last_month_date = Date.new(mom_year, mom_month, 1)
 
-    @last_year_mth_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
-    @last_month_mth_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
-    last_year_power = @last_year_mth_rpt.nil?  ? 0 : @last_year_mth_rpt.power
-    last_year_bom   = @last_year_mth_rpt.nil?  ? 0 : @last_year_mth_rpt.bom
-    last_mth_power  = @last_month_mth_rpt.nil? ? 0 : @last_month_mth_rpt.power
-    last_mth_bom    = @last_month_mth_rpt.nil? ? 0 : @last_month_mth_rpt.bom
+    @last_year_mth_rpt  = factory.mth_pdt_rpts.where(:start_date => last_year_date).first
+    @last_month_mth_rpt = factory.mth_pdt_rpts.where(:start_date => last_month_date).first
+    last_year_power = 0 
+    last_year_bom   = 0
+    last_mth_power  = 0
+    last_mth_bom    = 0
 
-    @mth_pdt_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
+    if !@last_year_mth_rpt.nil?
+      mth_power = @last_year_mth_rpt.month_power
+      last_year_power =  mth_power.nil? ? 0 : mth_power.power
+      last_year_bom   =  mth_power.nil? ? 0 : mth_power.bom
+    end
 
-    @mth_pdt_rpt = factory.mth_pdt_rpts.where(:start_date => date).first
+    if !@last_month_mth_rpt.nil?
+      mth_power = @last_month_mth_rpt.month_power
+      last_mth_power =  mth_power.nil? ? 0 : mth_power.power
+      last_mth_bom   =  mth_power.nil? ? 0 : mth_power.bom
+    end
+
+    @mth_pdt_rpt = factory.mth_pdt_rpts.where(:start_date => mydate).first
     if @mth_pdt_rpt
       power = row['B' + index].blank? ? 0 : FormulaLib.format_num(row['B' + index])
-      power_sum = power_sum + power
+      power = FormulaLib.format_num(power)
+      power_sum = FormulaLib.format_num(power_sum + power)
 
-      end_power = power_sum
-      bom = FormulaLib.bom(power, @mth_pdt_rpt.outflow) 
+      bom = FormulaLib.bom(power*10000, @mth_pdt_rpt.outflow) 
 
       yoy_power = FormulaLib.yoy(power, last_year_power)
       mom_power = FormulaLib.mom(power, last_mth_power)
@@ -83,9 +93,8 @@ def parse_mth_power_chemical(xls)
       yoy_bom = FormulaLib.yoy(bom, last_year_bom)
       mom_bom = FormulaLib.mom(bom, last_mth_bom)
 
-
       mthpower = @mth_pdt_rpt.month_power
-      unless mthpower.update_attributes(:power => power, :bom => bom, :yoy_power => yoy_power, :mom_power => mom_power, :yoy_bom => yoy_bom, :mom_bom => mom_bom)
+      unless mthpower.update_attributes(:power => power, :end_power => power_sum, :bom => bom, :yoy_power => yoy_power, :mom_power => mom_power, :yoy_bom => yoy_bom, :mom_bom => mom_bom)
         @mthpowerchemicallog.error 'mth power update error: ' + @mth_pdt_rpt.name 
       end
 
@@ -148,19 +157,21 @@ def parse_mth_power_chemical(xls)
       hxt_cmptc      =  row['AK' + index]
       hxt_dosage     =  row['AL' + index] 
       create_mthcmc(hxt_price, hxt_cmptc, hxt_dosage, Setting.chemical_ctgs.hxt_t)
+    else
+      @mthpowerchemicallog.error 'mth chemical none error: ' + file_name + '  ' + date.to_s 
     end
   end
 end
 
 def create_mthcmc(price, cmptc, dosage, type)
-  if !((price.blank? || cs_price == 0) && (cmptc.blank? || cs_cmptc == 0) && (dosage.blank? || cs_dosage == 0))
+  if !((price.blank? || price == 0) && (cmptc.blank? || cmptc == 0) && (dosage.blank? || dosage == 0))
     @mth_chemical = MthChemical.new(
       :mth_pdt_rpt => @mth_pdt_rpt,
       :name       => @chemical_ctg[type], 
       :unprice    => price.blank?  ? 0 : FormulaLib.format_num(price),
       :dosage     => dosage.blank? ? 0 : FormulaLib.format_num(dosage), 
       :act_dosage => dosage.blank? ? 0 : FormulaLib.format_num(dosage), 
-      :avg_dosage => dosage.blank? ? 0 : FormulaLib.format_num(dosage/30), 
+      :avg_dosage => dosage.blank? ? 0 : FormulaLib.format_num(dosage.to_f/30), 
       :cmptc      => cmptc.blank?  ? 0 : FormulaLib.format_num(cmptc)
     ) 
     if @mth_chemical.save
