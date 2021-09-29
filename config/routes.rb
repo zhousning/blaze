@@ -190,10 +190,6 @@ Rails.application.routes.draw do
   #end
   resources :day_rpt_stcs do
   end
-  resources :chemicals do
-  end
-  resources :chemical_ctgs do
-  end
   resources :flower
 
 end
