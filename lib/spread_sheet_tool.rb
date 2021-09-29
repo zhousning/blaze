@@ -262,7 +262,7 @@ class SpreadSheetTool
       #device = mth_pdt_rpt.month_device
       #stuff = mth_pdt_rpt.month_stuff
 
-      arr = [name, mud.inmud, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
+      arr = [name, mth_pdt_rpt.outflow, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
       arr.each_with_index do |item, col|
         yuehuizong.rows[row + 4][col] = item 
       end

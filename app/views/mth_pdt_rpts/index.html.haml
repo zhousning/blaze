@@ -15,11 +15,10 @@
         %h5
           = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
           %span.text-danger
-            = fa_icon 'question-circle-o', text: '系统每月4号前自动生成上月月报表'
+            = fa_icon 'question-circle-o', text: '系统每月6号前自动生成上月月报表'
           -#
             %span.text-danger
             = fa_icon "question-circle-o", text: Setting.systems.produce_mth_rpt 
-        -#
           %ul.list-group.list-group-horizontal
             %li.list-group-item.pl-0.border-0
               = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
