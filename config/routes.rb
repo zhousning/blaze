@@ -84,16 +84,6 @@ Rails.application.routes.draw do
     get :start, :on => :member
   end
 
-  #resources :statistics do
-  #  get :line, :on => :member
-  #  get :series, :on => :member
-  #  get :column, :on => :member
-  #  get :pie, :on => :member
-  #  get :bar, :on => :member
-  #  get :area, :on => :member
-  #  get :scatter, :on => :member
-  #end
-
   resources :selectors
  
   resources :factories, :only => [:edit, :update] do
@@ -198,25 +188,11 @@ Rails.application.routes.draw do
   #  post :parse_excel, :on => :collection
   #  get :xls_download, :on => :collection
   #end
-  #resources :pdt_sums do
-  #end
-  #resources :sed_qlties do
-  #end
-  #resources :eff_qlties do
-  #end
-  #resources :inf_qlties do
-  #end
-  resources :emp_rffs do
-    post :parse_excel, :on => :collection
-    get :xls_download, :on => :collection
-  end
   resources :day_rpt_stcs do
   end
   resources :chemicals do
   end
   resources :chemical_ctgs do
-  end
-  resources :mudfcts do
   end
   resources :flower
 
