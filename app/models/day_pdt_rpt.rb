@@ -11,9 +11,9 @@ class DayPdtRpt < ActiveRecord::Base
   #  end
   #end
 
-  has_many :tspmuds
-  has_many :chemicals
-  has_one :day_rpt_stc
+  has_many :tspmuds, :dependent => :destroy
+  has_many :chemicals, :dependent => :destroy
+  has_one :day_rpt_stc, :dependent => :destroy
 
   belongs_to :day_pdt
   belongs_to :factory

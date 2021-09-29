@@ -10,54 +10,51 @@ class MthPdtRpt < ActiveRecord::Base
   accepts_nested_attributes_for :mth_chemicals, reject_if: :all_blank, allow_destroy: true
 
 
-  has_one :document
+  has_one :document, :dependent => :destroy
 
-
-
-
-  has_one :month_bod
+  has_one :month_bod, :dependent => :destroy
   accepts_nested_attributes_for :month_bod, allow_destroy: true
 
 
-  has_one :month_cod
+  has_one :month_cod, :dependent => :destroy
   accepts_nested_attributes_for :month_cod, allow_destroy: true
 
 
-  has_one :month_tp
+  has_one :month_tp, :dependent => :destroy
   accepts_nested_attributes_for :month_tp, allow_destroy: true
 
 
-  has_one :month_tn
+  has_one :month_tn, :dependent => :destroy
   accepts_nested_attributes_for :month_tn, allow_destroy: true
 
 
-  has_one :month_nhn
+  has_one :month_nhn, :dependent => :destroy
   accepts_nested_attributes_for :month_nhn, allow_destroy: true
 
 
-  has_one :month_fecal
+  has_one :month_fecal, :dependent => :destroy
   accepts_nested_attributes_for :month_fecal, allow_destroy: true
 
 
-  has_one :month_device
+  has_one :month_device, :dependent => :destroy
   accepts_nested_attributes_for :month_device, allow_destroy: true
 
 
-  has_one :month_stuff
+  has_one :month_stuff, :dependent => :destroy
   accepts_nested_attributes_for :month_stuff, allow_destroy: true
 
 
-  has_one :month_power
+  has_one :month_power, :dependent => :destroy
   accepts_nested_attributes_for :month_power, allow_destroy: true
 
 
-  has_one :month_ss
+  has_one :month_ss, :dependent => :destroy
   accepts_nested_attributes_for :month_ss, allow_destroy: true
 
-  has_one :month_mud
+  has_one :month_mud, :dependent => :destroy
   accepts_nested_attributes_for :month_mud, allow_destroy: true
 
-  has_one :month_md
+  has_one :month_md, :dependent => :destroy
   accepts_nested_attributes_for :month_md, allow_destroy: true
 
   belongs_to :factory
