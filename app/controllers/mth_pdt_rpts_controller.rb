@@ -1,7 +1,7 @@
 class MthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:download_append, :produce_report]
+  authorize_resource :except => [:download_append, :produce_report, :mth_rpt_sync]
 
   include MathCube 
   include CreateMthPdtRpt 
@@ -152,13 +152,30 @@ class MthPdtRptsController < ApplicationController
   def update
     @factory = my_factory 
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    puts '............'
+    puts mth_pdt_rpt_params
+    puts '............'
    
     if @mth_pdt_rpt.update(mth_pdt_rpt_params)
-      update_mth_pdt_rpt(@mth_pdt_rpt)
       cal_per_cost(@mth_pdt_rpt)
       redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else
       render :edit
+    end
+  end
+
+  def mth_rpt_sync
+    @factory = my_factory 
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    result = update_mth_pdt_rpt(@mth_pdt_rpt)
+
+    respond_to do |format|
+      format.json{ render :json => 
+        {
+          cms: result[:cms],
+          flow: result[:flow]
+        }.to_json
+      }
     end
   end
 
@@ -228,106 +245,52 @@ class MthPdtRptsController < ApplicationController
   private
   
     def mth_pdt_rpt_params
-      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, mth_chemicals_attributes: mth_chemical_params)
+      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, mth_chemicals_attributes: mth_chemical_params)
     end
 
-    #def mth_pdt_rpt_params
-    #  params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params,  mth_chemicals_attributes: mth_chemical_params)
-    #end
-
     def mth_chemical_params
-      #[:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
-      [:id, :unprice, :cmptc, :act_dosage ]
+      [:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
     end
   
     def month_cod_params
-      [:id, :ypdr]
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
     def month_bod_params
-      [:id, :ypdr ]
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-
     def month_tp_params
-      [:id, :ypdr ]
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
     def month_tn_params
-      [:id, :ypdr ]
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
     def month_nhn_params
-      [:id, :ypdr ]
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
     def month_ss_params
-      [:id, :ypdr ]
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
 
     def month_fecal_params
-      [:id,:ypdr ]
+      [:id, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
     def month_power_params
-      [:id, :ypdr_power, :ypdr_bom]
+      [:id, :power, :end_power, :bom, :bom_power, :yoy_power, :mom_power, :yoy_bom, :mom_bom, :_destroy]
     end
   
     def month_mud_params
-      [:id, :ypdr ]
+      [:id, :inmud, :end_inmud, :outmud, :end_outmud, :mst_up, :yoy, :mom, :ypdr ,:_destroy]
     end
   
     def month_md_params
-      [:id, :ypdr_mdsell, :ypdr_mdrcy ]
+      [:id, :mdrcy, :end_mdrcy, :mdsell, :end_mdsell, :yoy_mdrcy, :mom_mdrcy, :yoy_mdsell, :mom_mdsell, :ypdr ,:_destroy]
     end
-  
-    def month_device_params
-      [:id, :wsyxts, :wswdyxts, :sbwhl, :gysbwhl, :wbywhl, :gzwwhl, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def month_stuff_params
-      [:id, :xdjtjl, :end_xdjtjl, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    #def mth_pdt_rpt_params
-    #  params.require(:mth_pdt_rpt).permit( :design, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, month_device_attributes: month_device_params, month_stuff_attributes: month_stuff_params)
-    #end
-  
-    #def month_cod_params
-    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_bod_params
-    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_tp_params
-    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_tn_params
-    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_nhn_params
-    #  [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_fecal_params
-    #  [:id, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_power_params
-    #  [:id, :power, :end_power, :bom, :bom_power, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_mud_params
-    #  [:id, :inmud, :end_inmud, :outmud, :end_outmud, :mst_up, :yoy, :mom, :ypdr ,:_destroy]
-    #end
-  
-    #def month_md_params
-    #  [:id, :mdrcy, :end_mdrcy, :mdsell, :end_mdsell, :yoy, :mom, :ypdr ,:_destroy]
-    #end
     
     def my_factory
       @factory = current_user.factories.find(iddecode(params[:factory_id]))

@@ -16,8 +16,8 @@ namespace :project do
     Rake::Task["db:update_lishionline"].invoke
 
     #导入月历史数据
-    #Rake::Task["db:create_mth_rpts"].invoke
-    #Rake::Task["db:update_mth_power_chemicals"].invoke
+    Rake::Task["db:create_mth_rpts"].invoke
+    Rake::Task["db:update_mth_power_chemicals"].invoke
 
     #Rake::Task["db:import_daywatercms"].invoke
     #Rake::Task["db:import_emps"].invoke

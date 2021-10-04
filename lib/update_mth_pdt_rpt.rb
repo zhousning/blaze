@@ -1,9 +1,10 @@
 module UpdateMthPdtRpt
   def update_mth_pdt_rpt(rpt)
-    process_result = ''
     _start = rpt.start_date
     _end = rpt.end_date
-    _year_start = Date.new(_start.year, 1, 1)
+    year = _start.year
+    month = _start.month
+    _year_start = Date.new(year, 1, 1)
 
     factory = rpt.factory
 
@@ -33,52 +34,136 @@ module UpdateMthPdtRpt
 
     fecal = month_fecal(up_std[:fecal] , end_std[:fecal], yoy_result[:fecal], mom_result[:fecal])
     
-    MthPdtRpt.transaction do
-      if rpt.update(flow)
-        mthbod = rpt.mthbod 
-        mthcod = rpt.mthcod
-        mthtp  = rpt.mthtp 
-        mthtn  = rpt.mthtn 
-        mthnhn = rpt.mthnhn
-        mthss  = rpt.mthss 
-        mthpower = rpt.mthpower
-        mthmud = rpt.mthmud
-        mthmd  = rpt.mthmd 
-        mthfecal = rpt.mthfecal 
+    #MthPdtRpt.transaction do
+    #  if rpt.update(flow)
+    #    mthbod = rpt.month_bod 
+    #    mthcod = rpt.month_cod
+    #    mthtp  = rpt.month_tp 
+    #    mthtn  = rpt.month_tn 
+    #    mthnhn = rpt.month_nhn
+    #    mthss  = rpt.month_ss 
+    #    mthpower = rpt.month_power
+    #    mthmud = rpt.month_mud
+    #    mthmd  = rpt.month_md 
+    #    mthfecal = rpt.month_fecal 
 
-        select_str = "
-          chemicals.name chemical_id, 
-          ifnull(sum(dosage),    0) sum_dosage, 
-          ifnull(avg(dosage),    0) avg_dosage
-        "
-        rpt.mth_chemicals = []
-        chemicals = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).group(:name)
-        chemicals.each do |chemical|
-          theory_dosage = format("%0.2f", chemical.sum_dosage).to_f
-          avg_dosage    = format("%0.2f", chemical.avg_dosage).to_f
-          MthChemical.create!(:name => chemical.chemical_id, :dosage => theory_dosage, :avg_dosage => avg_dosage, :mth_pdt_rpt => rpt) 
-        end
+    #    select_str = "
+    #      chemicals.name chemical_id, 
+    #      ifnull(sum(dosage),    0) sum_dosage, 
+    #      ifnull(avg(dosage),    0) avg_dosage
+    #    "
+    #    rpt.mth_chemicals = []
+    #    chemicals = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).group(:name)
+    #    chemicals.each do |chemical|
+    #      theory_dosage = format("%0.2f", chemical.sum_dosage).to_f
+    #      avg_dosage    = format("%0.2f", chemical.avg_dosage).to_f
+    #      MthChemical.create!(:name => chemical.chemical_id, :dosage => theory_dosage, :avg_dosage => avg_dosage, :mth_pdt_rpt => rpt) 
+    #    end
 
-        mthbod.update_attributes(bod)
-        mthcod.update_attributes(cod)
-        mthtp.update_attributes(tp)
-        mthtn.update_attributes(tn)
-        mthnhn.update_attributes(nhn)
-        mthss.update_attributes(ss)
-        mthpower.update_attributes(power)
-        mthmud.update_attributes(mud)
-        mthmd.update_attributes(md)
-        mthfecal.update_attributes(fecal)        
-      end
-    end
+    #    mthbod.update_attributes!(bod)
+    #    mthcod.update_attributes!(cod)
+    #    mthtp.update_attributes!(tp)
+    #    mthtn.update_attributes!(tn)
+    #    mthnhn.update_attributes!(nhn)
+    #    mthss.update_attributes!(ss)
+    #    mthpower.update_attributes!(power)
+    #    mthmud.update_attributes!(mud)
+    #    mthmd.update_attributes!(md)
+    #    mthfecal.update_attributes!(fecal)        
+    #  end
+    #end
+    {
+      :flow => flow,
+      :cms => {
+        :bod => bod,
+        :cod => cod,
+        :tp => tp,
+        :tn => tn,
+        :nhn => nhn,
+        :ss => ss,
+        :power => power,
+        :mud => mud,
+        :md => md,
+        :fecal => fecal
+      }
+    }
   end
 
-  protected
+  private
     def mth_pdt_rpt_update(outflow, avg_outflow, end_outflow)
       {
         :outflow  =>  outflow,
         :avg_outflow =>  avg_outflow,
         :end_outflow =>  end_outflow
+      }
+    end
+
+    #削减量同比和环比
+    def month_cms(avg_inf, avg_eff, emr, avg_emq, emq, end_emq, up_std , end_std, yoy, mom, ypdr)
+      {
+        :avg_inf   =>   avg_inf,
+        :avg_eff   =>   avg_eff,
+        :emr       =>   emr    ,
+        :avg_emq   =>   avg_emq,
+        :emq       =>   emq    ,
+        :end_emq   =>   end_emq,
+        :up_std    =>   up_std ,
+        :end_std   =>   end_std,
+        :yoy       =>   yoy    ,
+        :mom       =>   mom    ,
+        :ypdr      =>   ypdr   
+      }
+    end
+
+    def month_power(power, end_power, bom, bom_power, yoy_power, mom_power, ypdr_power, yoy_bom, mom_bom, ypdr_bom)
+      {
+        :power => power,
+        :end_power => end_power,
+        :bom => bom,
+        :bom_power => bom_power,
+        :yoy_power => yoy_power,
+        :mom_power => mom_power,
+        :ypdr_power => ypdr_power,
+        :yoy_bom => yoy_bom,
+        :mom_bom => mom_bom,
+        :ypdr_bom => ypdr_bom
+      }
+    end
+     
+    def month_mud(inmud, end_inmud, outmud, end_outmud, mst_up, yoy, mom, ypdr)
+      {
+        :inmud      =>  inmud    ,
+        :end_inmud  =>  end_inmud,
+        :outmud     =>  outmud   ,
+        :end_outmud =>  end_outmud,
+        :mst_up     =>  mst_up   ,
+        :yoy        =>  yoy      ,
+        :mom        =>  mom      ,
+        :ypdr       =>  ypdr     
+      }
+    end
+
+    def month_md(mdrcy, end_mdrcy, mdsell, end_mdsell, yoy_mdrcy, mom_mdrcy, ypdr_mdrcy, yoy_mdsell, mom_mdsell, ypdr_mdsell)
+      {
+        :mdrcy        =>   mdrcy,
+        :end_mdrcy    =>   end_mdrcy,
+        :mdsell       =>   mdsell,
+        :end_mdsell   =>   end_mdsell,
+        :yoy_mdrcy    =>   yoy_mdrcy,
+        :mom_mdrcy    =>   mom_mdrcy,
+        :ypdr_mdrcy   =>   ypdr_mdrcy,
+        :yoy_mdsell   =>   yoy_mdsell,
+        :mom_mdsell   =>   mom_mdsell,
+        :ypdr_mdsell  =>   ypdr_mdsell
+      }
+    end
+
+    def month_fecal(up_std, end_std, yoy, mom)
+      {
+        :up_std  => up_std,
+        :end_std => end_std,
+        :yoy => yoy,
+        :mom => mom
       }
     end
 end

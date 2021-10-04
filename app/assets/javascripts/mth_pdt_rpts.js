@@ -19,14 +19,25 @@ $(".mth_pdt_rpts").ready(function() {
       var url = "/factories/" + data_fct + "/mth_pdt_rpts/" + data_mth + "/mth_rpt_sync";
 
       $.get(url).done(function (data) {
-        var result = data.result
-        for (var i=0; i< result.length; i++) {
-          var attr = result[i].attr;
-          var item = result[i].item;
-          var val = result[i].val;
-          var id = "#mth_pdt_rpt_month_" + attr + "_attributes_" + item;
+        var cms = data.cms;
+        var flow = data.flow;
+
+        $.each(flow, function(item_k, item_v) {
+          var item = item_k;
+          var val = item_v;
+          var id = "#mth_pdt_rpt_" + item;
           $(id).val(val);
-        }
+        })
+
+        $.each(cms, function(k, v) {
+          var attr = k;
+          $.each(v, function(item_k, item_v) {
+            var item = item_k;
+            var val = item_v;
+            var id = "#mth_pdt_rpt_month_" + attr + "_attributes_" + item;
+            $(id).val(val);
+          })
+        })
       });
     });
   }

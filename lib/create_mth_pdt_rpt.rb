@@ -96,7 +96,7 @@ module CreateMthPdtRpt
   end
 
 
-  protected
+  private
     def mth_pdt_rpt(start_date, end_date, design, outflow, avg_outflow, end_outflow, factory_id, name, state)
       {
         :state => state,

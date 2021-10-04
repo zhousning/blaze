@@ -126,6 +126,7 @@ Rails.application.routes.draw do
       get :mth_report_finish_show, :on => :member
       get :xls_mth_download, :on => :member
       get :download_append, :on => :member
+      get :mth_rpt_sync, :on => :member
     end
     resources :emp_infs, :only => [:index, :create]  do
       get :watercms_flow, :on => :collection

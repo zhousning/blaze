@@ -1,9 +1,6 @@
 class MthPdtRpt < ActiveRecord::Base
 
   mount_uploader :cmc_bill, EnclosureUploader
-
-
-
   mount_uploader :ecm_ans_rpt, AttachmentUploader
 
   has_many :mth_chemicals, :dependent => :destroy
@@ -13,49 +10,49 @@ class MthPdtRpt < ActiveRecord::Base
   has_one :document, :dependent => :destroy
 
   has_one :month_bod, :dependent => :destroy
-  accepts_nested_attributes_for :month_bod, allow_destroy: true
+  accepts_nested_attributes_for :month_bod, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_cod, :dependent => :destroy
-  accepts_nested_attributes_for :month_cod, allow_destroy: true
+  accepts_nested_attributes_for :month_cod, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_tp, :dependent => :destroy
-  accepts_nested_attributes_for :month_tp, allow_destroy: true
+  accepts_nested_attributes_for :month_tp, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_tn, :dependent => :destroy
-  accepts_nested_attributes_for :month_tn, allow_destroy: true
+  accepts_nested_attributes_for :month_tn, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_nhn, :dependent => :destroy
-  accepts_nested_attributes_for :month_nhn, allow_destroy: true
+  accepts_nested_attributes_for :month_nhn, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_fecal, :dependent => :destroy
-  accepts_nested_attributes_for :month_fecal, allow_destroy: true
+  accepts_nested_attributes_for :month_fecal, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_device, :dependent => :destroy
-  accepts_nested_attributes_for :month_device, allow_destroy: true
+  accepts_nested_attributes_for :month_device, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_stuff, :dependent => :destroy
-  accepts_nested_attributes_for :month_stuff, allow_destroy: true
+  accepts_nested_attributes_for :month_stuff, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_power, :dependent => :destroy
-  accepts_nested_attributes_for :month_power, allow_destroy: true
+  accepts_nested_attributes_for :month_power, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_ss, :dependent => :destroy
-  accepts_nested_attributes_for :month_ss, allow_destroy: true
+  accepts_nested_attributes_for :month_ss, reject_if: :all_blank, allow_destroy: true
 
   has_one :month_mud, :dependent => :destroy
-  accepts_nested_attributes_for :month_mud, allow_destroy: true
+  accepts_nested_attributes_for :month_mud, reject_if: :all_blank, allow_destroy: true
 
   has_one :month_md, :dependent => :destroy
-  accepts_nested_attributes_for :month_md, allow_destroy: true
+  accepts_nested_attributes_for :month_md, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :factory
 

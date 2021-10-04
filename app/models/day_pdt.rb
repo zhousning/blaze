@@ -25,18 +25,18 @@ class DayPdt < ActiveRecord::Base
   belongs_to :factory
 
 
-  has_one :inf_qlty
+  has_one :inf_qlty, :dependent => :destroy
   accepts_nested_attributes_for :inf_qlty, allow_destroy: true
 
-  has_one :eff_qlty
+  has_one :eff_qlty, :dependent => :destroy
   accepts_nested_attributes_for :eff_qlty, allow_destroy: true
 
 
-  has_one :pdt_sum
+  has_one :pdt_sum, :dependent => :destroy
   accepts_nested_attributes_for :pdt_sum, allow_destroy: true
 
 
-  has_one :sed_qlty
+  has_one :sed_qlty, :dependent => :destroy
   accepts_nested_attributes_for :sed_qlty, allow_destroy: true
 
   has_one :day_pdt_rpt
