@@ -826,6 +826,8 @@ zh-CN:
       title: 月报表-下载excel
     download_report:
       title: 月报表-下载word
+    mth_rpt_sync:
+      title: 更新月报表
   analyses:
     compare:
       title: 指标对比

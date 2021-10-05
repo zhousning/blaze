@@ -2318,4 +2318,5 @@ production:
   tspmuds: *167
   chemicals: *168
   chemical_ctgs: *169
+  mth_chemicals: *170
   mudfcts: *171
