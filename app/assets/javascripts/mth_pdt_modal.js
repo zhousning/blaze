@@ -15,14 +15,26 @@ function mth_pdt_modal() {
       var power = data.power;
       var mud = data.mud;
       var md = data.md;
-
+      var cmcbill = data.cmcbill;
+      var ecmansrpt = data.ecm_ans_rpt;
       var fct_id = data.fct_id;
       var mth_rpt_id = data.mth_rpt_id;
+      console.log();
       
       var xls_download = "/factories/" + fct_id + "/mth_pdt_rpts/" + mth_rpt_id + "/xls_mth_download";
       var word_download = "/factories/" + fct_id + "/mth_pdt_rpts/" + mth_rpt_id + "/download_report";
       $("#xls-download").attr("href", xls_download);
       $("#word-download").attr("href", word_download);
+
+      if (ecmansrpt != null) {
+        var ecm_rpt_download = "/factories/" + fct_id + "/mth_pdt_rpts/" + mth_rpt_id + "/download_append";
+        $("#ecm-rpt-download").attr("href", ecm_rpt_download);
+      } else {
+        $("#ecm-rpt-download").attr("href", '#');
+        $("#ecm-rpt-download").html("未上传经济运行分析报告");
+      }
+
+      $("#mth-cmc-bill").attr('src', cmcbill);
 
       var mth_flow_ctn = ''; 
       $.each(flow, function(k, v) {

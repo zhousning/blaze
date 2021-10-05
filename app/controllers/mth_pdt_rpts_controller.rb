@@ -247,10 +247,13 @@ class MthPdtRptsController < ApplicationController
     power = power_content(@mth_pdt_rpt) 
     mud = mud_content(@mth_pdt_rpt) 
     md = md_content(@mth_pdt_rpt) 
-    
+    cmcbill = @mth_pdt_rpt.cmc_bill_url
+    ecm_ans_rpt = @mth_pdt_rpt.ecm_ans_rpt_url
     respond_to do |format|
       format.json{ render :json => 
         {
+          :cmcbill => cmcbill,
+          :ecm_ans_rpt => ecm_ans_rpt,
           :fct_id => idencode(@factory.id),
           :mth_rpt_id => idencode(@mth_pdt_rpt.id),
           :header => header,
