@@ -11,6 +11,8 @@
               - @mth_pdt_rpt.errors.full_messages.each do |msg|
                 %li= msg
       
+        = hidden_field_tag 'fct', idencode(@factory.id) 
+        = hidden_field_tag 'mth', idencode(@mth_pdt_rpt.id) 
         .row
           .col-sm-12
             %h2.text-center
@@ -29,17 +31,17 @@
                 .form-group.row
                   = f.label Setting.mth_pdt_rpts.outflow, :class => "col-sm-6 col-form-label text-right"
                   .col-sm-6
-                    = f.number_field :outflow, :class => "form-control rounded-0" , :required => true, :step => 'any'
+                    = f.number_field :outflow, :class => "form-control rounded-0" , :required => true, :step => 'any', :readonly => 'readonly'
               .col-6
                 .form-group.row
                   = f.label Setting.mth_pdt_rpts.avg_outflow, :class => "col-sm-6 col-form-label text-right"
                   .col-sm-6
-                    = f.number_field :avg_outflow, :class => "form-control rounded-0" , :required => true, :step => 'any'
+                    = f.number_field :avg_outflow, :class => "form-control rounded-0" , :required => true, :step => 'any', :readonly => 'readonly'
               .col-6
                 .form-group.row
                   = f.label Setting.mth_pdt_rpts.end_outflow, :class => "col-sm-6 col-form-label text-right"
                   .col-sm-6
-                    = f.number_field :end_outflow, :class => "form-control rounded-0" , :required => true, :step => 'any'
+                    = f.number_field :end_outflow, :class => "form-control rounded-0" , :required => true, :step => 'any', :readonly => 'readonly'
           
             .row
               .col-12
@@ -59,6 +61,7 @@
               .card-body
                 = f.fields_for :mth_chemicals do |chemical|
                   = render 'chemical_fields', f: chemical
+                #mth-chemical-ctn
                 .form-group.row
                   = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传)', :class => "col-sm-3 col-form-label text-right text-danger"
                   .col-sm-9

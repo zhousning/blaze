@@ -10,57 +10,57 @@
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.avg_inf, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :avg_inf, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :avg_inf, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.avg_eff, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :avg_eff, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :avg_eff, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
         %tr
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.emr, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :emr, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :emr, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.avg_emq, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :avg_emq, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :avg_emq, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
         %tr
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.emq, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :emq, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :emq, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.end_emq, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :end_emq, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :end_emq, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
         -#
           %tr
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.up_std, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :up_std, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :up_std, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.end_std, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :end_std, :class => "form-control", :required => true, :step => 'any' 
+            = f.number_field :end_std, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
             
         %tr
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.yoy, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :yoy, :class => "form-control", :required => true, :step => 'any'
+            = f.number_field :yoy, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
             
           %td.p-2.text-center
             = f.label nil, Setting.month_tps.mom, :class => " text-center"
           %td.p-2.text-center
-            = f.number_field :mom, :class => "form-control", :required => true, :step => 'any'
+            = f.number_field :mom, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
             
         -#
           %tr

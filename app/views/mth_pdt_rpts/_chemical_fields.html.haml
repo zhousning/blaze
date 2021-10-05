@@ -5,15 +5,16 @@
         %tbody
           %tr
             %td.p-2.text-center{:colspan => '2'}
-              = f.select :name, options_for_chemicals, {:include_blank=>false}, {:class=>"form-control", :disabled => true}
+              = chemicals_hash[f.chemical_name.to_s] 
+              = f.hidden_field :name, :id => f.chemical_name + '_name'
             %td.p-2.text-center
               = f.label Setting.mth_chemicals.dosage, :class => "text-center"
             %td.p-2.text-center
-              =f.number_field :dosage, :class => "form-control rounded-0", :step => "any", :disabled => true, :required => true
+              =f.number_field :dosage, :id => f.chemical_name + '_dosage', :class => "form-control rounded-0", :step => "any", :required => true, :readonly => 'readonly'
             %td.p-2.text-center
               = f.label Setting.mth_chemicals.avg_dosage, :class => "text-center"
             %td.p-2.text-center
-              =f.number_field :avg_dosage, :class => "form-control rounded-0", :step => "any", :disabled => true, :required => true
+              =f.number_field :avg_dosage, :id => f.chemical_name + 'avg_dosage', :class => "form-control rounded-0", :step => "any", :required => true, :readonly => 'readonly'
 
           %tr
             %td.p-2.text-center

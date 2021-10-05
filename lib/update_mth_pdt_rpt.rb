@@ -34,44 +34,6 @@ module UpdateMthPdtRpt
 
     fecal = month_fecal(up_std[:fecal] , end_std[:fecal], yoy_result[:fecal], mom_result[:fecal])
     
-    #MthPdtRpt.transaction do
-    #  if rpt.update(flow)
-    #    mthbod = rpt.month_bod 
-    #    mthcod = rpt.month_cod
-    #    mthtp  = rpt.month_tp 
-    #    mthtn  = rpt.month_tn 
-    #    mthnhn = rpt.month_nhn
-    #    mthss  = rpt.month_ss 
-    #    mthpower = rpt.month_power
-    #    mthmud = rpt.month_mud
-    #    mthmd  = rpt.month_md 
-    #    mthfecal = rpt.month_fecal 
-
-    #    select_str = "
-    #      chemicals.name chemical_id, 
-    #      ifnull(sum(dosage),    0) sum_dosage, 
-    #      ifnull(avg(dosage),    0) avg_dosage
-    #    "
-    #    rpt.mth_chemicals = []
-    #    chemicals = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).group(:name)
-    #    chemicals.each do |chemical|
-    #      theory_dosage = format("%0.2f", chemical.sum_dosage).to_f
-    #      avg_dosage    = format("%0.2f", chemical.avg_dosage).to_f
-    #      MthChemical.create!(:name => chemical.chemical_id, :dosage => theory_dosage, :avg_dosage => avg_dosage, :mth_pdt_rpt => rpt) 
-    #    end
-
-    #    mthbod.update_attributes!(bod)
-    #    mthcod.update_attributes!(cod)
-    #    mthtp.update_attributes!(tp)
-    #    mthtn.update_attributes!(tn)
-    #    mthnhn.update_attributes!(nhn)
-    #    mthss.update_attributes!(ss)
-    #    mthpower.update_attributes!(power)
-    #    mthmud.update_attributes!(mud)
-    #    mthmd.update_attributes!(md)
-    #    mthfecal.update_attributes!(fecal)        
-    #  end
-    #end
     {
       :flow => flow,
       :cms => {

@@ -129,4 +129,9 @@ class WebsiteFormBuilder < ActionView::Helpers::FormBuilder
     style = objectify_options(options)[:object].style
     style.html_safe
   end
+
+  def chemical_name
+    name = objectify_options(options)[:object].name
+    name
+  end
 end
