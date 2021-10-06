@@ -40,19 +40,27 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    inflow  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],   last_year_result[:inflow][:sum])
-    power   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     
-    bom     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     
+    inflow  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],    last_year_result[:inflow][:sum])
     emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        
     emq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        
     emq_bod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       
     emq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       
     emq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       
     emq_ss  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        
+    fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
+
     mud     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    
     mdrcy   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     
     mdsell  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    
-    fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
+
+    power = 0
+    bom = 0
+    last_year_mth_rpt = MthPdtRpt.where(["factory_id = ? and start_date = ?", factory_id, _last_start]).first
+    if last_year_mth_rpt
+      last_year_power = last_year_mth_rpt.month_power
+      power   = last_year_power.blank? ? 0 : FormulaLib.mom(result[:power][:sum], last_year_power.power)     
+      bom     = last_year_power.blank? ? 0 : FormulaLib.mom(result[:power][:bom], last_year_power.bom)     
+    end
 
     {
       :inflow   =>  inflow,
@@ -90,8 +98,6 @@ module MathCube
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
     inflow  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],    last_year_result[:inflow][:sum])   
-    power   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum],     last_year_result[:power][:sum])     
-    bom     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:bom],     last_year_result[:power][:bom])     
     emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        
     emq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        
     emq_bod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       
@@ -102,6 +108,15 @@ module MathCube
     mdrcy   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     
     mdsell  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    
     fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
+
+    last_month_mth_rpt = MthPdtRpt.where(["factory_id = ? and start_date = ?", factory_id, _last_start]).first
+    power = 0
+    bom = 0
+    if last_month_mth_rpt
+      last_month_power = last_month_mth_rpt.month_power
+      power = last_month_power.blank? ? 0 : FormulaLib.mom(result[:power][:sum], last_month_power.power)     
+      bom   = last_month_power.blank? ? 0 : FormulaLib.mom(result[:power][:bom], last_month_power.bom)     
+    end
 
     {
       :inflow  =>  inflow,
