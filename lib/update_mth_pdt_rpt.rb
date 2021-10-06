@@ -1,4 +1,5 @@
 module UpdateMthPdtRpt
+  include FormulaLib 
   def update_mth_pdt_rpt(rpt)
     _start = rpt.start_date
     _end = rpt.end_date
@@ -26,7 +27,16 @@ module UpdateMthPdtRpt
     nhn = month_cms(result[:inf_nhn][:avg], result[:eff_nhn][:avg], result[:emr][:nhn], result[:avg_emq][:nhn], result[:emq][:nhn], year_result[:emq][:nhn], up_std[:nhn] , end_std[:nhn], yoy_result[:emq_nhn], mom_result[:emq_nhn], 0)
 
     # 现在是0-缺少bom_power
-    power = month_power(result[:power][:sum], year_result[:power][:sum], result[:power][:bom], 0, yoy_result[:power], mom_result[:power], 0, yoy_result[:bom], mom_result[:bom], 0)
+    power = result[:power][:sum]
+    power_w = FormulaLib.format_num(power/10000)
+
+    year_power_sum = power_w 
+    if month != 1
+      last_mth_rpt = MthPdtRpt.where(["factory_id = ? and start_date = ?", factory.id, Date.new(year, month-1, 1)]).first
+      year_power_sum = last_mth_rpt.month_power.end_power + power_w
+    end
+    
+    power = month_power(power_w, year_power_sum, result[:power][:bom], 0, yoy_result[:power], mom_result[:power], 0, yoy_result[:bom], mom_result[:bom], 0)
 
     mud = month_mud(result[:inmud][:sum], year_result[:inmud][:sum], result[:outmud][:sum], year_result[:outmud][:sum], up_std[:mud], yoy_result[:mud], mom_result[:mud], 0)
 

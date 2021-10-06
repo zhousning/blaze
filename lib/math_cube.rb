@@ -57,8 +57,10 @@ module MathCube
     bom = 0
     last_year_mth_rpt = MthPdtRpt.where(["factory_id = ? and start_date = ?", factory_id, _last_start]).first
     if last_year_mth_rpt
+      power = result[:power][:sum]
+      power_w = FormulaLib.format_num(power/10000)
       last_year_power = last_year_mth_rpt.month_power
-      power   = last_year_power.blank? ? 0 : FormulaLib.mom(result[:power][:sum], last_year_power.power)     
+      power   = last_year_power.blank? ? 0 : FormulaLib.mom(power_w, last_year_power.power)     
       bom     = last_year_power.blank? ? 0 : FormulaLib.mom(result[:power][:bom], last_year_power.bom)     
     end
 
@@ -113,8 +115,10 @@ module MathCube
     power = 0
     bom = 0
     if last_month_mth_rpt
+      power = result[:power][:sum]
+      power_w = FormulaLib.format_num(power/10000)
       last_month_power = last_month_mth_rpt.month_power
-      power = last_month_power.blank? ? 0 : FormulaLib.mom(result[:power][:sum], last_month_power.power)     
+      power = last_month_power.blank? ? 0 : FormulaLib.mom(power_w, last_month_power.power)     
       bom   = last_month_power.blank? ? 0 : FormulaLib.mom(result[:power][:bom], last_month_power.bom)     
     end
 
