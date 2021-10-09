@@ -29,6 +29,7 @@ function mth_pdt_modal() {
       if (ecmansrpt != null) {
         var ecm_rpt_download = "/factories/" + fct_id + "/mth_pdt_rpts/" + mth_rpt_id + "/download_append";
         $("#ecm-rpt-download").attr("href", ecm_rpt_download);
+        $("#ecm-rpt-download").html("下载经济运行分析报告");
       } else {
         $("#ecm-rpt-download").attr("href", '#');
         $("#ecm-rpt-download").html("未上传经济运行分析报告");

@@ -48,8 +48,8 @@
                       %td
                         .container-fluid
                           .row.justify-content-center
-                            = link_to "编辑", edit_<%= @mu %>_path(idencode(<%= @mu %>.id)), :class => "button button-highlight button-small mr-1" 
-                            = link_to "详情",  <%= @mu %>_path(idencode(<%= @mu %>.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "编辑", edit_<%= @mu %>_path(idencode(<%= @mu %>.id)), :class => "button button-royal button-small mr-1" 
+                            = link_to "查看",  <%= @mu %>_path(idencode(<%= @mu %>.id)), :class => "button button-primary button-small mr-1" 
                             = link_to "删除",  <%= @mu  %>_path(idencode(<%= @mu  %>.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
             .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
               = paginate @<%= @mpu %>, window: 2, left: 1, right: 1 
@@ -79,7 +79,7 @@
 <% end %>
 
 #newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
-  .modal-dialog
+  .modal-dialog.modal-lg
     .modal-content
       .modal-header
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
