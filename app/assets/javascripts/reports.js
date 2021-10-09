@@ -98,6 +98,7 @@ $(".reports").ready(function() {
               'outflow'     : item.outflow,
               'avg_outflow' : item.avg_outflow,
               'end_outflow' : item.end_outflow,
+              'state'   : item.state,
               'search'  : button
             });
           });

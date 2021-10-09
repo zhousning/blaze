@@ -1734,6 +1734,7 @@ defaults:
     label: 综合统计月报表
     name: 名称
     date: 月份
+    state: 进度
     cmc_bill: 药剂发票
     ecm_ans_rpt: 经济运行分析报告
     design: 设计污水处理量(吨/日)
@@ -2111,6 +2112,19 @@ development:
     label: 污泥处置厂家
     name: 污泥处置厂家名
     ability: 处理能力
+  dogs:
+    label: 狗
+    name: 名称
+    desc: 描述
+    title: 标题
+  sons:
+    label: 狗儿子
+    name: 名称
+    desc: 描述
+  dog_sons:
+    label: 狗儿子
+    name: 名称
+    desc: 描述
 test:
   admins: *104
   users: *105

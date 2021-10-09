@@ -1,6 +1,7 @@
 ActiveAdmin.register Permission  do
 
   permit_params  :name, :subject_class, :action, :description, permission_ids: []
+  actions :all, :except => [:destroy]
 
       
   menu label: "权限管理" 

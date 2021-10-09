@@ -1,6 +1,7 @@
 ActiveAdmin.register ChemicalCtg  do
 
   permit_params  :code, :name
+  actions :all, :except => [:destroy]
 
   menu label: Setting.chemical_ctgs.label
   config.per_page = 20

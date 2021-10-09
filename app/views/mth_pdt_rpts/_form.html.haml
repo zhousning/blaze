@@ -63,7 +63,7 @@
                   = render 'chemical_fields', f: chemical
                 #mth-chemical-ctn
                 .form-group.row
-                  = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传)', :class => "col-sm-3 col-form-label text-right text-danger"
+                  = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传,图片大小小于500KB)', :class => "col-sm-3 col-form-label text-right text-danger"
                   .col-sm-9
                     %label.newbutton
                       = image_tag f.one_image("cmc_bill"), :class => "blah"

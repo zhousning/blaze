@@ -67,11 +67,13 @@ class ReportsController < ApplicationController
           :fct_id      => idencode(mth_pdt_rpt.factory.id).to_s,
           :name        => mth_pdt_rpt.name,
           :outflow     => mth_pdt_rpt.outflow,
+          :state       => mth_state(mth_pdt_rpt.state),
           :avg_outflow => mth_pdt_rpt.avg_outflow,
           :end_outflow => mth_pdt_rpt.avg_outflow
         }
       end
     end
+    puts obj
     respond_to do |f|
       f.json{ render :json => obj.to_json}
     end
@@ -129,5 +131,18 @@ class ReportsController < ApplicationController
     target_excel = excel_tool.exportKgMthPdtRptToExcel(obj)
     send_file target_excel, :filename => "月报汇总表.xls", :type => "application/force-download", :x_sendfile=>true
   end
-  
+
+  private 
+    def mth_state(state) 
+      result = {
+        Setting.mth_pdt_rpts.complete => Setting.mth_pdt_rpts.complete_t,
+        Setting.mth_pdt_rpts.ongoing => Setting.mth_pdt_rpts.ongoing_t,
+        Setting.mth_pdt_rpts.verifying => Setting.mth_pdt_rpts.verifying_t,
+        Setting.mth_pdt_rpts.rejected => Setting.mth_pdt_rpts.rejected_t,
+        Setting.mth_pdt_rpts.cmp_verifying => Setting.mth_pdt_rpts.cmp_verifying_t,
+        Setting.mth_pdt_rpts.cmp_rejected =>  Setting.mth_pdt_rpts.cmp_rejected_t
+      }
+      result[state]
+    end
+
 end

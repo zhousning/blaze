@@ -5,6 +5,7 @@ ActiveAdmin.register Role  do
   menu label: "角色管理" 
   config.per_page = 20
   config.sort_order = "id_asc"
+  actions :all, :except => [:destroy]
 
   
   filter :name, :label => Setting.roles.name

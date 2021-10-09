@@ -10,44 +10,49 @@ ActiveAdmin.register DayPdtRpt  do
   config.per_page = 20
   config.sort_order = "id_asc"
 
+  actions :all, :except => [:destroy]
+
   
   filter :name, :label => Setting.day_pdt_rpts.name
   filter :pdt_date, :label => Setting.day_pdt_rpts.pdt_date
-  filter :weather, :label => Setting.day_pdt_rpts.weather
-  filter :min_temper, :label => Setting.day_pdt_rpts.min_temper
-  filter :max_temper, :label => Setting.day_pdt_rpts.max_temper
-  filter :inf_qlty_bod, :label => Setting.day_pdt_rpts.inf_qlty_bod
-  filter :inf_qlty_cod, :label => Setting.day_pdt_rpts.inf_qlty_cod
-  filter :inf_qlty_ss, :label => Setting.day_pdt_rpts.inf_qlty_ss
-  filter :inf_qlty_nhn, :label => Setting.day_pdt_rpts.inf_qlty_nhn
-  filter :inf_qlty_tn, :label => Setting.day_pdt_rpts.inf_qlty_tn
-  filter :inf_qlty_tp, :label => Setting.day_pdt_rpts.inf_qlty_tp
-  filter :inf_qlty_ph, :label => Setting.day_pdt_rpts.inf_qlty_ph
-  filter :eff_qlty_cod, :label => Setting.day_pdt_rpts.eff_qlty_cod
-  filter :eff_qlty_ss, :label => Setting.day_pdt_rpts.eff_qlty_ss
-  filter :eff_qlty_nhn, :label => Setting.day_pdt_rpts.eff_qlty_nhn
-  filter :eff_qlty_tn, :label => Setting.day_pdt_rpts.eff_qlty_tn
-  filter :eff_qlty_tp, :label => Setting.day_pdt_rpts.eff_qlty_tp
-  filter :eff_qlty_ph, :label => Setting.day_pdt_rpts.eff_qlty_ph
-  filter :eff_qlty_fecal, :label => Setting.day_pdt_rpts.eff_qlty_fecal
-  filter :eff_qlty_bod, :label => Setting.day_pdt_rpts.eff_qlty_bod
-  filter :sed_qlty_bod, :label => Setting.day_pdt_rpts.sed_qlty_bod
-  filter :sed_qlty_cod, :label => Setting.day_pdt_rpts.sed_qlty_cod
-  filter :sed_qlty_ss, :label => Setting.day_pdt_rpts.sed_qlty_ss
-  filter :sed_qlty_nhn, :label => Setting.day_pdt_rpts.sed_qlty_nhn
-  filter :sed_qlty_tn, :label => Setting.day_pdt_rpts.sed_qlty_tn
-  filter :sed_qlty_tp, :label => Setting.day_pdt_rpts.sed_qlty_tp
-  filter :sed_qlty_ph, :label => Setting.day_pdt_rpts.sed_qlty_ph
-  filter :inflow, :label => Setting.day_pdt_rpts.inflow
-  filter :outflow, :label => Setting.day_pdt_rpts.outflow
-  filter :inmud, :label => Setting.day_pdt_rpts.inmud
-  filter :outmud, :label => Setting.day_pdt_rpts.outmud
-  filter :mst, :label => Setting.day_pdt_rpts.mst
-  filter :power, :label => Setting.day_pdt_rpts.power
-  filter :mdflow, :label => Setting.day_pdt_rpts.mdflow
-  filter :mdrcy, :label => Setting.day_pdt_rpts.mdrcy
-  filter :mdsell, :label => Setting.day_pdt_rpts.mdsell
+  #filter :weather, :label => Setting.day_pdt_rpts.weather
+  #filter :min_temper, :label => Setting.day_pdt_rpts.min_temper
+  #filter :max_temper, :label => Setting.day_pdt_rpts.max_temper
+  #filter :inf_qlty_bod, :label => Setting.day_pdt_rpts.inf_qlty_bod
+  #filter :inf_qlty_cod, :label => Setting.day_pdt_rpts.inf_qlty_cod
+  #filter :inf_qlty_ss, :label => Setting.day_pdt_rpts.inf_qlty_ss
+  #filter :inf_qlty_nhn, :label => Setting.day_pdt_rpts.inf_qlty_nhn
+  #filter :inf_qlty_tn, :label => Setting.day_pdt_rpts.inf_qlty_tn
+  #filter :inf_qlty_tp, :label => Setting.day_pdt_rpts.inf_qlty_tp
+  #filter :inf_qlty_ph, :label => Setting.day_pdt_rpts.inf_qlty_ph
+  #filter :eff_qlty_cod, :label => Setting.day_pdt_rpts.eff_qlty_cod
+  #filter :eff_qlty_ss, :label => Setting.day_pdt_rpts.eff_qlty_ss
+  #filter :eff_qlty_nhn, :label => Setting.day_pdt_rpts.eff_qlty_nhn
+  #filter :eff_qlty_tn, :label => Setting.day_pdt_rpts.eff_qlty_tn
+  #filter :eff_qlty_tp, :label => Setting.day_pdt_rpts.eff_qlty_tp
+  #filter :eff_qlty_ph, :label => Setting.day_pdt_rpts.eff_qlty_ph
+  #filter :eff_qlty_fecal, :label => Setting.day_pdt_rpts.eff_qlty_fecal
+  #filter :eff_qlty_bod, :label => Setting.day_pdt_rpts.eff_qlty_bod
+  #filter :sed_qlty_bod, :label => Setting.day_pdt_rpts.sed_qlty_bod
+  #filter :sed_qlty_cod, :label => Setting.day_pdt_rpts.sed_qlty_cod
+  #filter :sed_qlty_ss, :label => Setting.day_pdt_rpts.sed_qlty_ss
+  #filter :sed_qlty_nhn, :label => Setting.day_pdt_rpts.sed_qlty_nhn
+  #filter :sed_qlty_tn, :label => Setting.day_pdt_rpts.sed_qlty_tn
+  #filter :sed_qlty_tp, :label => Setting.day_pdt_rpts.sed_qlty_tp
+  #filter :sed_qlty_ph, :label => Setting.day_pdt_rpts.sed_qlty_ph
+  #filter :inflow, :label => Setting.day_pdt_rpts.inflow
+  #filter :outflow, :label => Setting.day_pdt_rpts.outflow
+  #filter :inmud, :label => Setting.day_pdt_rpts.inmud
+  #filter :outmud, :label => Setting.day_pdt_rpts.outmud
+  #filter :mst, :label => Setting.day_pdt_rpts.mst
+  #filter :power, :label => Setting.day_pdt_rpts.power
+  #filter :mdflow, :label => Setting.day_pdt_rpts.mdflow
+  #filter :mdrcy, :label => Setting.day_pdt_rpts.mdrcy
+  #filter :mdsell, :label => Setting.day_pdt_rpts.mdsell
   filter :created_at
+
+  action_item :only => [:show, :edit] do
+  end
 
   index :title=>Setting.day_pdt_rpts.label + "管理" do
     selectable_column
@@ -57,24 +62,24 @@ ActiveAdmin.register DayPdtRpt  do
     column Setting.day_pdt_rpts.pdt_date, :pdt_date, :sortable=> :pdt_date do |f|
       f.pdt_date.strftime('%Y-%m-%d')
     end
-    column Setting.day_pdt_rpts.weather, :weather
-    column Setting.day_pdt_rpts.min_temper, :min_temper
-    column Setting.day_pdt_rpts.max_temper, :max_temper
-    column Setting.day_pdt_rpts.inf_qlty_bod, :inf_qlty_bod
-    column Setting.day_pdt_rpts.inf_qlty_cod, :inf_qlty_cod
-    column Setting.day_pdt_rpts.inf_qlty_ss, :inf_qlty_ss
-    column Setting.day_pdt_rpts.inf_qlty_nhn, :inf_qlty_nhn
-    column Setting.day_pdt_rpts.inf_qlty_tn, :inf_qlty_tn
-    column Setting.day_pdt_rpts.inf_qlty_tp, :inf_qlty_tp
-    column Setting.day_pdt_rpts.inf_qlty_ph, :inf_qlty_ph
-    column Setting.day_pdt_rpts.eff_qlty_bod, :efff_qlty_bod
-    column Setting.day_pdt_rpts.eff_qlty_cod, :eff_qlty_cod
-    column Setting.day_pdt_rpts.eff_qlty_ss, :eff_qlty_ss
-    column Setting.day_pdt_rpts.eff_qlty_nhn, :eff_qlty_nhn
-    column Setting.day_pdt_rpts.eff_qlty_tn, :eff_qlty_tn
-    column Setting.day_pdt_rpts.eff_qlty_tp, :eff_qlty_tp
-    column Setting.day_pdt_rpts.eff_qlty_ph, :eff_qlty_ph
-    column Setting.day_pdt_rpts.eff_qlty_fecal, :efff_qlty_fecal
+    #column Setting.day_pdt_rpts.weather, :weather
+    #column Setting.day_pdt_rpts.min_temper, :min_temper
+    #column Setting.day_pdt_rpts.max_temper, :max_temper
+    #column Setting.day_pdt_rpts.inf_qlty_bod, :inf_qlty_bod
+    #column Setting.day_pdt_rpts.inf_qlty_cod, :inf_qlty_cod
+    #column Setting.day_pdt_rpts.inf_qlty_ss, :inf_qlty_ss
+    #column Setting.day_pdt_rpts.inf_qlty_nhn, :inf_qlty_nhn
+    #column Setting.day_pdt_rpts.inf_qlty_tn, :inf_qlty_tn
+    #column Setting.day_pdt_rpts.inf_qlty_tp, :inf_qlty_tp
+    #column Setting.day_pdt_rpts.inf_qlty_ph, :inf_qlty_ph
+    #column Setting.day_pdt_rpts.eff_qlty_bod, :efff_qlty_bod
+    #column Setting.day_pdt_rpts.eff_qlty_cod, :eff_qlty_cod
+    #column Setting.day_pdt_rpts.eff_qlty_ss, :eff_qlty_ss
+    #column Setting.day_pdt_rpts.eff_qlty_nhn, :eff_qlty_nhn
+    #column Setting.day_pdt_rpts.eff_qlty_tn, :eff_qlty_tn
+    #column Setting.day_pdt_rpts.eff_qlty_tp, :eff_qlty_tp
+    #column Setting.day_pdt_rpts.eff_qlty_ph, :eff_qlty_ph
+    #column Setting.day_pdt_rpts.eff_qlty_fecal, :efff_qlty_fecal
     #column Setting.day_pdt_rpts.sed_qlty_bod, :sed_qlty_bod
     #column Setting.day_pdt_rpts.sed_qlty_cod, :sed_qlty_cod
     #column Setting.day_pdt_rpts.sed_qlty_ss, :sed_qlty_ss
@@ -82,30 +87,31 @@ ActiveAdmin.register DayPdtRpt  do
     #column Setting.day_pdt_rpts.sed_qlty_tn, :sed_qlty_tn
     #column Setting.day_pdt_rpts.sed_qlty_tp, :sed_qlty_tp
     #column Setting.day_pdt_rpts.sed_qlty_ph, :sed_qlty_ph
-    column Setting.day_pdt_rpts.inflow, :inflow
-    column Setting.day_pdt_rpts.outflow, :outflow
-    column Setting.day_pdt_rpts.inmud, :inmud
-    column Setting.day_pdt_rpts.outmud, :outmud
-    column Setting.day_pdt_rpts.mst, :mst
-    column Setting.day_pdt_rpts.power, :power
-    column Setting.day_pdt_rpts.mdflow, :mdflow
-    column Setting.day_pdt_rpts.mdrcy, :mdrcy
-    column Setting.day_pdt_rpts.mdsell, :mdsell
+    #column Setting.day_pdt_rpts.inflow, :inflow
+    #column Setting.day_pdt_rpts.outflow, :outflow
+    #column Setting.day_pdt_rpts.inmud, :inmud
+    #column Setting.day_pdt_rpts.outmud, :outmud
+    #column Setting.day_pdt_rpts.mst, :mst
+    #column Setting.day_pdt_rpts.power, :power
+    #column Setting.day_pdt_rpts.mdflow, :mdflow
+    #column Setting.day_pdt_rpts.mdrcy, :mdrcy
+    #column Setting.day_pdt_rpts.mdsell, :mdsell
 
-    #column "创建时间", :created_at, :sortable=>:created_at do |f|
-    #  f.created_at.strftime('%Y-%m-%d %H:%M:%S')
-    #end
+    column "创建时间", :created_at, :sortable=>:created_at do |f|
+      f.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    end
     #column "更新时间", :updated_at do |f|
     #  f.updated_at.strftime('%Y-%m-%d %H:%M:%S')
     #end
-    actions
+    actions 
+
   end
 
   form do |f|
     f.inputs "添加" + Setting.day_pdt_rpts.label do
       
-      f.input :name, :label => Setting.day_pdt_rpts.name 
-      f.input :pdt_date, :label => Setting.day_pdt_rpts.pdt_date 
+      #f.input :name, :label => Setting.day_pdt_rpts.name 
+      #f.input :pdt_date, :label => Setting.day_pdt_rpts.pdt_date 
       f.input :weather, :label => Setting.day_pdt_rpts.weather 
       f.input :min_temper, :label => Setting.day_pdt_rpts.min_temper 
       f.input :max_temper, :label => Setting.day_pdt_rpts.max_temper 
@@ -153,9 +159,9 @@ ActiveAdmin.register DayPdtRpt  do
       row Setting.day_pdt_rpts.name do
         day_pdt_rpt.name
       end
-      row Setting.day_pdt_rpts.pdt_date do
-        day_pdt_rpt.pdt_date
-      end
+      #row Setting.day_pdt_rpts.pdt_date do
+      #  day_pdt_rpt.pdt_date
+      #end
       row Setting.day_pdt_rpts.weather do
         day_pdt_rpt.weather
       end

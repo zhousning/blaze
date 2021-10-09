@@ -1,6 +1,7 @@
 ActiveAdmin.register Quota  do
 
   permit_params  :name, :code, :ctg
+  actions :all, :except => [:destroy]
 
   menu label: Setting.quota.label
   config.per_page = 20

@@ -1,6 +1,7 @@
 ActiveAdmin.register Mudfct  do
 
   permit_params  :name, :ability
+  actions :all, :except => [:destroy]
 
   menu label: Setting.mudfcts.label
   config.per_page = 20

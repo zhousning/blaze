@@ -5,6 +5,7 @@ ActiveAdmin.register Factory  do
   menu label: Setting.factories.label
   config.per_page = 20
   config.sort_order = "id_asc"
+  actions :all, :except => [:destroy]
 
   
   filter :area, :label => Setting.factories.area

@@ -1,6 +1,7 @@
 ActiveAdmin.register Department  do
 
   permit_params  :name, :info
+  actions :all, :except => [:destroy]
 
   menu label: Setting.departments.label
   config.per_page = 20

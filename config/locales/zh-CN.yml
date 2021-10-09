@@ -4,6 +4,11 @@ zh-CN:
       default: "%Y/%m/%d"
       short: "%b %d"
       long: "%B %d, %Y"
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
   activerecord:
     errors:
       models:

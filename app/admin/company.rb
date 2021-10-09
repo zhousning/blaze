@@ -1,6 +1,7 @@
 ActiveAdmin.register Company  do
 
   permit_params  :area, :name, :info, :lnt, :lat, factories_attributes: [:id, :area, :name, :design, :info, :lnt, :lat, :_destroy]
+  actions :all, :except => [:destroy]
 
 
   menu label: Setting.companies.label
