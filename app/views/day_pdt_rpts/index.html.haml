@@ -87,7 +87,8 @@
                           .row.justify-content-center
                             %button#info-btn.button.button-primary.button-small.mr-1{:type => "button", :'data-rpt' => idencode(day_pdt_rpt.id), :'data-fct' => idencode(@factory.id)}
                               查看
-                            = link_to "编辑", edit_factory_day_pdt_rpt_path(idencode(@factory.id), idencode(day_pdt_rpt.id)), :class => "button button-highlight button-small mr-1" 
+                            -#
+                              = link_to "编辑", edit_factory_day_pdt_rpt_path(idencode(@factory.id), idencode(day_pdt_rpt.id)), :class => "button button-highlight button-small mr-1" 
             .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
               = paginate @day_pdt_rpts, window: 2, left: 1, right: 1 
       = render "layouts/bootstrap/card"
