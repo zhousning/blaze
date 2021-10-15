@@ -10,11 +10,13 @@ class CreateMthPdtRpts < ActiveRecord::Migration
 
       t.float :design,  null: false, default: Setting.systems.default_num
     
-      t.float :outflow,  null: false, default: Setting.systems.default_num
-    
-      t.float :avg_outflow,  null: false, default: Setting.systems.default_num
-    
-      t.float :end_outflow,  null: false, default: Setting.systems.default_num
+      t.decimal :design, :precision => 10, :scale => 2,  null: false, :default => Setting.systems.default_num
+
+      t.decimal :outflow, :precision => 10, :scale => 2,  null: false, :default => Setting.systems.default_num
+
+      t.decimal :avg_outflow, :precision => 10, :scale => 2,  null: false, :default => Setting.systems.default_num
+
+      t.decimal :end_outflow, :precision => 10, :scale => 2,  null: false, :default => Setting.systems.default_num
     
       t.string :cmc_bill,  null: false, default: Setting.systems.default_str
     
