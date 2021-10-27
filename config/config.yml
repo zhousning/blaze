@@ -1529,6 +1529,12 @@ defaults:
     mdrcy: '14'
     mdsell: '15'
     fecal: '16'
+    tp_cost: '17' 
+    tn_cost:  '18'
+    tp_utcost: '19'
+    tn_utcost: '20'
+    bom: '21'
+    per_cost: '22'
   level_ones: &146
     ph: PH
     fecal: 化验-粪大肠菌群数(个/l)
@@ -1801,6 +1807,10 @@ defaults:
     tp_emr: TP削减率(%)
     tn_emr: TN削减率(%)
     ss_emr: SS削减率(%)
+    tp_cost: 除磷药剂单位成本 
+    tn_cost: 脱氮成本
+    tp_utcost: 去除单位TP成本
+    tn_utcost: 去除单位TN成本
   notices: &1
     label: 通知公告
     title: 标题

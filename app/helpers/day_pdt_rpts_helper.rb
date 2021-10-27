@@ -20,6 +20,11 @@ module DayPdtRptsHelper
     raw(str)
   end
 
+  def options_for_main_quotas
+    str = "<option value='" + Setting.quota.bom + "'>" + Setting.day_rpt_stcs.bom + "</option>" +  "<option value='" + Setting.quota.tp_cost + "'>" + Setting.day_rpt_stcs.tp_cost + "</option>" + "<option value='" + Setting.quota.tn_cost + "'>" + Setting.day_rpt_stcs.tn_cost + "</option>" + "<option value='" + Setting.quota.tp_utcost + "'>" + Setting.day_rpt_stcs.tp_utcost + "</option>" + "<option value='" + Setting.quota.tn_utcost + "'>" + Setting.day_rpt_stcs.tn_utcost + "</option>" + "<option value='" + Setting.quota.per_cost + "'>" + Setting.chemicals.per_cost + "</option>"
+    raw(str)
+  end
+
   def options_for_mudfcts(factory)
     hash = Hash.new
     mudfcts = factory.mudfcts
