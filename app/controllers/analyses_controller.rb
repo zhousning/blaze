@@ -1,7 +1,7 @@
 class AnalysesController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource 
+  authorize_resource :except => [:power_bom, :percost, :tpcost, :tncost, :tputcost, :tnutcost] 
   
   include MathCube
   include QuotaConfig 
@@ -10,6 +10,234 @@ class AnalysesController < ApplicationController
   def compare
     @factories = current_user.factories
     quotas = Quota.all
+  end
+
+  #多厂区吨水药剂成本
+  def percost 
+    title = '吨水药剂成本'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "per_cost, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = DayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.per_cost
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
+  end
+
+  #多厂区去除单位TN成本
+  def tnutcost 
+    title = '去除单位TN成本'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "tn_utcost, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = DayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.tn_utcost
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
+  end
+  #多厂区去除单位TP成本
+  def tputcost 
+    title = '去除单位TP成本'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "tp_utcost, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = DayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.tp_utcost 
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
+  end
+
+
+  #多厂区脱氮成本
+  def tncost 
+    title = '脱氮成本'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "tn_cost, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = DayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.tn_cost 
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
+  end
+
+  #多厂区除磷药剂单位成本
+  def tpcost 
+    title = '除磷药剂单位成本'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "tp_cost, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = DayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.tp_cost
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
+  end
+
+  #多厂区电单耗
+  def power_bom
+    title = '电单耗'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "bom, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = DayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.bom 
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
   end
 
   #需要返回的类型datasets = [

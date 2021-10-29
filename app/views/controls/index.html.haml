@@ -6,7 +6,8 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %ul.list-group.list-group-horizontal
-          %li.list-group-item.pl-0.border-0
+          -#
+            %li.list-group-item.pl-0.border-0
             = select_tag "qcodes", options_for_main_quotas, :include_blank=>false, :class=>"form-control"
           %li.list-group-item.border-0.d-flex.flex-row
             = date_field_tag 'start', nil, class: 'form-control mr-1', :value => Date.today.at_beginning_of_month, :min => Date.new(2019, 01, 01), :max => Date.today-1
@@ -29,6 +30,16 @@
                         = render 'reports/date_fct_panel'
                     .row
                       .col-12.my-5.chart-statistic-wrapper
-                        .chart-statistic-ctn.my-chart-statistic-ctn.d-none{:'data-chart' => Setting.charts.line}
+                        .chart-statistic-ctn.my-chart-statistic-ctn.power-chart{:'data-chart' => Setting.charts.line}
+                      .col-12.my-5.chart-statistic-wrapper
+                        .chart-statistic-ctn.my-chart-statistic-ctn.tpcost-chart{:'data-chart' => Setting.charts.line}
+                      .col-12.my-5.chart-statistic-wrapper
+                        .chart-statistic-ctn.my-chart-statistic-ctn.tncost-chart{:'data-chart' => Setting.charts.line}
+                      .col-12.my-5.chart-statistic-wrapper
+                        .chart-statistic-ctn.my-chart-statistic-ctn.tputcost-chart{:'data-chart' => Setting.charts.line}
+                      .col-12.my-5.chart-statistic-wrapper
+                        .chart-statistic-ctn.my-chart-statistic-ctn.tnutcost-chart{:'data-chart' => Setting.charts.line}
+                      .col-12.my-5.chart-statistic-wrapper
+                        .chart-statistic-ctn.my-chart-statistic-ctn.percost-chart{:'data-chart' => Setting.charts.line}
 
       = render "layouts/bootstrap/card"

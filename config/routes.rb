@@ -175,6 +175,12 @@ Rails.application.routes.draw do
     get :compare, :on => :collection
     get :area_time, :on => :collection
     get :area_time_compare, :on => :collection
+    get :power_bom, :on => :collection
+    get :tpcost, :on => :collection
+    get :tncost, :on => :collection
+    get :tputcost, :on => :collection
+    get :tnutcost, :on => :collection
+    get :percost, :on => :collection
   end
   resources :reports, :only => [:index] do
     get :day_report, :on => :collection
