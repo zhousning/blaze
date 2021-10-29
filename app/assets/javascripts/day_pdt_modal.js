@@ -23,6 +23,10 @@ function day_pdt_modal() {
       var tspmuds = data.tspmuds;
       var chemicals = data.chemicals.chemicals_data;
       var chemical_per_cost = data.chemicals.per_cost;
+      var chemical_tpcost = data.chemicals.tpcost;
+      var chemical_tncost = data.chemicals.tncost;
+      var chemical_tputcost = data.chemicals.tputcost;
+      var chemical_tnutcost = data.chemicals.tnutcost;
       var fct_id = data.fct_id;
       var day_rpt_id = data.day_rpt_id;
       
@@ -81,6 +85,10 @@ function day_pdt_modal() {
       $("#day-chemical-ctn").html(chemical_table);
 
       $("#day-chemical-per-cost").html(chemical_per_cost);
+      $("#day-chemical-tpcost").html(chemical_tpcost);
+      $("#day-chemical-tncost").html(chemical_tncost);
+      $("#day-chemical-tputcost").html(chemical_tputcost);
+      $("#day-chemical-tnutcost").html(chemical_tnutcost);
 
 
       var day_mud_ctn = ''; 

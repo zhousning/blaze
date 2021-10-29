@@ -377,7 +377,11 @@ class DayPdtRptsController < ApplicationController
     end
     chemicals = {
       chemicals_data: chemicals_data,
-      per_cost: @day_pdt_rpt.per_cost
+      per_cost: @day_pdt_rpt.per_cost,
+      tpcost: @day_rpt_stc.tp_cost,
+      tncost: @day_rpt_stc.tn_cost,
+      tputcost: @day_rpt_stc.tp_utcost, 
+      tnutcost: @day_rpt_stc.tn_utcost
     }
 
     respond_to do |format|
