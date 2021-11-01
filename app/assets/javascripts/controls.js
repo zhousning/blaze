@@ -1,23 +1,28 @@
 $(".controls.index").ready(function() {
   if ($(".controls.index").length > 0) {
+    var start = $("#start").val();
+    var end = $("#end").val();
+    var fcts = gon.fct;
+    $("input[name='select-all']").prop('checked',true);
+    $("input[name='fcts']").prop('checked',true);
+    mainQuotaChartSet(start, end, fcts);
+
     $(".area-time-search").on('click', function(e) {
-      mainQuotaChartSet(e.target);
+      var start = $("#start").val();
+      var end = $("#end").val();
+      var fcts = "";
+      var check_boxes = $("input[name='fcts']:checked");
+      $.each(check_boxes, function(){
+        fcts += $(this).val() + ","
+      });
+      mainQuotaChartSet(start, end, fcts);
     })
   }
 });
 
-function mainQuotaChartSet(that_search) {
+function mainQuotaChartSet(start, end, fcts) {
   //var qcodes = $("#qcodes").val();
-  var start = $("#start").val();
-  var end = $("#end").val();
-  var fcts = "";
   var charts = [];
-  var check_boxes = $("input[name='fcts']:checked");
-
-  $.each(check_boxes, function(){
-    fcts += $(this).val() + ","
-  });
-
   var power_chart = $(".power-chart")[0]
   var tpcost_chart = $(".tpcost-chart")[0]
   var tncost_chart = $(".tncost-chart")[0]

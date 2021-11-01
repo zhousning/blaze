@@ -109,11 +109,18 @@ function newOption(my_title, my_series, my_dimensions, my_source) {
       text: my_title, 
       subtext: '',
       left: 'center',
-      align: 'right'
+      align: 'center'
     },
     legend: { 
+      type: 'scroll',
+      orient: 'vertical',
+      left: 10,
+      top: 20,
+      bottom: 10,
       data: my_dimensions,
-      left: 10
+    },
+    grid: {
+      left: '15%',
     },
     label: { show: true },
     tooltip: { trigger: 'axis' },
