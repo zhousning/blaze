@@ -118,18 +118,19 @@ class DayPdtsController < ApplicationController
       clyj_cost = 0
       tuodan_cost = 0
       chemicals.each do |cmc|
-        fclyj = [Setting.chemical_ctgs.csn, Setting.chemical_ctgs.pam_yin, Setting.chemical_ctgs.pam_yang]
-        if !fclyj.include?(cmc.name)
+        tanyuan = [Setting.chemical_ctgs.csn, Setting.chemical_ctgs.jc, Setting.chemical_ctgs.xxty]
+        clyj = [Setting.chemical_ctgs.pac, Setting.chemical_ctgs.slht, Setting.chemical_ctgs.jhlst]
+        if clyj.include?(cmc.name)
           clyj_cost += cmc.unprice*cmc.dosage 
         end
-        if cmc.name == Setting.chemical_ctgs.csn
+        if tanyuan.include?(cmc.name)
           tuodan_cost = cmc.unprice*cmc.dosage
         end
       end
       clyjcb = FormulaLib.format_num(clyj_cost/inflow)
       tuodancb = FormulaLib.format_num(tuodan_cost/inflow)
       qctpcb = FormulaLib.format_num(clyj_cost/day_rpt_stc.tp_emq)
-      qctncb = FormulaLib.format_num(clyj_cost/day_rpt_stc.tn_emq)
+      qctncb = FormulaLib.format_num(tuodan_cost/day_rpt_stc.tn_emq)
 
       day_rpt_stc.update_attributes(:tp_cost => clyjcb, :tn_cost => tuodancb, :tp_utcost => qctpcb, :tn_utcost => qctncb)
     end

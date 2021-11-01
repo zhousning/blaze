@@ -14,7 +14,7 @@ class AnalysesController < ApplicationController
 
   #多厂区吨水药剂成本
   def percost 
-    title = '吨水药剂成本'
+    title = '吨水药剂成本(元/千吨)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -52,7 +52,7 @@ class AnalysesController < ApplicationController
 
   #多厂区去除单位TN成本
   def tnutcost 
-    title = '去除单位TN成本'
+    title = '去除单位TN成本(元/吨)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -89,7 +89,7 @@ class AnalysesController < ApplicationController
   end
   #多厂区去除单位TP成本
   def tputcost 
-    title = '去除单位TP成本'
+    title = '去除单位TP成本(元/吨)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -128,7 +128,7 @@ class AnalysesController < ApplicationController
 
   #多厂区脱氮成本
   def tncost 
-    title = '脱氮成本'
+    title = '脱氮成本(元/吨)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -166,7 +166,7 @@ class AnalysesController < ApplicationController
 
   #多厂区除磷药剂单位成本
   def tpcost 
-    title = '除磷药剂单位成本'
+    title = '除磷药剂单位成本(元/吨)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -204,7 +204,7 @@ class AnalysesController < ApplicationController
 
   #多厂区电单耗
   def power_bom
-    title = '电单耗'
+    title = '电单耗(kw·hm3)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
