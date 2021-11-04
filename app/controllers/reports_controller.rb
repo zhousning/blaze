@@ -69,7 +69,7 @@ class ReportsController < ApplicationController
           :outflow     => mth_pdt_rpt.outflow,
           :state       => mth_state(mth_pdt_rpt.state),
           :avg_outflow => mth_pdt_rpt.avg_outflow,
-          :end_outflow => mth_pdt_rpt.avg_outflow
+          :end_outflow => mth_pdt_rpt.end_outflow
         }
       end
     end
