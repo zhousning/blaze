@@ -126,9 +126,9 @@ class AnalysesController < ApplicationController
   end
 
 
-  #多厂区脱氮成本
+  #多厂区碳源成本
   def tncost 
-    title = '脱氮成本(元/吨)'
+    title = '碳源成本(元/吨)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
