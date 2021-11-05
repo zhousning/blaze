@@ -423,7 +423,7 @@ class DayPdtRptsController < ApplicationController
 
     excel_tool = SpreadSheetTool.new
     target_excel = excel_tool.exportDayPdtRptToExcel(obj)
-    send_file target_excel, :filename => "日报表.xls", :type => "application/force-download", :x_sendfile=>true
+    send_file target_excel, :filename => @day_pdt_rpt.name + ".xls", :type => "application/force-download", :x_sendfile=>true
   end
 
   private

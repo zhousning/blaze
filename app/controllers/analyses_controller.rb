@@ -14,7 +14,7 @@ class AnalysesController < ApplicationController
 
   #多厂区吨水药剂成本
   def percost 
-    title = '吨水药剂成本(元/千吨)'
+    title = Setting.mth_chemicals.per_cost
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -52,7 +52,7 @@ class AnalysesController < ApplicationController
 
   #多厂区去除单位TN成本
   def tnutcost 
-    title = '去除单位TN成本(元/吨)'
+    title = Setting.day_rpt_stcs.tn_utcost
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -89,7 +89,7 @@ class AnalysesController < ApplicationController
   end
   #多厂区去除单位TP成本
   def tputcost 
-    title = '去除单位TP成本(元/吨)'
+    title = Setting.day_rpt_stcs.tp_utcost
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -126,9 +126,9 @@ class AnalysesController < ApplicationController
   end
 
 
-  #多厂区碳源成本
+  #多厂区脱氮成本
   def tncost 
-    title = '碳源成本(元/吨)'
+    title = Setting.day_rpt_stcs.tn_cost
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -166,7 +166,7 @@ class AnalysesController < ApplicationController
 
   #多厂区除磷药剂单位成本
   def tpcost 
-    title = '除磷药剂单位成本(元/吨)'
+    title = Setting.day_rpt_stcs.tp_cost
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -204,7 +204,7 @@ class AnalysesController < ApplicationController
 
   #多厂区电单耗
   def power_bom
-    title = '电单耗(kw·hm3)'
+    title = Setting.day_rpt_stcs.bom 
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 

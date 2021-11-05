@@ -221,7 +221,7 @@ class MthPdtRptsController < ApplicationController
 
     docWorker = ExportMthDoc.new
     target_word = docWorker.process(@mth_pdt_rpt.id)
-    send_file target_word, :filename => "月报表word报告.docx", :type => "application/force-download", :x_sendfile=>true
+    send_file target_word, :filename => @mth_pdt_rpt.name + ".docx", :type => "application/force-download", :x_sendfile=>true
   end
   
   def xls_mth_download
@@ -231,7 +231,7 @@ class MthPdtRptsController < ApplicationController
 
     excel_tool = SpreadSheetTool.new
     target_excel = excel_tool.exportMthPdtRptToExcel(obj)
-    send_file target_excel, :filename => "月报表.xls", :type => "application/force-download", :x_sendfile=>true
+    send_file target_excel, :filename => @mth_pdt_rpt.name + ".xls", :type => "application/force-download", :x_sendfile=>true
   end
 
   def produce_report 
