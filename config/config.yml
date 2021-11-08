@@ -1740,6 +1740,7 @@ defaults:
     label: 综合统计月报表
     name: 名称
     date: 月份
+    start_date: 开始日期
     state: 进度
     cmc_bill: 药剂发票
     ecm_ans_rpt: 经济运行分析报告
