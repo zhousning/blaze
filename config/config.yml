@@ -1740,7 +1740,7 @@ defaults:
     label: 综合统计月报表
     name: 名称
     date: 月份
-    start_date: 开始日期
+    start_date: 开始日期 
     state: 进度
     cmc_bill: 药剂发票
     ecm_ans_rpt: 经济运行分析报告
@@ -1808,10 +1808,10 @@ defaults:
     tp_emr: TP削减率(%)
     tn_emr: TN削减率(%)
     ss_emr: SS削减率(%)
-    tp_cost: 除磷药剂单位成本(吨/元) 
-    tn_cost: 碳源成本(吨/元)
-    tp_utcost: 去除单位TP成本(吨/元)
-    tn_utcost: 去除单位TN成本(吨/元)
+    tp_cost: 除磷药剂单位成本(元/吨) 
+    tn_cost: 碳源成本(元/吨)
+    tp_utcost: 去除单位TP成本(元/吨)
+    tn_utcost: 去除单位TN成本(元/吨)
   notices: &1
     label: 通知公告
     title: 标题
