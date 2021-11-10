@@ -327,11 +327,14 @@
                  
               %tr
                 %td.p-2.text-right
+                  =  Setting.month_powers.stdpower
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.month_power.stdpower
+                %td.p-2.text-right
                   =  Setting.month_powers.bom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_power.bom
                  
-                %td.p-2.text-center{:colspan => '2'}
                 -#
                   %td.p-2.text-right
                     =  Setting.month_powers.bom_power

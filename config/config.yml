@@ -1692,6 +1692,7 @@ defaults:
   month_powers: &156
     label: 耗电量
     power: 本月总耗电量(万千瓦时)
+    stdpower: 修正总耗电量(万千瓦时)
     end_power: 本月止累计耗电量(万千瓦时)
     bom: 单耗(kw·/hm3)
     bom_power: 单位好氧污染物耗电量(kw·hkg)

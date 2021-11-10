@@ -16,14 +16,18 @@
             = f.label nil, Setting.month_powers.end_power, :class => " text-center"
           %td.p-2.text-center
             = f.number_field :end_power, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+
             
         %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_powers.stdpower, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :stdpower, :class => "form-control border-danger", :required => true, :step => 'any' 
           %td.p-2.text-center
             = f.label nil, Setting.month_powers.bom, :class => " text-center"
           %td.p-2.text-center
             = f.number_field :bom, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
             
-          %td.p-2.text-center{:colspan => '2'}
           -#
             %td.p-2.text-center
               = f.label nil, Setting.month_powers.bom_power, :class => " text-center"

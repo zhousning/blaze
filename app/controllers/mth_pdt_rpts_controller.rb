@@ -306,7 +306,7 @@ class MthPdtRptsController < ApplicationController
     end
   
     def month_power_params
-      [:id, :power, :end_power, :bom, :bom_power, :yoy_power, :mom_power, :yoy_bom, :mom_bom, :_destroy]
+      [:id, :power, :end_power, :stdpower, :bom, :bom_power, :yoy_power, :mom_power, :yoy_bom, :mom_bom, :_destroy]
     end
   
     def month_mud_params
