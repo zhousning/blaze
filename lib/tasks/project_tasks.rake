@@ -13,11 +13,14 @@ namespace :project do
     
     #导入历史化验数据和在线数据
     Rake::Task["db:import_lishicms"].invoke
-    Rake::Task["db:update_lishionline"].invoke
+    #Rake::Task["db:update_lishionline"].invoke
 
     #导入月历史数据
     Rake::Task["db:create_mth_rpts"].invoke
     Rake::Task["db:update_mth_power_chemicals"].invoke
+
+    #如果是删除了月报表，又重新导入数据，执行完以上两步，再更新下本月止电数据
+    #Rake::Task["db:update_mth_powers"].invoke
 
     #Rake::Task["db:import_daywatercms"].invoke
     #Rake::Task["db:import_emps"].invoke

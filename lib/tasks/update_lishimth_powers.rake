@@ -4,6 +4,7 @@ require 'find'
 require 'creek'
 require 'spreadsheet' 
 
+#给清源更新电数据用的
 namespace 'db' do
   desc "update_lishimth_powers"
   task(:update_lishimth_powers => :environment) do

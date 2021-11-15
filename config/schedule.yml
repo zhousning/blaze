@@ -3,6 +3,6 @@ produce_day_pdt:
   class: "DayPdtWorker"
   queue: default
 produce_mth_pdt_rpt:
-  cron: "30 3 6 * *"
+  cron: "30 3 3 * *"
   class: "MthPdtRptWorker"
   queue: default
