@@ -4,7 +4,9 @@ namespace 'db' do
   task(:create_mth_rpts => :environment) do
     include MathCube 
     include CreateMthPdtRpt
-    factories = Factory.all
+    #factories = Factory.all
+    f=Factory.where(:name => '邹城第一污水处理厂').first
+    factories << f
     @log_dir = "lib/tasks/data/inoutcms/logs/" 
     @mthcreatelog = Logger.new(@log_dir + '创建月数据错误.log')
 
