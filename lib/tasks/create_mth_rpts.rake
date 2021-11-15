@@ -5,6 +5,7 @@ namespace 'db' do
     include MathCube 
     include CreateMthPdtRpt
     #factories = Factory.all
+    factories = []
     f=Factory.where(:name => '邹城第一污水处理厂').first
     factories << f
     @log_dir = "lib/tasks/data/inoutcms/logs/" 
