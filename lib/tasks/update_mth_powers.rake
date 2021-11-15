@@ -9,7 +9,10 @@ namespace 'db' do
     @log_dir = "lib/tasks/data/inoutcms/logs/" 
     @update_power_log = Logger.new(@log_dir + '更新电本月止数据错误.log')
 
-    factories = Factory.all
+    #factories = Factory.all
+    factories = []
+    f=Factory.where(:name => '邹城第一污水处理厂').first
+    factories << f
     years = [2019, 2020, 2021]
     factories.each do |factory|
       years.each do |year|
