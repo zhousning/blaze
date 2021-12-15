@@ -376,7 +376,7 @@ class MthPdtRptsController < ApplicationController
 
     def power_content(mth_pdt_rpt)
       power = mth_pdt_rpt.month_power
-      power_targets =['power', 'end_power', 'bom', 'bom_power', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom' ]
+      power_targets =['power', 'stdpower', 'end_power', 'bom', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom' ]
       power_arr = []
       power_title = []
       power_targets.each_with_index do |t, index|
