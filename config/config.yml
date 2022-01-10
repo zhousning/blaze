@@ -1813,6 +1813,68 @@ defaults:
     tn_cost: 碳源成本(元/吨)
     tp_utcost: 去除单位TP成本(元/吨)
     tn_utcost: 去除单位TN成本(元/吨)
+  tspmuds: &167
+    label: 污泥处置
+    tspvum: 转运泥量
+    dealer: 处置单位
+    rcpvum: 处置单位接收量
+    price: 价格(元/吨)
+    prtmtd: 处置方式
+    goort: 后续产品走向
+  chemicals: &168
+    label: 药剂
+    name: 名称
+    unprice: 单价(元/吨)
+    dosage: 投加量(吨)
+    avg_dosage: 平均投加量(吨/日)
+    act_dosage: 实际投加量(吨)
+    cmptc: 药剂浓度(%)
+    dosptc: 药剂投加浓度(mg/l)
+    per_cost: 吨水药剂成本(元/吨)
+    std_dev: 偏差率
+  chemical_ctgs: &169
+    label: 化学药剂分类
+    code: 编码
+    name: 名称
+    csn: '1'
+    csn_t: 醋酸钠
+    jc: '2'
+    jc_t: 甲醇
+    xxty: '3'
+    xxty_t: 新型碳源
+    pac: '4'
+    pac_t: PAC
+    pam_yin: '5'
+    pam_yin_t: PAM阴离子
+    pam_yang: '6'
+    pam_yang_t: PAM阳离子
+    slht: '7'
+    slht_t: 三氯化铁
+    jhlst: '8'
+    jhlst_t: 聚合硫酸铁
+    clsn: '9'
+    clsn_t: 次氯酸钠
+    swj: '10'
+    swj_t: 水烷洁
+    yy: '11'
+    yy_t: 液氧
+    hxt: '12'
+    hxt_t: 活性炭
+  mth_chemicals: &170
+    label: 药剂
+    name: 名称
+    unprice: 单价(元/吨)
+    dosage: 累计投加量(吨)
+    avg_dosage: 平均每日投加量(吨/日)
+    act_dosage: 修正累计投加量(吨)
+    cmptc: 药剂浓度(%)
+    dosptc: 药剂投加浓度(mg/l)
+    per_cost: 吨水药剂成本(元/吨)
+    std_dev: 偏差率
+  mudfcts: &171
+    label: 污泥处置厂家
+    name: 污泥处置厂家名
+    ability: 处理能力
   notices: &1
     label: 通知公告
     title: 标题
@@ -2062,68 +2124,6 @@ development:
     selected: selected
     completed: completed
     canceled: canceled
-  tspmuds: &167
-    label: 污泥处置
-    tspvum: 转运泥量
-    dealer: 处置单位
-    rcpvum: 处置单位接收量
-    price: 价格(元/吨)
-    prtmtd: 处置方式
-    goort: 后续产品走向
-  chemicals: &168
-    label: 药剂
-    name: 名称
-    unprice: 单价(元/吨)
-    dosage: 投加量(吨)
-    avg_dosage: 平均投加量(吨/日)
-    act_dosage: 实际投加量(吨)
-    cmptc: 药剂浓度(%)
-    dosptc: 药剂投加浓度(mg/l)
-    per_cost: 吨水药剂成本(元/吨)
-    std_dev: 偏差率
-  mth_chemicals: &170
-    label: 药剂
-    name: 名称
-    unprice: 单价(元/吨)
-    dosage: 累计投加量(吨)
-    avg_dosage: 平均每日投加量(吨/日)
-    act_dosage: 修正累计投加量(吨)
-    cmptc: 药剂浓度(%)
-    dosptc: 药剂投加浓度(mg/l)
-    per_cost: 吨水药剂成本(元/吨)
-    std_dev: 偏差率
-  chemical_ctgs: &169
-    label: 化学药剂分类
-    code: 编码
-    name: 名称
-    csn: '1'
-    csn_t: 醋酸钠
-    jc: '2'
-    jc_t: 甲醇
-    xxty: '3'
-    xxty_t: 新型碳源
-    pac: '4'
-    pac_t: PAC
-    pam_yin: '5'
-    pam_yin_t: PAM阴离子
-    pam_yang: '6'
-    pam_yang_t: PAM阳离子
-    slht: '7'
-    slht_t: 三氯化铁
-    jhlst: '8'
-    jhlst_t: 聚合硫酸铁
-    clsn: '9'
-    clsn_t: 次氯酸钠
-    swj: '10'
-    swj_t: 水烷洁
-    yy: '11'
-    yy_t: 液氧
-    hxt: '12'
-    hxt_t: 活性炭
-  mudfcts: &171
-    label: 污泥处置厂家
-    name: 污泥处置厂家名
-    ability: 处理能力
 test:
   admins: *104
   users: *105
