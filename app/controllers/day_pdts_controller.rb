@@ -97,12 +97,12 @@ class DayPdtsController < ApplicationController
       if !@day_pdt_rpt
         @day_pdt_rpt = DayPdtRpt.new(params)
         if @day_pdt_rpt.save
-          update_chemical_cost(@day_pdt_rpt)
+          #update_chemical_cost(@day_pdt_rpt)
           @day_pdt.complete
         end
       else
         if @day_pdt_rpt.update_attributes(params)
-          update_chemical_cost(@day_pdt_rpt)
+          #update_chemical_cost(@day_pdt_rpt)
           @day_pdt.complete
         end
       end
