@@ -132,10 +132,10 @@ class DayPdtsController < ApplicationController
       #puts 'clyj_cost' + clyj_cost.to_s
       #puts 'tuodan_cost' + tuodan_cost.to_s
 
-      clyjcb = FormulaLib.format_4num(clyj_cost/inflow)
-      tuodancb = FormulaLib.format_4num(tuodan_cost/inflow)
-      qctpcb = FormulaLib.format_4num(clyj_cost/day_rpt_stc.tp_emq)
-      qctncb = FormulaLib.format_4num(tuodan_cost/day_rpt_stc.tn_emq)
+      clyjcb = FormulaLib.format_num(clyj_cost/inflow)
+      tuodancb = FormulaLib.format_num(tuodan_cost/inflow)
+      qctpcb = FormulaLib.format_num(clyj_cost/day_rpt_stc.tp_emq)
+      qctncb = FormulaLib.format_num(tuodan_cost/day_rpt_stc.tn_emq)
 
       #puts 'clyjcb' + clyjcb.to_s
       #puts 'tuodancb' + tuodancb.to_s
