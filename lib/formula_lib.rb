@@ -56,7 +56,7 @@ module FormulaLib
 
   #电单耗(单位kw.h/m3, 电量kw.h, 进水量m3)
   def self.bom(power, inflow)
-    inflow == 0 ? 0 : format("%0.2f",power/inflow).to_f
+    inflow == 0 ? 0 : format("%0.3f",power/inflow).to_f
   end
 
   #消减电单耗(单位kw.h/kg, 电量kw.h, 指标mg/l, 进水量m3)
