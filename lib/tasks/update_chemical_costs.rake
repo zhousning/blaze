@@ -11,7 +11,7 @@ namespace 'db' do
     years = [2021]
     factories.each do |factory|
       years.each do |year|
-        (Date.new(year, 9, 1)..Date.new(year, 10, 30)).each do |day|
+        (Date.new(2021, 9, 1)..Date.new(2022, 1, 11)).each do |day|
           day_rpt = factory.day_pdt_rpts.where(:pdt_date => day).first
           if day_rpt
             day_rpt_stc = day_rpt.day_rpt_stc
@@ -30,10 +30,10 @@ namespace 'db' do
                   tuodan_cost = cmc.unprice*cmc.dosage
                 end
               end
-              clyjcb = FormulaLib.format_num(clyj_cost/inflow)
-              tuodancb = FormulaLib.format_num(tuodan_cost/inflow)
-              qctpcb = FormulaLib.format_num(clyj_cost/day_rpt_stc.tp_emq)
-              qctncb = FormulaLib.format_num(tuodan_cost/day_rpt_stc.tn_emq)
+              clyjcb = FormulaLib.format_4num(clyj_cost/inflow)
+              tuodancb = FormulaLib.format_4num(tuodan_cost/inflow)
+              qctpcb = FormulaLib.format_4num(clyj_cost/day_rpt_stc.tp_emq)
+              qctncb = FormulaLib.format_4num(tuodan_cost/day_rpt_stc.tn_emq)
 
               unless day_rpt_stc.update_attributes(:tp_cost => clyjcb, :tn_cost => tuodancb, :tp_utcost => qctpcb, :tn_utcost => qctncb)
                 @update_chemical_cost_log.error rpt.name + "更新化学药剂成本数据"

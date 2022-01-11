@@ -2046,84 +2046,11 @@ development:
   emp_infs: *162
   emp_effs: *163
   day_rpt_stcs: *164
-  ctg_mtrls:
-    label: 材料分类
-    idno: 编号
-    name: 名称
-    unit: 单位
-    pet_name: 别名或其他名
-    model_no: 型号
-  ctg_secds:
-    label: 二级类目
-    name: 名称
-  ctg_frsts:
-    label: 一级分类
-    name: 名称
-  ware_houses:
-    label: 入库单
-    name: 入库单名称
-    sign: 填写人
-    ware_date: 时间
-    desc: 备注
-    opening: opening
-    uploading: uploading
-    uploaded: uploaded
-    completed: completed
-    canceled: canceled
-  input_items:
-    label: 入库项目
-    unit_price: 单价
-    count: 数量
-    total_price: 总价
-  stocks:
-    label: 库存
-    unit_price: 单价
-    count: 数量
-    total_price: 总价
-    position: 位置
-  retrievals:
-    label: 出库
-    name: 名称
-    outdate: 出库日期
-    dept: 部门
-    signer: 填写人
-    receiver: 领取人
-    opening: opening
-    selecting: selecting
-    selected: selected
-    completed: completed
-    canceled: canceled
-  output_items:
-    label: 出库项目
-    count: 数量
-    unit_price: 单价
-    total_price: 总价
-  projects:
-    label: 工程项目
-    name: 工程名
-    start: 开始日期
-    end: 结束日期
-    state: 状态
-    dept: 领料部门
-    ongoing: ongoing
-    outbound: outbound
-  pick_items:
-    label: 领料明细
-    count: 数量
-  picks:
-    label: 领料单
-    name: 名称
-    pick_date: 领料日期
-    signer: 填写人
-    dept: 部门
-    receiver: 领料人
-    state: 状态
-    desc: 备注
-    opening: opening
-    selecting: selecting
-    selected: selected
-    completed: completed
-    canceled: canceled
+  tspmuds: *167
+  chemicals: *168
+  chemical_ctgs: *169
+  mth_chemicals: *170
+  mudfcts: *171
 test:
   admins: *104
   users: *105

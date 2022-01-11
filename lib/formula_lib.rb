@@ -7,6 +7,10 @@ module FormulaLib
     a.blank? ? 0 : format("%0.2f", a).to_f
   end
 
+  def self.format_4num(a)
+    a.blank? ? 0 : format("%0.4f", a).to_f
+  end
+
   def self.multiply(a, b)
     a.blank? || b.blank? ? 0 : format("%0.2f",a*b).to_f
   end

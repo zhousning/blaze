@@ -19,8 +19,9 @@ class DayPdtRpt < ActiveRecord::Base
   belongs_to :factory
   belongs_to :user
 
-  before_create :build_day_stc
+  #before_save 在 before_create之前执行, before_create只执行一次
   before_save :update_day_stc
+  before_create :build_day_stc
   
   def build_day_stc
     build_day_rpt_stc(
@@ -61,25 +62,6 @@ class DayPdtRpt < ActiveRecord::Base
 
   def update_day_stc
     if self.day_rpt_stc
-      chemicals = self.chemicals
-      inflow = self.inflow
-      clyj_cost = 0
-      tuodan_cost = 0
-      chemicals.each do |cmc|
-        tanyuan = [Setting.chemical_ctgs.csn, Setting.chemical_ctgs.jc, Setting.chemical_ctgs.xxty]
-        clyj = [Setting.chemical_ctgs.pac, Setting.chemical_ctgs.slht, Setting.chemical_ctgs.jhlst]
-        if clyj.include?(cmc.name)
-          clyj_cost += cmc.unprice*cmc.dosage 
-        end
-        if tanyuan.include?(cmc.name)
-          tuodan_cost = cmc.unprice*cmc.dosage
-        end
-      end
-      clyjcb = FormulaLib.format_num(clyj_cost/inflow)
-      tuodancb = FormulaLib.format_num(tuodan_cost/inflow)
-      qctpcb = FormulaLib.format_num(clyj_cost/day_rpt_stc.tp_emq)
-      qctncb = FormulaLib.format_num(tuodan_cost/day_rpt_stc.tn_emq)
-
       self.day_rpt_stc.update_attributes(
         :bcr     => FormulaLib.ratio(self.inf_qlty_bod, self.inf_qlty_cod),
         :bnr     => FormulaLib.ratio(self.inf_qlty_bod, self.inf_qlty_tn),
@@ -112,12 +94,8 @@ class DayPdtRpt < ActiveRecord::Base
         :nhn_inflow => FormulaLib.multiply(self.inf_qlty_nhn, self.inflow ), 
         :tp_inflow  => FormulaLib.multiply(self.inf_qlty_tp,  self.inflow ), 
         :tn_inflow  => FormulaLib.multiply(self.inf_qlty_tn,  self.inflow ), 
-        :ss_inflow  => FormulaLib.multiply(self.inf_qlty_ss,  self.inflow ),
+        :ss_inflow  => FormulaLib.multiply(self.inf_qlty_ss,  self.inflow )
 
-	:tp_cost => clyjcb, 
-  	:tn_cost => tuodancb, 
-	:tp_utcost => qctpcb, 
-	:tn_utcost => qctncb
       )
     end
   end
