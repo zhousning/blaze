@@ -97,57 +97,16 @@ class DayPdtsController < ApplicationController
       if !@day_pdt_rpt
         @day_pdt_rpt = DayPdtRpt.new(params)
         if @day_pdt_rpt.save
-          update_chemical_cost(@day_pdt_rpt)
           @day_pdt.complete
         end
       else
         if @day_pdt_rpt.update_attributes(params)
-          update_chemical_cost(@day_pdt_rpt)
           @day_pdt.complete
         end
       end
     end
     redirect_to cmp_verify_show_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
   end
-
-  def update_chemical_cost(day_rpt)
-    #puts 'l..............'
-    day_rpt_stc = day_rpt.day_rpt_stc
-    if day_rpt_stc 
-      chemicals = day_rpt.chemicals
-      inflow = day_rpt.inflow
-      clyj_cost = 0
-      tuodan_cost = 0
-      chemicals.each do |cmc|
-        tanyuan = [Setting.chemical_ctgs.csn, Setting.chemical_ctgs.jc, Setting.chemical_ctgs.xxty]
-        clyj = [Setting.chemical_ctgs.pac, Setting.chemical_ctgs.slht, Setting.chemical_ctgs.jhlst]
-        if clyj.include?(cmc.name)
-          clyj_cost += cmc.unprice*cmc.dosage 
-        end
-        if tanyuan.include?(cmc.name)
-          tuodan_cost = cmc.unprice*cmc.dosage
-        end
-      end
-
-      #puts 'clyj_cost' + clyj_cost.to_s
-      #puts 'tuodan_cost' + tuodan_cost.to_s
-
-      clyjcb = FormulaLib.format_num(clyj_cost/inflow)
-      tuodancb = FormulaLib.format_num(tuodan_cost/inflow)
-      qctpcb = FormulaLib.format_num(clyj_cost/day_rpt_stc.tp_emq)
-      qctncb = FormulaLib.format_num(tuodan_cost/day_rpt_stc.tn_emq)
-
-      #puts 'clyjcb' + clyjcb.to_s
-      #puts 'tuodancb' + tuodancb.to_s
-      #puts 'qctpcb' + qctpcb.to_s
-      #puts 'qctncb' + qctncb.to_s
-
-      #puts 'l..............'
-
-      day_rpt_stc.update_attributes(:tp_cost => clyjcb, :tn_cost => tuodancb, :tp_utcost => qctpcb, :tn_utcost => qctncb)
-    end
-  end
-   
 
   def new
     @factory = my_factory
