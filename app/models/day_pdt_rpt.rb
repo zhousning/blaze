@@ -126,7 +126,7 @@ class DayPdtRpt < ActiveRecord::Base
           clyj_cost += cmc.unprice*cmc.dosage 
         end
         if tanyuan.include?(cmc.name)
-          tuodan_cost = cmc.unprice*cmc.dosage
+          tuodan_cost += cmc.unprice*cmc.dosage
         end
       end
 

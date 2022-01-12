@@ -27,7 +27,7 @@ namespace 'db' do
                   clyj_cost += cmc.unprice*cmc.dosage 
                 end
                 if tanyuan.include?(cmc.name)
-                  tuodan_cost = cmc.unprice*cmc.dosage
+                  tuodan_cost += cmc.unprice*cmc.dosage
                 end
               end
               clyjcb = FormulaLib.format_num(clyj_cost/inflow)
