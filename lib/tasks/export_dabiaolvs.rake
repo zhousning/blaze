@@ -1,4 +1,5 @@
 require 'spreadsheet' 
+#导出后的结果 按data/达标率模板整理
 namespace 'db' do
   desc "export dabiaolv"
   task(:export_dabiaolvs => :environment) do
@@ -76,8 +77,8 @@ namespace 'db' do
         tn_cost_sum += rpt.day_rpt_stc.tn_cost 
       end
 
-      tplv = format("%0.2f", (tp_cost_sum/rpts_count*100)) + '%'
-      tnlv = format("%0.2f", (tn_cost_sum/rpts_count*100)) + '%'
+      tplv = format("%0.3f", tp_cost_sum/rpts_count)
+      tnlv = format("%0.3f", tn_cost_sum/rpts_count)
       dunshui_hash[f.name] = [tplv, tnlv]
     end
 
