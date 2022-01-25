@@ -1,0 +1,44 @@
+require 'spreadsheet' 
+namespace 'db' do
+  desc "export dabiaolv"
+  task(:export_dabiaolvs => :environment) do
+    Spreadsheet.client_encoding = 'UTF-8'
+    filename = Time.now.to_i.to_s + "%04d" % [rand(10000)]
+    target_excel = File.join(Rails.root, "public", "excel", filename + '.xlsx') 
+
+    book = Spreadsheet::Workbook.new
+
+    sdssb=[{:key => 'cod', :val => 30}, {:key => 'bod', :val => 6}, {:key => 'ss', :val => 10}, {:key => 'nhn', :val => 1.5}, {:key => 'tn', :val => 10}, {:key => 'tp', :val => 0.3}]
+    jnzsb=[{:key => 'cod', :val => 20}, {:key => 'bod', :val => 4}, {:key => 'ss', :val => 10}, {:key => 'nhn', :val => 1}, {:key => 'tn', :val => 10}, {:key => 'tp', :val => 0.2}]
+    qzdbs=[{:key => 'cod', :val => 20}, {:key => 'bod', :val => 4}, {:key => 'ss', :val => 10}, {:key => 'nhn', :val => 1}, {:key => 'tn', :val => 1}, {:key => 'tp', :val => 0.2}]
+
+    quotas = [sdssb, jnzsb, qzdbs]
+    quotas.each_with_index do |quota, index|
+      sheet = book.create_worksheet name: "Sheet " + index.to_s
+      hash = Hash.new
+      quota.each do |item|
+        cond = 'pdt_date between ? and ? and eff_qlty_' + item[:key] + ' <= ?'
+        val = item[:val]
+        Factory.all.each do |f|
+          hash[f.name] = [] if hash[f.name].nil?
+          sum = f.day_pdt_rpts.where([cond, '2021-01-01', '2021-12-31', val]).count.to_f
+          total = (Date.new(2021,1,1)..Date.new(2021,12,31)).count.to_f
+          dabiaolv = format("%0.2f", (sum/total*100)) + '%'
+          hash[f.name] << dabiaolv
+        end
+      end
+
+      items = []
+      hash.each_pair do |k, v|
+        items << [k] + v
+      end
+
+      items.each_with_index do |item, index|
+        sheet.row(index).concat item 
+      end
+    end
+
+    book.write target_excel
+  end
+end
+
