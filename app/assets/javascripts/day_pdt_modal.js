@@ -52,13 +52,13 @@ function day_pdt_modal() {
       })
       emq_table += '</tr>'; 
 
-      emq_table += '<tr><td>削减量(吨)</td>'; 
+      emq_table += '<tr><td>(在线/化验)削减量(吨)</td>'; 
       $.each(emq, function(k, v) {
         emq_table += "<td>" + v + "</td>"; 
       })
       emq_table += '</tr>'; 
 
-      emq_table += '<tr><td>削减率(%)</td>'; 
+      emq_table += '<tr><td>(在线/化验)削减率(%)</td>'; 
       $.each(emr, function(k, v) {
         emq_table += "<td>" + v + "</td>"; 
       })

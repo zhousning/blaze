@@ -88,7 +88,7 @@ Rails.application.routes.draw do
  
   resources :factories, :only => [:edit, :update] do
     get :bigscreen, :on => :member
-    resources :day_pdts, :only => [:index, :show, :new, :create, :edit, :update] do
+    resources :day_pdts, :only => [:index, :show, :edit, :update] do
       get :upreport, :on => :member
       get :verifying, :on => :member
       get :rejected, :on => :member

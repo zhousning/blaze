@@ -282,6 +282,7 @@ class DayPdtRptsController < ApplicationController
    
     @day_pdt_rpt = @factory.day_pdt_rpts.find(iddecode(params[:id]))
     @day_rpt_stc = @day_pdt_rpt.day_rpt_stc
+    @cday_rpt_stc = @day_pdt_rpt.cday_rpt_stc
     header = {
       :name => @day_pdt_rpt.name, 
       :weather => @day_pdt_rpt.weather, 
@@ -294,9 +295,9 @@ class DayPdtRptsController < ApplicationController
       Setting.day_pdt_rpts.eff_qlty_fecal => @day_pdt_rpt.eff_qlty_fecal,
       Setting.day_pdt_rpts.inf_qlty_ph => @day_pdt_rpt.inf_qlty_ph, 
       Setting.day_pdt_rpts.eff_qlty_ph => @day_pdt_rpt.eff_qlty_ph, 
-      Setting.day_rpt_stcs.bcr => @day_rpt_stc.bcr,
-      Setting.day_rpt_stcs.bnr => @day_rpt_stc.bnr,
-      Setting.day_rpt_stcs.bpr => @day_rpt_stc.bpr
+      '(在线/化验)进水' + Setting.day_rpt_stcs.bcr => @day_rpt_stc.bcr.to_s + '/' + @cday_rpt_stc.bcr.to_s,
+      '(在线/化验)进水' + Setting.day_rpt_stcs.bnr => @day_rpt_stc.bnr.to_s + '/' + @cday_rpt_stc.bnr.to_s,
+      '(在线/化验)进水' + Setting.day_rpt_stcs.bpr => @day_rpt_stc.bpr.to_s + '/' + @cday_rpt_stc.bpr.to_s
     }
 
     inf_huayan = {
@@ -316,21 +317,21 @@ class DayPdtRptsController < ApplicationController
       Setting.day_pdt_rpts.eff_qlty_ss =>  @day_pdt_rpt.eff_qlty_ss
     }
     cms_emq = {
-      Setting.day_rpt_stcs.cod_emq => @day_rpt_stc.cod_emq,
-      Setting.day_rpt_stcs.bod_emq => @day_rpt_stc.bod_emq,
-      Setting.day_rpt_stcs.nhn_emq => @day_rpt_stc.nhn_emq,
-      Setting.day_rpt_stcs.tp_emq => @day_rpt_stc.tp_emq,
-      Setting.day_rpt_stcs.tn_emq => @day_rpt_stc.tn_emq,
-      Setting.day_rpt_stcs.ss_emq => @day_rpt_stc.ss_emq
+      Setting.day_rpt_stcs.cod_emq => @day_rpt_stc.cod_emq.to_s + '/' + @cday_rpt_stc.cod_emq.to_s,
+      Setting.day_rpt_stcs.bod_emq => @day_rpt_stc.bod_emq.to_s + '/' + @cday_rpt_stc.bod_emq.to_s,
+      Setting.day_rpt_stcs.nhn_emq => @day_rpt_stc.nhn_emq.to_s + '/' + @cday_rpt_stc.nhn_emq.to_s,
+      Setting.day_rpt_stcs.tp_emq =>  @day_rpt_stc.tp_emq.to_s  + '/' + @cday_rpt_stc.tp_emq.to_s,
+      Setting.day_rpt_stcs.tn_emq =>  @day_rpt_stc.tn_emq.to_s  + '/' + @cday_rpt_stc.tn_emq.to_s,
+      Setting.day_rpt_stcs.ss_emq =>  @day_rpt_stc.ss_emq.to_s  + '/' + @cday_rpt_stc.ss_emq.to_s
     }
 
     cms_emr = {
-      Setting.day_rpt_stcs.cod_emr => @day_rpt_stc.cod_emr,
-      Setting.day_rpt_stcs.bod_emr => @day_rpt_stc.bod_emr,
-      Setting.day_rpt_stcs.nhn_emr => @day_rpt_stc.nhn_emr,
-      Setting.day_rpt_stcs.tp_emr => @day_rpt_stc.tp_emr,
-      Setting.day_rpt_stcs.tn_emr => @day_rpt_stc.tn_emr,
-      Setting.day_rpt_stcs.ss_emr => @day_rpt_stc.ss_emr
+      Setting.day_rpt_stcs.cod_emr => @day_rpt_stc.cod_emr.to_s + '/' + @cday_rpt_stc.cod_emr.to_s,
+      Setting.day_rpt_stcs.bod_emr => @day_rpt_stc.bod_emr.to_s + '/' + @cday_rpt_stc.bod_emr.to_s,
+      Setting.day_rpt_stcs.nhn_emr => @day_rpt_stc.nhn_emr.to_s + '/' + @cday_rpt_stc.nhn_emr.to_s,
+      Setting.day_rpt_stcs.tp_emr  => @day_rpt_stc.tp_emr.to_s  + '/' + @cday_rpt_stc.tp_emr.to_s,
+      Setting.day_rpt_stcs.tn_emr  => @day_rpt_stc.tn_emr.to_s  + '/' + @cday_rpt_stc.tn_emr.to_s,
+      Setting.day_rpt_stcs.ss_emr  => @day_rpt_stc.ss_emr.to_s  + '/' + @cday_rpt_stc.ss_emr.to_s
     }
     mud = {
       Setting.day_pdt_rpts.inmud => @day_pdt_rpt.inmud, 
@@ -339,13 +340,13 @@ class DayPdtRptsController < ApplicationController
     }
     power = {
       Setting.day_pdt_rpts.power => @day_pdt_rpt.power, 
-      Setting.day_rpt_stcs.bom => @day_rpt_stc.bom,
-      Setting.day_rpt_stcs.cod_bom => @day_rpt_stc.cod_bom,
-      Setting.day_rpt_stcs.bod_bom => @day_rpt_stc.bod_bom,
-      Setting.day_rpt_stcs.nhn_bom => @day_rpt_stc.nhn_bom,
-      Setting.day_rpt_stcs.tp_bom => @day_rpt_stc.tp_bom,
-      Setting.day_rpt_stcs.tn_bom => @day_rpt_stc.tn_bom,
-      Setting.day_rpt_stcs.ss_bom => @day_rpt_stc.ss_bom
+      Setting.day_rpt_stcs.bom + '(在线/化验)' => @day_rpt_stc.bom.to_s + '/' + @cday_rpt_stc.bom.to_s,
+      Setting.day_rpt_stcs.cod_bom + '(在线/化验)'  => @day_rpt_stc.cod_bom.to_s + '/' + @cday_rpt_stc.cod_bom.to_s,
+      Setting.day_rpt_stcs.bod_bom + '(在线/化验)'  => @day_rpt_stc.bod_bom.to_s + '/' + @cday_rpt_stc.bod_bom.to_s,
+      Setting.day_rpt_stcs.nhn_bom + '(在线/化验)'  => @day_rpt_stc.nhn_bom.to_s + '/' + @cday_rpt_stc.nhn_bom.to_s,
+      Setting.day_rpt_stcs.tp_bom + '(在线/化验)'   => @day_rpt_stc.tp_bom.to_s  + '/' + @cday_rpt_stc.tp_bom.to_s,
+      Setting.day_rpt_stcs.tn_bom + '(在线/化验)'   => @day_rpt_stc.tn_bom.to_s  + '/' + @cday_rpt_stc.tn_bom.to_s,
+      Setting.day_rpt_stcs.ss_bom + '(在线/化验)'   => @day_rpt_stc.ss_bom.to_s  + '/' + @cday_rpt_stc.ss_bom.to_s
     }
     md = {
       Setting.day_pdt_rpts.mdflow => @day_pdt_rpt.mdflow, 
@@ -378,10 +379,10 @@ class DayPdtRptsController < ApplicationController
     chemicals = {
       chemicals_data: chemicals_data,
       per_cost: @day_pdt_rpt.per_cost,
-      tpcost: @day_rpt_stc.tp_cost,
-      tncost: @day_rpt_stc.tn_cost,
-      tputcost: @day_rpt_stc.tp_utcost, 
-      tnutcost: @day_rpt_stc.tn_utcost
+      tpcost:   @day_rpt_stc.tp_cost,
+      tncost:   @day_rpt_stc.tn_cost,
+      tputcost: @day_rpt_stc.tp_utcost.to_s + '/' + @cday_rpt_stc.tp_utcost.to_s, 
+      tnutcost: @day_rpt_stc.tn_utcost.to_s + '/' + @cday_rpt_stc.tn_utcost.to_s
     }
 
     respond_to do |format|
