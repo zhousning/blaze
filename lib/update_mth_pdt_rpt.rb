@@ -52,20 +52,20 @@ module UpdateMthPdtRpt
     {
       :flow => flow,
       :cms => {
-        :bod => bod,
-        :cod => cod,
-        :tp => tp,
-        :tn => tn,
-        :nhn => nhn,
-        :ccod => ccod,
-        :ctp => ctp,
-        :ctn => ctn,
-        :cnhn => cnhn,
-        :ss => ss,
-        :power => power,
-        :mud => mud,
-        :md => md,
-        :fecal => fecal
+        :month_bod => bod,
+        :month_cod => cod,
+        :month_tp => tp,
+        :month_tn => tn,
+        :month_nhn => nhn,
+        :month_ss => ss,
+        :month_power => power,
+        :month_mud => mud,
+        :month_md => md,
+        :month_fecal => fecal,
+        :cmonth_cod => ccod,
+        :cmonth_tp => ctp,
+        :cmonth_tn => ctn,
+        :cmonth_nhn => cnhn
       }
     }
   end

@@ -58,7 +58,7 @@ $(".mth_pdt_rpts").ready(function() {
           $.each(v, function(item_k, item_v) {
             var item = item_k;
             var val = item_v;
-            var id = "#mth_pdt_rpt_month_" + attr + "_attributes_" + item;
+            var id = "#mth_pdt_rpt_" + attr + "_attributes_" + item;
             $(id).val(val);
           })
         })
