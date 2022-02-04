@@ -423,6 +423,12 @@ class MthPdtRptsController < ApplicationController
       tn =  mth_pdt_rpt.month_tn
       tp =  mth_pdt_rpt.month_tp
       ss =  mth_pdt_rpt.month_ss
+
+      ccod = mth_pdt_rpt.cmonth_cod
+      cnhn = mth_pdt_rpt.cmonth_nhn
+      ctn =  mth_pdt_rpt.cmonth_tn
+      ctp =  mth_pdt_rpt.cmonth_tp
+
       fecal = mth_pdt_rpt.month_fecal
     
       cms_arr = []
@@ -437,6 +443,7 @@ class MthPdtRptsController < ApplicationController
       cms_arr << cms_title
 
       targets = [cod, bod, nhn, tn, tp, ss, fecal]
+      ctargets = [ccod, bod, cnhn, ctn, ctp, ss, fecal]
       result = []
       VARVALUE.each do |v|
         title = Setting.month_cods[v].gsub('COD','')
@@ -447,7 +454,7 @@ class MthPdtRptsController < ApplicationController
           if c == 'bod' || c == 'ss'
             result << mObj.call(targets[cms_index]) 
           else
-            result << mObj.call(targets[cms_index]) + '/' + cmObj.call(targets[cms_index])
+            result << mObj.call(targets[cms_index]) + '/' + cmObj.call(ctargets[cms_index])
           end
         end
         cms_arr << result 
