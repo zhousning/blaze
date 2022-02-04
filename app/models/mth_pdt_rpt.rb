@@ -16,7 +16,6 @@ class MthPdtRpt < ActiveRecord::Base
   has_one :month_cod, :dependent => :destroy
   accepts_nested_attributes_for :month_cod, reject_if: :all_blank, allow_destroy: true
 
-
   has_one :month_tp, :dependent => :destroy
   accepts_nested_attributes_for :month_tp, reject_if: :all_blank, allow_destroy: true
 
@@ -27,6 +26,18 @@ class MthPdtRpt < ActiveRecord::Base
 
   has_one :month_nhn, :dependent => :destroy
   accepts_nested_attributes_for :month_nhn, reject_if: :all_blank, allow_destroy: true
+
+  has_one :cmonth_cod, :dependent => :destroy
+  accepts_nested_attributes_for :cmonth_cod, reject_if: :all_blank, allow_destroy: true
+
+  has_one :cmonth_tp, :dependent => :destroy
+  accepts_nested_attributes_for :cmonth_tp, reject_if: :all_blank, allow_destroy: true
+
+  has_one :cmonth_tn, :dependent => :destroy
+  accepts_nested_attributes_for :cmonth_tn, reject_if: :all_blank, allow_destroy: true
+
+  has_one :cmonth_nhn, :dependent => :destroy
+  accepts_nested_attributes_for :cmonth_nhn, reject_if: :all_blank, allow_destroy: true
 
 
   has_one :month_fecal, :dependent => :destroy

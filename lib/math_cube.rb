@@ -16,15 +16,19 @@ module MathCube
     mst_max = quotas[Setting.quota.mst][:max]
 
     bod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_bod <= ?", factory_id, _start, _end, bod_max]).count
+    ss = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_ss <= ?", factory_id, _start, _end, ss_max]).count
     cod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_cod <= ?", factory_id, _start, _end, cod_max]).count
     tp = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_tp <= ?", factory_id, _start, _end, tp_max]).count
     tn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_tn <= ?", factory_id, _start, _end, tn_max]).count
-    ss = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_ss <= ?", factory_id, _start, _end, ss_max]).count
     nhn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_nhn <= ?", factory_id, _start, _end, nhn_max]).count
+    ccod = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_asy_cod <= ?", factory_id, _start, _end, cod_max]).count
+    ctp = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_asy_tp <= ?", factory_id, _start, _end, tp_max]).count
+    ctn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_asy_tn <= ?", factory_id, _start, _end, tn_max]).count
+    cnhn = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_asy_nhn <= ?", factory_id, _start, _end, nhn_max]).count
     fecal = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and eff_qlty_fecal <= ?", factory_id, _start, _end, fecal_max]).count
     mud = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ? and mst <= ?", factory_id, _start, _end, mst_max]).count
 
-    result = {:bod => bod, :cod => cod, :tp => tp, :tn => tn, :ss => ss, :nhn => nhn, :fecal => fecal, :mud => mud}
+    result = {:bod => bod, :cod => cod, :tp => tp, :tn => tn, :ss => ss, :nhn => nhn, :fecal => fecal, :mud => mud, :ccod => ccod, :ctp => ctp, :ctn => ctn, :cnhn => cnhn}
     result
   end
 
@@ -47,6 +51,10 @@ module MathCube
     emq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       
     emq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       
     emq_ss  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        
+    cemq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:tn],        last_year_result[:cemq][:tn])        
+    cemq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:tp],        last_year_result[:cemq][:tp])        
+    cemq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:cod],       last_year_result[:cemq][:cod])       
+    cemq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:nhn],       last_year_result[:cemq][:nhn])       
     fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
 
     mud     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    
@@ -74,6 +82,10 @@ module MathCube
       :emq_cod  =>  emq_cod,
       :emq_nhn  =>  emq_nhn,
       :emq_ss   =>  emq_ss  , 
+      :cemq_tn  =>  cemq_tn ,
+      :cemq_tp  =>  cemq_tp,
+      :cemq_cod =>  cemq_cod,
+      :cemq_nhn =>  cemq_nhn,
       :mud      =>  mud,
       :mdsell   =>  mdsell,
       :mdrcy    =>  mdrcy,
@@ -106,6 +118,10 @@ module MathCube
     emq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       
     emq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       
     emq_ss  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        
+    cemq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:tn],        last_year_result[:cemq][:tn])        
+    cemq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:tp],        last_year_result[:cemq][:tp])        
+    cemq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:cod],       last_year_result[:cemq][:cod])       
+    cemq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:nhn],       last_year_result[:cemq][:nhn])       
     mud     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    
     mdrcy   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     
     mdsell  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    
@@ -132,6 +148,10 @@ module MathCube
       :emq_cod  =>  emq_cod,
       :emq_nhn  =>  emq_nhn,
       :emq_ss   =>  emq_ss  , 
+      :cemq_tn   =>  cemq_tn, 
+      :cemq_tp   =>  cemq_tp,
+      :cemq_cod  =>  cemq_cod,
+      :cemq_nhn  =>  cemq_nhn,
       :mud      =>  mud,
       :mdsell   =>  mdsell,
       :mdrcy    =>  mdrcy,
@@ -143,23 +163,26 @@ module MathCube
   def static_sum(factory_id, _start, _end)
     day_pdt_rpts = DayPdtRpt.where(["factory_id = ? and pdt_date between ? and ?", factory_id, _start, _end])
     day_rpt_stcs = DayRptStc.where(:day_pdt_rpt => day_pdt_rpts.pluck(:id))
+    cday_rpt_stcs = CdayRptStc.where(:day_pdt_rpt => day_pdt_rpts.pluck(:id))
 
     rpt_static = day_pdt_rpts.select(search_str) 
     stc_static = day_rpt_stcs.select(rpt_stc_search_str) 
+    cstc_static = cday_rpt_stcs.select(rpt_stc_search_str) 
 
     rpt = rpt_static[0]
     stc = stc_static[0]
+    cstc = cstc_static[0]
 
     result = {}
     if rpt.counts > 0
-      result = result_hash(rpt, stc) 
+      result = result_hash(rpt, stc, cstc) 
     else
       result = result_zero
     end
     result
   end
 
-  def result_hash(rpt, stc)
+  def result_hash(rpt, stc, cstc)
     #单耗
     bom = FormulaLib.bom(rpt.sum_power, rpt.sum_inflow) 
 
@@ -171,6 +194,11 @@ module MathCube
     emq_ss  = stc.sum_ss_emq 
     emq_nhn = stc.sum_nhn_emq
 
+    cemq_cod = cstc.sum_cod_emq
+    cemq_tp  = cstc.sum_tp_emq 
+    cemq_tn  = cstc.sum_tn_emq 
+    cemq_nhn = cstc.sum_nhn_emq
+
     #平均削减率
     emr_bod = FormulaLib.avg_emr(emq_bod, stc.sum_bod_inflow)
     emr_cod = FormulaLib.avg_emr(emq_cod, stc.sum_cod_inflow)
@@ -178,6 +206,11 @@ module MathCube
     emr_tn  = FormulaLib.avg_emr(emq_tn , stc.sum_tn_inflow)
     emr_ss  = FormulaLib.avg_emr(emq_ss , stc.sum_ss_inflow)
     emr_nhn = FormulaLib.avg_emr(emq_nhn, stc.sum_nhn_inflow)
+
+    cemr_cod = FormulaLib.avg_emr(cemq_cod, cstc.sum_cod_inflow)
+    cemr_tp  = FormulaLib.avg_emr(cemq_tp , cstc.sum_tp_inflow)
+    cemr_tn  = FormulaLib.avg_emr(cemq_tn , cstc.sum_tn_inflow)
+    cemr_nhn = FormulaLib.avg_emr(cemq_nhn, cstc.sum_nhn_inflow)
 
     #平均削减量
     avg_emq_bod = FormulaLib.avg_emq(emq_bod, rpt.sum_inflow) 
@@ -187,20 +220,25 @@ module MathCube
     avg_emq_ss  = FormulaLib.avg_emq(emq_ss,  rpt.sum_inflow) 
     avg_emq_nhn = FormulaLib.avg_emq(emq_nhn, rpt.sum_inflow) 
 
+    cavg_emq_cod = FormulaLib.avg_emq(cemq_cod, rpt.sum_inflow) 
+    cavg_emq_tp  = FormulaLib.avg_emq(cemq_tp,  rpt.sum_inflow) 
+    cavg_emq_tn  = FormulaLib.avg_emq(cemq_tn,  rpt.sum_inflow)
+    cavg_emq_nhn = FormulaLib.avg_emq(cemq_nhn, rpt.sum_inflow) 
+
     result = {
       :state => 'nozero',
-      :inf_cod   => { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_cod),   sum: rpt.sum_inf_cod,   avg: rpt.avg_inf_cod   },
-      :eff_cod   => { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod),   sum: rpt.sum_eff_cod,   avg: rpt.avg_eff_cod   },
-      :inf_bod   => { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod),   sum: rpt.sum_inf_bod,   avg: rpt.avg_inf_bod   },
-      :eff_bod   => { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod),   sum: rpt.sum_eff_bod,   avg: rpt.avg_eff_bod   },
-      :inf_nhn   => { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn),   sum: rpt.sum_inf_nhn,   avg: rpt.avg_inf_nhn   },
-      :eff_nhn   => { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn),   sum: rpt.sum_eff_nhn,   avg: rpt.avg_eff_nhn   },
-      :inf_tn    => { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn),    sum: rpt.sum_inf_tn,    avg: rpt.avg_inf_tn    },
-      :eff_tn    => { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn),    sum: rpt.sum_eff_tn,    avg: rpt.avg_eff_tn    },
-      :inf_tp    => { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp),    sum: rpt.sum_inf_tp,    avg: rpt.avg_inf_tp    },
-      :eff_tp    => { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp),    sum: rpt.sum_eff_tp,    avg: rpt.avg_eff_tp    },
-      :inf_ss    => { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_ss),    sum: rpt.sum_inf_ss,    avg: rpt.avg_inf_ss    },
-      :eff_ss    => { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_ss),    sum: rpt.sum_eff_ss,    avg: rpt.avg_eff_ss    },
+      :inf_cod => { code: Setting.quota.cod, title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_cod), sum: rpt.sum_inf_cod, avg: rpt.avg_inf_cod, csum: rpt.csum_inf_cod,   cavg: rpt.cavg_inf_cod   },
+      :eff_cod => { code: Setting.quota.cod, title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod), sum: rpt.sum_eff_cod, avg: rpt.avg_eff_cod, csum: rpt.csum_eff_cod,   cavg: rpt.cavg_eff_cod   },
+      :inf_bod => { code: Setting.quota.bod, title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod), sum: rpt.sum_inf_bod, avg: rpt.avg_inf_bod },
+      :eff_bod => { code: Setting.quota.bod, title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod), sum: rpt.sum_eff_bod, avg: rpt.avg_eff_bod },
+      :inf_nhn => { code: Setting.quota.nhn, title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn), sum: rpt.sum_inf_nhn, avg: rpt.avg_inf_nhn, csum: rpt.csum_inf_nhn,   cavg: rpt.cavg_inf_nhn   },
+      :eff_nhn => { code: Setting.quota.nhn, title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn), sum: rpt.sum_eff_nhn, avg: rpt.avg_eff_nhn, csum: rpt.csum_eff_nhn,   cavg: rpt.cavg_eff_nhn   },
+      :inf_tn  => { code: Setting.quota.tn,  title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn),  sum: rpt.sum_inf_tn,  avg: rpt.avg_inf_tn ,  csum: rpt.csum_inf_tn,    cavg: rpt.cavg_inf_tn    },
+      :eff_tn  => { code: Setting.quota.tn,  title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn),  sum: rpt.sum_eff_tn,  avg: rpt.avg_eff_tn ,  csum: rpt.csum_eff_tn,    cavg: rpt.cavg_eff_tn    },
+      :inf_tp  => { code: Setting.quota.tp,  title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp),  sum: rpt.sum_inf_tp,  avg: rpt.avg_inf_tp ,  csum: rpt.csum_inf_tp,    cavg: rpt.cavg_inf_tp    },
+      :eff_tp  => { code: Setting.quota.tp,  title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp),  sum: rpt.sum_eff_tp,  avg: rpt.avg_eff_tp ,  csum: rpt.csum_eff_tp,    cavg: rpt.cavg_eff_tp    },
+      :inf_ss  => { code: Setting.quota.ss,  title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_ss),  sum: rpt.sum_inf_ss,  avg: rpt.avg_inf_ss },
+      :eff_ss  => { code: Setting.quota.ss,  title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_ss),  sum: rpt.sum_eff_ss,  avg: rpt.avg_eff_ss },
       :inf_ph    => { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.inf_qlty_ph,                           sum: rpt.sum_inf_ph,    avg: rpt.avg_inf_ph    },
       :eff_ph    => { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.eff_qlty_ph,                           sum: rpt.sum_eff_ph,    avg: rpt.avg_eff_ph    },
       :eff_fecal => { code: Setting.quota.fecal,   title: Setting.day_pdt_rpts.eff_qlty_fecal,                        sum: rpt.sum_eff_fecal, avg: rpt.avg_eff_fecal },
@@ -215,7 +253,10 @@ module MathCube
       :mdsell    => { code: Setting.quota.mdsell,  title: Setting.day_pdt_rpts.mdsell,                           sum: rpt.sum_mdsell,    avg: rpt.avg_mdsell    },
       :emr       => { :bod => emr_bod,     :cod => emr_cod,     :tp => emr_tp,     :tn => emr_tn,     :ss => emr_ss,     :nhn => emr_nhn},
       :emq       => { :bod => emq_bod,     :cod => emq_cod,     :tp => emq_tp,     :tn => emq_tn,     :ss => emq_ss,     :nhn => emq_nhn},
-      :avg_emq   => { :bod => avg_emq_bod, :cod => avg_emq_cod, :tp => avg_emq_tp, :tn => avg_emq_tn, :ss => avg_emq_ss, :nhn => avg_emq_nhn}
+      :avg_emq   => { :bod => avg_emq_bod, :cod => avg_emq_cod, :tp => avg_emq_tp, :tn => avg_emq_tn, :ss => avg_emq_ss, :nhn => avg_emq_nhn},
+      :cemr      => { :cod => cemr_cod,     :tp => cemr_tp,     :tn => cemr_tn,     :nhn => cemr_nhn},
+      :cemq      => { :cod => cemq_cod,     :tp => cemq_tp,     :tn => cemq_tn,     :nhn => cemq_nhn},
+      :cavg_emq  => { :cod => cavg_emq_cod, :tp => cavg_emq_tp, :tn => cavg_emq_tn, :nhn => cavg_emq_nhn}
     }
     result
   end
@@ -223,18 +264,18 @@ module MathCube
   def result_zero
     {
       :state => 'zero',
-      :inf_cod   => { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_cod),   sum: 0,   avg: 0  },
-      :eff_cod   => { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod),   sum: 0,   avg: 0  },
-      :inf_bod   => { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod),   sum: 0,   avg: 0  },
-      :eff_bod   => { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod),   sum: 0,   avg: 0  },
-      :inf_nhn   => { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn),   sum: 0,   avg: 0  },
-      :eff_nhn   => { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn),   sum: 0,   avg: 0  },
-      :inf_tn    => { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn),    sum: 0,   avg: 0  },
-      :eff_tn    => { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn),    sum: 0,   avg: 0  },
-      :inf_tp    => { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp),    sum: 0,   avg: 0  },
-      :eff_tp    => { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp),    sum: 0,   avg: 0  },
-      :inf_ss    => { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_ss),    sum: 0,   avg: 0  },
-      :eff_ss    => { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_ss),    sum: 0,   avg: 0  },
+      :inf_cod   => { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_cod),   sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :eff_cod   => { code: Setting.quota.cod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_cod),   sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :inf_bod   => { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_bod),   sum: 0,   avg: 0},
+      :eff_bod   => { code: Setting.quota.bod,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_bod),   sum: 0,   avg: 0},
+      :inf_nhn   => { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_nhn),   sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :eff_nhn   => { code: Setting.quota.nhn,     title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_nhn),   sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :inf_tn    => { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tn),    sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :eff_tn    => { code: Setting.quota.tn,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tn),    sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :inf_tp    => { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_tp),    sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :eff_tp    => { code: Setting.quota.tp,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_tp),    sum: 0,   avg: 0, csum: 0, cavg: 0  },
+      :inf_ss    => { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.inf_qlty_ss),    sum: 0,   avg: 0},
+      :eff_ss    => { code: Setting.quota.ss,      title: MyCommon.cms_sub_pref(Setting.day_pdt_rpts.eff_qlty_ss),    sum: 0,   avg: 0},
       :inf_ph    => { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.inf_qlty_ph,                           sum: 0,   avg: 0  },
       :eff_ph    => { code: Setting.quota.ph,      title: Setting.day_pdt_rpts.eff_qlty_ph,                           sum: 0,   avg: 0  },
       :eff_fecal => { code: Setting.quota.fecal,   title: Setting.day_pdt_rpts.eff_qlty_fecal,                        sum: 0,   avg: 0  },
@@ -249,7 +290,10 @@ module MathCube
       :mdsell    => { code: Setting.quota.mdsell,  title: Setting.day_pdt_rpts.mdsell,                           sum: 0,   avg: 0  },
       :emr       => { :bod => 0, :cod => 0, :tp => 0, :tn => 0, :ss => 0, :nhn => 0},
       :emq       => { :bod => 0, :cod => 0, :tp => 0, :tn => 0, :ss => 0, :nhn => 0},
-      :avg_emq   => { :bod => 0, :cod => 0, :tp => 0, :tn => 0, :ss => 0, :nhn => 0}
+      :avg_emq   => { :bod => 0, :cod => 0, :tp => 0, :tn => 0, :ss => 0, :nhn => 0},
+      :cemr      => { :cod => 0, :tp => 0, :tn => 0, :nhn => 0},
+      :cemq      => { :cod => 0, :tp => 0, :tn => 0, :nhn => 0},
+      :cavg_emq  => { :cod => 0, :tp => 0, :tn => 0, :nhn => 0}
     }
   end
 
@@ -277,16 +321,24 @@ module MathCube
       ifnull(ROUND(sum(max_temper), 2), 0) sum_max_temper,
       ifnull(ROUND(sum(inf_qlty_bod)   , 2), 0) sum_inf_bod,
       ifnull(ROUND(sum(inf_qlty_cod)   , 2), 0) sum_inf_cod,
+      ifnull(ROUND(sum(inf_asy_cod)    , 2), 0) csum_inf_cod,
       ifnull(ROUND(sum(inf_qlty_ss)    , 2), 0) sum_inf_ss,
       ifnull(ROUND(sum(inf_qlty_nhn)   , 2), 0) sum_inf_nhn,
+      ifnull(ROUND(sum(inf_asy_nhn)    , 2), 0) csum_inf_nhn,
       ifnull(ROUND(sum(inf_qlty_tn)    , 2), 0) sum_inf_tn,
+      ifnull(ROUND(sum(inf_asy_tn)     , 2), 0) csum_inf_tn,
       ifnull(ROUND(sum(inf_qlty_tp)    , 2), 0) sum_inf_tp,
+      ifnull(ROUND(sum(inf_asy_tp)     , 2), 0) csum_inf_tp,
       ifnull(ROUND(sum(inf_qlty_ph)    , 2), 0) sum_inf_ph,
       ifnull(ROUND(sum(eff_qlty_cod)   , 2), 0) sum_eff_cod,
+      ifnull(ROUND(sum(eff_asy_cod)    , 2), 0) csum_eff_cod,
       ifnull(ROUND(sum(eff_qlty_ss)    , 2), 0) sum_eff_ss,
       ifnull(ROUND(sum(eff_qlty_nhn)   , 2), 0) sum_eff_nhn,
+      ifnull(ROUND(sum(eff_asy_nhn)    , 2), 0) csum_eff_nhn,
       ifnull(ROUND(sum(eff_qlty_tn)    , 2), 0) sum_eff_tn,
       ifnull(ROUND(sum(eff_qlty_tp)    , 2), 0) sum_eff_tp,
+      ifnull(ROUND(sum(eff_asy_tn)     , 2), 0) csum_eff_tn,
+      ifnull(ROUND(sum(eff_asy_tp)     , 2), 0) csum_eff_tp,
       ifnull(ROUND(sum(eff_qlty_ph)    , 2), 0) sum_eff_ph,
       ifnull(ROUND(sum(eff_qlty_fecal) , 2), 0) sum_eff_fecal,
       ifnull(ROUND(sum(eff_qlty_bod)   , 2), 0) sum_eff_bod,
@@ -304,16 +356,24 @@ module MathCube
       ifnull(ROUND(avg(nullif(max_temper, 0))     , 2), 0) avg_max_temper,
       ifnull(ROUND(avg(nullif(inf_qlty_bod, 0))   , 2), 0) avg_inf_bod,
       ifnull(ROUND(avg(nullif(inf_qlty_cod, 0))   , 2), 0) avg_inf_cod,
+      ifnull(ROUND(avg(nullif(inf_asy_cod,  0))   , 2), 0) cavg_inf_cod,
       ifnull(ROUND(avg(nullif(inf_qlty_ss, 0))    , 2), 0) avg_inf_ss,
       ifnull(ROUND(avg(nullif(inf_qlty_nhn, 0))   , 2), 0) avg_inf_nhn,
+      ifnull(ROUND(avg(nullif(inf_asy_nhn, 0))    , 2), 0) cavg_inf_nhn,
       ifnull(ROUND(avg(nullif(inf_qlty_tn, 0))    , 2), 0) avg_inf_tn,
       ifnull(ROUND(avg(nullif(inf_qlty_tp, 0))    , 2), 0) avg_inf_tp,
+      ifnull(ROUND(avg(nullif(inf_asy_tn, 0))     , 2), 0) cavg_inf_tn,
+      ifnull(ROUND(avg(nullif(inf_asy_tp, 0))     , 2), 0) cavg_inf_tp,
       ifnull(ROUND(avg(nullif(inf_qlty_ph, 0))    , 2), 0) avg_inf_ph,
       ifnull(ROUND(avg(nullif(eff_qlty_cod, 0))   , 2), 0) avg_eff_cod,
+      ifnull(ROUND(avg(nullif(eff_asy_cod, 0))    , 2), 0) cavg_eff_cod,
       ifnull(ROUND(avg(nullif(eff_qlty_ss, 0))    , 2), 0) avg_eff_ss,
       ifnull(ROUND(avg(nullif(eff_qlty_nhn, 0))   , 2), 0) avg_eff_nhn,
+      ifnull(ROUND(avg(nullif(eff_asy_nhn, 0))    , 2), 0) cavg_eff_nhn,
       ifnull(ROUND(avg(nullif(eff_qlty_tn, 0))    , 2), 0) avg_eff_tn,
       ifnull(ROUND(avg(nullif(eff_qlty_tp, 0))    , 2), 0) avg_eff_tp,
+      ifnull(ROUND(avg(nullif(eff_asy_tn, 0))     , 2), 0) cavg_eff_tn,
+      ifnull(ROUND(avg(nullif(eff_asy_tp, 0))     , 2), 0) cavg_eff_tp,
       ifnull(ROUND(avg(nullif(eff_qlty_ph, 0))    , 2), 0) avg_eff_ph,
       ifnull(ROUND(avg(nullif(eff_qlty_fecal, 0)) , 2), 0) avg_eff_fecal,
       ifnull(ROUND(avg(nullif(eff_qlty_bod, 0))   , 2), 0) avg_eff_bod,

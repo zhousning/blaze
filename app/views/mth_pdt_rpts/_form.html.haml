@@ -71,18 +71,30 @@
       
             = f.fields_for :month_cod do |mth_cod|
               = render 'month_cod_fields', f: mth_cod 
+
+            = f.fields_for :cmonth_cod do |cmth_cod|
+              = render 'cmonth_cod_fields', f: cmth_cod 
    
             = f.fields_for :month_bod do |mth_bod|
               = render 'month_bod_fields', f: mth_bod 
    
             = f.fields_for :month_nhn do |mth_nhn|
               = render 'month_nhn_fields', f: mth_nhn 
+
+            = f.fields_for :cmonth_nhn do |cmth_nhn|
+              = render 'cmonth_nhn_fields', f: cmth_nhn 
    
             = f.fields_for :month_tn do |mth_tn|
               = render 'month_tn_fields', f: mth_tn 
+
+            = f.fields_for :cmonth_tn do |cmth_tn|
+              = render 'cmonth_tn_fields', f: cmth_tn 
    
             = f.fields_for :month_tp do |mth_tp|
               = render 'month_tp_fields', f: mth_tp 
+
+            = f.fields_for :cmonth_tp do |cmth_tp|
+              = render 'cmonth_tp_fields', f: cmth_tp 
 
             = f.fields_for :month_ss do |mth_nhn|
               = render 'month_ss_fields', f: mth_nhn 

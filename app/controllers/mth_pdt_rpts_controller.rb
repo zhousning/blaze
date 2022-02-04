@@ -14,7 +14,14 @@ class MthPdtRptsController < ApplicationController
   CMS.each do |c|
     VARVALUE.each do |v|
       define_method "#{c}_#{v}" do |obj|
-        obj[v].nil? ? '' : obj[v]
+        obj[v].nil? ? '' : obj[v].to_s
+      end
+    end
+  end
+  CMS.each do |c|
+    VARVALUE.each do |v|
+      define_method "c#{c}_#{v}" do |obj|
+        obj[v].nil? ? '' : obj[v].to_s
       end
     end
   end
@@ -270,18 +277,18 @@ class MthPdtRptsController < ApplicationController
   private
   
     def mth_pdt_rpt_params
-      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, mth_chemicals_attributes: mth_chemical_params)
+      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, cmonth_cod_attributes: cmonth_cod_params, cmonth_tp_attributes: cmonth_tp_params, cmonth_tn_attributes: cmonth_tn_params, cmonth_nhn_attributes: cmonth_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, mth_chemicals_attributes: mth_chemical_params)
     end
 
     def mth_chemical_params
       [:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
     end
   
-    def month_cod_params
+    def month_bod_params
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-    def month_bod_params
+    def month_cod_params
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
@@ -297,7 +304,23 @@ class MthPdtRptsController < ApplicationController
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-    def month_ss_params
+    def cmonth_cod_params
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    end
+  
+    def cmonth_tp_params
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    end
+  
+    def month_tn_params
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    end
+  
+    def cmonth_nhn_params
+      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
+    end
+  
+    def cmonth_ss_params
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
 
@@ -397,15 +420,19 @@ class MthPdtRptsController < ApplicationController
       cod = mth_pdt_rpt.month_cod
       bod = mth_pdt_rpt.month_bod
       nhn = mth_pdt_rpt.month_nhn
-      tn = mth_pdt_rpt.month_tn
-      tp = mth_pdt_rpt.month_tp
-      ss = mth_pdt_rpt.month_ss
+      tn =  mth_pdt_rpt.month_tn
+      tp =  mth_pdt_rpt.month_tp
+      ss =  mth_pdt_rpt.month_ss
       fecal = mth_pdt_rpt.month_fecal
     
       cms_arr = []
       cms_title = ['']
       CMS.each do |c|
-        cms_title << Setting["month_#{c}".pluralize.to_sym]['label']
+        if c == 'bod' || c == 'ss'
+          cms_title << c.upcase
+        else
+          cms_title << c.upcase + '(在线/化验)' 
+        end
       end
       cms_arr << cms_title
 
@@ -416,7 +443,12 @@ class MthPdtRptsController < ApplicationController
         result = [title]
         CMS.each_with_index do |c, cms_index|
           mObj = method("#{c}_#{v}".to_sym)
-          result << mObj.call(targets[cms_index]) 
+          cmObj = method("c#{c}_#{v}".to_sym)
+          if c == 'bod' || c == 'ss'
+            result << mObj.call(targets[cms_index]) 
+          else
+            result << mObj.call(targets[cms_index]) + '/' + cmObj.call(targets[cms_index])
+          end
         end
         cms_arr << result 
       end

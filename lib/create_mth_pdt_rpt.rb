@@ -31,6 +31,11 @@ module CreateMthPdtRpt
     ss = month_cms(result[:inf_ss][:avg], result[:eff_ss][:avg], result[:emr][:ss], result[:avg_emq][:ss], result[:emq][:ss], year_result[:emq][:ss], up_std[:ss] , end_std[:ss], yoy_result[:emq_ss], mom_result[:emq_ss], 0)
     nhn = month_cms(result[:inf_nhn][:avg], result[:eff_nhn][:avg], result[:emr][:nhn], result[:avg_emq][:nhn], result[:emq][:nhn], year_result[:emq][:nhn], up_std[:nhn] , end_std[:nhn], yoy_result[:emq_nhn], mom_result[:emq_nhn], 0)
 
+    ccod = month_cms(result[:inf_cod][:cavg], result[:eff_cod][:cavg], result[:cemr][:cod], result[:cavg_emq][:cod], result[:cemq][:cod], year_result[:cemq][:cod], up_std[:ccod] , end_std[:ccod], yoy_result[:cemq_cod], mom_result[:cemq_cod], 0)
+    ctp = month_cms(result[:inf_tp][:cavg], result[:eff_tp][:cavg], result[:cemr][:tp], result[:cavg_emq][:tp], result[:cemq][:tp], year_result[:cemq][:tp], up_std[:ctp] , end_std[:ctp], yoy_result[:cemq_tp], mom_result[:cemq_tp], 0)
+    ctn = month_cms(result[:inf_tn][:cavg], result[:eff_tn][:cavg], result[:cemr][:tn], result[:cavg_emq][:tn], result[:cemq][:tn], year_result[:cemq][:tn], up_std[:ctn] , end_std[:ctn], yoy_result[:cemq_tn], mom_result[:cemq_tn], 0)
+    cnhn = month_cms(result[:inf_nhn][:cavg], result[:eff_nhn][:cavg], result[:cemr][:nhn], result[:cavg_emq][:nhn], result[:cemq][:nhn], year_result[:cemq][:nhn], up_std[:cnhn] , end_std[:cnhn], yoy_result[:cemq_nhn], mom_result[:cemq_nhn], 0)
+
     # 现在是0-缺少bom_power
     power = result[:power][:sum]
     power_w = FormulaLib.format_num(power/10000)
@@ -69,21 +74,43 @@ module CreateMthPdtRpt
         mthbod = MonthBod.new(bod)
         mthbod.mth_pdt_rpt = rpt
         mthbod.save!
+
         mthcod = MonthCod.new(cod)
         mthcod.mth_pdt_rpt = rpt
         mthcod.save!
+
         mthtp = MonthTp.new(tp)
         mthtp.mth_pdt_rpt = rpt
         mthtp.save!
+
         mthtn = MonthTn.new(tn)
         mthtn.mth_pdt_rpt = rpt
         mthtn.save!
+
         mthnhn = MonthNhn.new(nhn)
         mthnhn.mth_pdt_rpt = rpt
         mthnhn.save!
+
         mthss = MonthSs.new(ss)
         mthss.mth_pdt_rpt = rpt
         mthss.save!
+
+        cmthcod = CmonthCod.new(ccod)
+        cmthcod.mth_pdt_rpt = rpt
+        cmthcod.save!
+
+        cmthtp = CmonthTp.new(ctp)
+        cmthtp.mth_pdt_rpt = rpt
+        cmthtp.save!
+        
+        cmthtn = CmonthTn.new(ctn)
+        cmthtn.mth_pdt_rpt = rpt
+        cmthtn.save!
+
+        cmthnhn = CmonthNhn.new(cnhn)
+        cmthnhn.mth_pdt_rpt = rpt
+        cmthnhn.save!
+
         mthpower = MonthPower.new(power)
         mthpower.mth_pdt_rpt = rpt
         mthpower.save!

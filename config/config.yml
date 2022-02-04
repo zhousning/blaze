@@ -1613,7 +1613,8 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_cods: &150
-    label: COD
+    label:  在线COD
+    clabel: 化验COD
     avg_inf: 平均进水COD浓度(mg/L)
     avg_eff: 平均出水COD浓度(mg/L)
     emr: COD平均削减率(%)
@@ -1626,7 +1627,8 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tps: &151
-    label: TP
+    label:  在线TP
+    clabel: 化验TP
     avg_inf: 平均进水TP浓度(mg/L)
     avg_eff: 平均出水TP浓度(mg/L)
     emr: TP平均削减率(%)
@@ -1639,7 +1641,8 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tns: &152
-    label: TN
+    label:  在线TN
+    clabel: 化验TN
     avg_inf: 平均进水TN浓度(mg/L)
     avg_eff: 平均出水TN浓度(mg/L)
     emr: TN平均削减率(%)
@@ -1665,7 +1668,8 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_nhns: &154
-    label: NH3-N
+    label:  在线NH3-N
+    clabel: 化验NH3-N
     avg_inf: 平均进水NH3-N浓度(mg/L)
     avg_eff: 平均出水NH3-N浓度(mg/L)
     emr: NH3-N平均削减率(%)

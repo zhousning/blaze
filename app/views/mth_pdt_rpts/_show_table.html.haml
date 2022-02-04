@@ -99,17 +99,27 @@
               %tr
                 %th.p-2.text-center
                 %th.p-2.text-center
-                  = Setting.month_cods.label
+                  COD(在线/化验)
+                  -#
+                    = Setting.month_cods.label
                 %th.p-2.text-center
                   = Setting.month_bods.label
+                  (化验)
                 %th.p-2.text-center
-                  = Setting.month_nhns.label
+                  NH3-N(在线/化验)
+                  -#
+                    = Setting.month_nhns.label
                 %th.p-2.text-center
-                  = Setting.month_tns.label
+                  TN(在线/化验)
+                  -#
+                    = Setting.month_tns.label
                 %th.p-2.text-center
-                  = Setting.month_tps.label
+                  TP(在线/化验)
+                  -#
+                    = Setting.month_tps.label
                 %th.p-2.text-center
                   = Setting.month_sses.label
+                  (化验)
                 -#
                   %th.p-2.text-center
                   = Setting.month_fecals.label
@@ -120,14 +130,22 @@
                   =  Setting.month_cods.avg_inf.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.avg_inf
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.avg_inf
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.avg_inf
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.avg_inf
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.avg_inf
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.avg_inf
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.avg_inf
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.avg_inf
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.avg_inf
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_inf
                 -#
@@ -137,14 +155,22 @@
                   =  Setting.month_cods.avg_eff.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.avg_eff
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.avg_eff
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.avg_eff
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.avg_eff
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.avg_eff
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.avg_eff
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.avg_eff
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.avg_eff
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.avg_eff
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_eff
                 -#
@@ -154,14 +180,22 @@
                   =  Setting.month_cods.emr.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.emr
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.emr
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.emr
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.emr
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.emr
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.emr
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.emr
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.emr
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.emr
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.emr
                 -#
@@ -171,14 +205,22 @@
                   =  Setting.month_cods.avg_emq.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.avg_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.avg_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.avg_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.avg_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.avg_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.avg_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.avg_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.avg_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.avg_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.avg_emq
                 -#
@@ -188,14 +230,22 @@
                   =  Setting.month_cods.emq.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.emq
                 -#
@@ -205,14 +255,22 @@
                   =  Setting.month_cods.end_emq.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.end_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.end_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.end_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.end_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.end_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.end_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.end_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.end_emq
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.end_emq
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.end_emq
                 -#
@@ -257,14 +315,22 @@
                   =  Setting.month_cods.yoy.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.yoy
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.yoy
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.yoy
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.yoy
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.yoy
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.yoy
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.yoy
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.yoy
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.yoy
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.yoy
                 -#
@@ -275,14 +341,22 @@
                   =  Setting.month_cods.mom.gsub('COD','')
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_cod.mom
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_cod.mom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_bod.mom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_nhn.mom
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_nhn.mom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tn.mom
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tn.mom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_tp.mom
+                  = '/'
+                  = @mth_pdt_rpt.cmonth_tp.mom
                 %td.p-2.text-center
                   = @mth_pdt_rpt.month_ss.mom
                 -#
