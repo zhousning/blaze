@@ -318,20 +318,20 @@ class DayPdtRptsController < ApplicationController
     }
     cms_emq = {
       Setting.day_rpt_stcs.cod_emq => @day_rpt_stc.cod_emq.to_s + '/' + @cday_rpt_stc.cod_emq.to_s,
-      Setting.day_rpt_stcs.bod_emq => @day_rpt_stc.bod_emq.to_s + '/' + @cday_rpt_stc.bod_emq.to_s,
+      Setting.day_rpt_stcs.bod_emq => @day_rpt_stc.bod_emq.to_s + '(化验)',
       Setting.day_rpt_stcs.nhn_emq => @day_rpt_stc.nhn_emq.to_s + '/' + @cday_rpt_stc.nhn_emq.to_s,
       Setting.day_rpt_stcs.tp_emq =>  @day_rpt_stc.tp_emq.to_s  + '/' + @cday_rpt_stc.tp_emq.to_s,
       Setting.day_rpt_stcs.tn_emq =>  @day_rpt_stc.tn_emq.to_s  + '/' + @cday_rpt_stc.tn_emq.to_s,
-      Setting.day_rpt_stcs.ss_emq =>  @day_rpt_stc.ss_emq.to_s  + '/' + @cday_rpt_stc.ss_emq.to_s
+      Setting.day_rpt_stcs.ss_emq =>  @day_rpt_stc.ss_emq.to_s + '(化验)'
     }
 
     cms_emr = {
       Setting.day_rpt_stcs.cod_emr => @day_rpt_stc.cod_emr.to_s + '/' + @cday_rpt_stc.cod_emr.to_s,
-      Setting.day_rpt_stcs.bod_emr => @day_rpt_stc.bod_emr.to_s + '/' + @cday_rpt_stc.bod_emr.to_s,
+      Setting.day_rpt_stcs.bod_emr => @day_rpt_stc.bod_emr.to_s + '(化验)',
       Setting.day_rpt_stcs.nhn_emr => @day_rpt_stc.nhn_emr.to_s + '/' + @cday_rpt_stc.nhn_emr.to_s,
       Setting.day_rpt_stcs.tp_emr  => @day_rpt_stc.tp_emr.to_s  + '/' + @cday_rpt_stc.tp_emr.to_s,
       Setting.day_rpt_stcs.tn_emr  => @day_rpt_stc.tn_emr.to_s  + '/' + @cday_rpt_stc.tn_emr.to_s,
-      Setting.day_rpt_stcs.ss_emr  => @day_rpt_stc.ss_emr.to_s  + '/' + @cday_rpt_stc.ss_emr.to_s
+      Setting.day_rpt_stcs.ss_emr  => @day_rpt_stc.ss_emr.to_s + '(化验)'
     }
     mud = {
       Setting.day_pdt_rpts.inmud => @day_pdt_rpt.inmud, 

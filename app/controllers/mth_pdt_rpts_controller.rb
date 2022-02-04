@@ -435,7 +435,7 @@ class MthPdtRptsController < ApplicationController
       cms_title = ['']
       CMS.each do |c|
         if c == 'bod' || c == 'ss'
-          cms_title << c.upcase
+          cms_title << c.upcase + '(化验)' 
         else
           cms_title << c.upcase + '(在线/化验)' 
         end

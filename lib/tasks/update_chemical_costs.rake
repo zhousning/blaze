@@ -11,7 +11,7 @@ namespace 'db' do
     years = [2021]
     factories.each do |factory|
       years.each do |year|
-        (Date.new(2021, 9, 1)..Date.new(2022, 1, 11)).each do |day|
+        (Date.new(2021, 1, 10)..Date.new(2022, 2, 4)).each do |day|
           day_rpt = factory.day_pdt_rpts.where(:pdt_date => day).first
           if day_rpt
             day_rpt_stc = day_rpt.day_rpt_stc
