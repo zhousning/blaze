@@ -5,6 +5,10 @@ $(".controls.index").ready(function() {
     var fcts = gon.fct;
     $("input[name='select-all']").prop('checked',true);
     $("input[name='fcts']").prop('checked',true);
+
+    var width = $('.chart-statistic-ctn').width();
+    $('.chart-statistic-ctn').css("width", width); 
+
     mainQuotaChartSet(start, end, fcts);
 
     $(".area-time-search").on('click', function(e) {
@@ -15,6 +19,7 @@ $(".controls.index").ready(function() {
       $.each(check_boxes, function(){
         fcts += $(this).val() + ","
       });
+
       mainQuotaChartSet(start, end, fcts);
     })
   }

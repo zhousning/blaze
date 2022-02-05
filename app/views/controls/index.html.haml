@@ -9,7 +9,7 @@
           -#
             %li.list-group-item.pl-0.border-0
             = select_tag "qcodes", options_for_main_quotas, :include_blank=>false, :class=>"form-control"
-          %li.list-group-item.border-0.d-flex.flex-row
+          %li.list-group-item.border-0.pl-0.d-flex.flex-row
             = date_field_tag 'start', nil, class: 'form-control mr-1', :value => Date.today-7, :min => Date.new(2019, 01, 01), :max => Date.today-1
             %span
               一
@@ -20,26 +20,57 @@
 
       - content_for :card_body do
         .container-fluid
+          .row.mb-3
+            .col-12
+              = render 'reports/date_fct_panel'
           .row
             .col-12
-              .card.w-100
+              .card.mx-1.w-100
+                .card-header.border-bottom-0.bg-white
+                  %ul.nav.nav-tabs{:role => "tablist"}
+                    %li.nav-item
+                      %a.nav-link.active{"data-toggle" => "tab", :href => "#home", :role => "tab"}
+                        电单耗
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#profile", :role => "tab"}
+                        吨水药剂成本
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#messages", :role => "tab"}
+                        除磷药剂单位成本
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#tycbs", :role => "tab"}
+                        碳源成本
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#settings", :role => "tab"}
+                        去除单位TP成本
+                    %li.nav-item
+                      %a.nav-link{"data-toggle" => "tab", :href => "#qctncbs", :role => "tab"}
+                        去除单位TN成本
                 .card-body
                   .tab-content.text-center
-                    .row
-                      .col-12
-                        = render 'reports/date_fct_panel'
-                    .row
-                      .col-12.my-5.chart-statistic-wrapper
-                        .chart-statistic-ctn.my-chart-statistic-ctn.power-chart{:'data-chart' => Setting.charts.line}
-                      .col-12.my-5.chart-statistic-wrapper
-                        .chart-statistic-ctn.my-chart-statistic-ctn.percost-chart{:'data-chart' => Setting.charts.line}
-                      .col-12.my-5.chart-statistic-wrapper
-                        .chart-statistic-ctn.my-chart-statistic-ctn.tpcost-chart{:'data-chart' => Setting.charts.line}
-                      .col-12.my-5.chart-statistic-wrapper
-                        .chart-statistic-ctn.my-chart-statistic-ctn.tncost-chart{:'data-chart' => Setting.charts.line}
-                      .col-12.my-5.chart-statistic-wrapper
-                        .chart-statistic-ctn.my-chart-statistic-ctn.tputcost-chart{:'data-chart' => Setting.charts.line}
-                      .col-12.my-5.chart-statistic-wrapper
-                        .chart-statistic-ctn.my-chart-statistic-ctn.tnutcost-chart{:'data-chart' => Setting.charts.line}
+                    #home.sglfct-chart-ctn.tab-pane.active{:role => "tabpanel"}
+                      .row
+                        .col-12.my-5.chart-statistic-wrapper
+                          .chart-statistic-ctn.my-chart-statistic-ctn.power-chart{:'data-chart' => Setting.charts.line}
+                    #profile.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
+                      .row
+                        .col-12.my-5.chart-statistic-wrapper
+                          .chart-statistic-ctn.my-chart-statistic-ctn.percost-chart{:'data-chart' => Setting.charts.line}
+                    #messages.tab-pane{:role => "tabpanel"}
+                      .row
+                        .col-12.my-5.chart-statistic-wrapper
+                          .chart-statistic-ctn.my-chart-statistic-ctn.tpcost-chart{:'data-chart' => Setting.charts.line}
+                    #tycbs.tab-pane{:role => "tabpanel"}
+                      .row
+                        .col-12.my-5.chart-statistic-wrapper
+                          .chart-statistic-ctn.my-chart-statistic-ctn.tncost-chart{:'data-chart' => Setting.charts.line}
+                    #settings.tab-pane{:role => "tabpanel"}
+                      .row
+                        .col-12.my-5.chart-statistic-wrapper
+                          .chart-statistic-ctn.my-chart-statistic-ctn.tputcost-chart{:'data-chart' => Setting.charts.line}
+                    #qctncbs.tab-pane{:role => "tabpanel"}
+                      .row
+                        .col-12.my-5.chart-statistic-wrapper
+                          .chart-statistic-ctn.my-chart-statistic-ctn.tnutcost-chart{:'data-chart' => Setting.charts.line}
 
       = render "layouts/bootstrap/card"
