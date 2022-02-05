@@ -183,6 +183,7 @@ Rails.application.routes.draw do
     get :ctputcost, :on => :collection
     get :ctnutcost, :on => :collection
     get :percost, :on => :collection
+    get :zbdblv, :on => :collection
   end
   resources :reports, :only => [:index] do
     get :day_report, :on => :collection

@@ -36,6 +36,9 @@ function mainQuotaChartSet(start, end, fcts) {
   var ctputcost_chart = $(".ctputcost-chart")[0]
   var ctnutcost_chart = $(".ctnutcost-chart")[0]
   var percost_chart = $(".percost-chart")[0]
+  var sdzjtbz_chart = $("#sdzjtbz-chart")
+  var jnzsbz_chart = $("#jnzsbz-chart")
+  var qzbbz_chart = $("#qzbbz-chart")
 
   var power_url = '/analyses/power_bom';
   var tpcost_url = '/analyses/tpcost';
@@ -45,6 +48,7 @@ function mainQuotaChartSet(start, end, fcts) {
   var ctputcost_url = '/analyses/ctputcost';
   var ctnutcost_url = '/analyses/ctnutcost';
   var percost_url = '/analyses/percost';
+  var zbdblv_url = '/analyses/zbdblv';
 
   charts.push(controlChartConfig(power_url, power_chart, start, end, fcts));
   charts.push(controlChartConfig(tpcost_url, tpcost_chart, start, end, fcts));
@@ -54,6 +58,9 @@ function mainQuotaChartSet(start, end, fcts) {
   charts.push(controlChartConfig(ctputcost_url, ctputcost_chart, start, end, fcts));
   charts.push(controlChartConfig(ctnutcost_url, ctnutcost_chart, start, end, fcts));
   charts.push(controlChartConfig(percost_url, percost_chart, start, end, fcts));
+  controlBiaoZhunTable(zbdblv_url, sdzjtbz_chart, start, end, fcts, 0);
+  controlBiaoZhunTable(zbdblv_url, jnzsbz_chart, start, end, fcts, 1);
+  controlBiaoZhunTable(zbdblv_url, qzbbz_chart, start, end, fcts, 2);
 
   chartResize(charts);
 }
@@ -69,6 +76,22 @@ function controlChartConfig(url, that_chart, start, end, fcts) {
     chart.setOption(new_Option, true);
   });
   return chart;
+}
+
+function controlBiaoZhunTable(url, that_chart, start, end, fcts, type) {
+  var obj = {start: start, end: end, fcts: fcts, type: type}
+  $.get(url, obj).done(function (data) {
+    var table = "<table class='table table-bordered'>";
+    $.each(data, function(k,v) {
+      table += "<tr><td>" + k + "</td>"; 
+      for (var i=0; i<v.length; i++) { 
+        table += "<td>" + v[i] + "</td>"; 
+      }
+      table += "</tr>";
+    })
+    table += "</table>";
+    that_chart.html(table);
+  });
 }
 
 /*
