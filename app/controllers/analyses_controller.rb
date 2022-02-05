@@ -1,7 +1,7 @@
 class AnalysesController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:power_bom, :percost, :tpcost, :tncost, :tputcost, :tnutcost] 
+  authorize_resource :except => [:power_bom, :percost, :tpcost, :tncost, :tputcost, :tnutcost, :ctputcost, :ctnutcost] 
   
   include MathCube
   include QuotaConfig 
@@ -50,9 +50,9 @@ class AnalysesController < ApplicationController
     end
   end
 
-  #多厂区去除单位TN成本
+  #在线多厂区去除单位TN成本
   def tnutcost 
-    title = Setting.day_rpt_stcs.tn_utcost
+    title = Setting.day_rpt_stcs.tn_utcost + '(在线)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -87,9 +87,9 @@ class AnalysesController < ApplicationController
       f.json{ render :json => result_config.to_json}
     end
   end
-  #多厂区去除单位TP成本
+  #在线多厂区去除单位TP成本
   def tputcost 
-    title = Setting.day_rpt_stcs.tp_utcost
+    title = Setting.day_rpt_stcs.tp_utcost + '(在线)'
     _start = Date.parse(params[:start].gsub(/\s/, ''))
     _end = Date.parse(params[:end].gsub(/\s/, ''))
 
@@ -107,6 +107,82 @@ class AnalysesController < ApplicationController
     @factories = Factory.find(fcts)
     @factories.each do |factory|
       @day_pdt_rpts = DayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.tp_utcost 
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
+  end
+
+  #化验多厂区去除单位TN成本
+  def ctnutcost 
+    title = Setting.day_rpt_stcs.tn_utcost + '(化验)'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "tn_utcost, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = CdayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
+      @day_pdt_rpts.each do |rpt|
+        data = {}
+        data['date'] = rpt.pdt_date
+        data[factory.name] = rpt.tn_utcost
+        items << data
+      end
+      series << {type: 'line'}
+      dimensions << factory.name 
+    end
+    combo = items.group_by{|h| h['date']}.map{|k,v| v.reduce(:merge)}
+
+    result_config = {"title" => title, "series" => series, "dimensions" => dimensions, "datasets" => combo} 
+
+    respond_to do |f|
+      f.json{ render :json => result_config.to_json}
+    end
+  end
+
+  #化验多厂区去除单位TP成本
+  def ctputcost 
+    title = Setting.day_rpt_stcs.tp_utcost + '(化验)'
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    obj = []
+    dimensions = ['date']
+    series = []
+    items = []
+    select_str = "tp_utcost, pdt_date"
+
+    @factories = Factory.find(fcts)
+    @factories.each do |factory|
+      @day_pdt_rpts = CdayRptStc.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", factory.id, _start, _end]).select(select_str).order('pdt_date')
       @day_pdt_rpts.each do |rpt|
         data = {}
         data['date'] = rpt.pdt_date

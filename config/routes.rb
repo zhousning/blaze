@@ -180,6 +180,8 @@ Rails.application.routes.draw do
     get :tncost, :on => :collection
     get :tputcost, :on => :collection
     get :tnutcost, :on => :collection
+    get :ctputcost, :on => :collection
+    get :ctnutcost, :on => :collection
     get :percost, :on => :collection
   end
   resources :reports, :only => [:index] do

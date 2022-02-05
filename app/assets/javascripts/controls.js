@@ -33,6 +33,8 @@ function mainQuotaChartSet(start, end, fcts) {
   var tncost_chart = $(".tncost-chart")[0]
   var tputcost_chart = $(".tputcost-chart")[0]
   var tnutcost_chart = $(".tnutcost-chart")[0]
+  var ctputcost_chart = $(".ctputcost-chart")[0]
+  var ctnutcost_chart = $(".ctnutcost-chart")[0]
   var percost_chart = $(".percost-chart")[0]
 
   var power_url = '/analyses/power_bom';
@@ -40,6 +42,8 @@ function mainQuotaChartSet(start, end, fcts) {
   var tncost_url = '/analyses/tncost';
   var tputcost_url = '/analyses/tputcost';
   var tnutcost_url = '/analyses/tnutcost';
+  var ctputcost_url = '/analyses/ctputcost';
+  var ctnutcost_url = '/analyses/ctnutcost';
   var percost_url = '/analyses/percost';
 
   charts.push(controlChartConfig(power_url, power_chart, start, end, fcts));
@@ -47,6 +51,8 @@ function mainQuotaChartSet(start, end, fcts) {
   charts.push(controlChartConfig(tncost_url, tncost_chart, start, end, fcts));
   charts.push(controlChartConfig(tputcost_url, tputcost_chart, start, end, fcts));
   charts.push(controlChartConfig(tnutcost_url, tnutcost_chart, start, end, fcts));
+  charts.push(controlChartConfig(ctputcost_url, ctputcost_chart, start, end, fcts));
+  charts.push(controlChartConfig(ctnutcost_url, ctnutcost_chart, start, end, fcts));
   charts.push(controlChartConfig(percost_url, percost_chart, start, end, fcts));
 
   chartResize(charts);
