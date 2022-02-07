@@ -3,12 +3,20 @@ require 'spreadsheet'
 class SpreadSheetTool
   #CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
   #VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom']  
-  CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss']
+  CMS = ['cod', 'nhn', 'tn', 'tp']
+  CCMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss']
   VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq', 'yoy', 'mom']  
   CMS.each do |c|
     VARVALUE.each do |v|
       define_method "#{c}_#{v}" do |obj|
         obj[v].nil? ? '' : obj[v]
+      end
+    end
+  end
+  CCMS.each do |c|
+    VARVALUE.each do |v|
+      define_method "c#{c}_#{v}" do |obj|
+        obj[v].nil? ? '' : obj[v].to_s
       end
     end
   end
@@ -50,22 +58,25 @@ class SpreadSheetTool
       yuebaobiao.row(0)[0] = name 
 
       flow_start = 5
-      flow_arr_size = flow_content(mth_pdt_rpt, flow_start, yuebaobiao)
+      flow_content(mth_pdt_rpt, flow_start, yuebaobiao)
 
       cms_start = 8 
-      cms_arr_size = cms_content(mth_pdt_rpt, cms_start, yuebaobiao)
+      cms_content(mth_pdt_rpt, cms_start, yuebaobiao)
 
-      chemical_start = 20 
-      chemical_arr_size = chemical_content(mth_pdt_rpt, chemical_start, yuebaobiao)
+      ccms_start = 20 
+      ccms_content(mth_pdt_rpt, ccms_start, yuebaobiao)
 
-      power_start = 36
-      power_arr_size = power_content(mth_pdt_rpt, power_start, yuebaobiao)
+      chemical_start = 32 
+      chemical_content(mth_pdt_rpt, chemical_start, yuebaobiao)
 
-      mud_start = 41
-      mud_arr_size = mud_content(mth_pdt_rpt, mud_start, yuebaobiao)
+      power_start = 48 
+      power_content(mth_pdt_rpt, power_start, yuebaobiao)
 
-      md_start = 45
-      md_arr_size = md_content(mth_pdt_rpt, md_start, yuebaobiao)
+      mud_start = 53 
+      mud_content(mth_pdt_rpt, mud_start, yuebaobiao)
+
+      md_start = 57
+      md_content(mth_pdt_rpt, md_start, yuebaobiao)
 
       _start = mth_pdt_rpt.start_date
       _end = mth_pdt_rpt.end_date
@@ -140,7 +151,7 @@ class SpreadSheetTool
 
   def power_content(mth_pdt_rpt, start, yuebaobiao)
     power = mth_pdt_rpt.month_power
-    power_targets =['power', 'end_power', 'bom', 'bom_power', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom' ]
+    power_targets =['power', 'stdpower', 'end_power', 'bom', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom' ]
     power_arr = []
     power_title = []
     power_targets.each_with_index do |t, index|
@@ -161,21 +172,18 @@ class SpreadSheetTool
 
   def cms_content(mth_pdt_rpt, start, yuebaobiao)
     cod = mth_pdt_rpt.month_cod
-    bod = mth_pdt_rpt.month_bod
     nhn = mth_pdt_rpt.month_nhn
     tn = mth_pdt_rpt.month_tn
     tp = mth_pdt_rpt.month_tp
-    ss = mth_pdt_rpt.month_ss
-    fecal = mth_pdt_rpt.month_fecal
   
     cms_arr = []
     cms_title = ['']
     CMS.each do |c|
-      cms_title << Setting["month_#{c}".pluralize.to_sym]['label']
+      cms_title << Setting["month_#{c}".pluralize.to_sym]['label'].gsub('在线','')
     end
     cms_arr << cms_title
 
-    targets = [cod, bod, nhn, tn, tp, ss, fecal]
+    targets = [cod, nhn, tn, tp]
     result = []
     VARVALUE.each do |v|
       title = Setting.month_cods[v].gsub('COD','')
@@ -193,7 +201,41 @@ class SpreadSheetTool
         yuebaobiao.row(start + index)[i] = item 
       end
     end
-    cms_arr.size
+  end
+
+  def ccms_content(mth_pdt_rpt, start, yuebaobiao)
+    cod = mth_pdt_rpt.cmonth_cod
+    nhn = mth_pdt_rpt.cmonth_nhn
+    tn = mth_pdt_rpt.cmonth_tn
+    tp = mth_pdt_rpt.cmonth_tp
+    bod = mth_pdt_rpt.month_bod
+    ss = mth_pdt_rpt.month_ss
+  
+    cms_arr = []
+    cms_title = ['']
+    CCMS.each do |c|
+      cms_title << Setting["month_#{c}".pluralize.to_sym]['label'].gsub('在线','')
+    end
+    cms_arr << cms_title
+
+    targets = [cod, bod, nhn, tn, tp, ss]
+    result = []
+    VARVALUE.each do |v|
+      title = Setting.month_cods[v].gsub('COD','')
+      result = [title]
+      CCMS.each_with_index do |c, cms_index|
+        cmObj = method("c#{c}_#{v}".to_sym)
+        result << cmObj.call(targets[cms_index])
+      end
+      cms_arr << result 
+    end
+
+    cms_arr.each_with_index do |items, index|
+      items.each_with_index do |item, i|
+        yuebaobiao.row(start + index).height = 30
+        yuebaobiao.row(start + index)[i] = item 
+      end
+    end
   end
 
 
