@@ -312,7 +312,7 @@ class MthPdtRptsController < ApplicationController
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-    def month_tn_params
+    def cmonth_tn_params
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
@@ -320,7 +320,7 @@ class MthPdtRptsController < ApplicationController
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-    def cmonth_ss_params
+    def month_ss_params
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
 
