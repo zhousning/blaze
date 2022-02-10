@@ -97,15 +97,15 @@ class DayPdtsController < ApplicationController
       if !@day_pdt_rpt
         @day_pdt_rpt = DayPdtRpt.new(params)
         if @day_pdt_rpt.save
-          DayRptStc.create!(:day_pdt_rpt => @day_pdt_rpt)
-          CdayRptStc.create!(:day_pdt_rpt => @day_pdt_rpt)
           @day_pdt.complete
+          DayRptStcWorker.perform_async(@day_pdt_rpt.id)
+          CdayRptStcWorker.perform_async(@day_pdt_rpt.id)
         end
       else
         if @day_pdt_rpt.update_attributes(params)
-          @day_pdt_rpt.day_rpt_stc.update({})
-          @day_pdt_rpt.cday_rpt_stc.update({})
           @day_pdt.complete
+          DayRptStcWorker.perform_async(@day_pdt_rpt.id)
+          CdayRptStcWorker.perform_async(@day_pdt_rpt.id)
         end
       end
     end
