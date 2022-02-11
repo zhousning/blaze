@@ -21,11 +21,11 @@ class DayPdtRpt < ActiveRecord::Base
   belongs_to :user
 
   #before_save 在 before_create之前执行, before_create只执行一次
-  before_create :create_day_rpt_stc
-  def create_day_rpt_stc
-    self.build_day_rpt_stc
-    self.build_cday_rpt_stc
-  end
+  #before_create :create_day_rpt_stc
+  #def create_day_rpt_stc
+  #  self.build_day_rpt_stc
+  #  self.build_cday_rpt_stc
+  #end
 
 
 end
