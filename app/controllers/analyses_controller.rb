@@ -64,13 +64,13 @@ class AnalysesController < ApplicationController
     zbbz = [] 
     if type == '0'
       #山东省住建厅准四标准
-      zbbz = [{:key => 'cod', :val => 30}, {:key => 'bod', :val => 6}, {:key => 'ss', :val => 10}, {:key => 'nhn', :val => 1.5}, {:key => 'tn', :val => 10}, {:key => 'tp', :val => 0.3}]
+      zbbz = [{:key => 'cod', :val => 30, :name => 'COD'}, {:key => 'bod', :val => 6, :name => 'BOD'}, {:key => 'ss', :val => 10, :name => 'SS'}, {:key => 'nhn', :val => 1.5, :name => 'NH3-N'}, {:key => 'tn', :val => 10, :name => 'TN'}, {:key => 'tp', :val => 0.3, :name => 'TP'}]
     elsif type == '1' 
       #济宁准三标准
-      zbbz = [{:key => 'cod', :val => 20}, {:key => 'bod', :val => 4}, {:key => 'ss', :val => 10}, {:key => 'nhn', :val => 1}, {:key => 'tn', :val => 10}, {:key => 'tp', :val => 0.2}]
+      zbbz = [{:key => 'cod', :val => 20, :name => 'COD'}, {:key => 'bod', :val => 4, :name => 'BOD'}, {:key => 'ss', :val => 10, :name => 'SS'}, {:key => 'nhn', :val => 1, :name => 'NH3-N'}, {:key => 'tn', :val => 10, :name => 'TN'}, {:key => 'tp', :val => 0.2, :name => 'TP'}]
     elsif type == '2' 
       #全指标地表三
-      zbbz = [{:key => 'cod', :val => 20}, {:key => 'bod', :val => 4}, {:key => 'ss', :val => 10}, {:key => 'nhn', :val => 1}, {:key => 'tn', :val => 1}, {:key => 'tp', :val => 0.2}]
+      zbbz = [{:key => 'cod', :val => 20, :name => 'COD'}, {:key => 'bod', :val => 4, :name => 'BOD'}, {:key => 'ss', :val => 10, :name => 'SS'}, {:key => 'nhn', :val => 1, :name => 'NH3-N'}, {:key => 'tn', :val => 1, :name => 'TN'}, {:key => 'tp', :val => 0.2, :name => 'TP'}]
     end
 
     hash = Hash.new
@@ -78,7 +78,7 @@ class AnalysesController < ApplicationController
       hash['厂区'] = [] if hash['厂区'].nil?
       cond = 'pdt_date between ? and ? and eff_qlty_' + item[:key] + ' <= ?'
       val = item[:val]
-      hash['厂区'] << item[:key] + '<=' + val.to_s
+      hash['厂区'] << item[:name] + '<=' + val.to_s
       @factories.each do |f|
         hash[f.name] = [] if hash[f.name].nil?
         sum = f.day_pdt_rpts.where([cond, _start, _end, val]).count.to_f
