@@ -389,12 +389,12 @@ class DayPdtRptsController < ApplicationController
       format.json{ render :json => 
         {
           :datasets => [
-            {:source => "COD", :'进水' => @day_pdt_rpt.inf_qlty_cod, :'出水' => @day_pdt_rpt.eff_qlty_cod},
-            {:source => "BOD", :'进水' => @day_pdt_rpt.inf_qlty_bod, :'出水' => @day_pdt_rpt.eff_qlty_bod},
-            {:source => "NH3-N", :'进水' => @day_pdt_rpt.inf_qlty_nhn, :'出水' => @day_pdt_rpt.eff_qlty_nhn},
-            {:source => "TN", :'进水' => @day_pdt_rpt.inf_qlty_tn, :'出水' => @day_pdt_rpt.eff_qlty_tn},
-            {:source => "TP", :'进水' => @day_pdt_rpt.inf_qlty_tp, :'出水' => @day_pdt_rpt.eff_qlty_tp},
-            {:source => "SS", :'进水' => @day_pdt_rpt.inf_qlty_ss, :'出水' => @day_pdt_rpt.eff_qlty_ss}
+            {:source => "COD"  , :'进水在线' => @day_pdt_rpt.inf_qlty_cod, :'出水在线' => @day_pdt_rpt.eff_qlty_cod, :'进水化验' => @day_pdt_rpt.inf_asy_cod, :'出水化验' => @day_pdt_rpt.eff_asy_cod},
+            {:source => "NH3-N", :'进水在线' => @day_pdt_rpt.inf_qlty_nhn, :'出水在线' => @day_pdt_rpt.eff_qlty_nhn, :'进水化验' => @day_pdt_rpt.inf_asy_nhn, :'出水化验' => @day_pdt_rpt.eff_asy_nhn},
+            {:source => "TN"   , :'进水在线' => @day_pdt_rpt.inf_qlty_tn,  :'出水在线' => @day_pdt_rpt.eff_qlty_tn,  :'进水化验' => @day_pdt_rpt.inf_asy_tn,  :'出水化验' => @day_pdt_rpt.eff_asy_tn},
+            {:source => "TP"   , :'进水在线' => @day_pdt_rpt.inf_qlty_tp,  :'出水在线' => @day_pdt_rpt.eff_qlty_tp,  :'进水化验' => @day_pdt_rpt.inf_asy_tp,  :'出水化验' => @day_pdt_rpt.eff_asy_tp},
+            {:source => "BOD"  , :'进水在线' => 0, :'出水在线' => 0, :'进水化验' => @day_pdt_rpt.inf_qlty_bod, :'出水化验' => @day_pdt_rpt.eff_qlty_bod},
+            {:source => "SS"   , :'进水在线' => 0, :'出水在线' => 0,  :'进水化验' => @day_pdt_rpt.inf_qlty_ss,  :'出水化验' => @day_pdt_rpt.eff_qlty_ss}
           ],
           :fct_id => idencode(@factory.id),
           :day_rpt_id => idencode(@day_pdt_rpt.id),
@@ -402,8 +402,8 @@ class DayPdtRptsController < ApplicationController
           :flow     => flow, 
           :cms_emq  => cms_emq,
           :cms_emr  => cms_emr,
-          :inf_huayan => inf_huayan,
-          :eff_huayan => eff_huayan,
+          #:inf_huayan => inf_huayan,
+          #:eff_huayan => eff_huayan,
           :power => power,
           :mud => mud,
           :md  => md,

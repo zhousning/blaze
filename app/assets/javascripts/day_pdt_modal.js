@@ -15,8 +15,8 @@ function day_pdt_modal() {
       var flow = data.flow;
       var emq = data.cms_emq;
       var emr = data.cms_emr;
-      var inf_huayan = data.inf_huayan;
-      var eff_huayan = data.eff_huayan;
+      //var inf_huayan = data.inf_huayan;
+      //var eff_huayan = data.eff_huayan;
       var mud = data.mud;
       var power = data.power;
       var md = data.md;
@@ -40,17 +40,17 @@ function day_pdt_modal() {
       $("#day-flow-ctn").html(day_flow_ctn);
 
       var emq_table = '<tr><th></th><th>COD</th><th>BOD</th><th>NH3-N</th><th>TP</th><th>TN</th><th>SS</th></tr>';
-      emq_table += '<tr><td>进水化验(mg/l)</td>'; 
+      /*emq_table += '<tr><td>进水化验(mg/l)</td>'; 
       $.each(inf_huayan, function(k, v) {
         emq_table += "<td>" + v + "</td>"; 
       })
-      emq_table += '</tr>'; 
+      emq_table += '</tr>';
 
       emq_table += '<tr><td>出水化验(mg/l)</td>'; 
       $.each(eff_huayan, function(k, v) {
         emq_table += "<td>" + v + "</td>"; 
       })
-      emq_table += '</tr>'; 
+      emq_table += '</tr>'; */
 
       emq_table += '<tr><td>(在线/化验)削减量(吨)</td>'; 
       $.each(emq, function(k, v) {
@@ -115,8 +115,8 @@ function day_pdt_modal() {
       $("#day-md-ctn").html(day_md_ctn);
 
       var title = '进水水质';
-      var series = [{type: 'bar', label: {show: true}}, {type: 'bar', label: {show: true}}];
-      var dimensions = ['source', '进水', '出水'];
+      var series = [{type: 'bar', label: {show: true}}, {type: 'bar', label: {show: true}}, {type: 'bar', label: {show: true}}, {type: 'bar', label: {show: true}}];
+      var dimensions = ['source', '进水在线', '出水在线', '进水化验', '出水化验'];
       var new_Option = newOption(title, series, dimensions, data.datasets)
       myChart.setOption(new_Option);
     });
