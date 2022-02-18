@@ -97,23 +97,23 @@
               .card-header.border-bottom-0.bg-white
                 %ul.nav.nav-tabs{:role => "tablist"}
                   %li.nav-item
-                    %a.nav-link.active{"data-toggle" => "tab", :href => "#online-qes-ctn", :role => "tab"}
-                      在线数据简报
+                    %a.nav-link.active{"data-toggle" => "tab", :href => "#cms-qes-ctn", :role => "tab"}
+                      化验数据异常
                   %li.nav-item
-                    %a.nav-link{"data-toggle" => "tab", :href => "#cms-qes-ctn", :role => "tab"}
-                      化验数据简报
+                    %a.nav-link{"data-toggle" => "tab", :href => "#online-qes-ctn", :role => "tab"}
+                      在线数据异常
               .card-body
                 .tab-content
-                  #online-qes-ctn.tab-pane.active{:role => "tabpanel"}
-                    %table#online-qes-rpt-table.table.table-bordered{:'data-toggle' => "table"}
+                  #cms-qes-ctn.tab-pane.active{:role => "tabpanel"}
+                    %table#cms-qes-rpt-table.text-center.table.table-bordered{:'data-toggle' => "table"}
                       %thead
                         %tr
                           %th.text-left{:scope => "col", :'data-field' => "fct"}
                             厂区
                           %th.text-left{:scope => "col", :'data-field' =>  "title"}
                             出水水质>=进水水质
-                  #cms-qes-ctn.tab-pane{:role => "tabpanel"}
-                    %table#cms-qes-rpt-table.text-center.table.table-bordered{:'data-toggle' => "table"}
+                  #online-qes-ctn.tab-pane{:role => "tabpanel"}
+                    %table#online-qes-rpt-table.table.table-bordered{:'data-toggle' => "table"}
                       %thead
                         %tr
                           %th.text-left{:scope => "col", :'data-field' => "fct"}
