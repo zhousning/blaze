@@ -108,12 +108,12 @@ class AnalysesController < ApplicationController
       items = f.day_pdt_rpts.where(['pdt_date between ? and ? ', _start, _end])
       cod, nhn, bod, ss, tn, tp = [], [], [], [], [], []
       items.each do |item|
-        cod >> item.pdt_date if item.eff_asy_cod >= item.inf_asy_cod
-        bod >> item.pdt_date if item.eff_qlty_bod >= item.inf_qlty_bod
-        ss  >> item.pdt_date if item.eff_qlty_ss >= item.inf_qlty_ss
-        nhn >> item.pdt_date if item.eff_asy_nhn >= item.inf_asy_nhn
-        tn  >> item.pdt_date if item.eff_asy_tn  >= item.inf_asy_tn
-        tp  >> item.pdt_date if item.eff_asy_tp  >= item.inf_asy_tp
+        cod << item.pdt_date if item.eff_asy_cod >= item.inf_asy_cod
+        bod << item.pdt_date if item.eff_qlty_bod >= item.inf_qlty_bod
+        ss  << item.pdt_date if item.eff_qlty_ss >= item.inf_qlty_ss
+        nhn << item.pdt_date if item.eff_asy_nhn >= item.inf_asy_nhn
+        tn  << item.pdt_date if item.eff_asy_tn  >= item.inf_asy_tn
+        tp  << item.pdt_date if item.eff_asy_tp  >= item.inf_asy_tp
       end
       title =  cod.blank? ? '' : 'COD合计' + cod.count.to_s + '天 [' + cod.join(',') + ']; ' 
       title += bod.blank? ? '' :  'BOD合计' + bod.count.to_s + '天 [' + bod.join(',') + ']; ' 
