@@ -91,3 +91,47 @@
                     #jnzsbz-chart
                   #qzbbz.sglfct-chart-ctn.tab-pane{:role => "tabpanel"}
                     #qzbbz-chart
+
+          .col-6
+            .card.mx-1.w-100
+              .card-header.border-bottom-0.bg-white
+                %ul.nav.nav-tabs{:role => "tablist"}
+                  %li.nav-item
+                    %a.nav-link.active{"data-toggle" => "tab", :href => "#online-qes-ctn", :role => "tab"}
+                      在线数据简报
+                  %li.nav-item
+                    %a.nav-link{"data-toggle" => "tab", :href => "#cms-qes-ctn", :role => "tab"}
+                      化验数据简报
+              .card-body
+                .tab-content
+                  #online-qes-ctn.tab-pane.active{:role => "tabpanel"}
+                    %table#online-qes-rpt-table.table.table-bordered{:'data-toggle' => "table"}
+                      %thead
+                        %tr
+                          %th.text-left{:scope => "col", :'data-field' => "fct"}
+                            厂区
+                          %th.text-left{:scope => "col", :'data-field' =>  "title"}
+                            出水水质>=进水水质
+                  #cms-qes-ctn.tab-pane{:role => "tabpanel"}
+                    %table#cms-qes-rpt-table.text-center.table.table-bordered{:'data-toggle' => "table"}
+                      %thead
+                        %tr
+                          %th.text-left{:scope => "col", :'data-field' => "fct"}
+                            厂区
+                          %th.text-left{:scope => "col", :'data-field' =>  "title"}
+                            出水水质>=进水水质
+
+                    -#
+                      %table#online-qes-rpt-table.text-center.table-sm{:'data-toggle' => "table", :'data-search'=>"true", :'data-show-export' => "true"}
+                          %th{:scope => "col", :'data-field' =>  "cod"}
+                            = cms_sub_pref(Setting.inf_qlties.cod)
+                          %th{:scope => "col", :'data-field' =>  "bod"}
+                            = cms_sub_pref(Setting.inf_qlties.bod)
+                          %th{:scope => "col", :'data-field' => "ss"}
+                            = cms_sub_pref(Setting.inf_qlties.ss)
+                          %th{:scope => "col", :'data-field' => "nhn"}
+                            = cms_sub_pref(Setting.inf_qlties.nhn)
+                          %th{:scope => "col", :'data-field' => "tn"}
+                            = cms_sub_pref(Setting.inf_qlties.tn)
+                          %th{:scope => "col", :'data-field' => "tp"}
+                            = cms_sub_pref(Setting.inf_qlties.tp)

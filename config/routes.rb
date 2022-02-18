@@ -184,6 +184,8 @@ Rails.application.routes.draw do
     get :ctnutcost, :on => :collection
     get :percost, :on => :collection
     get :zbdblv, :on => :collection
+    get :cms_qes_report, :on => :collection
+    get :online_qes_report, :on => :collection
   end
   resources :reports, :only => [:index] do
     get :day_report, :on => :collection

@@ -49,6 +49,8 @@ function mainQuotaChartSet(start, end, fcts) {
   var ctnutcost_url = '/analyses/ctnutcost';
   var percost_url = '/analyses/percost';
   var zbdblv_url = '/analyses/zbdblv';
+  var cms_qes_url = '/analyses/cms_qes_report';
+  var online_qes_url = '/analyses/online_qes_report';
 
   charts.push(controlChartConfig(power_url, power_chart, start, end, fcts));
   charts.push(controlChartConfig(tpcost_url, tpcost_chart, start, end, fcts));
@@ -61,6 +63,8 @@ function mainQuotaChartSet(start, end, fcts) {
   controlBiaoZhunTable(zbdblv_url, sdzjtbz_chart, start, end, fcts, 0);
   controlBiaoZhunTable(zbdblv_url, jnzsbz_chart, start, end, fcts, 1);
   controlBiaoZhunTable(zbdblv_url, qzbbz_chart, start, end, fcts, 2);
+  qesReport(cms_qes_url, start, end, fcts,'#cms-qes-rpt-table');
+  qesReport(online_qes_url, start, end, fcts,'#online-qes-rpt-table');
 
   chartResize(charts);
 }
@@ -92,6 +96,21 @@ function controlBiaoZhunTable(url, that_chart, start, end, fcts, type) {
     table += "</table>";
     that_chart.html(table);
   });
+}
+
+function qesReport(url, start, end, fcts, table) {
+  var $table = $(table)
+  var data = [];
+  var obj = {start: start, end: end, fcts: fcts}
+  $.get(url, obj).done(function (objs) {
+    $.each(objs, function(index, item) {
+      data.push({
+        'fct'      : item.fct,
+        'title'    : item.title,
+      });
+    });
+    $table.bootstrapTable('load', data);
+  })
 }
 
 /*

@@ -1,7 +1,7 @@
 class AnalysesController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:power_bom, :percost, :tpcost, :tncost, :tputcost, :tnutcost, :ctputcost, :ctnutcost, :zbdblv] 
+  authorize_resource :except => [:power_bom, :percost, :tpcost, :tncost, :tputcost, :tnutcost, :ctputcost, :ctnutcost, :zbdblv, :cms_qes_report, :online_qes_report] 
   
   include MathCube
   include QuotaConfig 
@@ -92,6 +92,87 @@ class AnalysesController < ApplicationController
       f.json{ render :json => hash.to_json}
     end
   end
+
+  def cms_qes_report
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+    @factories = Factory.find(fcts)
+
+    objs = []
+    @factories.each do |f|
+      items = f.day_pdt_rpts.where(['pdt_date between ? and ? ', _start, _end])
+      cod, nhn, bod, ss, tn, tp = [], [], [], [], [], []
+      items.each do |item|
+        cod >> item.pdt_date if item.eff_asy_cod >= item.inf_asy_cod
+        bod >> item.pdt_date if item.eff_qlty_bod >= item.inf_qlty_bod
+        ss  >> item.pdt_date if item.eff_qlty_ss >= item.inf_qlty_ss
+        nhn >> item.pdt_date if item.eff_asy_nhn >= item.inf_asy_nhn
+        tn  >> item.pdt_date if item.eff_asy_tn  >= item.inf_asy_tn
+        tp  >> item.pdt_date if item.eff_asy_tp  >= item.inf_asy_tp
+      end
+      title =  cod.blank? ? '' : 'COD合计' + cod.count.to_s + '天 [' + cod.join(',') + ']; ' 
+      title += bod.blank? ? '' :  'BOD合计' + bod.count.to_s + '天 [' + bod.join(',') + ']; ' 
+      title += ss.blank? ? '' :  'SS合计'  + ss.count.to_s  + '天 [' + ss.join(',') + ']; ' 
+      title += nhn.blank? ? '' : 'NH3-N合计' + nhn.count.to_s + '天 [' + nhn.join(',') + ']; ' 
+      title += tn.blank? ? '' : 'TN合计' + tn.count.to_s + '天 [' + tn.join(',') + ']; ' 
+      title += tp.blank? ? '' : 'TP合计' + tp.count.to_s + '天 [' + tp.join(',') + ']' 
+      objs << {
+        :fct   => f.name,
+        :title => title 
+      }
+    end
+
+    respond_to do |f|
+      f.json{ render :json => objs.to_json}
+    end
+  end
+
+  def online_qes_report
+    _start = Date.parse(params[:start].gsub(/\s/, ''))
+    _end = Date.parse(params[:end].gsub(/\s/, ''))
+
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+    @factories = Factory.find(fcts)
+
+    objs = []
+    @factories.each do |f|
+      items = f.day_pdt_rpts.where(['pdt_date between ? and ? ', _start, _end])
+      cod, nhn, tn, tp = [], [], [], []
+      items.each do |item|
+        cod >> item.pdt_date if item.eff_qlty_cod >= item.inf_qlty_cod
+        nhn >> item.pdt_date if item.eff_qlty_nhn >= item.inf_qlty_nhn
+        tn  >> item.pdt_date if item.eff_qlty_tn  >= item.inf_qlty_tn
+        tp  >> item.pdt_date if item.eff_qlty_tp  >= item.inf_qlty_tp
+      end
+      title =   cod.blank? ? '' :'COD合计' + cod.count.to_s + '天 [' + cod.join(',') + ']; ' 
+      title +=  nhn.blank? ? '' :'NH3-N合计' + nhn.count.to_s + '天 [' + nhn.join(',') + ']; ' 
+      title +=  tn.blank? ? '' : 'TN合计' + tn.count.to_s + '天 [' + tn.join(',') + ']; '
+      title +=  tp.blank? ? '' :'TP合计' + tp.count.to_s + '天 [' + tp.join(',') + '] '
+
+      objs << {
+        :fct   => f.name,
+        :title => title 
+      }
+    end
+
+    respond_to do |f|
+      f.json{ render :json => objs.to_json}
+    end
+  end
+  #hash[f.name] = {
+  #  :cod => {:count => cod.count, :date => cod},
+  #  :nhn => {:count => nhn.count, :date => nhn},
+  #  :tn  => {:count => tn.count,  :date => tn},
+  #  :tp  => {:count => tp.count,  :date => tp}
+  #}
 
   #在线多厂区去除单位TN成本
   def tnutcost 
