@@ -121,10 +121,12 @@ class AnalysesController < ApplicationController
       title += nhn.blank? ? '' : 'NH3-N合计' + nhn.count.to_s + '天 [' + nhn.join(',') + ']; ' 
       title += tn.blank? ? '' : 'TN合计' + tn.count.to_s + '天 [' + tn.join(',') + ']; ' 
       title += tp.blank? ? '' : 'TP合计' + tp.count.to_s + '天 [' + tp.join(',') + ']' 
-      objs << {
-        :fct   => f.name,
-        :title => title 
-      }
+      if !title.blank?
+        objs << {
+          :fct   => f.name,
+          :title => title 
+        }
+      end
     end
 
     respond_to do |f|
@@ -157,10 +159,12 @@ class AnalysesController < ApplicationController
       title +=  tn.blank? ? '' : 'TN合计' + tn.count.to_s + '天 [' + tn.join(',') + ']; '
       title +=  tp.blank? ? '' :'TP合计' + tp.count.to_s + '天 [' + tp.join(',') + '] '
 
-      objs << {
-        :fct   => f.name,
-        :title => title 
-      }
+      if !title.blank?
+        objs << {
+          :fct   => f.name,
+          :title => title 
+        }
+      end
     end
 
     respond_to do |f|
