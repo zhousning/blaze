@@ -3,7 +3,7 @@
 namespace :project do
   desc "project tasks"
   task :tasks do
-    Rake::Task["db:create_folders"].invoke
+    #Rake::Task["db:create_folders"].invoke
     Rake::Task["db:drop"].invoke
     Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
@@ -12,17 +12,17 @@ namespace :project do
     Rake::Task["db:seed"].invoke
     
     #导入历史化验数据和在线数据
-    Rake::Task["db:import_lishicms"].invoke
-    Rake::Task["db:update_lishionline"].invoke
+    #Rake::Task["db:import_lishicms"].invoke
+    #Rake::Task["db:update_lishionline"].invoke
 
     #创建day_rpt_stc和cday_rpt_stc
-    Rake::Task["db:create_cday_pdt_stcs"].invoke
+    #Rake::Task["db:create_cday_pdt_stcs"].invoke
 
     #导入月历史数据
-    Rake::Task["db:create_mth_rpts"].invoke
-    Rake::Task["db:update_mth_power_chemicals"].invoke
+    #Rake::Task["db:create_mth_rpts"].invoke
+    #Rake::Task["db:update_mth_power_chemicals"].invoke
 
-    Rake::Task["db:create_cmonths"].invoke
+    #Rake::Task["db:create_cmonths"].invoke
 
     #如果是删除了月报表，又重新导入数据，执行完以上两步，再更新下本月止电数据
     #Rake::Task["db:update_mth_powers"].invoke

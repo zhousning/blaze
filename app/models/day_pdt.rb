@@ -40,7 +40,7 @@ class DayPdt < ActiveRecord::Base
   accepts_nested_attributes_for :sed_qlty, allow_destroy: true
 
   has_one :day_pdt_rpt
-  accepts_nested_attributes_for :sed_qlty, allow_destroy: true
+  accepts_nested_attributes_for :day_pdt_rpt, allow_destroy: true
 
   STATESTR = %w(ongoing verifying rejected cmp_verifying cmp_rejected complete)
   STATE = [Setting.day_pdts.ongoing, Setting.day_pdts.verifying,  Setting.day_pdts.rejected, Setting.day_pdts.cmp_verifying,  Setting.day_pdts.cmp_rejected,  Setting.day_pdts.complete]

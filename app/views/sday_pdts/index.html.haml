@@ -1,0 +1,129 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+
+          
+
+          
+
+          -#
+            = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+              = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+          %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+            = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.name
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.pdt_date
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.signer
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.state
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.weather
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.min_temper
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.max_temper
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.desc
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.one_verify
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.two_verify
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.ipt
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.opt
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.pres
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.power
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.yl
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.zd
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.yd
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.ph
+                    %th{:scope => "col"}
+                      设置
+                %tbody
+                  - @sday_pdts.each_with_index do |sday_pdt, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = sday_pdt.name
+                      %td
+                        = sday_pdt.pdt_date
+                      %td
+                        = sday_pdt.signer
+                      %td
+                        = sday_pdt.state
+                      %td
+                        = sday_pdt.weather
+                      %td
+                        = sday_pdt.min_temper
+                      %td
+                        = sday_pdt.max_temper
+                      %td
+                        = sday_pdt.desc
+                      %td
+                        = sday_pdt.one_verify
+                      %td
+                        = sday_pdt.two_verify
+                      %td
+                        = sday_pdt.ipt
+                      %td
+                        = sday_pdt.opt
+                      %td
+                        = sday_pdt.pres
+                      %td
+                        = sday_pdt.power
+                      %td
+                        = sday_pdt.yl
+                      %td
+                        = sday_pdt.zd
+                      %td
+                        = sday_pdt.yd
+                      %td
+                        = sday_pdt.ph
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            = link_to "编辑", edit_sday_pdt_path(idencode(sday_pdt.id)), :class => "button button-royal button-small mr-1" 
+                            = link_to "查看",  sday_pdt_path(idencode(sday_pdt.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "删除",  sday_pdt_path(idencode(sday_pdt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+            .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
+              = paginate @sday_pdts, window: 2, left: 1, right: 1 
+      = render "layouts/bootstrap/card"
+
+
+
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = render 'form'

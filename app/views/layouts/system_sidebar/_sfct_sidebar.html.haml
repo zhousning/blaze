@@ -1,0 +1,67 @@
+.card.border-0.rounded-0
+  .card-body.p-0
+    %ul#sidebar-lists.list-group.list-group-flush
+      .accordion#accordionExample
+      - current_user.sfactories.each_with_index do |fct, index|
+        .card.border-0.rounded-0
+          .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success{:id => "heading#{index}", :'data-toggle' => "collapse", :'data-target' => "#collapse#{index}", :'aria-expanded' => "true", :'aria-controls' => "collapse#{index}"}
+            = fct.name
+          .collapse{:id => "collapse#{index}", :'aria-labelledby' => "heading#{index}", :"data-parent" => "#accordionExample", :class => index == 0 ? 'show' : ''}
+            .card-body.py-0.pl-2.pr-0.border.border-danger
+              - if current_user.has_role?(Setting.roles.sday_pdt)
+                = link_to sfactory_sday_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "codepen", text: "日运营数据填报"
+            -#
+              - if current_user.has_role?(Setting.roles.mth_pdt_rpt)
+                = link_to fct_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "codepen", text: "月报表填报"
+                
+              //厂区运营数据审核
+              - if current_user.has_role?(Setting.roles.sday_pdt_verify)
+                = link_to verify_index_fct_sday_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "object-group", text: "日运营数据审核"
+              //公司运营数据审核
+              - if current_user.has_role?(Setting.roles.sday_pdt_cmp_verify)
+                = link_to cmp_verify_index_fct_sday_pdts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "object-group", text: "日运营数据审核"
+              //厂区月报表审核
+              - if current_user.has_role?(Setting.roles.mth_pdt_rpt_verify)
+                = link_to verify_index_fct_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "object-group", text: "月报表审核"
+              //公司月报表审核
+              - if current_user.has_role?(Setting.roles.mth_pdt_rpt_cmp_verify)
+                = link_to cmp_verify_index_fct_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "object-group", text: "月报表审核"
+              - if current_user.has_role?(Setting.roles.sday_pdt_rpt)
+                = link_to fct_sday_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "diamond", text: "日报表"
+              - if current_user.has_role?(Setting.roles.mth_pdt_rpt_index)
+                = link_to mth_report_finish_index_fct_mth_pdt_rpts_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "diamond", text: "月报表"
+              - if current_user.has_role?(Setting.roles.fct_emp_inf)
+                = link_to fct_emp_infs_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                  = fa_icon "sign-in", text: "环境监测进水口"
+              - if current_user.has_role?(Setting.roles.fct_emp_eff)
+                = link_to fct_emp_effs_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                  = fa_icon "sign-out", text: "环境监测出水口"
+              -#
+                = link_to bigscreen_fct_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                  = fa_icon "sign-out", text: "大屏看板"
+              - if current_user.has_role?(Setting.roles.fct_setting)
+                = link_to edit_fct_path(idencode(fct.id)), :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                  = fa_icon "cog", text: "基本信息"
+    -#         
+      .card.border-0.rounded-0
+        .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success{:id => "headingAnalyse", :'data-toggle' => "collapse", :'data-target' => "#collapseAnalyse", :'aria-expanded' => "true", :'aria-controls' => "collapseAnalyse"}
+          综合分析
+        .collapse{:id => "collapseAnalyse", :'aria-labelledby' => "headingAnalyse", :"data-parent" => "#accordionExample"}
+          .card-body.py-0
+            - if current_user.has_role?(Setting.roles.data_cube)
+              = link_to sglfct_statistic_sday_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                = fa_icon "cubes", text: "数据立方"
+            - if current_user.has_role?(Setting.roles.data_compare)
+              = link_to compare_analyses_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                = fa_icon "object-ungroup", text: "指标对比"
+            - if current_user.has_role?(Setting.roles.area_time)
+              = link_to area_time_analyses_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+                = fa_icon "clone", text: "厂间分析"

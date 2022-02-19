@@ -1,0 +1,2 @@
+class SanalysesController < ApplicationController
+end

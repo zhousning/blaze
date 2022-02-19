@@ -4,3 +4,5 @@
   = render 'layouts/system_sidebar/grp_sidebar'
 - elsif current_user.has_role?(Setting.roles.super_admin)
   = render 'layouts/system_sidebar/admin_sidebar'
+- elsif current_user.has_role?(Setting.roles.role_sfct)
+  = render 'layouts/system_sidebar/sfct_sidebar'

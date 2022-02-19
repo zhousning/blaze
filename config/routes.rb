@@ -203,6 +203,30 @@ Rails.application.routes.draw do
   #end
   resources :day_rpt_stcs do
   end
+  resources :sfactories, :only => [:edit, :update] do
+    resources :sday_pdts, :only => [:index, :show, :edit, :update] do
+      get :upreport, :on => :member
+      get :verifying, :on => :member
+      get :rejected, :on => :member
+      get :verify_index, :on => :collection
+      get :verify_show, :on => :member
+      get :cmp_verifying, :on => :member
+      get :cmp_rejected, :on => :member
+      get :cmp_verify_index, :on => :collection
+      get :cmp_verify_show, :on => :member
+    end
+  end
+  resources :sday_pdts do
+    get :download_append, :on => :member
+  end
+  resources :companies, :only => [] do
+    resources :sday_rpts do
+      get :download_append, :on => :member
+    end
+  end
+  resources :sday_pdts do
+    get :download_append, :on => :member
+  end
   resources :flower
 
 end

@@ -11,14 +11,6 @@ class CreateEnclosures < ActiveRecord::Migration
       t.references :format
       t.references :ocr
       t.references :ctg_mtrl
-      t.references :dog
-      t.references :dog
-      t.references :dog
-      t.references :dog
-      t.references :dog
-      t.references :dog
-      t.references :dog
-      t.references :dog
       t.references :day_pdt
     end
   end

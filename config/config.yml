@@ -974,30 +974,6 @@ defaults:
     name: 名称
     class_name: Role
     super_admin: 超级管理员
-    supervisor: 监理单位
-    supervisor_state: 监理单位全国注册监理工程师
-    supervisor_target: 监理单位专业注册监理工程师
-    supervisor_worker: 监理单位从业监理人员
-    designer: 设计单位
-    designer_constructor: 设计单位注册建筑工程师
-    designer_structure: 设计单位注册结构工程师
-    designer_post: 设计单位职称工程师
-    designer_water: 设计单位注册给排水工程师
-    designer_electric: 设计单位注册电气工程师
-    designer_warm: 设计单位注册暖通工程师
-    labour: 施工单位
-    labour_handle: 施工单位项目经理
-    labour_tech: 施工单位技术负责人
-    labour_line: 施工单位现场管理人员
-    labour_worker: 施工单位技术工人
-    constructor: 建设单位
-    constructor_handle: 建设单位员工
-    agentor: 代建单位
-    agentor_handle: 代建单位员工
-    prospector: 地勘单位
-    prospector_handle: 地勘单位员工
-    monitor: 监督单位
-    monitor_handle: 监督单位员工
     role_fct: 厂区用户
     role_grp: 集团用户
     day_pdt: 厂区生产运营数据填报
@@ -1021,6 +997,18 @@ defaults:
     grp_emp_eff: 集团运营环境监测系统进水
     grp_mgn_emp_inf: 集团管理者环境监测系统出水
     grp_mgn_emp_eff: 集团管理者环境监测系统进水
+    role_sfct: 供水厂区用户
+    sday_pdt: 供水厂区生产运营数据填报
+    sday_pdt_rpt: 供水厂区日报表查看
+    sday_pdt_verify: 供水厂区生产运营数据审核
+    sday_pdt_cmp_verify: 供水公司生产运营数据审核
+    smth_pdt_rpt: 供水厂区月报表填报
+    smth_pdt_rpt_verify: 供水厂区月报表审核
+    smth_pdt_rpt_cmp_verify: 供水公司月报表审核
+    smth_pdt_rpt_index: 供水厂区月报表查看
+    sdata_cube: 供水数据立方
+    sdata_compare: 供水数据对比
+    sarea_time: 供水厂间分析
   permissions: &107
     super_admin: 管理系统所有资源
     label: 权限管理
@@ -1318,7 +1306,7 @@ defaults:
     label: 部门
     name: 名称
     info: 简介
-  day_pdt_sum: &165
+  day_pdt_sum: &170
     inflow: 进水量(吨)
     outflow: 出水量(吨)
     inmud: 进泥量(m3)
@@ -1332,7 +1320,7 @@ defaults:
     tspmud: 转运泥量(吨)
     rcpmud: 处置单位接收量(吨)
     dlemud: 处置单位名称
-  water_cms: &166
+  water_cms: &171
     ph: PH
     fecal: 化验-粪大肠菌群数(个/l)
     bod: 化验-BOD5(mg/l)
@@ -1529,8 +1517,8 @@ defaults:
     mdrcy: '14'
     mdsell: '15'
     fecal: '16'
-    tp_cost: '17' 
-    tn_cost:  '18'
+    tp_cost: '17'
+    tn_cost: '18'
     tp_utcost: '19'
     tn_utcost: '20'
     bom: '21'
@@ -1613,7 +1601,7 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_cods: &150
-    label:  在线COD
+    label: 在线COD
     clabel: 化验COD
     avg_inf: 平均进水COD浓度(mg/L)
     avg_eff: 平均出水COD浓度(mg/L)
@@ -1627,7 +1615,7 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tps: &151
-    label:  在线TP
+    label: 在线TP
     clabel: 化验TP
     avg_inf: 平均进水TP浓度(mg/L)
     avg_eff: 平均出水TP浓度(mg/L)
@@ -1641,7 +1629,7 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_tns: &152
-    label:  在线TN
+    label: 在线TN
     clabel: 化验TN
     avg_inf: 平均进水TN浓度(mg/L)
     avg_eff: 平均出水TN浓度(mg/L)
@@ -1668,7 +1656,7 @@ defaults:
     mom: 环比(%)-削减量(吨)
     ypdr: 截止本月累计完成全年计划占比
   month_nhns: &154
-    label:  在线NH3-N
+    label: 在线NH3-N
     clabel: 化验NH3-N
     avg_inf: 平均进水NH3-N浓度(mg/L)
     avg_eff: 平均出水NH3-N浓度(mg/L)
@@ -1745,7 +1733,7 @@ defaults:
     label: 综合统计月报表
     name: 名称
     date: 月份
-    start_date: 开始日期 
+    start_date: 开始日期
     state: 进度
     cmc_bill: 药剂发票
     ecm_ans_rpt: 经济运行分析报告
@@ -1813,11 +1801,11 @@ defaults:
     tp_emr: TP削减率(%)
     tn_emr: TN削减率(%)
     ss_emr: SS削减率(%)
-    tp_cost: 除磷药剂单位成本(元/吨) 
+    tp_cost: 除磷药剂单位成本(元/吨)
     tn_cost: 碳源成本(元/吨)
     tp_utcost: 去除单位TP成本(元/吨)
     tn_utcost: 去除单位TN成本(元/吨)
-  tspmuds: &167
+  tspmuds: &165
     label: 污泥处置
     tspvum: 转运泥量
     dealer: 处置单位
@@ -1825,7 +1813,7 @@ defaults:
     price: 价格(元/吨)
     prtmtd: 处置方式
     goort: 后续产品走向
-  chemicals: &168
+  chemicals: &166
     label: 药剂
     name: 名称
     unprice: 单价(元/吨)
@@ -1836,7 +1824,7 @@ defaults:
     dosptc: 药剂投加浓度(mg/l)
     per_cost: 吨水药剂成本(元/吨)
     std_dev: 偏差率
-  chemical_ctgs: &169
+  chemical_ctgs: &167
     label: 化学药剂分类
     code: 编码
     name: 名称
@@ -1864,7 +1852,7 @@ defaults:
     yy_t: 液氧
     hxt: '12'
     hxt_t: 活性炭
-  mth_chemicals: &170
+  mth_chemicals: &168
     label: 药剂
     name: 名称
     unprice: 单价(元/吨)
@@ -1875,7 +1863,7 @@ defaults:
     dosptc: 药剂投加浓度(mg/l)
     per_cost: 吨水药剂成本(元/吨)
     std_dev: 偏差率
-  mudfcts: &171
+  mudfcts: &169
     label: 污泥处置厂家
     name: 污泥处置厂家名
     ability: 处理能力
@@ -2050,11 +2038,34 @@ development:
   emp_infs: *162
   emp_effs: *163
   day_rpt_stcs: *164
-  tspmuds: *167
-  chemicals: *168
-  chemical_ctgs: *169
-  mth_chemicals: *170
-  mudfcts: *171
+  tspmuds: *165
+  chemicals: *166
+  chemical_ctgs: *167
+  mth_chemicals: *168
+  mudfcts: *169
+  sfactories:
+    city: '0'
+    country: '1'
+  sday_pdts:
+    label: 供水日报表
+    name: 名称
+    pdt_date: 日期
+    signer: 填报人
+    state: 进度
+    weather: 天气
+    min_temper: 最低温度
+    max_temper: 最高温度
+    desc: 备注
+    one_verify: 一级审核人
+    two_verify: 二级审核人
+    ipt: 采水量
+    opt: 供水量
+    pres: 出厂水平均压力
+    power: 用电量
+    yl: 余氯
+    zd: 浊度
+    yd: 硬度
+    ph: PH
 test:
   admins: *104
   users: *105
@@ -2091,8 +2102,8 @@ test:
   statistics: *134
   meter_standards: *135
 production:
-  day_pdt_sum: *165
-  water_cms: *166
+  day_pdt_sum: *170
+  water_cms: *171
   wares: *126
   notices: *1
   reports: *3
@@ -2259,8 +2270,8 @@ production:
   emp_infs: *162
   emp_effs: *163
   day_rpt_stcs: *164
-  tspmuds: *167
-  chemicals: *168
-  chemical_ctgs: *169
-  mth_chemicals: *170
-  mudfcts: *171
+  tspmuds: *165
+  chemicals: *166
+  chemical_ctgs: *167
+  mth_chemicals: *168
+  mudfcts: *169

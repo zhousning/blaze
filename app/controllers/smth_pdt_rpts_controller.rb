@@ -1,0 +1,2 @@
+class SmthPdtRptsController < ApplicationController
+end
