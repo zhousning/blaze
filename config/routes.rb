@@ -203,30 +203,58 @@ Rails.application.routes.draw do
   #end
   resources :day_rpt_stcs do
   end
+  resources :sday_pdts, :only => [:index] do
+    get :verify_index, :on => :collection
+    get :cmp_verify_index, :on => :collection
+  end
+  resources :sday_pdt_rpts, :only => [:index]
+  resources :smth_pdt_rpts, :only => [:index] do
+    get :verify_index, :on => :collection
+    get :cmp_verify_index, :on => :collection
+    get :smth_report_finish_index, :on => :collection
+  end
   resources :sfactories, :only => [:edit, :update] do
-    resources :sday_pdts, :only => [:index, :show, :edit, :update] do
+    resources :sday_pdts, :only => [:show, :edit, :update] do
       get :upreport, :on => :member
       get :verifying, :on => :member
       get :rejected, :on => :member
-      get :verify_index, :on => :collection
       get :verify_show, :on => :member
       get :cmp_verifying, :on => :member
       get :cmp_rejected, :on => :member
-      get :cmp_verify_index, :on => :collection
       get :cmp_verify_show, :on => :member
+      get :emp_sync, :on => :member
+      get :only_emp_sync, :on => :collection
     end
-  end
-  resources :sday_pdts do
-    get :download_append, :on => :member
-  end
-  resources :companies, :only => [] do
-    resources :sday_rpts do
+    resources :sday_pdt_rpts, :only => [:show] do
+      get :produce_report, :on => :member
+      get :xls_day_download, :on => :member
+    end
+    resources :sanalyses, :only => [] do
+      get :month_compare, :on => :collection
+    end
+    resources :smth_pdt_rpts, :only => [:edit, :update, :show] do
+      get :mth_rpt_sync, :on => :member
+      get :produce_report, :on => :member
+      get :mth_rpt_create, :on => :collection
+      get :download_report, :on => :member
+      get :upreport, :on => :member
+      get :verifying, :on => :member
+      get :rejected, :on => :member
+      get :verify_show, :on => :member
+      get :cmp_verifying, :on => :member
+      get :cmp_rejected, :on => :member
+      get :cmp_verify_show, :on => :member
+      get :mth_report_finish_show, :on => :member
+      get :xls_mth_download, :on => :member
       get :download_append, :on => :member
+      get :mth_rpt_sync, :on => :member
     end
   end
-  resources :sday_pdts do
-    get :download_append, :on => :member
-  end
+  #resources :companies, :only => [] do
+  #  resources :sday_rpts do
+  #    get :download_append, :on => :member
+  #  end
+  #end
   resources :flower
 
 end

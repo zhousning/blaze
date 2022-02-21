@@ -2058,14 +2058,15 @@ development:
     desc: 备注
     one_verify: 一级审核人
     two_verify: 二级审核人
-    ipt: 采水量
-    opt: 供水量
-    pres: 出厂水平均压力
-    power: 用电量
-    yl: 余氯
-    zd: 浊度
-    yd: 硬度
+    ipt: 采水量(m3)
+    opt: 供水量(m3)
+    pres: 出厂水平均压力(Mpa)
+    power: 用电量(千瓦时)
+    yl: 余氯(mg/l)
+    zd: 浊度(NTU)
+    yd: 硬度(mg/l)
     ph: PH
+    bom: 千吨水耗电量(千瓦时/dam3)
 test:
   admins: *104
   users: *105

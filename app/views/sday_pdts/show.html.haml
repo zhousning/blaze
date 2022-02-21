@@ -6,138 +6,51 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %h5
-          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
-          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+          = fa_icon "newspaper-o", text:  @sfactory.name + "-" + t(controller_name + "." + action_name + '.title')
+          - if @sday_pdt.state == Setting.day_pdts.ongoing || @sday_pdt.state == Setting.day_pdts.rejected || @sday_pdt.state == Setting.day_pdts.cmp_rejected
+            = link_to "提交审核",  verifying_sfactory_sday_pdt_path(idencode(@sfactory.id), idencode(@sday_pdt.id)), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "确定提交审核?"}
+            = link_to "编辑", edit_sfactory_sday_pdt_path(idencode(@sfactory.id), idencode(@sday_pdt.id)), :class => "button button-caution button-small pull-right mr-1" 
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
       - content_for :card_body do
-        .container-fluid
-          .row
-            .col-sm-12
-              %h2.text-center
-                = image_tag "gykg.jpg"
-            .col-md-8.offset-2.p-5.border
-              .card.border-0.mb-3.rounded-0
-                .card-header.bg-transparent.border-dark
-                  %h5
-                    = Setting.sday_pdts.label
-                .card-body
-                  %table.table-bordered.day-pdt-table.w-100.mb-3
-                    %tbody
-                    
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.name
-                        %td.p-2.text-center
-                          = @sday_pdt.name
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.pdt_date
-                        %td.p-2.text-center
-                          = @sday_pdt.pdt_date
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.signer
-                        %td.p-2.text-center
-                          = @sday_pdt.signer
-                    
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.state
-                        %td.p-2.text-center
-                          = @sday_pdt.state
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.weather
-                        %td.p-2.text-center
-                          = @sday_pdt.weather
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.min_temper
-                        %td.p-2.text-center
-                          = @sday_pdt.min_temper
-                    
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.max_temper
-                        %td.p-2.text-center
-                          = @sday_pdt.max_temper
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.desc
-                        %td.p-2.text-center
-                          = @sday_pdt.desc
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.one_verify
-                        %td.p-2.text-center
-                          = @sday_pdt.one_verify
-                    
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.two_verify
-                        %td.p-2.text-center
-                          = @sday_pdt.two_verify
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.ipt
-                        %td.p-2.text-center
-                          = @sday_pdt.ipt
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.opt
-                        %td.p-2.text-center
-                          = @sday_pdt.opt
-                    
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.pres
-                        %td.p-2.text-center
-                          = @sday_pdt.pres
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.power
-                        %td.p-2.text-center
-                          = @sday_pdt.power
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.yl
-                        %td.p-2.text-center
-                          = @sday_pdt.yl
-                    
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.zd
-                        %td.p-2.text-center
-                          = @sday_pdt.zd
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.yd
-                        %td.p-2.text-center
-                          = @sday_pdt.yd
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.sday_pdts.ph
-                        %td.p-2.text-center
-                          = @sday_pdt.ph
-                    
-              .row
-              
-              .row
-              
-              .row
-              
-              
+        = render "show_table"
               
       = render "layouts/bootstrap/card"
+-#
+  %tr
+  
+    %td.p-2.text-center
+      = Setting.sday_pdts.weather
+    %td.p-2.text-center
+      = @sday_pdt.weather
+  
+  
+    %td.p-2.text-center
+      = Setting.sday_pdts.min_temper
+    %td.p-2.text-center
+      = @sday_pdt.min_temper
+  
+  %tr
+    %td.p-2.text-center
+      = Setting.sday_pdts.max_temper
+    %td.p-2.text-center
+      = @sday_pdt.max_temper
+  
+  
+    %td.p-2.text-center
+      = Setting.sday_pdts.desc
+    %td.p-2.text-center
+      = @sday_pdt.desc
+  
+  
+    %td.p-2.text-center
+      = Setting.sday_pdts.one_verify
+    %td.p-2.text-center
+      = @sday_pdt.one_verify
+  
+  %tr
+    %td.p-2.text-center
+      = Setting.sday_pdts.two_verify
+    %td.p-2.text-center
+      = @sday_pdt.two_verify
+  

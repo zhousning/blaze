@@ -1,0 +1,21 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text:  t(controller_name + "." + action_name + '.title')
+          - if @sday_pdt.state == Setting.day_pdts.cmp_verifying
+            = link_to "驳回", cmp_rejected_sfactory_sday_pdt_path(idencode(@sfactory.id), idencode(@sday_pdt.id)), :class => "button button-caution button-small pull-right mr-1" , :data => {:confirm => "确定驳回吗?"}
+            = link_to "上报水务集团",  upreport_sfactory_sday_pdt_path(idencode(@sfactory.id), idencode(@sday_pdt.id)), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "上报后不允许修改，确定上报吗?"}
+          = link_to "/#{controller_name}/cmp_verify_index", :class => "button button-small  pull-right button-primary mr-1" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        = render "show_table"
+
+      = render "layouts/bootstrap/card"
+  
+                      
+                  

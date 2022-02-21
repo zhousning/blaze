@@ -2,8 +2,16 @@ class SdayPdt < ActiveRecord::Base
 
   belongs_to :sfactory
 
-  has_one :sday_pdt_rpt
-  accepts_nested_attributes_for :sday_pdt_rpt, allow_destroy: true
+  has_one :sday_pdt_stc
+  accepts_nested_attributes_for :sday_pdt_stc, allow_destroy: true
+
+  before_save :calculate_attrs
+
+  def calculate_attrs
+    bom = FormulaLib.kbom(self.power, self.opt) 
+    self.sday_pdt_stc.update_attributes(:bom => bom)
+  end
+
 
   STATESTR = %w(ongoing verifying rejected cmp_verifying cmp_rejected complete)
   STATE = [Setting.day_pdts.ongoing, Setting.day_pdts.verifying,  Setting.day_pdts.rejected, Setting.day_pdts.cmp_verifying,  Setting.day_pdts.cmp_rejected,  Setting.day_pdts.complete]

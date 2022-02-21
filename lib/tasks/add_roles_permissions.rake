@@ -3,6 +3,7 @@ namespace 'db' do
   task(:add_roles_permissions => :environment) do
 
     data = YAML.load_file("lib/tasks/data/srole_permissions.yaml")
+    #data = YAML.load_file("lib/tasks/data/role_permissions.yaml")
     data.each do |r|
       permission_arr = []
       lists = r['permissions'] || []

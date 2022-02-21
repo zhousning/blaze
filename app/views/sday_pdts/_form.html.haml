@@ -1,99 +1,44 @@
 .container-fluid
   .row.justify-content-sm-center
     .col-sm-12
-      = form_for @sday_pdt, :url => "/sday_pdts/#{@sday_pdt.id ? idencode(@sday_pdt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+      = form_for @sday_pdt, :url => "/sfactories/#{idencode(@sfactory.id)}/sday_pdts/#{@sday_pdt.id ? idencode(@sday_pdt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:id => 'day-pdt-form', :'data-parsley-validate' => true} do |f|
+        - if flash[:warning]
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            = flash[:warning]
         - if @sday_pdt.errors.any?
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
               %span{"aria-hidden" => "true"} x 
-            %h2= "#{pluralize(@sday_pdt.errors.count, "错误")}:"
+            %h2= "#{pluralize(@sday_pdt.errors.count, "个错误")} "
             %ul
               - @sday_pdt.errors.full_messages.each do |msg|
                 %li= msg
+      
+        = f.hidden_field :pdt_date
         .row
           .col-sm-12
             %h2.text-center
               = image_tag "gykg.jpg"
+              = @sday_pdt.name
+          .col-3.offset-6
+            .form-group.row
+              = f.label Setting.day_pdts.signer, :class => "col-sm-3 col-form-label text-right"
+              .col-sm-6
+                = f.text_field :signer, :class => "form-control rounded-0" , :required => true
           .col-md-8.offset-md-2.p-5.border
             #flash_explanation
             .card.border-0.mb-3.rounded-0
-              .card-header.bg-transparent.border-success
-                %h5
-                  = Setting.sday_pdts.label
+              -#
+                .card-header.bg-transparent.border-success
+                  %h5
+                    = Setting.sday_pdts.label
               .card-body
                 %table.w-100.table-bordered.day-pdt-table
                   %tbody
                     
                     %tr
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.name, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.text_field :name, :class => "form-control" , :required => true
-                      
-                    
-                    
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.pdt_date, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.date_field :pdt_date, :class => "form-control" , :required => true
-                      
-                    
-                    
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.signer, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.text_field :signer, :class => "form-control" , :required => true
-                      
-                    
-                    %tr
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.state, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.number_field :state, :class => "form-control", :step => "any"  , :required => true
-                      
-                    
-                    
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.weather, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.text_field :weather, :class => "form-control" , :required => true
-                      
-                    
-                    
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.min_temper, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.number_field :min_temper, :class => "form-control", :step => "any"  , :required => true
-                      
-                    
-                    %tr
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.max_temper, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.number_field :max_temper, :class => "form-control", :step => "any"  , :required => true
-                      
-                    
-                    
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.desc, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.text_area :desc, :class => "form-control", :rows => "10" , :required => true
-                      
-                    
-                    
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.one_verify, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.text_field :one_verify, :class => "form-control" , :required => true
-                      
-                    
-                    %tr
-                      %td.p-2.text-center
-                        = f.label Setting.sday_pdts.two_verify, :class => "text-center"
-                      %td.p-2.text-center
-                        = f.text_field :two_verify, :class => "form-control" , :required => true
-                      
-                    
                     
                       %td.p-2.text-center
                         = f.label Setting.sday_pdts.ipt, :class => "text-center"
@@ -123,13 +68,13 @@
                       
                     
                     
+                    %tr
                       %td.p-2.text-center
                         = f.label Setting.sday_pdts.yl, :class => "text-center"
                       %td.p-2.text-center
                         = f.number_field :yl, :class => "form-control", :step => "any"  , :required => true
                       
                     
-                    %tr
                       %td.p-2.text-center
                         = f.label Setting.sday_pdts.zd, :class => "text-center"
                       %td.p-2.text-center
@@ -137,6 +82,7 @@
                       
                     
                     
+                    %tr
                       %td.p-2.text-center
                         = f.label Setting.sday_pdts.yd, :class => "text-center"
                       %td.p-2.text-center
@@ -149,15 +95,62 @@
                       %td.p-2.text-center
                         = f.number_field :ph, :class => "form-control", :step => "any"  , :required => true
                       
-                    
-          
-          
-          
-          
-          
             .form-group.row
               .col-3.offset-3
                 = f.submit '保存', :class => "button  button-small button-action"
-            -#
-              .col-3.offset-1
-                = link_to '返回', sday_pdts_path, :class => "button button-small  button-caution"
+-#
+  .col-3.offset-1
+    = link_to '返回', sday_pdts_path, :class => "button button-small  button-caution"
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.signer, :class => "text-center"
+  %td.p-2.text-center
+    = f.text_field :signer, :class => "form-control" , :required => true
+  
+  
+  r
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.state, :class => "text-center"
+  %td.p-2.text-center
+    = f.number_field :state, :class => "form-control", :step => "any"  , :required => true
+  
+  
+  
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.weather, :class => "text-center"
+  %td.p-2.text-center
+    = f.text_field :weather, :class => "form-control" , :required => true
+  
+  
+  
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.min_temper, :class => "text-center"
+  %td.p-2.text-center
+    = f.number_field :min_temper, :class => "form-control", :step => "any"  , :required => true
+  
+  
+  r
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.max_temper, :class => "text-center"
+  %td.p-2.text-center
+    = f.number_field :max_temper, :class => "form-control", :step => "any"  , :required => true
+  
+  
+  
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.desc, :class => "text-center"
+  %td.p-2.text-center
+    = f.text_area :desc, :class => "form-control", :rows => "10" , :required => true
+  
+  
+  
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.one_verify, :class => "text-center"
+  %td.p-2.text-center
+    = f.text_field :one_verify, :class => "form-control" , :required => true
+  
+  
+  r
+  %td.p-2.text-center
+    = f.label Setting.sday_pdts.two_verify, :class => "text-center"
+  %td.p-2.text-center
+    = f.text_field :two_verify, :class => "form-control" , :required => true

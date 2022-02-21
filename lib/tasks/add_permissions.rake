@@ -3,6 +3,7 @@ namespace 'db' do
   task(:add_permissions => :environment) do
 
     data = YAML.load_file("lib/tasks/data/spermissions.yaml")
+    #data = YAML.load_file("lib/tasks/data/permissions.yaml")
     data.each do |r|
       controller = r['controller'].camelize.constantize
       actions = r['actions']

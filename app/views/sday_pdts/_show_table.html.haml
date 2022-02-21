@@ -1,0 +1,74 @@
+.container-fluid
+  .row
+    .col-sm-12
+      %h2.text-center
+        = image_tag "gykg.jpg"
+        = @sday_pdt.name
+    .col-2.offset-8
+      %p
+        = Setting.sday_pdts.signer
+        = @sday_pdt.signer
+    .col-md-8.offset-2.p-5.border
+      .col-sm-5.offset-7.mb-5
+        %h2
+          = render 'day_pdts/state', :day_pdt => @sday_pdt
+      .card.border-0.mb-3.rounded-0
+        -#.card-header.bg-transparent.border-dark
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100.mb-3
+            %tbody
+              %tr
+                %td.p-2.text-center
+                  = Setting.sday_pdts.ipt
+                %td.p-2.text-center
+                  = @sday_pdt.ipt
+              
+                %td.p-2.text-center
+                  = Setting.sday_pdts.opt
+                %td.p-2.text-center
+                  = @sday_pdt.opt
+            
+              %tr
+                %td.p-2.text-center
+                  = Setting.sday_pdts.pres
+                %td.p-2.text-center
+                  = @sday_pdt.pres
+            
+              
+                %td.p-2.text-center
+                  = Setting.sday_pdts.power
+                %td.p-2.text-center
+                  = @sday_pdt.power
+              %tr
+                %td.p-2.text-center
+                  = Setting.sday_pdts.bom
+                %td.p-2.text-center
+                  = @sday_pdt.sday_pdt_stc.bom
+            
+              
+                %td.p-2.text-center{:colspan => 2}
+            
+              %tr
+              
+                %td.p-2.text-center
+                  = Setting.sday_pdts.yl
+                %td.p-2.text-center
+                  = @sday_pdt.yl
+            
+                %td.p-2.text-center
+                  = Setting.sday_pdts.zd
+                %td.p-2.text-center
+                  = @sday_pdt.zd
+            
+              
+              %tr
+                %td.p-2.text-center
+                  = Setting.sday_pdts.yd
+                %td.p-2.text-center
+                  = @sday_pdt.yd
+            
+              
+                %td.p-2.text-center
+                  = Setting.sday_pdts.ph
+                %td.p-2.text-center
+                  = @sday_pdt.ph
