@@ -123,4 +123,10 @@ class ApplicationController < ActionController::Base
     def my_sfactory
       @sfactory = current_user.sfactories.find(iddecode(params[:sfactory_id]))
     end
+
+    def response_json(obj)
+      respond_to do |f|
+        f.json{ render :json => obj.to_json}
+      end
+    end
 end

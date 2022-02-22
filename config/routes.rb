@@ -207,7 +207,9 @@ Rails.application.routes.draw do
     get :verify_index, :on => :collection
     get :cmp_verify_index, :on => :collection
   end
-  resources :sday_pdt_rpts, :only => [:index]
+  resources :sday_pdt_rpts, :only => [:index] do
+    get :query_all, :on => :collection
+  end
   resources :smth_pdt_rpts, :only => [:index] do
     get :verify_index, :on => :collection
     get :cmp_verify_index, :on => :collection

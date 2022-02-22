@@ -1,0 +1,77 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      -#
+        - content_for :card_header do
+        %h5
+          = fa_icon "list", text:  t(controller_name + "." + action_name + '.title')
+
+      = render 'layouts/components/date_start_end'
+      = render 'layouts/components/fct_lists_checkboxes'
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table#sday-pdt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true", :'data-height' => "600", :'data-virtual-scroll' => "true", :'data-show-columns' => "true", :'data-page-size' => "15"}
+                %thead
+                  %tr
+                    %th{:scope => "col", :'data-field' => "id"} #
+
+                    %th{:scope => "col", :'data-field' => "pdt_date"}
+                      = Setting.day_pdts.pdt_date
+                    %th{:scope => "col", :'data-field' => "name"}
+                      = Setting.sday_pdts.name
+                    %th{:scope => "col", :'data-field' => "ipt"}
+                      = Setting.sday_pdts.ipt
+                    %th{:scope => "col", :'data-field' => "opt"}
+                      = Setting.sday_pdts.opt
+                    %th{:scope => "col", :'data-field' => "power"}
+                      = Setting.sday_pdts.power
+                    %th{:scope => "col", :'data-field' => "operator"}
+              -#
+                %th{:scope => "col", :'data-field' => "yl"}
+                  = Setting.sday_pdts.yl
+                %th{:scope => "col", :'data-field' => "zd"}
+                  = Setting.sday_pdts.zd
+                %th{:scope => "col", :'data-field' => "yd"}
+                  = Setting.sday_pdts.yd
+                %th{:scope => "col", :'data-field' => "ph"}
+                  = Setting.sday_pdts.ph
+                %tbody
+                  - @sday_pdts.each_with_index do |sday_pdt, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                      %td
+                        = sday_pdt.pdt_date
+                      %td
+                        = sday_pdt.ipt
+                      %td
+                        = sday_pdt.opt
+                      %td
+                        = sday_pdt.power
+                      %td
+                        = sday_pdt.yl
+                      %td
+                        = sday_pdt.zd
+                      %td
+                        = sday_pdt.yd
+                      %td
+                        = sday_pdt.ph
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            %button#info-btn.button.button-primary.button-small.mr-1{:type => "button", :'data-rpt' => idencode(sday_pdt.id), :'data-fct' => idencode(sday_pdt.sfactory.id)}
+                              查看
+            -#
+              .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
+              = paginate @sday_pdts, window: 2, left: 1, right: 1 
+      = render "layouts/bootstrap/card"
+
+-#
+  = render "day_pdts/day_pdt_modal"
+

@@ -1,0 +1,204 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @day_pdt_rpt, :url => "/day_pdt_rpts/#{@day_pdt_rpt.id ? idencode(@day_pdt_rpt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @day_pdt_rpt.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@day_pdt_rpt.errors.count, "error")} prohibited this buyer from being saved:"
+            %ul
+              - @day_pdt_rpt.errors.full_messages.each do |msg|
+                %li= msg
+      
+        -#
+          .form-group.row
+            = f.label Setting.day_pdt_rpts.name, :class => "col-sm-3 col-form-label text-right"
+            .col-sm-6
+              = f.text_field :name, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.pdt_date, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.date_field :pdt_date, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.weather, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.text_field :weather, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.min_temper, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :min_temper, :class => "form-control rounded-0" 
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.max_temper, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :max_temper, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inf_qlty_bod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inf_qlty_bod, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inf_qlty_cod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inf_qlty_cod, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inf_qlty_ss, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inf_qlty_ss, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inf_qlty_nhn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inf_qlty_nhn, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inf_qlty_tn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inf_qlty_tn, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inf_qlty_tp, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inf_qlty_tp, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inf_qlty_ph, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inf_qlty_ph, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_cod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_cod, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_ss, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_ss, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_nhn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_nhn, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_tn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_tn, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_tp, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_tp, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_ph, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_ph, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_fecal, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_fecal, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.eff_qlty_bod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :eff_qlty_bod, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.sed_qlty_bod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :sed_qlty_bod, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.sed_qlty_cod, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :sed_qlty_cod, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.sed_qlty_ss, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :sed_qlty_ss, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.sed_qlty_nhn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :sed_qlty_nhn, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.sed_qlty_tn, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :sed_qlty_tn, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.sed_qlty_tp, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :sed_qlty_tp, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.sed_qlty_ph, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :sed_qlty_ph, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inflow, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.outflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :outflow, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.inmud, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :inmud, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.outmud, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :outmud, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.mst, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mst, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.power, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :power, :class => "form-control rounded-0" , :required => true
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.mdflow, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mdflow, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.mdrcy, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mdrcy, :class => "form-control rounded-0" 
+          
+        .form-group.row
+          = f.label Setting.day_pdt_rpts.mdsell, :class => "col-sm-3 col-form-label text-right"
+          .col-sm-6
+            = f.number_field :mdsell, :class => "form-control rounded-0" 
+          
+      
+      
+      
+      
+      
+        .form-group.row
+          .col-3.offset-3
+            = f.submit '保存', :class => "button  button-small button-action"
+        -#
+          .col-3.offset-1
+            = link_to '返回', day_pdt_rpts_path, :class => "button button-small  button-caution"

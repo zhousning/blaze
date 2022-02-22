@@ -68,3 +68,11 @@ function readURL(input) {
 function readFileName(input) {
   $(input).siblings('.append-url').html($(input).val());
 }
+
+//data=[{},{}] 后台json对象中key与data-field字段名完全一致
+function loadDataToBstpTable(table, url, request_params) {
+  var $table = $(table)
+  $.get(url, request_params).done(function (data) {
+    $table.bootstrapTable('load', data);
+  })
+}
