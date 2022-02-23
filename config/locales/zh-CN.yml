@@ -1037,3 +1037,16 @@ zh-CN:
       title: 厂区-编辑厂区信息
     update:
       title: 厂区-编辑厂区信息
+  sreports:
+    index:
+      title: 报表
+    mth_report_show:
+      title: 查看报表
+    day_report:
+      title: 日报表
+    mth_report:
+      title: 月报表
+    xls_day_download:
+      title: 下载excel日报表
+    xls_mth_download:
+      title: 下载excel月报表

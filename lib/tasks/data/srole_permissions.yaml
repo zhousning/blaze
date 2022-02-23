@@ -67,6 +67,17 @@
       actions: [smth_report_finish_index, smth_report_finish_show, xls_smth_download, download_report]
 
 - 
+  role_name: 集团供水报表管理
+  level: 1
+  permissions: 
+    -
+      controller: sreports_controller
+      actions: [index, mth_report_show, day_report, mth_report, xls_day_download, xls_mth_download]
+    -
+      controller: smth_pdt_rpts_controller
+      actions: [xls_mth_download, download_report]
+
+- 
   role_name: 供水数据立方
   level: 1
   permissions: 

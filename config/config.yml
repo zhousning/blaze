@@ -1009,6 +1009,7 @@ defaults:
     sdata_cube: 供水数据立方
     sdata_compare: 供水数据对比
     sarea_time: 供水厂间分析
+    sreport: 集团供水报表管理
   permissions: &107
     super_admin: 管理系统所有资源
     label: 权限管理

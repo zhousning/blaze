@@ -241,7 +241,7 @@
 #注释结束
 
 #供水
-#厂区数据填报
+##厂区数据填报
 @role_sfct           = Role.where(:name => Setting.roles.role_sfct).first
 @role_sday_pdt       = Role.where(:name => Setting.roles.sday_pdt).first
 @role_sday_rpt       = Role.where(:name => Setting.roles.sday_pdt_rpt).first
@@ -253,6 +253,7 @@
 @role_smth_rpt_verify = Role.where(:name => Setting.roles.smth_pdt_rpt_verify).first
 @role_smth_pdt_rpt_cmp_verify = Role.where(:name => Setting.roles.smth_pdt_rpt_cmp_verify).first
 
+@role_sreport         = Role.where(:name =>  Setting.roles.sreport).first
 @role_sdata_cube      = Role.where(:name => Setting.roles.sdata_cube).first
 @role_sdata_compare   = Role.where(:name => Setting.roles.sdata_compare).first
 @role_sarea_time      = Role.where(:name => Setting.roles.sarea_time).first
@@ -272,6 +273,20 @@ User.create!(:phone => "370869690537", :password => "lssw3708", :password_confir
 User.create!(:phone => "010137080537", :password => "lssw0101", :password_confirmation => "lssw0101", :name => "梁山城供数据审核员", :roles => @sdata_verifer, :sfactories => [@fysc])
 User.create!(:phone => "000005379999", :password => "lssw9999", :password_confirmation => "lssw9999", :name => "梁山水务管理者", :roles => @sfct_mgn, :sfactories => [@fysc, @gytsc, @syssc])
 User.create!(:phone => "111105374567", :password => "lssw4567", :password_confirmation => "lssw4567", :name => "梁山水务领导", :roles => @sfct_leader, :sfactories => [@fysc, @gytsc, @syssc])
+
+all_sfactories = Sfactory.all
+
+#集团运营
+@grp_sopt = [@role_sdata_compare ,@role_sdata_cube, @role_sarea_time, @role_sreport] 
+grp_sopt = User.where(:phone => "15763703588").first 
+grp_sopt.sfactories << all_sfactories
+grp_sopt.roles << @grp_sopt
+
+#集团管理者
+@grp_smgn = [@role_sdata_compare ,@role_sdata_cube, @role_sarea_time, @role_sreport] 
+grp_smgn = User.where(:phone => "1236688").first 
+grp_smgn.sfactories << all_sfactories
+grp_smgn.roles << @grp_smgn
 
 #Factory.all.each do |f|
 #  fake = Faker::Date

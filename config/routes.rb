@@ -196,6 +196,15 @@ Rails.application.routes.draw do
     get :query_day_reports, :on => :collection
     get :query_mth_reports, :on => :collection
   end
+  resources :sreports, :only => [:index] do
+    get :day_report, :on => :collection
+    get :mth_report, :on => :collection
+    get :mth_report_show, :on => :member
+    get :xls_day_download, :on => :collection
+    get :xls_mth_download, :on => :collection
+    get :query_day_reports, :on => :collection
+    get :query_mth_reports, :on => :collection
+  end
   #resources :departments do
   #  get :download_append, :on => :member
   #  post :parse_excel, :on => :collection

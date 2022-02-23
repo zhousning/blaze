@@ -1,0 +1,19 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = link_to '下载word', download_report_factory_mth_pdt_rpt_path(idencode(@mth_pdt_rpt.factory.id), idencode(@mth_pdt_rpt.id)), {:class => "button button-inverse button-small pull-right mr-1"} 
+          = link_to '下载excel', xls_mth_download_factory_mth_pdt_rpt_path(idencode(@mth_pdt_rpt.factory.id), idencode(@mth_pdt_rpt.id)), {:class => "button button-action button-small pull-right mr-1"} 
+
+          = link_to "/reports/mth_report", :class => "button button-small  pull-right button-primary mr-1" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        = render "mth_pdt_rpts/show_table"
+                      
+                  
+      = render "layouts/bootstrap/card"
