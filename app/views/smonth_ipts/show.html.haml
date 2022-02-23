@@ -1,0 +1,100 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-sm-12
+              %h2.text-center
+                = image_tag "gykg.jpg"
+            .col-md-8.offset-2.p-5.border
+              .card.border-0.mb-3.rounded-0
+                .card-header.bg-transparent.border-dark
+                  %h5
+                    = Setting.smonth_ipts.label
+                .card-body
+                  %table.table-bordered.day-pdt-table.w-100.mb-3
+                    %tbody
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.ipt
+                        %td.p-2.text-center
+                          = @smonth_ipt.ipt
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.end_ipt
+                        %td.p-2.text-center
+                          = @smonth_ipt.end_ipt
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.max_ipt
+                        %td.p-2.text-center
+                          = @smonth_ipt.max_ipt
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.min_ipt
+                        %td.p-2.text-center
+                          = @smonth_ipt.min_ipt
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.avg_ipt
+                        %td.p-2.text-center
+                          = @smonth_ipt.avg_ipt
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.max_date
+                        %td.p-2.text-center
+                          = @smonth_ipt.max_date
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.min_date
+                        %td.p-2.text-center
+                          = @smonth_ipt.min_date
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.yoy
+                        %td.p-2.text-center
+                          = @smonth_ipt.yoy
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.mom
+                        %td.p-2.text-center
+                          = @smonth_ipt.mom
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.smonth_ipts.ypdr
+                        %td.p-2.text-center
+                          = @smonth_ipt.ypdr
+                    
+              .row
+              
+              .row
+              
+              .row
+              
+              
+              .row
+                - @smonth_ipt.attachments.each_with_index do |e, i|
+                  .col-md-12
+                    = link_to File.basename(URI.decode(e.file_url)), download_attachment_smonth_ipt_path(idencode(@smonth_ipt.id), :number => i, :ft => '')
+              
+              
+      = render "layouts/bootstrap/card"

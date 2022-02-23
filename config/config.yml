@@ -2068,6 +2068,49 @@ development:
     yd: 硬度(mg/l)
     ph: PH
     bom: 千吨水耗电量(千瓦时/dam3)
+  smonth_ipts:
+    label: 月度采水
+    ipt: 采水量
+    end_ipt: 本月止累计采水量
+    max_ipt: 最高日采水量
+    min_ipt: 最低日采水量
+    avg_ipt: 平均日采水量
+    max_date: 最高日期
+    min_date: 最低日期
+    yoy: 同比
+    mom: 环比
+    ypdr: 年度
+  smonth_opts:
+    label: 月度供水
+    ipt: 供水量
+    end_ipt: 本月止累计供水量
+    max_ipt: 最高日供水量
+    min_ipt: 最低日供水量
+    avg_ipt: 平均日供水量
+    max_date: 最高日期
+    min_date: 最低日期
+    yoy: 同比
+    mom: 环比
+    ypdr: 年度
+  smonth_powers:
+    label: 月度电量
+    power: 电量
+    end_power: 本月止累计电
+    bom: 千吨水单耗
+    end_bom: 本月止累计千吨水单耗
+    avg_power: 平均电量
+    yoy_bom: 千吨水单耗同比
+    mom_bom: 千吨水单耗环比
+    yoy: 电量同比
+    mom: 电量环比
+    ypdr: 年度
+  smonth_presses:
+    label: 月度压力
+    max_pres: 最高压力
+    min_pres: 最低压力
+    avg_pres: 平均压力
+    max_date: 最高日期
+    min_date: 最低日期
 test:
   admins: *104
   users: *105

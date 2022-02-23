@@ -6,6 +6,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :dog
   belongs_to :dog
   belongs_to :dog
+  belongs_to :smonth_ipt
 end
 
 

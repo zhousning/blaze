@@ -1,0 +1,107 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @smonth_opt, :url => "/smonth_opts/#{@smonth_opt.id ? idencode(@smonth_opt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @smonth_opt.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@smonth_opt.errors.count, "错误")}:"
+            %ul
+              - @smonth_opt.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .col-sm-12
+            %h2.text-center
+              = image_tag "gykg.jpg"
+          .col-md-8.offset-md-2.p-5.border
+            #flash_explanation
+            .card.border-0.mb-3.rounded-0
+              .card-header.bg-transparent.border-success
+                %h5
+                  = Setting.smonth_opts.label
+              .card-body
+                %table.w-100.table-bordered.day-pdt-table
+                  %tbody
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.ipt, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :ipt, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.end_ipt, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :end_ipt, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.max_ipt, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :max_ipt, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.min_ipt, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :min_ipt, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.avg_ipt, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :avg_ipt, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.max_date, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.date_field :max_date, :class => "form-control" , :required => true
+                      
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.min_date, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.date_field :min_date, :class => "form-control" , :required => true
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.yoy, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :yoy, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+                    
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.mom, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :mom, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_opts.ypdr, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :ypdr, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+          
+          
+          
+          
+          
+            .form-group.row
+              .col-3.offset-3
+                = f.submit '保存', :class => "button  button-small button-action"
+            -#
+              .col-3.offset-1
+                = link_to '返回', smonth_opts_path, :class => "button button-small  button-caution"
