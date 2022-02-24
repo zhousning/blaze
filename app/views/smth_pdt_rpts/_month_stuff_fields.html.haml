@@ -1,0 +1,32 @@
+%table.table-bordered.day-pdt-table
+  %caption.text-center
+    = Setting.month_stuffs.label
+  %tbody
+    %tr
+      %td.p-2.text-center
+        = f.label Setting.month_stuffs.xdjtjl, :class => " text-center"
+      %td.p-2.text-center
+        = f.number_field :xdjtjl, :class => "form-control", :required => true 
+        
+      %td.p-2.text-center
+        = f.label Setting.month_stuffs.end_xdjtjl, :class => " text-center"
+      %td.p-2.text-center
+        = f.number_field :end_xdjtjl, :class => "form-control", :required => true 
+        
+    %tr
+      %td.p-2.text-center
+        = f.label Setting.month_stuffs.yoy, :class => " text-center"
+      %td.p-2.text-center
+        = f.number_field :yoy, :class => "form-control"
+        
+      %td.p-2.text-center
+        = f.label Setting.month_stuffs.mom, :class => " text-center"
+      %td.p-2.text-center
+        = f.number_field :mom, :class => "form-control"
+        
+    %tr
+      %td.p-2.text-center
+        = f.label Setting.month_stuffs.ypdr, :class => " text-center"
+      %td.p-2.text-center
+        = f.number_field :ypdr, :class => "form-control"
+        

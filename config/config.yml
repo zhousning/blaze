@@ -2068,13 +2068,27 @@ development:
     yd: 硬度(mg/l)
     ph: PH
     bom: 千吨水耗电量(千瓦时/dam3)
+  smth_pdt_rpts:
+    leakage: 漏损率
+  smonth_sells:
+    label: 月度售水
+    val: 售水量
+    end_val: 本月止累计售水量
+    max_val: 最高日售水量
+    min_val: 最低日售水量
+    avg_val: 平均日售水量
+    max_date: 最高日期
+    min_date: 最低日期
+    yoy: 同比
+    mom: 环比
+    ypdr: 年度
   smonth_ipts:
     label: 月度采水
     ipt: 采水量
-    end_ipt: 本月止累计采水量
-    max_ipt: 最高日采水量
-    min_ipt: 最低日采水量
-    avg_ipt: 平均日采水量
+    end_val: 本月止累计采水量
+    max_val: 最高日采水量
+    min_val: 最低日采水量
+    avg_val: 平均日采水量
     max_date: 最高日期
     min_date: 最低日期
     yoy: 同比
@@ -2082,11 +2096,11 @@ development:
     ypdr: 年度
   smonth_opts:
     label: 月度供水
-    ipt: 供水量
-    end_ipt: 本月止累计供水量
-    max_ipt: 最高日供水量
-    min_ipt: 最低日供水量
-    avg_ipt: 平均日供水量
+    val: 供水量
+    end_val: 本月止累计供水量
+    max_val: 最高日供水量
+    min_val: 最低日供水量
+    avg_val: 平均日供水量
     max_date: 最高日期
     min_date: 最低日期
     yoy: 同比
@@ -2094,21 +2108,26 @@ development:
     ypdr: 年度
   smonth_powers:
     label: 月度电量
-    power: 电量
-    end_power: 本月止累计电
-    bom: 千吨水单耗
-    end_bom: 本月止累计千吨水单耗
-    avg_power: 平均电量
-    yoy_bom: 千吨水单耗同比
-    mom_bom: 千吨水单耗环比
+    val: 电量
+    new_val: 修正电量
+    end_val: 本月止累计电
+    avg_val: 平均电量
     yoy: 电量同比
     mom: 电量环比
     ypdr: 年度
+    bom: 千吨水单耗
+    end_bom: 本月止累计千吨水单耗
+    yoy_bom: 千吨水单耗同比
+    mom_bom: 千吨水单耗环比
+    mbom: 配水单位单耗
+    end_mbom: 本月止累计配水单位单耗
+    yoy_mbom: 配水单位单耗同比
+    mom_mbom: 配水单位单耗环比
   smonth_presses:
     label: 月度压力
-    max_pres: 最高压力
-    min_pres: 最低压力
-    avg_pres: 平均压力
+    max_val: 最高压力
+    min_val: 最低压力
+    avg_val: 平均压力
     max_date: 最高日期
     min_date: 最低日期
 test:

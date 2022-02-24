@@ -1,0 +1,18 @@
+- if mth_pdt_rpt.state == Setting.mth_pdt_rpts.complete
+  %span.p-1.text-success.border.border-success
+    = Setting.mth_pdt_rpts.complete_t
+- elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
+  %span.p-1.text-primary.border.border-primary
+    = Setting.mth_pdt_rpts.ongoing_t
+- elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.verifying
+  %span.p-1.text-info.border.border-info
+    = Setting.mth_pdt_rpts.verifying_t
+- elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected
+  %span.p-1.text-danger.border.border-danger
+    = Setting.mth_pdt_rpts.rejected_t
+- elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_verifying
+  %span.p-1.text-info.border.border-info
+    = Setting.mth_pdt_rpts.cmp_verifying_t
+- elsif mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_rejected
+  %span.p-1.text-danger.border.border-danger
+    = Setting.mth_pdt_rpts.cmp_rejected_t

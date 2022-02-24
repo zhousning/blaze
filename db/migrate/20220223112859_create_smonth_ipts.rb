@@ -2,15 +2,15 @@ class CreateSmonthIpts < ActiveRecord::Migration
   def change
     create_table :smonth_ipts do |t|
     
-      t.float :ipt,  null: false, default: Setting.systems.default_num 
+      t.float :val,  null: false, default: Setting.systems.default_num 
     
-      t.float :end_ipt,  null: false, default: Setting.systems.default_num 
+      t.float :end_val,  null: false, default: Setting.systems.default_num 
     
-      t.float :max_ipt,  null: false, default: Setting.systems.default_num 
+      t.float :max_val,  null: false, default: Setting.systems.default_num 
     
-      t.float :min_ipt,  null: false, default: Setting.systems.default_num 
+      t.float :min_val,  null: false, default: Setting.systems.default_num 
     
-      t.float :avg_ipt,  null: false, default: Setting.systems.default_num 
+      t.float :avg_val,  null: false, default: Setting.systems.default_num 
     
       t.date :max_date
     

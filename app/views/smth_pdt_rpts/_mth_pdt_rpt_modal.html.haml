@@ -1,0 +1,17 @@
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered.modal-dialog-scrollable
+    .modal-content
+      .modal-header
+        %h3#mth-pdt-rpt-header.modal-title.text-center
+        %span.pull-right
+          = link_to '下载word', nil, {:id => "word-download", :class => "button button-inverse button-small  mr-1"} 
+          = link_to '下载excel', nil, {:id => "xls-download", :class => "button button-action button-small  mr-1"} 
+          = link_to '下载经济运行分析报告', nil, {:id => "ecm-rpt-download", :class => "button button-royal button-small  mr-1"} 
+      .modal-body
+        %table#mth-flow-ctn.table.table-bordered.bg-flow
+        %table#mth-cms-ctn.table.table-bordered.bg-cms
+        %table#mth-chemical-ctn.table.table-bordered.bg-chemical
+        %table#mth-power-ctn.table.table-bordered.bg-power
+        %table#mth-mud-ctn.table.table-bordered.bg-mud
+        %table#mth-md-ctn.table.table-bordered.bg-md
+        %img{:id => 'mth-cmc-bill', :class => "w-100"}

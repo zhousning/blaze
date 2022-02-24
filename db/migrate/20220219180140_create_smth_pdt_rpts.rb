@@ -14,6 +14,8 @@ class CreateSmthPdtRpts < ActiveRecord::Migration
     
       t.string :ecm_ans_rpt,  null: false, default: Setting.systems.default_str
 
+      t.float :leakage,  null: false, default: Setting.systems.default_num 
+
       t.references :sfactory
     
       t.timestamps null: false

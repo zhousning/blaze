@@ -1,0 +1,98 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      日期
+                    -#
+                      %th{:scope => "col"}
+                        = Setting.mth_pdt_rpts.avg_outflow
+                    %th{:scope => "col"}
+                      = Setting.mth_pdt_rpts.outflow
+                    %th{:scope => "col"}
+                      = Setting.mth_pdt_rpts.end_outflow
+                    %th{:scope => "col"}
+                      = Setting.month_cods.avg_inf
+                    %th{:scope => "col"}
+                      = Setting.month_cods.avg_eff
+                    %th{:scope => "col"}
+                      = Setting.month_tns.avg_inf
+                    %th{:scope => "col"}
+                      = Setting.month_tns.avg_eff
+                    %th{:scope => "col"}
+                      = Setting.month_tps.avg_inf
+                    %th{:scope => "col"}
+                      = Setting.month_tps.avg_eff
+                    %th{:scope => "col"}
+                %tbody
+                  - @mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = mth_pdt_rpt.start_date.year.to_s + "年" +  mth_pdt_rpt.start_date.month.to_s + "月"
+                      -#
+                        %td
+                          = mth_pdt_rpt.avg_outflow
+                      %td
+                        = mth_pdt_rpt.outflow
+                      %td
+                        = mth_pdt_rpt.end_outflow
+                      %td
+                        = mth_pdt_rpt.month_cod.avg_inf
+                      %td
+                        = mth_pdt_rpt.month_cod.avg_eff
+                      %td
+                        = mth_pdt_rpt.month_tn.avg_inf
+                      %td
+                        = mth_pdt_rpt.month_tn.avg_eff
+                      %td
+                        = mth_pdt_rpt.month_tp.avg_inf
+                      %td
+                        = mth_pdt_rpt.month_tp.avg_eff
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            = link_to "查看",  mth_report_finish_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
+      = render "layouts/bootstrap/card"
+
+
+-#
+  #newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = render 'form'
+
+          
+-#
+  = link_to xls_download_mth_pdt_rpts_path, :class => "button button-royal pull-right button-small mr-1" do
+    下载表格模板
+
+
+
+
+-#
+  = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+    = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+  %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+    = fa_icon "plus", text: Setting.systems.btn_new, right: false 

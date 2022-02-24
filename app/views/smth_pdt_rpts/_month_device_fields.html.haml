@@ -1,0 +1,54 @@
+%table.w-100.table-bordered.day-pdt-table
+  %caption.text-center
+    = Setting.month_devices.label
+  %tbody
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.wsyxts, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :wsyxts, :class => "form-control", :required => true 
+        
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.wswdyxts, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :wswdyxts, :class => "form-control", :required => true 
+        
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.sbwhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :sbwhl, :class => "form-control", :required => true 
+        
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.gysbwhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :gysbwhl, :class => "form-control", :required => true 
+        
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.wbywhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :wbywhl, :class => "form-control", :required => true 
+        
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.gzwwhl, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :gzwwhl, :class => "form-control", :required => true 
+        
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.yoy, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :yoy, :class => "form-control"
+        
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.mom, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :mom, :class => "form-control"
+        
+    %tr
+      %td.p-3.text-center
+        = f.label nil, Setting.month_devices.ypdr, :class => " text-center"
+      %td.p-3.text-center
+        = f.number_field :ypdr, :class => "form-control"
+        

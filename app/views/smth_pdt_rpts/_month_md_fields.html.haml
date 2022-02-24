@@ -1,0 +1,67 @@
+.card.border-0.mb-3.rounded-0
+  .card-header.bg-transparent.border-info
+    %h5
+      9
+      = Setting.month_mds.label
+  .card-body
+    %table.w-100.table-bordered.day-pdt-table
+      %caption.text-center
+      %tbody
+        %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.mdrcy, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :mdrcy, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.end_mdrcy, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :end_mdrcy, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+        %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.mdsell, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :mdsell, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.end_mdsell, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :end_mdsell, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+        %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.yoy_mdrcy, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :yoy_mdrcy, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
+            
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.mom_mdrcy, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :mom_mdrcy, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
+            
+        -#
+          %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.ypdr_mdrcy, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :ypdr_mdrcy, :class => "form-control border-danger"
+          %td.p-2.text-center{:colspan => '2'}
+            
+        %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.yoy_mdsell, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :yoy_mdsell, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.mom_mdsell, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :mom_mdsell, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
+            
+        -#
+          %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_mds.ypdr_mdsell, :class => " text-right"
+          %td.p-2.text-center
+            = f.number_field :ypdr_mdsell, :class => "form-control border-danger"
+          %td.p-2.text-center{:colspan => '2'}

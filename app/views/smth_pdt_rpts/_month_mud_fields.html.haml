@@ -1,0 +1,57 @@
+.card.border-0.mb-3.rounded-0
+  .card-header.bg-transparent.border-success
+    %h5
+      8
+      = Setting.month_muds.label
+  .card-body
+    %table.w-100.table-bordered.day-pdt-table
+      %tbody
+        %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.inmud, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :inmud, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.end_inmud, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :end_inmud, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+        %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.outmud, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :outmud, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.end_outmud, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :end_outmud, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+            
+        -#
+          %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.mst_up, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :mst_up, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly' 
+          %td.p-2.text-center{:colspan => '2'}
+            
+        %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.yoy, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :yoy, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
+            
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.mom, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :mom, :class => "form-control", :required => true, :step => 'any', :readonly => 'readonly'
+            
+        -#
+          %tr
+          %td.p-2.text-center
+            = f.label nil, Setting.month_muds.ypdr, :class => " text-center"
+          %td.p-2.text-center
+            = f.number_field :ypdr, :class => "form-control border-danger"
+          %td.p-2.text-center{:colspan => '2'}
+            

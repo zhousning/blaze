@@ -1,0 +1,100 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      -#
+        #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+          %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+            %span{"aria-hidden" => "true"} x 
+          %ul
+            %li = flash[:info]
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+          %span.text-danger
+            = fa_icon 'question-circle-o', text: '系统每月6号前自动生成上月月报表'
+          -#
+            %span.text-danger
+            = fa_icon "question-circle-o", text: Setting.systems.produce_mth_rpt 
+            %ul.list-group.list-group-horizontal
+            %li.list-group-item.pl-0.border-0
+              = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
+            %li.list-group-item.pl-0.border-0
+              = select_tag "months", options_for_mth_months, :include_blank=>false, :class=>"form-control"
+            %li.list-group-item.pl-0.border-0
+              %button#mth-rpt-create.button.button-primary.button-small{:type => "button", :'data-fct' => idencode(@factory.id)}
+                生成月报表
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      = Setting.mth_pdt_rpts.name
+                    %th{:scope => "col"}
+                      = Setting.mth_pdt_rpts.outflow
+                    %th{:scope => "col"}
+                      = Setting.mth_pdt_rpts.avg_outflow
+                    %th{:scope => "col"}
+                      = Setting.mth_pdt_rpts.end_outflow
+                    %th{:scope => "col"}
+                      进度
+                    %th{:scope => "col"}
+                      设置
+                %tbody
+                  - @mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = mth_pdt_rpt.name
+                      %td
+                        = mth_pdt_rpt.outflow
+                      %td
+                        = mth_pdt_rpt.avg_outflow
+                      %td
+                        = mth_pdt_rpt.end_outflow
+                      %td
+                        = render 'mth_pdt_rpts/state', :mth_pdt_rpt => mth_pdt_rpt
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing || mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected || mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_rejected
+                              = link_to "编辑", edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-caution button-small mr-1" 
+                            = link_to "查看",  factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
+                            -#
+                              = link_to "删除",  mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 
+      = render "layouts/bootstrap/card"
+
+
+-#
+  #newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} x 
+      .modal-body
+        = render 'form'
+
+          
+-#
+  = link_to xls_download_mth_pdt_rpts_path, :class => "button button-royal pull-right button-small mr-1" do
+    下载表格模板
+
+
+
+
+-#
+  = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
+    = fa_icon "plus", text: Setting.systems.btn_new, right: false 
+  %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
+    = fa_icon "plus", text: Setting.systems.btn_new, right: false 

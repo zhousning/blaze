@@ -1,6 +1,6 @@
-class CreateSmonthOpts < ActiveRecord::Migration
+class CreateSmonthSells < ActiveRecord::Migration
   def change
-    create_table :smonth_opts do |t|
+    create_table :smonth_sells do |t|
     
       t.float :val,  null: false, default: Setting.systems.default_num 
     
