@@ -18,7 +18,7 @@
 
       %table.table-bordered.day-pdt-table.w-100
         %caption.text-center
-          = Setting.mth_pdt_rpts.label
+          = Setting.smth_pdt_rpts.label
         %tbody
           %tr
             %td.p-2.text-center
@@ -40,413 +40,69 @@
             %td.p-2.text-center
               =  Setting.mth_pdt_rpts.end_outflow
             %td.p-2.text-center
-              = @mth_pdt_rpt.end_outflow
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-warning
-          %h5
-            = Setting.mth_chemicals.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %tbody
-              %tr
-                %td.p-2.text-center
-                %td.p-2.text-center
-                  = Setting.mth_chemicals.unprice
-                %td.p-2.text-center
-                  = Setting.mth_chemicals.cmptc
-                %td.p-2.text-center
-                  = Setting.mth_chemicals.dosage
-                %td.p-2.text-center
-                  = Setting.mth_chemicals.act_dosage
-                %td.p-2.text-center
-                  = Setting.mth_chemicals.avg_dosage
-                %td.p-2.text-center
-                  = Setting.mth_chemicals.dosptc
-                %td.p-2.text-center
-                  = Setting.mth_chemicals.per_cost
-              - @mth_pdt_rpt.mth_chemicals.each do |chemical|
-                %tr
-                  %td.p-2.text-center
-                    = chemicals_hash[chemical.name]
-                  %td.p-2.text-center
-                    = chemical.unprice
-                  %td.p-2.text-center
-                    = chemical.cmptc
-                  %td.p-2.text-center
-                    = chemical.dosage
-                  %td.p-2.text-center
-                    = chemical.act_dosage
-                  %td.p-2.text-center
-                    = chemical.avg_dosage
-                  %td.p-2.text-center
-                    = chemical.dosptc
-                  %td.p-2.text-center
-                    = chemical.per_cost
-          %p.m-3
-            = Setting.mth_chemicals.per_cost + '合计: '
-            = @mth_pdt_rpt.per_cost
-          
-          = image_tag @mth_pdt_rpt.cmc_bill_url, :class => "w-100"
-              
-          
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-dark
-          %h5
-            进出水水质
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %thead
-              %tr
-                %th.p-2.text-center
-                %th.p-2.text-center
-                  COD(在线/化验)
-                  -#
-                    = Setting.month_cods.label
-                %th.p-2.text-center
-                  = Setting.month_bods.label
-                  (化验)
-                %th.p-2.text-center
-                  NH3-N(在线/化验)
-                  -#
-                    = Setting.month_nhns.label
-                %th.p-2.text-center
-                  TN(在线/化验)
-                  -#
-                    = Setting.month_tns.label
-                %th.p-2.text-center
-                  TP(在线/化验)
-                  -#
-                    = Setting.month_tps.label
-                %th.p-2.text-center
-                  = Setting.month_sses.label
-                  (化验)
-                -#
-                  %th.p-2.text-center
-                  = Setting.month_fecals.label
-
-            %tbody
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.avg_inf.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.avg_inf
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.avg_inf
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.avg_inf
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.avg_inf
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.avg_inf
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.avg_inf
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.avg_inf
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.avg_inf
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.avg_inf
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.avg_inf
-                -#
-                  %td.p-2.text-center
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.avg_eff.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.avg_eff
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.avg_eff
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.avg_eff
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.avg_eff
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.avg_eff
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.avg_eff
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.avg_eff
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.avg_eff
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.avg_eff
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.avg_eff
-                -#
-                  %td.p-2.text-center
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.emr.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.emr
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.emr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.emr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.emr
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.emr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.emr
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.emr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.emr
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.emr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.emr
-                -#
-                  %td.p-2.text-center
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.avg_emq.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.avg_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.avg_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.avg_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.avg_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.avg_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.avg_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.avg_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.avg_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.avg_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.avg_emq
-                -#
-                  %td.p-2.text-center
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.emq.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.emq
-                -#
-                  %td.p-2.text-center
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.end_emq.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.end_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.end_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.end_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.end_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.end_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.end_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.end_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.end_emq
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.end_emq
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.end_emq
-                -#
-                  %td.p-2.text-center
-              -#
-                %tr
-                  %td.p-2.text-center
-                    =  Setting.month_cods.up_std.gsub('COD','')
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_cod.up_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_bod.up_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_nhn.up_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_tn.up_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_tp.up_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_ss.up_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_fecal.up_std
-                %tr
-                  %td.p-2.text-center
-                    =  Setting.month_cods.end_std.gsub('COD','')
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_cod.end_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_bod.end_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_nhn.end_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_tn.end_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_tp.end_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_ss.end_std
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_fecal.end_std
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.yoy.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.yoy
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.yoy
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.yoy
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.yoy
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.yoy
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.yoy
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.yoy
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.yoy
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.yoy
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.yoy
-                -#
-                  %td.p-2.text-center
-                  = @mth_pdt_rpt.month_fecal.yoy
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.mom.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.mom
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_cod.mom
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.mom
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.mom
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_nhn.mom
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.mom
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tn.mom
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.mom
-                  = '/'
-                  = @mth_pdt_rpt.cmonth_tp.mom
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.mom
-                -#
-                  %td.p-2.text-center
-                  = @mth_pdt_rpt.month_fecal.mom
-            -#
-              %tr
-                %td.p-2.text-center
-                  =  Setting.month_cods.ypdr.gsub('COD','')
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_cod.ypdr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_bod.ypdr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_nhn.ypdr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tn.ypdr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_tp.ypdr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_ss.ypdr
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.month_fecal.ypdr
                   
       .card.border-0.mb-3.rounded-0
         .card-header.bg-transparent.border-primary
           %h5
-            = Setting.month_powers.label
+            = Setting.smonth_ipts.label
         .card-body
           %table.table-bordered.day-pdt-table.w-100
             %tbody
               %tr
-                %td.p-2.text-right
-                  =  Setting.month_powers.power
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.power
-                 
-                %td.p-2.text-right
-                  =  Setting.month_powers.end_power
+                  = Setting.smonth_ipts.ipt
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.end_power
-                 
+                  = @mth_pdt_rpt.smonth_ipt.ipt
+              
+              
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.end_ipt
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.end_ipt
+              
+              
               %tr
-                %td.p-2.text-right
-                  =  Setting.month_powers.stdpower
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.stdpower
-                %td.p-2.text-right
-                  =  Setting.month_powers.bom
+                  = Setting.smonth_ipts.max_ipt
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.bom
-                 
-                -#
-                  %td.p-2.text-right
-                    =  Setting.month_powers.bom_power
-                  %td.p-2.text-center
-                    = @mth_pdt_rpt.month_power.bom_power
-                 
+                  = @mth_pdt_rpt.smonth_ipt.max_ipt
+              
               %tr
-                %td.p-2.text-right
-                  =  Setting.month_powers.yoy_power
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.yoy_power
-                 
-                %td.p-2.text-right
-                  =  Setting.month_powers.mom_power
+                  = Setting.smonth_ipts.min_ipt
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.mom_power
+                  = @mth_pdt_rpt.smonth_ipt.min_ipt
+              
+              
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.avg_ipt
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.avg_ipt
+              
+              
               %tr
-                %td.p-2.text-right
-                  =  Setting.month_powers.yoy_bom
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.yoy_bom
-                 
-                %td.p-2.text-right
-                  =  Setting.month_powers.mom_bom
+                  = Setting.smonth_ipts.max_date
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.mom_bom
-                 
-            -#
+                  = @mth_pdt_rpt.smonth_ipt.max_date
+              
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.min_date
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.min_date
+              
+              
               %tr
-                %td.p-2.text-right
-                  =  Setting.month_powers.ypdr_power
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.ypdr_power
-
-                %td.p-2.text-right
-                  =  Setting.month_powers.ypdr_bom
+                  = Setting.smonth_ipts.yoy
                 %td.p-2.text-center
-                  = @mth_pdt_rpt.month_power.ypdr_bom
+                  = @mth_pdt_rpt.smonth_ipt.yoy
+              
+              
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.mom
                   
               
               

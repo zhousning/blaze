@@ -1,7 +1,7 @@
-class MthPdtRptsController < ApplicationController
+class SmthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:download_append, :produce_report]
+  authorize_resource :except => [:download_append, :produce_report, :query_day_reports, :query_mth_reports]
 
   include MathCube 
   include CreateMthPdtRpt 
@@ -27,17 +27,47 @@ class MthPdtRptsController < ApplicationController
   end
 
   def index
-    @factory = my_factory
-   
-    @months = months
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.ongoing, Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order('start_date DESC').page( params[:page]).per( Setting.systems.per_page )  if @factory
-   
+    fcts = current_user.sfactories.all.pluck(:id)
+    states = [Setting.mth_pdt_rpts.ongoing, Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]
+    @mth_pdt_rpts = SmthPdtRpt.where(['sfactory_id in (?) and state in (?)', fcts, states]).order('start_date DESC').page( params[:page]).per( Setting.systems.per_page )
+  end
+
+  def query_mth_reports 
+    fcts = params[:fcts].gsub(/\s/, '').split(",")
+    fcts = fcts.collect do |fct|
+      iddecode(fct)
+    end
+    year = params[:year].strip.to_i
+    month = params[:month].strip.to_i
+
+    _start = Date.new(year, month, 1)
+    @factories = Sfactory.find(fcts)
+
+    obj = []
+    @factories.each do |fct|
+      mth_pdt_rpts = fct.mth_pdt_rpts.where(:start_date => _start)
+      mth_pdt_rpts.each do |mth_pdt_rpt|
+        button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + idencode(mth_pdt_rpt.id) + "' data-fct = '" + idencode(fct.id) +"'>查看</button>"
+        obj << { 
+          :id          => idencode(mth_pdt_rpt.id).to_s,
+          :name        => mth_pdt_rpt.name,
+          :ipt     => mth_pdt_rpt.ipt,
+          :opt     => mth_pdt_rpt.opt,
+          :power     => mth_pdt_rpt.power,
+          :state       => mth_state(mth_pdt_rpt.state),
+          :button => button
+        }
+      end
+    end
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
   end
 
   def show
-    @factory = my_factory
+    @factory = my_sfactory
    
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
    
   end
 
@@ -99,18 +129,18 @@ class MthPdtRptsController < ApplicationController
     redirect_to cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
 
-  def mth_report_finish_index
+  def smth_report_finish_index
     @factory = my_factory
     @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => Setting.mth_pdt_rpts.complete).order('start_date DESC')
   end
 
-  def mth_report_finish_show
+  def smth_report_finish_show
     @factory = my_factory
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
   end
    
 
-  def mth_rpt_create
+  def smth_rpt_create
     @factory = my_factory
     month = params[:month].strip.to_i
     year = params[:year].strip.to_i
@@ -291,53 +321,6 @@ class MthPdtRptsController < ApplicationController
       [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-    def month_tp_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def month_tn_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def month_nhn_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def cmonth_cod_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def cmonth_tp_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def cmonth_tn_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def cmonth_nhn_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def month_ss_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-
-    def month_fecal_params
-      [:id, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def month_power_params
-      [:id, :power, :end_power, :stdpower, :bom, :bom_power, :yoy_power, :mom_power, :yoy_bom, :mom_bom, :_destroy]
-    end
-  
-    def month_mud_params
-      [:id, :inmud, :end_inmud, :outmud, :end_outmud, :mst_up, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def month_md_params
-      [:id, :mdrcy, :end_mdrcy, :mdsell, :end_mdsell, :yoy_mdrcy, :mom_mdrcy, :yoy_mdsell, :mom_mdsell, :ypdr ,:_destroy]
-    end
     
     def my_factory
       @factory = current_user.factories.find(iddecode(params[:factory_id]))
@@ -495,6 +478,18 @@ class MthPdtRptsController < ApplicationController
         hash[f.code] = f.name
       end
       hash
+    end
+
+    def mth_state(state) 
+      result = {
+        Setting.mth_pdt_rpts.complete => Setting.mth_pdt_rpts.complete_t,
+        Setting.mth_pdt_rpts.ongoing => Setting.mth_pdt_rpts.ongoing_t,
+        Setting.mth_pdt_rpts.verifying => Setting.mth_pdt_rpts.verifying_t,
+        Setting.mth_pdt_rpts.rejected => Setting.mth_pdt_rpts.rejected_t,
+        Setting.mth_pdt_rpts.cmp_verifying => Setting.mth_pdt_rpts.cmp_verifying_t,
+        Setting.mth_pdt_rpts.cmp_rejected =>  Setting.mth_pdt_rpts.cmp_rejected_t
+      }
+      result[state]
     end
 
 

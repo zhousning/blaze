@@ -74,11 +74,11 @@ module SmathCube
   end
 
   def static_max_min(factory_id, _start, _end)
-    day_pdt_rpts = SdayPdtRpt.where(["sfactory_id = ? and pdt_date between ? and ?", factory_id, _start, _end])
-    max_ipt = day_pdt_rpts.select('pdt_date, max(ipt) max') 
-    max_opt = day_pdt_rpts.select('pdt_date, max(opt) max') 
-    min_ipt = day_pdt_rpts.select('pdt_date, min(ipt) min') 
-    min_opt = day_pdt_rpts.select('pdt_date, min(opt) min') 
+    day_pdt_rpts = SdayPdt.where(["sfactory_id = ? and pdt_date between ? and ?", factory_id, _start, _end])
+    max_ipt = day_pdt_rpts.select('pdt_date, max(ipt) max')[0] 
+    max_opt = day_pdt_rpts.select('pdt_date, max(opt) max')[0] 
+    min_ipt = day_pdt_rpts.select('pdt_date, min(ipt) min')[0] 
+    min_opt = day_pdt_rpts.select('pdt_date, min(opt) min')[0] 
 
     {
       :max_ipt => {:pdt_date => max_ipt.pdt_date, :val => max_ipt.max},
@@ -89,7 +89,7 @@ module SmathCube
   end
 
   def static_sum(factory_id, _start, _end)
-    day_pdt_rpts = SdayPdtRpt.where(["sfactory_id = ? and pdt_date between ? and ?", factory_id, _start, _end])
+    day_pdt_rpts = SdayPdt.where(["sfactory_id = ? and pdt_date between ? and ?", factory_id, _start, _end])
     rpt_static = day_pdt_rpts.select(search_str) 
     rpt = rpt_static[0]
     #day_rpt_stcs = DayRptStc.where(:day_pdt_rpt => day_pdt_rpts.pluck(:id))
@@ -111,10 +111,10 @@ module SmathCube
 
     result = {
       :state => 'nozero',
-      :ipt => { title: Setting.sday_pdt_rpts.ipt, sum: rpt.sum_ipt, avg: rpt.avg_ipt},
-      :opt => { title: Setting.sday_pdt_rpts.opt, sum: rpt.sum_opt, avg: rpt.avg_opt},
-      :press => { title: Setting.sday_pdt_rpts.press, sum: rpt.sum_press, avg: rpt.avg_press},
-      :power => { title: Setting.sday_pdt_rpts.power, sum: rpt.sum_power, avg: rpt.avg_power}
+      :ipt => { title: Setting.sday_pdts.ipt, sum: rpt.sum_ipt, avg: rpt.avg_ipt},
+      :opt => { title: Setting.sday_pdts.opt, sum: rpt.sum_opt, avg: rpt.avg_opt},
+      :press => { title: Setting.sday_pdts.press, sum: rpt.sum_press, avg: rpt.avg_press},
+      :power => { title: Setting.sday_pdts.power, sum: rpt.sum_power, avg: rpt.avg_power}
     }
     result
   end
@@ -122,10 +122,10 @@ module SmathCube
   def result_zero
     {
       :state => 'zero',
-      :ipt => { title: Setting.sday_pdt_rpts.ipt, sum: 0, avg: 0},
-      :opt => { title: Setting.sday_pdt_rpts.opt, sum: 0, avg: 0},
-      :press => { title: Setting.sday_pdt_rpts.press, sum: 0, avg: 0},
-      :power => { title: Setting.sday_pdt_rpts.power, sum: 0, avg: 0}
+      :ipt => { title: Setting.sday_pdts.ipt, sum: 0, avg: 0},
+      :opt => { title: Setting.sday_pdts.opt, sum: 0, avg: 0},
+      :press => { title: Setting.sday_pdts.press, sum: 0, avg: 0},
+      :power => { title: Setting.sday_pdts.power, sum: 0, avg: 0}
     }
   end
 

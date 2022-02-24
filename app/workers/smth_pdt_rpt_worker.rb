@@ -1,6 +1,6 @@
-class MthPdtRptWorker
+class SmthPdtRptWorker
   include Sidekiq::Worker
-  include MathCube 
+  include SmathCube 
   include CreateSmthPdtRpt
 
   def perform

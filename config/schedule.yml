@@ -10,3 +10,7 @@ produce_mth_pdt_rpt:
   cron: "30 3 3 * *"
   class: "MthPdtRptWorker"
   queue: default
+produce_smth_pdt_rpt:
+  cron: "30 2 3 * *"
+  class: "SmthPdtRptWorker"
+  queue: default

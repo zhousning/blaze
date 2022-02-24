@@ -1,6 +1,6 @@
 module CreateSmthPdtRpt
   include FormulaLib 
-  def create_mth_pdt_rpt(factory, year, month, state)
+  def create_smth_pdt_rpt(factory, year, month, state)
     process_result = ''
     _year_start = Date.new(year, 1, 1)
     _start = Date.new(year, month, 1)
@@ -22,8 +22,8 @@ module CreateSmthPdtRpt
     name = year.to_s + "年" + month.to_s + "月" + factory.name + "生产运营报告"
     rpt = mth_pdt_rpt(_start, _end, factory.id, name, state)
 
-    ipt = month_water(result[:ipt][:sum], year_result[:ipt][:sum], max_min[max_ipt][:val], max_min[min_ipt][:val], result[:ipt][:avg], max_min[max_ipt][:pdt_date], max_min[min_ipt][:pdt_date], yoy_result[:ipt], mon_result[:ipt])
-    opt = month_water(result[:opt][:sum], year_result[:opt][:sum], max_min[max_opt][:val], max_min[min_opt][:val], result[:opt][:avg], max_min[max_opt][:pdt_date], max_min[min_opt][:pdt_date], yoy_result[:opt], mon_result[:opt])
+    ipt = month_water(result[:ipt][:sum], year_result[:ipt][:sum], max_min[:max_ipt][:val], max_min[:min_ipt][:val], result[:ipt][:avg], max_min[:max_ipt][:pdt_date], max_min[:min_ipt][:pdt_date], yoy_result[:ipt], mom_result[:ipt])
+    opt = month_water(result[:opt][:sum], year_result[:opt][:sum], max_min[:max_opt][:val], max_min[:min_opt][:val], result[:opt][:avg], max_min[:max_opt][:pdt_date], max_min[:min_opt][:pdt_date], yoy_result[:opt], mom_result[:opt])
 
     
     SmthPdtRpt.transaction do
@@ -37,6 +37,14 @@ module CreateSmthPdtRpt
         mthopt = SmonthOpt.new(opt)
         mthopt.smth_pdt_rpt = rpt
         mthopt.save!
+
+        mthpower = SmonthPower.new()
+        mthpower.smth_pdt_rpt = rpt
+        mthpower.save!
+
+        mthsell = SmonthSell.new()
+        mthsell.smth_pdt_rpt = rpt
+        mthsell.save!
 
         process_result = 'success'
       else
@@ -64,7 +72,7 @@ module CreateSmthPdtRpt
         :end_val   =>   end_val,
         :max_val   =>   max_val,
         :min_val   =>   min_val,
-        :avg_inf   =>   avg_inf,
+        :avg_val   =>   avg_val,
         :min_date   =>   min_date,
         :max_date   =>   max_date,
         :yoy       =>   yoy    ,

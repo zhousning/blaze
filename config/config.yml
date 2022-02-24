@@ -2061,7 +2061,7 @@ development:
     two_verify: 二级审核人
     ipt: 采水量(m3)
     opt: 供水量(m3)
-    pres: 出厂水平均压力(Mpa)
+    press: 出厂水平均压力(Mpa)
     power: 用电量(千瓦时)
     yl: 余氯(mg/l)
     zd: 浊度(NTU)
@@ -2084,7 +2084,7 @@ development:
     ypdr: 年度
   smonth_ipts:
     label: 月度采水
-    ipt: 采水量
+    val: 采水量
     end_val: 本月止累计采水量
     max_val: 最高日采水量
     min_val: 最低日采水量

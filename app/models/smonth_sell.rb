@@ -1,4 +1,4 @@
-class SmonthIpt < ActiveRecord::Base
+class SmonthSell < ActiveRecord::Base
 
 
 

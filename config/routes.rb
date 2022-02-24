@@ -223,6 +223,7 @@ Rails.application.routes.draw do
     get :verify_index, :on => :collection
     get :cmp_verify_index, :on => :collection
     get :smth_report_finish_index, :on => :collection
+    get :query_mth_reports, :on => :collection
   end
   resources :sfactories, :only => [:edit, :update] do
     resources :sday_pdts, :only => [:show, :edit, :update] do

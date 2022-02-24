@@ -72,7 +72,6 @@ $(".sreports").ready(function() {
           });
           $table.bootstrapTable('load', data);
         })
-
     });
   }
 });

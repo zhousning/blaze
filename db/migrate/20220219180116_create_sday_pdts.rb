@@ -26,7 +26,7 @@ class CreateSdayPdts < ActiveRecord::Migration
     
       t.float :opt,  null: false, default: Setting.systems.default_num 
     
-      t.float :pres,  null: false, default: Setting.systems.default_num 
+      t.float :press,  null: false, default: Setting.systems.default_num 
     
       t.float :power,  null: false, default: Setting.systems.default_num 
     
