@@ -13,8 +13,15 @@ class SreportsController < ApplicationController
   end
 
   def day_report
-    @sday_pdts = [] 
-    @factories = Sfactory.all
+    @factories = Sfactory.where(:category => Setting.sfactories.country)
+    gon.fct = ""
+    @factories.each do |fct|
+      gon.fct += idencode(fct.id).to_s + ","
+    end
+  end
+
+  def uday_report
+    @factories = Sfactory.where(:category => Setting.sfactories.city)
     gon.fct = ""
     @factories.each do |fct|
       gon.fct += idencode(fct.id).to_s + ","
@@ -51,7 +58,15 @@ class SreportsController < ApplicationController
   end
 
   def mth_report
-    @factories = Sfactory.all
+    @factories = Sfactory.where(:category => Setting.sfactories.country)
+    gon.fct = ""
+    @factories.each do |fct|
+      gon.fct += idencode(fct.id).to_s + ","
+    end
+  end
+
+  def umth_report
+    @factories = Sfactory.where(:category => Setting.sfactories.city)
     gon.fct = ""
     @factories.each do |fct|
       gon.fct += idencode(fct.id).to_s + ","

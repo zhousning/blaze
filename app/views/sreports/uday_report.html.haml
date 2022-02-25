@@ -1,0 +1,34 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      = render 'layouts/components/date_start_end'
+      = render 'layouts/components/fct_lists_checkboxes'
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table#sday-pdt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true", :'data-height' => "600", :'data-virtual-scroll' => "true", :'data-show-columns' => "true", :'data-page-size' => "15"}
+                %thead
+                  %tr
+                    %th{:scope => "col", :'data-field' => "id"} #
+
+                    %th{:scope => "col", :'data-field' => "pdt_date"}
+                      = Setting.day_pdts.pdt_date
+                    %th{:scope => "col", :'data-field' => "name"}
+                      = Setting.sday_pdts.name
+                    %th{:scope => "col", :'data-field' => "ipt"}
+                      = Setting.sday_pdts.ipt
+                    %th{:scope => "col", :'data-field' => "opt"}
+                      = Setting.sday_pdts.opt
+                    %th{:scope => "col", :'data-field' => "power"}
+                      = Setting.sday_pdts.power
+                    %th{:scope => "col", :'data-field' => "operator"}
+
+      = render "layouts/bootstrap/card"
+
+-#
+  = render "day_pdt_rpts/day_pdt_rpt_modal"

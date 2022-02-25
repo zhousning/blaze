@@ -1,6 +1,6 @@
 $(".sreports").ready(function() {
 
-  if ($(".sreports.day_report").length > 0) {
+  if ($(".sreports.day_report, .sreports.uday_report").length > 0) {
     var table = "#sday-pdt-table";
     var url = '/sday_pdt_rpts/query_all';
 
@@ -24,7 +24,7 @@ $(".sreports").ready(function() {
 
   }
 
-  if ($(".sreports.mth_report").length > 0) {
+  if ($(".sreports.mth_report, .sreports.umth_report").length > 0) {
     var table = "#mth-pdt-rpt-table";
     var url = '/sreports/query_mth_reports';
 
