@@ -3,9 +3,9 @@ class SmthPdtRptsController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource :except => [:download_append, :produce_report, :query_day_reports, :query_mth_reports]
 
-  include MathCube 
-  include CreateMthPdtRpt 
-  include UpdateMthPdtRpt
+  include SmathCube 
+  include CreateSmthPdtRpt 
+  include UpdateSmthPdtRpt
 
   #CMS = ['cod', 'bod', 'nhn', 'tn', 'tp', 'ss', 'fecal']
   #VARVALUE = ['avg_inf', 'avg_eff', 'emr', 'avg_emq', 'emq', 'end_emq','up_std', 'end_std', 'yoy', 'mom']  
@@ -200,41 +200,15 @@ class SmthPdtRptsController < ApplicationController
     end
   end
 
-  def mth_rpt_sync
-    @factory = my_factory 
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-    _start = @mth_pdt_rpt.start_date
-    _end = @mth_pdt_rpt.end_date
-    cmc_hash = chemicals_hash
-    result = update_mth_pdt_rpt(@mth_pdt_rpt)
-
-
-    select_str = "
-      chemicals.name chemical_id, 
-      ifnull(sum(dosage),    0) sum_dosage, 
-      ifnull(avg(dosage),    0) avg_dosage
-    "
-    chemicals = Chemical.joins(:day_pdt_rpt).where(["day_pdt_rpts.factory_id = ? and day_pdt_rpts.pdt_date between ? and ?", @factory.id, _start, _end]).select(select_str).group(:name)
-    my_chemicals = [] 
-    chemicals.each do |chemical|
-      dosage = format("%0.2f", chemical.sum_dosage).to_f
-      avg_dosage = format("%0.2f", chemical.avg_dosage).to_f
-      id = chemical.chemical_id.to_s
-      my_chemicals <<
-        { 
-          :chemical_code => id,
-          :chemical_title => cmc_hash[id],
-          :dosage => dosage,
-          :avg_dosage => avg_dosage
-        }
-    end
+  def smth_rpt_sync
+    @factory = my_sfactory 
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
+    result = update_smth_pdt_rpt(@mth_pdt_rpt)
 
     respond_to do |format|
       format.json{ render :json => 
         {
-          cms: result[:cms],
-          flow: result[:flow],
-          chemicals: my_chemicals
+          cms: result[:water],
         }.to_json
       }
     end
