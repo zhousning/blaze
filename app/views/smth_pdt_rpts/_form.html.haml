@@ -1,7 +1,7 @@
 .container-fluid
   .row.justify-content-sm-center
     .col-sm-12
-      = form_for @mth_pdt_rpt, :url => "/factories/#{idencode(@factory.id)}/mth_pdt_rpts/#{@mth_pdt_rpt.id ? idencode(@mth_pdt_rpt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+      = form_for @mth_pdt_rpt, :url => "/sfactories/#{idencode(@factory.id)}/smth_pdt_rpts/#{@mth_pdt_rpt.id ? idencode(@mth_pdt_rpt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
         - if @mth_pdt_rpt.errors.any?
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
@@ -22,28 +22,6 @@
       
           .col-sm-8.offset-2.p-5.border
             .row
-              .col-6
-                .form-group.row
-                  = f.label Setting.mth_pdt_rpts.design, :class => "col-sm-6 col-form-label text-right"
-                  .col-sm-6
-                    = f.text_field :design, :class => "form-control rounded-0" , :required => true, :disabled => true
-              .col-6
-                .form-group.row
-                  = f.label Setting.mth_pdt_rpts.outflow, :class => "col-sm-6 col-form-label text-right"
-                  .col-sm-6
-                    = f.number_field :outflow, :class => "form-control rounded-0" , :required => true, :step => 'any', :readonly => 'readonly'
-              .col-6
-                .form-group.row
-                  = f.label Setting.mth_pdt_rpts.avg_outflow, :class => "col-sm-6 col-form-label text-right"
-                  .col-sm-6
-                    = f.number_field :avg_outflow, :class => "form-control rounded-0" , :required => true, :step => 'any', :readonly => 'readonly'
-              .col-6
-                .form-group.row
-                  = f.label Setting.mth_pdt_rpts.end_outflow, :class => "col-sm-6 col-form-label text-right"
-                  .col-sm-6
-                    = f.number_field :end_outflow, :class => "form-control rounded-0" , :required => true, :step => 'any', :readonly => 'readonly'
-          
-            .row
               .col-12
                 .form-group.row
                   = f.label Setting.mth_pdt_rpts.ecm_ans_rpt + 'word文件(必上传)', :class => "col-sm-3 col-form-label text-right text-primary"
@@ -52,76 +30,39 @@
                       %p.append-url
                         = f.one_attachment("ecm_ans_rpt")
                       = f.file_field :ecm_ans_rpt, :accept => ".doc,.docx", :class => "select-file", :onchange => "readFileName(this);"
-            .card.border-0.mb-3.rounded-0
-              .card-header.bg-transparent.border-warning
-                %h5
-                  = Setting.chemicals.label
-                  %span.text-danger
-                    (PAM药剂浓度为固体药剂溶解后浓度)
-              .card-body
-                = f.fields_for :mth_chemicals do |chemical|
-                  = render 'chemical_fields', f: chemical
-                #mth-chemical-ctn
-                .form-group.row
-                  = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传,图片大小小于500KB)', :class => "col-sm-3 col-form-label text-right text-danger"
-                  .col-sm-9
-                    %label.newbutton
-                      = image_tag f.one_image("cmc_bill"), :class => "blah"
-                      = f.file_field :cmc_bill, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
       
-            = f.fields_for :month_cod do |mth_cod|
-              = render 'month_cod_fields', f: mth_cod 
+            = f.fields_for :smonth_ipt do |smth_ipt|
+              = render 'smonth_ipt_fields', f: smth_ipt
+            = f.fields_for :smonth_opt do |smth_opt|
+              = render 'smonth_opt_fields', f: smth_opt
+            = f.fields_for :smonth_press do |smth_press|
+              = render 'smonth_press_fields', f: smth_press
+            = f.fields_for :smonth_sell do |smth_sell|
+              = render 'smonth_sell_fields', f: smth_sell
+            = f.fields_for :smonth_power do |smth_power|
+              = render 'smonth_power_fields', f: smth_power
 
-            = f.fields_for :cmonth_cod do |cmth_cod|
-              = render 'cmonth_cod_fields', f: cmth_cod 
-   
-            = f.fields_for :month_bod do |mth_bod|
-              = render 'month_bod_fields', f: mth_bod 
-   
-            = f.fields_for :month_nhn do |mth_nhn|
-              = render 'month_nhn_fields', f: mth_nhn 
 
-            = f.fields_for :cmonth_nhn do |cmth_nhn|
-              = render 'cmonth_nhn_fields', f: cmth_nhn 
-   
-            = f.fields_for :month_tn do |mth_tn|
-              = render 'month_tn_fields', f: mth_tn 
-
-            = f.fields_for :cmonth_tn do |cmth_tn|
-              = render 'cmonth_tn_fields', f: cmth_tn 
-   
-            = f.fields_for :month_tp do |mth_tp|
-              = render 'month_tp_fields', f: mth_tp 
-
-            = f.fields_for :cmonth_tp do |cmth_tp|
-              = render 'cmonth_tp_fields', f: cmth_tp 
-
-            = f.fields_for :month_ss do |mth_nhn|
-              = render 'month_ss_fields', f: mth_nhn 
-   
-            = f.fields_for :month_power do |mth_power|
-              = render 'month_power_fields', f: mth_power 
-   
-            = f.fields_for :month_mud do |mth_mud|
-              = render 'month_mud_fields', f: mth_mud 
-   
-            = f.fields_for :month_md do |mth_md|
-              = render 'month_md_fields', f: mth_md 
-   
-            -#
-              = f.fields_for :month_device do |month_device|
-                = render 'month_device_fields', f: month_device 
-   
-              = f.fields_for :month_stuff do |month_stuff|
-                = render 'month_stuff_fields', f: month_stuff 
-
-              = f.fields_for :month_fecal do |month_fecal|
-                = render 'month_fecal_fields', f: month_fecal 
-   
-      
         .form-group.row
           .col-3.offset-3
             = f.submit '保存', :class => "button  button-small button-action"
-        -#
-          .col-3.offset-1
-            = link_to '返回', mth_pdt_rpts_path, :class => "button button-small  button-caution"
+-#
+  .col-3.offset-1
+    = link_to '返回', mth_pdt_rpts_path, :class => "button button-small  button-caution"
+-#
+  .card.border-0.mb-3.rounded-0
+    .card-header.bg-transparent.border-warning
+      %h5
+        = Setting.chemicals.label
+        %span.text-danger
+          (PAM药剂浓度为固体药剂溶解后浓度)
+    .card-body
+      = f.fields_for :mth_chemicals do |chemical|
+        = render 'chemical_fields', f: chemical
+      #mth-chemical-ctn
+      .form-group.row
+        = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传,图片大小小于500KB)', :class => "col-sm-3 col-form-label text-right text-danger"
+        .col-sm-9
+          %label.newbutton
+            = image_tag f.one_image("cmc_bill"), :class => "blah"
+            = f.file_field :cmc_bill, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"

@@ -11,6 +11,9 @@ class SmthPdtRpt < ActiveRecord::Base
   has_one :smonth_opt, :dependent => :destroy
   accepts_nested_attributes_for :smonth_opt, reject_if: :all_blank, allow_destroy: true
 
+  has_one :smonth_sell, :dependent => :destroy
+  accepts_nested_attributes_for :smonth_sell, reject_if: :all_blank, allow_destroy: true
+
   has_one :smonth_power, :dependent => :destroy
   accepts_nested_attributes_for :smonth_power, reject_if: :all_blank, allow_destroy: true
 

@@ -24,7 +24,7 @@ module CreateSmthPdtRpt
 
     ipt = month_water(result[:ipt][:sum], year_result[:ipt][:sum], max_min[:max_ipt][:val], max_min[:min_ipt][:val], result[:ipt][:avg], max_min[:max_ipt][:pdt_date], max_min[:min_ipt][:pdt_date], yoy_result[:ipt], mom_result[:ipt])
     opt = month_water(result[:opt][:sum], year_result[:opt][:sum], max_min[:max_opt][:val], max_min[:min_opt][:val], result[:opt][:avg], max_min[:max_opt][:pdt_date], max_min[:min_opt][:pdt_date], yoy_result[:opt], mom_result[:opt])
-
+    press = month_press(max_min[:max_press][:val], max_min[:min_press][:val], result[:press][:avg], max_min[:max_press][:pdt_date], max_min[:min_press][:pdt_date])
     
     SmthPdtRpt.transaction do
       rpt = SmthPdtRpt.new(rpt)
@@ -41,6 +41,10 @@ module CreateSmthPdtRpt
         mthpower = SmonthPower.new()
         mthpower.smth_pdt_rpt = rpt
         mthpower.save!
+
+        mthpress = SmonthPress.new(press)
+        mthpress.smth_pdt_rpt = rpt
+        mthpress.save!
 
         mthsell = SmonthSell.new()
         mthsell.smth_pdt_rpt = rpt
@@ -77,6 +81,16 @@ module CreateSmthPdtRpt
         :max_date   =>   max_date,
         :yoy       =>   yoy    ,
         :mom       =>   mom    
+      }
+    end
+
+    def month_press(max_val, min_val, avg_val, max_date, min_date)
+      {
+        :max_val   =>   max_val,
+        :min_val   =>   min_val,
+        :avg_val   =>   avg_val,
+        :min_date   =>   min_date,
+        :max_date   =>   max_date
       }
     end
 

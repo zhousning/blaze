@@ -80,7 +80,7 @@ class SmonthPressesController < ApplicationController
 
   private
     def smonth_press_params
-      params.require(:smonth_press).permit( :max_pres, :min_pres, :avg_pres, :max_date, :min_date)
+      params.require(:smonth_press).permit( :max_press, :min_press, :avg_press, :max_date, :min_date)
     end
   
   

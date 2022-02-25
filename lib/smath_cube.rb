@@ -77,14 +77,18 @@ module SmathCube
     day_pdt_rpts = SdayPdt.where(["sfactory_id = ? and pdt_date between ? and ?", factory_id, _start, _end])
     max_ipt = day_pdt_rpts.select('pdt_date, max(ipt) max')[0] 
     max_opt = day_pdt_rpts.select('pdt_date, max(opt) max')[0] 
+    max_press = day_pdt_rpts.select('pdt_date, max(press) max')[0] 
     min_ipt = day_pdt_rpts.select('pdt_date, min(ipt) min')[0] 
     min_opt = day_pdt_rpts.select('pdt_date, min(opt) min')[0] 
+    min_press = day_pdt_rpts.select('pdt_date, min(press) min')[0] 
 
     {
       :max_ipt => {:pdt_date => max_ipt.pdt_date, :val => max_ipt.max},
       :max_opt => {:pdt_date => max_opt.pdt_date, :val => max_opt.max},
       :min_ipt => {:pdt_date => min_ipt.pdt_date, :val => min_ipt.min},
-      :min_opt => {:pdt_date => min_opt.pdt_date, :val => min_opt.min}
+      :min_opt => {:pdt_date => min_opt.pdt_date, :val => min_opt.min},
+      :max_press => {:pdt_date => max_press.pdt_date, :val => max_press.max},
+      :min_press => {:pdt_date => min_press.pdt_date, :val => min_press.min}
     }
   end
 

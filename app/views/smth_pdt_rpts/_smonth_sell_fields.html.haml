@@ -1,0 +1,54 @@
+.card.border-0.mb-3.rounded-0
+  .card-header.bg-transparent.border-dark
+    %h5
+      = Setting.smonth_sells.label
+  .card-body
+    %table.w-100.table-bordered.day-pdt-table
+      %tbody
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :val, :class => "form-control", :step => "any"  , :required => true
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.end_val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :end_val, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+        -#
+          %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.avg_val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :avg_val, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center{:colspan => 2}
+          
+        
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.yoy, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :yoy, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.mom, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :mom, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          
+      -#
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.max_val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :max_val, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.max_date, :class => "text-center"
+          %td.p-2.text-center
+            = f.date_field :max_date, :class => "form-control" , :required => true, :readonly => 'readonly' 
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.min_val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :min_val, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center
+            = f.label Setting.smonth_sells.min_date, :class => "text-center"
+          %td.p-2.text-center
+            = f.date_field :min_date, :class => "form-control" , :required => true, :readonly => 'readonly' 

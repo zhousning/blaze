@@ -2110,7 +2110,7 @@ development:
     label: 月度电量
     val: 电量
     new_val: 修正电量
-    end_val: 本月止累计电
+    end_val: 本月止累计电量
     avg_val: 平均电量
     yoy: 电量同比
     mom: 电量环比

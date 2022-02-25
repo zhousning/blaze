@@ -8,9 +8,9 @@
         %h5
           = fa_icon "newspaper-o", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
           - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_rejected
-            = link_to "提交审核",  verifying_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "确定提交审核?"}
-            = link_to "编辑", edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-caution button-small pull-right mr-1" 
-          = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
+            = link_to "提交审核",  verifying_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "确定提交审核?"}
+            = link_to "编辑", edit_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-caution button-small pull-right mr-1" 
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
       - content_for :card_body do
         = render "show_table"

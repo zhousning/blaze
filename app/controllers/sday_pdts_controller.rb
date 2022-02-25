@@ -100,7 +100,7 @@ class SdayPdtsController < ApplicationController
   end
   private
     def sday_pdt_params
-      params.require(:sday_pdt).permit( :name, :pdt_date, :signer, :state, :weather, :min_temper, :max_temper, :desc, :one_verify, :two_verify, :ipt, :opt, :pres, :power, :yl, :zd, :yd, :ph)
+      params.require(:sday_pdt).permit( :name, :pdt_date, :signer, :state, :weather, :min_temper, :max_temper, :desc, :one_verify, :two_verify, :ipt, :opt, :press, :power, :yl, :zd, :yd, :ph)
     end
   
   

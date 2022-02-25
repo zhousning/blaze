@@ -9,7 +9,7 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %h5
-          = fa_icon "list", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+          = fa_icon "list", text:  t(controller_name + "." + action_name + '.title')
       - content_for :card_body do
         .container-fluid
           .row
@@ -22,11 +22,11 @@
                     %th{:scope => "col"}
                       = Setting.mth_pdt_rpts.name
                     %th{:scope => "col"}
-                      = Setting.mth_pdt_rpts.outflow
+                      = Setting.sday_pdts.ipt
                     %th{:scope => "col"}
-                      = Setting.mth_pdt_rpts.avg_outflow
+                      = Setting.sday_pdts.opt
                     %th{:scope => "col"}
-                      = Setting.mth_pdt_rpts.end_outflow
+                      = Setting.sday_pdts.power
                     %th{:scope => "col"}
                       进度
                     %th{:scope => "col"}
@@ -40,17 +40,17 @@
                       %td
                         = mth_pdt_rpt.name
                       %td
-                        = mth_pdt_rpt.outflow
+                        = mth_pdt_rpt.smonth_ipt.val
                       %td
-                        = mth_pdt_rpt.avg_outflow
+                        = mth_pdt_rpt.smonth_opt.val
                       %td
-                        = mth_pdt_rpt.end_outflow
+                        = mth_pdt_rpt.smonth_power.val
                       %td
                         = render 'mth_pdt_rpts/state', :mth_pdt_rpt => mth_pdt_rpt
                       %td
                         .container-fluid
                           .row.justify-content-center
-                            = link_to "查看",  cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
+                            = link_to "查看",  cmp_verify_show_sfactory_smth_pdt_rpt_path(idencode(mth_pdt_rpt.sfactory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
       = render "layouts/bootstrap/card"
 
 

@@ -72,61 +72,65 @@ class SmthPdtRptsController < ApplicationController
   end
 
   def verify_index
-    @factory = my_factory
-
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order("start_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
+    @mth_pdt_rpts = [] 
+    @sfactories = current_user.sfactories.all
+    @sfactories.each do |sfactory|
+      @mth_pdt_rpts += sfactory.smth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order("start_date DESC")
+    end
   end
 
   def verify_show
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
   end
 
   def verifying
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
     @mth_pdt_rpt.verifying
-    redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+    redirect_to sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
   
   def rejected
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
     @mth_pdt_rpt.rejected
-    redirect_to verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+    redirect_to verify_show_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
 
   def cmp_verify_index
-    @factory = my_factory
-
-    @mth_pdt_rpts = @factory.mth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order("start_date DESC").page( params[:page]).per( Setting.systems.per_page ) if @factory
+    @mth_pdt_rpts = [] 
+    @sfactories = current_user.sfactories.all
+    @sfactories.each do |sfactory|
+      @mth_pdt_rpts += sfactory.smth_pdt_rpts.where(:state => [Setting.mth_pdt_rpts.verifying, Setting.mth_pdt_rpts.rejected, Setting.mth_pdt_rpts.cmp_verifying, Setting.mth_pdt_rpts.cmp_rejected]).order("start_date DESC")
+    end
   end
   
   def cmp_verify_show
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
   end
 
   def cmp_verifying
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
     @mth_pdt_rpt.cmp_verifying
-    redirect_to verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+    redirect_to verify_show_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
   
   def cmp_rejected
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
     @mth_pdt_rpt.cmp_rejected
-    redirect_to cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+    redirect_to cmp_verify_show_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
 
   def upreport
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
 
     @mth_pdt_rpt.complete
-    redirect_to cmp_verify_show_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+    redirect_to cmp_verify_show_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
   end
 
   def smth_report_finish_index
@@ -178,9 +182,8 @@ class SmthPdtRptsController < ApplicationController
       
    
   def edit
-    @factory = my_factory 
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-   
+    @factory = my_sfactory 
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
   end
    
 
@@ -306,77 +309,19 @@ class SmthPdtRptsController < ApplicationController
   private
   
     def mth_pdt_rpt_params
-      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, cmonth_cod_attributes: cmonth_cod_params, cmonth_tp_attributes: cmonth_tp_params, cmonth_tn_attributes: cmonth_tn_params, cmonth_nhn_attributes: cmonth_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, mth_chemicals_attributes: mth_chemical_params)
+      params.require(:smth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, smonth_ipt_attributes: smonth_val_params, smonth_opt_attributes: smonth_val_params, smonth_power_attributes: smonth_power_params, smonth_sell_attributes: smonth_val_params, smonth_press_attributes: smonth_press_params )
     end
-
-    def mth_chemical_params
-      [:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
-    end
-  
-    def month_bod_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
-    def month_cod_params
-      [:id, :avg_inf, :avg_eff, :emr, :avg_emq, :emq, :end_emq, :up_std, :end_std, :yoy, :mom, :ypdr ,:_destroy]
-    end
-  
     
-    def my_factory
-      @factory = current_user.factories.find(iddecode(params[:factory_id]))
+    def smonth_val_params
+      [:id, :val, :end_val, :max_val, :min_val, :avg_val, :max_date, :min_date, :yoy, :mom, :ypdr ,:_destroy]
+    end
+  
+    def smonth_power_params
+      [:id, :val, :new_val, :end_val, :bom, :end_bom, :avg_val, :yoy_bom, :mom_bom, :yoy, :mom, :mbom, :end_mbom, :yoy_mbom, :mom_mbom, :_destroy]
     end
 
-    def cal_per_cost(mth_pdt_rpt)
-      inflow = mth_pdt_rpt.outflow
-      per_cost = 0
-      mth_pdt_rpt.mth_chemicals.each do |c|
-        per_cost += c.update_ptc(inflow)
-      end
-      mth_pdt_rpt.update_per_cost(per_cost)
-    end
-
-    def flow_content(mth_pdt_rpt)
-      flow_targets =['design', 'outflow', 'avg_outflow', 'end_outflow']
-      flow_arr = []
-      flow_title = []
-      flow_targets.each_with_index do |t, index|
-        flow_title += [Setting.mth_pdt_rpts[t], mth_pdt_rpt[t]]
-        if (index+1)%2 == 0
-          flow_arr << flow_title
-          flow_title = []
-        end
-      end
-      flow_arr
-    end
-
-    def md_content(mth_pdt_rpt)
-      md = mth_pdt_rpt.month_md
-      md_targets =['mdrcy', 'end_mdrcy', 'mdsell', 'end_mdsell', 'yoy_mdrcy', 'mom_mdrcy', 'yoy_mdsell', 'mom_mdsell']
-      md_arr = []
-      md_title = []
-      md_targets.each_with_index do |t, index|
-        md_title += [Setting.month_mds[t], md[t]]
-        if (index+1)%2 == 0
-          md_arr << md_title
-          md_title = []
-        end
-      end
-      md_arr
-    end
-
-    def mud_content(mth_pdt_rpt)
-      mud = mth_pdt_rpt.month_mud
-      mud_targets =['inmud', 'end_inmud', 'outmud', 'end_outmud', 'yoy', 'mom']
-      mud_arr = []
-      mud_title = []
-      mud_targets.each_with_index do |t, index|
-        mud_title += [Setting.month_muds[t], mud[t]]
-        if (index+1)%2 == 0
-          mud_arr << mud_title
-          mud_title = []
-        end
-      end
-      mud_arr
+    def smonth_press_params
+      [:id, :max_val, :min_val, :avg_val, :max_date, :min_date, :_destroy]
     end
 
     def power_content(mth_pdt_rpt)
@@ -394,91 +339,6 @@ class SmthPdtRptsController < ApplicationController
       power_arr
     end
 
-    #[
-    #  ['', '', ''],
-    #  ['', '', '']
-    #]
-    def cms_content(mth_pdt_rpt)
-      cod = mth_pdt_rpt.month_cod
-      bod = mth_pdt_rpt.month_bod
-      nhn = mth_pdt_rpt.month_nhn
-      tn =  mth_pdt_rpt.month_tn
-      tp =  mth_pdt_rpt.month_tp
-      ss =  mth_pdt_rpt.month_ss
-
-      ccod = mth_pdt_rpt.cmonth_cod
-      cnhn = mth_pdt_rpt.cmonth_nhn
-      ctn =  mth_pdt_rpt.cmonth_tn
-      ctp =  mth_pdt_rpt.cmonth_tp
-
-      fecal = mth_pdt_rpt.month_fecal
-    
-      cms_arr = []
-      cms_title = ['']
-      CMS.each do |c|
-        if c == 'bod' || c == 'ss'
-          cms_title << c.upcase + '(化验)' 
-        else
-          cms_title << c.upcase + '(在线/化验)' 
-        end
-      end
-      cms_arr << cms_title
-
-      targets = [cod, bod, nhn, tn, tp, ss, fecal]
-      ctargets = [ccod, bod, cnhn, ctn, ctp, ss, fecal]
-      result = []
-      VARVALUE.each do |v|
-        title = Setting.month_cods[v].gsub('COD','')
-        result = [title]
-        CMS.each_with_index do |c, cms_index|
-          mObj = method("#{c}_#{v}".to_sym)
-          cmObj = method("c#{c}_#{v}".to_sym)
-          if c == 'bod' || c == 'ss'
-            result << mObj.call(targets[cms_index]) 
-          else
-            result << mObj.call(targets[cms_index]) + '/' + cmObj.call(ctargets[cms_index])
-          end
-        end
-        cms_arr << result 
-      end
-      cms_arr
-    end
-
-    #[
-    #  ['', '', ''],
-    #  ['', '', '']
-    #]
-    def chemical_content(mth_pdt_rpt)
-      chemicals = mth_pdt_rpt.mth_chemicals
-      chemical_targets = ['name', 'unprice', 'cmptc', 'dosage', 'act_dosage', 'avg_dosage', 'dosptc', 'per_cost']
-      chemical_arr = []
-      chemical_title = []
-      chemical_targets.each do |t|
-        chemical_title << Setting.mth_chemicals[t]
-      end
-      chemical_arr << chemical_title
-      chemicals.each do |chemical|
-        arr = []
-        chemical_targets.each_with_index do |t, index|
-          if index == 0
-            arr << chemicals_hash[chemical[t]]
-          else
-            arr << chemical[t]
-          end
-        end
-        chemical_arr << arr
-      end
-      chemical_arr
-    end
-
-    def chemicals_hash
-      hash = Hash.new
-      ctgs = ChemicalCtg.all
-      ctgs.each do |f|
-        hash[f.code] = f.name
-      end
-      hash
-    end
 
     def mth_state(state) 
       result = {
