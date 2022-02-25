@@ -14,7 +14,7 @@ class SreportsController < ApplicationController
 
   def day_report
     @sday_pdts = [] 
-    @factories = current_user.sfactories.all
+    @factories = Sfactory.all
     gon.fct = ""
     @factories.each do |fct|
       gon.fct += idencode(fct.id).to_s + ","
@@ -50,41 +50,41 @@ class SreportsController < ApplicationController
     response_json(objs)
   end
 
-  def query_mth_reports 
-    fcts = params[:fcts].gsub(/\s/, '').split(",")
-    fcts = fcts.collect do |fct|
-      iddecode(fct)
-    end
-    year = params[:year].strip.to_i
-    month = params[:month].strip.to_i
-
-    _start = Date.new(year, month, 1)
-    @factories = Factory.find(fcts)
-
-    obj = []
+  def mth_report
+    @factories = Sfactory.all
+    gon.fct = ""
     @factories.each do |fct|
-      mth_pdt_rpts = fct.mth_pdt_rpts.where(:start_date => _start)
-      mth_pdt_rpts.each do |mth_pdt_rpt|
-        obj << { 
-          :id          => idencode(mth_pdt_rpt.id).to_s,
-          :fct_id      => idencode(mth_pdt_rpt.factory.id).to_s,
-          :name        => mth_pdt_rpt.name,
-          :outflow     => mth_pdt_rpt.outflow,
-          :state       => mth_state(mth_pdt_rpt.state),
-          :avg_outflow => mth_pdt_rpt.avg_outflow,
-          :end_outflow => mth_pdt_rpt.end_outflow
-        }
-      end
-    end
-    puts obj
-    respond_to do |f|
-      f.json{ render :json => obj.to_json}
+      gon.fct += idencode(fct.id).to_s + ","
     end
   end
 
-  def mth_report
-    @factories = Factory.all
-    @mth_pdt_rpts = MthPdtRpt.where(:state => Setting.mth_pdt_rpts.complete).order('start_date DESC') 
+  def query_mth_reports
+    _start = params[:start]
+    _end = params[:end]
+    _fcts = params[:fcts].split(",")
+
+    fcts = _fcts.collect do |fct|
+      iddecode(fct)
+    end
+
+    mth_pdt_rpts = SmthPdtRpt.where(['start_date between ? and ? and sfactory_id in (?) and state = ?', _start, _end, fcts, Setting.mth_pdt_rpts.complete]).order('start_date DESC')
+
+    obj = []
+    mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
+      button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + idencode(mth_pdt_rpt.id).to_s + "' data-fct = '" + idencode(mth_pdt_rpt.sfactory.id).to_s + "'>查看</button>"
+      obj << { 
+        :id          => (index + 1).to_s,
+        :name        => mth_pdt_rpt.name,
+        :ipt     => mth_pdt_rpt.smonth_ipt.val,
+        :opt     => mth_pdt_rpt.smonth_opt.val,
+        :power     => mth_pdt_rpt.smonth_power.new_val,
+        :state       => mth_state(mth_pdt_rpt.state),
+        :button => button
+      }
+    end
+    respond_to do |f|
+      f.json{ render :json => obj.to_json}
+    end
   end
   
   def mth_report_show

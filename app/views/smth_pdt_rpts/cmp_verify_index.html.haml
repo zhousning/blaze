@@ -53,27 +53,3 @@
                             = link_to "查看",  cmp_verify_show_sfactory_smth_pdt_rpt_path(idencode(mth_pdt_rpt.sfactory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
       = render "layouts/bootstrap/card"
 
-
--#
-  #newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} x 
-      .modal-body
-        = render 'form'
-
-          
--#
-  = link_to xls_download_mth_pdt_rpts_path, :class => "button button-royal pull-right button-small mr-1" do
-    下载表格模板
-
-
-
-
--#
-  = link_to "/#{controller_name}/new", :class => "button  button-small pull-right button-primary mr-1" do
-    = fa_icon "plus", text: Setting.systems.btn_new, right: false 
-  %button.button.button-primary.button-small.pull-right.mr-1{"data-target" => "#newModal", "data-toggle" => "modal", :type => "button"}
-    = fa_icon "plus", text: Setting.systems.btn_new, right: false 

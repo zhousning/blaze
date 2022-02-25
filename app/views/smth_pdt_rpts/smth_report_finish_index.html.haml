@@ -5,21 +5,18 @@
   .row
     = render "layouts/control_sidebar"
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
-      - content_for :card_header do
-        .row.ml-1.my-3.pl-0
-          .col-1.pl-0
-            = select_tag "year", options_for_years, :include_blank=>false, :class=>"form-control"
-          .col-1.pl-0
-            = select_tag "month", options_for_mth_months, :include_blank=>false, :class=>"form-control"
-          .col-1
-            %button#report-search.button.button-royal.button-small{:type => "button"}
-              查询
-          .col-2
-            %button#report-download-excel.button.button-primary.button-small{:type => "button"}
-              下载月报汇总Excel
+      .container-fluid.px-0
+        %ul.border.bg-white.list-group.list-group-horizontal.pl-3.py-2
+          %li.list-group-item.border-0.pl-0.d-flex.flex-row
+            = date_field_tag 'start', nil, class: 'form-control mr-1', :value => Date.new(Date.today.year, Date.today.month-1, 1), :min => Date.new(2019, 01, 01), :max => Date.today-1
+            %span
+              一
+            = date_field_tag 'end', nil, class: 'form-control ml-1', :value => Date.new(Date.today.year, Date.today.month-1, -1), :min => Date.new(2019, 01, 01), :max => Date.today-1
+          %li.list-group-item.pl-0.border-0
+            %button.area-time-search.button.button-primary.button-small{:type => "button"}
+              查询 
 
-        = render 'reports/date_fct_panel'
-
+      = render 'layouts/components/fct_lists_checkboxes'
       - content_for :card_body do
         .container-fluid
           .row

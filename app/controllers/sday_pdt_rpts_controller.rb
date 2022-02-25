@@ -4,13 +4,11 @@ class SdayPdtRptsController < ApplicationController
   #authorize_resource
 
   def index
-    @sday_pdts = [] 
     @factories = current_user.sfactories.all
     gon.fct = ""
     @factories.each do |fct|
       gon.fct += idencode(fct.id).to_s + ","
     end
-
   end
 
   def query_all
@@ -26,7 +24,6 @@ class SdayPdtRptsController < ApplicationController
 
     objs = []
     @sday_pdts.each_with_index do |sday_pdt, index|
-      puts sday_pdt.sfactory.id
       button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + sday_pdt.id.to_s + "' data-fct = '" + sday_pdt.sfactory.id.to_s + "'>查看</button>"
       objs << {
         'id': index+1,
