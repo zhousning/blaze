@@ -189,12 +189,11 @@ class SmthPdtRptsController < ApplicationController
 
    
   def update
-    @factory = my_factory 
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory 
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
    
     if @mth_pdt_rpt.update(mth_pdt_rpt_params)
-      cal_per_cost(@mth_pdt_rpt)
-      redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+      redirect_to sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else
       render :edit
     end

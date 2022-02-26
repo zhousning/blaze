@@ -16,6 +16,9 @@ class Sfactory < ActiveRecord::Base
   has_many :smth_pdt_rpts, :dependent => :destroy
   accepts_nested_attributes_for :smth_pdt_rpts, reject_if: :all_blank, allow_destroy: true
 
+  has_many :smonth_sells, :dependent => :destroy
+  accepts_nested_attributes_for :smonth_sells, reject_if: :all_blank, allow_destroy: true
+
   #has_many :departments, :dependent => :destroy
   #accepts_nested_attributes_for :departments, reject_if: :all_blank, allow_destroy: true
 

@@ -2072,6 +2072,7 @@ development:
     leakage: 漏损率
   smonth_sells:
     label: 月度售水
+    name: 名称
     val: 售水量
     end_val: 本月止累计售水量
     max_val: 最高日售水量
@@ -2082,6 +2083,8 @@ development:
     yoy: 同比
     mom: 环比
     ypdr: 年度
+    ongoing: 0 
+    complete: 1 
   smonth_ipts:
     label: 月度采水
     val: 采水量

@@ -22,11 +22,13 @@ class CreateSmonthSells < ActiveRecord::Migration
     
       t.float :ypdr,  null: false, default: Setting.systems.default_num 
     
+      t.integer :state,  null: false, default: Setting.systems.default_num 
 
-    
+      t.string :name,  null: false, default: Setting.systems.default_str
 
-    
 
+
+      t.references :sfactory
     
       t.references :smth_pdt_rpt
     

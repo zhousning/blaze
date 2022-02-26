@@ -37,10 +37,11 @@
               = render 'smonth_opt_fields', f: smth_opt
             = f.fields_for :smonth_press do |smth_press|
               = render 'smonth_press_fields', f: smth_press
-            = f.fields_for :smonth_sell do |smth_sell|
-              = render 'smonth_sell_fields', f: smth_sell
             = f.fields_for :smonth_power do |smth_power|
               = render 'smonth_power_fields', f: smth_power
+            -#
+              = f.fields_for :smonth_sell do |smth_sell|
+              = render 'smonth_sell_fields', f: smth_sell
 
 
         .form-group.row
