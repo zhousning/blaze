@@ -1,7 +1,7 @@
 $(".sreports").ready(function() {
 
   if ($(".sreports.day_report, .sreports.uday_report").length > 0) {
-    var table = "#sday-pdt-table";
+    var table = "#day-pdt-rpt-table";
     var url = '/sday_pdt_rpts/query_all';
 
     fct_date_event(table, url)
@@ -19,9 +19,6 @@ $(".sreports").ready(function() {
       var url = "/reports/xls_day_download?fcts=" + fcts + "&search_date=" + search_date;
       location.href = url;
     });
-
-    day_pdt_modal();
-
   }
 
   if ($(".sreports.mth_report, .sreports.umth_report").length > 0) {

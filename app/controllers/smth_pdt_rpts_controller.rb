@@ -271,6 +271,7 @@ class SmthPdtRptsController < ApplicationController
           :mth_rpt_id => idencode(@mth_pdt_rpt.id),
           :header => header,
           :ipt   => ipt, 
+          :flow   => flow, 
           :opt   => opt, 
           :sell   => sell, 
           :power   => power, 
