@@ -45,37 +45,8 @@
                         %td.p-2.text-center
                           = @smonth_sell.end_val
                     
-                      
-                        %td.p-2.text-center
-                          = Setting.smonth_sells.max_val
-                        %td.p-2.text-center
-                          = @smonth_sell.max_val
                     
                       %tr
-                        %td.p-2.text-center
-                          = Setting.smonth_sells.min_val
-                        %td.p-2.text-center
-                          = @smonth_sell.min_val
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.smonth_sells.avg_val
-                        %td.p-2.text-center
-                          = @smonth_sell.avg_val
-                    
-                      
-                        %td.p-2.text-center
-                          = Setting.smonth_sells.max_date
-                        %td.p-2.text-center
-                          = @smonth_sell.max_date
-                    
-                      %tr
-                        %td.p-2.text-center
-                          = Setting.smonth_sells.min_date
-                        %td.p-2.text-center
-                          = @smonth_sell.min_date
-                    
-                      
                         %td.p-2.text-center
                           = Setting.smonth_sells.yoy
                         %td.p-2.text-center
@@ -89,3 +60,33 @@
                     
               
       = render "layouts/bootstrap/card"
+  
+-#
+  %tr
+    %td.p-2.text-center
+      = Setting.smonth_sells.min_val
+    %td.p-2.text-center
+      = @smonth_sell.min_val
+    %td.p-2.text-center
+      = Setting.smonth_sells.max_val
+    %td.p-2.text-center
+      = @smonth_sell.max_val
+ 
+ 
+  
+    %td.p-2.text-center
+      = Setting.smonth_sells.avg_val
+    %td.p-2.text-center
+      = @smonth_sell.avg_val
+ 
+  
+    %td.p-2.text-center
+      = Setting.smonth_sells.max_date
+    %td.p-2.text-center
+      = @smonth_sell.max_date
+ 
+  %tr
+    %td.p-2.text-center
+      = Setting.smonth_sells.min_date
+    %td.p-2.text-center
+      = @smonth_sell.min_date

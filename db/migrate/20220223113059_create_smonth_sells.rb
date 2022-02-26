@@ -12,6 +12,10 @@ class CreateSmonthSells < ActiveRecord::Migration
     
       t.float :avg_val,  null: false, default: Setting.systems.default_num 
     
+      t.date :start_date
+
+      t.date :end_date
+
       t.date :max_date
     
       t.date :min_date

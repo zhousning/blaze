@@ -46,7 +46,7 @@ module CreateSmthPdtRpt
         mthpress.smth_pdt_rpt = rpt
         mthpress.save!
 
-        mthsell = SmonthSell.new(:name => rpt.name + '-售水量数据报表', :sfactory => rpt.sfactory)
+        mthsell = SmonthSell.new(:start_date => rpt.start_date, :end_date => rpt.end_date, :name => rpt.name + '-售水量数据报表', :sfactory => rpt.sfactory)
         mthsell.smth_pdt_rpt = rpt
         mthsell.save!
 

@@ -64,6 +64,11 @@ module FormulaLib
     inflow == 0 ? 0 : format("%0.2f",power/inflow*1000).to_f
   end
 
+  #漏损率(单位%, 供水量m3, 有效供水量m3)
+  def self.ra(qa, qae)
+    qae == 0 ? 0 : format("%0.2f",(qa - qae)/qa*10*10).to_f
+  end
+
   #消减电单耗(单位kw.h/kg, 电量kw.h, 指标mg/l, 进水量m3)
   def self.em_bom(power, quota_in, quota_out, inflow) 
     (quota_in - quota_out != 0 && inflow !=0) ? format("%0.2f",power*1000/(quota_in - quota_out)/inflow).to_f : 0
