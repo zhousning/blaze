@@ -248,18 +248,18 @@ class SmthPdtRptsController < ApplicationController
   end
 
   def produce_report 
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
     header = {
       :name => @mth_pdt_rpt.name
     }
 
     flow = flow_content(@mth_pdt_rpt) 
-    cms = cms_content(@mth_pdt_rpt) 
-    chemical = chemical_content(@mth_pdt_rpt) 
+    ipt = ipt_content(@mth_pdt_rpt) 
+    opt = opt_content(@mth_pdt_rpt) 
     power = power_content(@mth_pdt_rpt) 
-    mud = mud_content(@mth_pdt_rpt) 
-    md = md_content(@mth_pdt_rpt) 
+    press = press_content(@mth_pdt_rpt) 
+    sell = sell_content(@mth_pdt_rpt) 
     cmcbill = @mth_pdt_rpt.cmc_bill_url
     ecm_ans_rpt = @mth_pdt_rpt.ecm_ans_rpt_url
     respond_to do |format|
@@ -270,12 +270,11 @@ class SmthPdtRptsController < ApplicationController
           :fct_id => idencode(@factory.id),
           :mth_rpt_id => idencode(@mth_pdt_rpt.id),
           :header => header,
-          :flow   => flow, 
-          :cms    => cms,
-          :power => power,
-          :mud => mud,
-          :md  => md,
-          :chemical => chemical
+          :ipt   => ipt, 
+          :opt   => opt, 
+          :sell   => sell, 
+          :power   => power, 
+          :press   => press 
         }.to_json}
     end
   end
@@ -298,20 +297,111 @@ class SmthPdtRptsController < ApplicationController
       [:id, :max_val, :min_val, :avg_val, :max_date, :min_date, :_destroy]
     end
 
-    def power_content(mth_pdt_rpt)
-      power = mth_pdt_rpt.month_power
-      power_targets =['power', 'stdpower', 'end_power', 'bom', 'yoy_power', 'mom_power', 'yoy_bom', 'mom_bom' ]
-      power_arr = []
-      power_title = []
-      power_targets.each_with_index do |t, index|
-        power_title += [Setting.month_powers[t], power[t]]
+    def flow_content(mth_pdt_rpt)
+      targets = ['leakage', '']
+      arr = []
+      title = []
+      targets.each_with_index do |t, index|
+        if !t.blank?
+          title += [Setting.smth_pdt_rpts[t], mth_pdt_rpt[t]]
+        else
+          title += ['', '']
+        end
         if (index+1)%2 == 0
-          power_arr << power_title
-          power_title = []
+          arr << title
+          title = []
         end
       end
-      power_arr
+      arr
     end
+
+    def ipt_content(mth_pdt_rpt)
+      ipt = mth_pdt_rpt.smonth_ipt
+      targets = ['val', 'end_val', 'avg_val', '', 'yoy', 'mom', 'max_val', 'max_date', 'min_val', 'min_date']
+      arr = []
+      title = []
+      targets.each_with_index do |t, index|
+        if !t.blank?
+          title += [Setting.smonth_ipts[t], ipt[t]]
+        else
+          title += ['', '']
+        end
+        if (index+1)%2 == 0
+          arr << title
+          title = []
+        end
+      end
+      arr
+    end
+
+    def opt_content(mth_pdt_rpt)
+      opt = mth_pdt_rpt.smonth_opt
+      targets = ['val', 'end_val', 'avg_val', '', 'yoy', 'mom', 'max_val', 'max_date', 'min_val', 'min_date']
+      arr = []
+      title = []
+      targets.each_with_index do |t, index|
+        if !t.blank?
+          title += [Setting.smonth_opts[t], opt[t]]
+        else
+          title += ['', '']
+        end
+        if (index+1)%2 == 0
+          arr << title
+          title = []
+        end
+      end
+      arr
+    end
+
+    def press_content(mth_pdt_rpt)
+      press = mth_pdt_rpt.smonth_press
+      targets = ['max_val', 'max_date', 'min_val', 'min_date', 'avg_val', '']
+      arr = []
+      title = []
+      targets.each_with_index do |t, index|
+        if !t.blank?
+          title += [Setting.smonth_presses[t], press[t]]
+        else
+          title += ['', '']
+        end
+        if (index+1)%2 == 0
+          arr << title
+          title = []
+        end
+      end
+      arr
+    end
+
+    def sell_content(mth_pdt_rpt)
+      sell = mth_pdt_rpt.smonth_sell
+      targets = ['val', 'end_val', 'avg_val', 'yoy', 'mom']
+      arr = []
+      title = []
+      targets.each_with_index do |t, index|
+        title += [Setting.smonth_sells[t], sell[t]]
+        if (index+1)%2 == 0
+          arr << title
+          title = []
+        end
+      end
+      arr
+    end
+
+    def power_content(mth_pdt_rpt)
+      power = mth_pdt_rpt.smonth_power
+      targets = ['new_val', 'end_val', 'val', 'avg_val', 'yoy', 'mom', 'bom', 'end_bom', 'yoy_bom', 'mom_bom']
+      arr = []
+      title = []
+      targets.each_with_index do |t, index|
+        title += [Setting.smonth_powers[t], power[t]]
+        if (index+1)%2 == 0
+          arr << title
+          title = []
+        end
+      end
+      arr
+    end
+
 
 
     def mth_state(state) 

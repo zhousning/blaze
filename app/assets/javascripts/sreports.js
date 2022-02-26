@@ -46,7 +46,6 @@ $(".sreports").ready(function() {
       //$.get(url, {fcts: fcts, search_date: search_date})
     });
 
-    mth_pdt_modal();
   }
 });
 
