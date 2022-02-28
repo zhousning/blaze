@@ -192,6 +192,13 @@ class SmthPdtRptsController < ApplicationController
     @factory = my_sfactory 
     @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
    
+    end_val = compute_power(@mth_pdt_rpt, mth_pdt_rpt_params[:smonth_power_attributes])[:end_val]
+    mth_pdt_rpt_params[:smonth_power_attributes][:end_val] = 
+    puts '.........'
+    puts end_val
+    puts mth_pdt_rpt_params
+    puts '.........'
+
     if @mth_pdt_rpt.update(mth_pdt_rpt_params)
       redirect_to sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else
@@ -215,8 +222,8 @@ class SmthPdtRptsController < ApplicationController
 
   def download_append
    
-    @factory = my_factory
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
    
     @ecm_ans_rpt = @mth_pdt_rpt.ecm_ans_rpt_url
 
@@ -290,11 +297,58 @@ class SmthPdtRptsController < ApplicationController
     end
   
     def smonth_power_params
-      [:id, :val, :new_val, :end_val, :bom, :end_bom, :avg_val, :yoy_bom, :mom_bom, :yoy, :mom, :mbom, :end_mbom, :yoy_mbom, :mom_mbom, :_destroy]
+      #[:id, :val, :new_val, :end_val, :bom, :end_bom, :avg_val, :yoy_bom, :mom_bom, :yoy, :mom, :mbom, :end_mbom, :yoy_mbom, :mom_mbom, :_destroy]
+      [:id, :val, :new_val, :end_val, :bom, :end_bom, :avg_val, :yoy_bom, :mom_bom, :yoy, :mom, :_destroy]
+      #[:id, :val, :new_val, :_destroy]
     end
 
     def smonth_press_params
       [:id, :max_val, :min_val, :avg_val, :max_date, :min_date, :_destroy]
+    end
+
+    def compute_power(rpt, input_params)
+      output_params = input_params
+      new_val = input_params[:new_val].to_f
+      smonth_power = rpt.smonth_power
+      smonth_opt_val = rpt.smonth_opt.val
+      factory = rpt.sfactory
+
+      start_date, end_date = rpt.start_date, rpt.end_date
+      count = (start_date..end_date).count
+      _yoy_start, _mom_start = yoy_mom_date(start_date)
+
+      yoy_mth = SmthPdtRpt.where(:start_date => _yoy_start, :sfactory => factory).first
+      mom_mth = SmthPdtRpt.where(:start_date => _mom_start, :sfactory => factory).first
+
+      avg_val = FormulaLib.ratio(new_val.to_f, count)
+      bom = FormulaLib.kbom(new_val, smonth_opt_val)
+
+      end_val, yoy, mom, bom_yoy, bom_mom = new_val, 0, 0, 0, 0
+      if !yoy_mth.nil?
+        yoy_power = yoy_mth.smonth_power
+        yoy = FormulaLib.yoy(new_val, yoy_power.new_val)
+        bom_yoy = FormulaLib.yoy(bom, yoy_power.bom)
+      end
+
+      if !mom_mth.nil?
+        mom_power = mom_mth.smonth_power
+        end_val += mom_power.end_val
+        mom = FormulaLib.mom(new_val, mom_power.new_val)
+        bom_mom = FormulaLib.mom(bom, mom_power.bom)
+      end
+
+      end_bom = FormulaLib.kbom(end_val, smonth_opt_val)
+
+      output_params[:end_val] = end_val
+      output_params[:bom] = bom
+      output_params[:end_bom] = end_bom
+      output_params[:avg_val] = avg_val
+      output_params[:yoy_bom] = bom_yoy
+      output_params[:mom_bom] = bom_mom
+      output_params[:bom] = bom
+      output_params[:yoy] = yoy
+
+      output_params
     end
 
     def flow_content(mth_pdt_rpt)
@@ -401,7 +455,6 @@ class SmthPdtRptsController < ApplicationController
       end
       arr
     end
-
 
 
     def mth_state(state) 

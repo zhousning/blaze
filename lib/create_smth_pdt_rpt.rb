@@ -38,7 +38,7 @@ module CreateSmthPdtRpt
         mthopt.smth_pdt_rpt = rpt
         mthopt.save!
 
-        mthpower = SmonthPower.new()
+        mthpower = SmonthPower.new(:val => result[:power][:sum])
         mthpower.smth_pdt_rpt = rpt
         mthpower.save!
 

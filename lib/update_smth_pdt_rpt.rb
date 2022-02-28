@@ -18,11 +18,13 @@ module UpdateSmthPdtRpt
     ipt = month_water(result[:ipt][:sum], year_result[:ipt][:sum], max_min[:max_ipt][:val], max_min[:min_ipt][:val], result[:ipt][:avg], max_min[:max_ipt][:pdt_date], max_min[:min_ipt][:pdt_date], yoy_result[:ipt], mom_result[:ipt])
     opt = month_water(result[:opt][:sum], year_result[:opt][:sum], max_min[:max_opt][:val], max_min[:min_opt][:val], result[:opt][:avg], max_min[:max_opt][:pdt_date], max_min[:min_opt][:pdt_date], yoy_result[:opt], mom_result[:opt])
     press = month_press(max_min[:max_press][:val], max_min[:min_press][:val], result[:press][:avg], max_min[:max_press][:pdt_date], max_min[:min_press][:pdt_date])
+    power = month_power(result[:power][:sum])
     
     {
       :water => {
         :smonth_ipt => ipt,
         :smonth_opt => opt,
+        :smonth_power => power,
         :smonth_press => press 
       }
     }
@@ -53,18 +55,9 @@ module UpdateSmthPdtRpt
       }
     end
 
-    def month_power(power, end_power, bom, bom_power, yoy_power, mom_power, ypdr_power, yoy_bom, mom_bom, ypdr_bom)
+    def month_power(val)
       {
-        :power => power,
-        :end_power => end_power,
-        :bom => bom,
-        :bom_power => bom_power,
-        :yoy_power => yoy_power,
-        :mom_power => mom_power,
-        :ypdr_power => ypdr_power,
-        :yoy_bom => yoy_bom,
-        :mom_bom => mom_bom,
-        :ypdr_bom => ypdr_bom
+        :val => val
       }
     end
 end

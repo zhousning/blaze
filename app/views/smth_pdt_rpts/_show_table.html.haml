@@ -8,13 +8,14 @@
       .col-sm-5.offset-7
         %h2
           = render 'mth_pdt_rpts/state', :mth_pdt_rpt => @mth_pdt_rpt
-      .row
+      -#
+        .row
         .col-12
           .form-group.row
             = Setting.mth_pdt_rpts.ecm_ans_rpt
             .col-sm-9
               - unless @mth_pdt_rpt.ecm_ans_rpt.blank?
-                = link_to URI.decode(File.basename(@mth_pdt_rpt.ecm_ans_rpt_url)), download_append_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id))
+                = link_to URI.decode(File.basename(@mth_pdt_rpt.ecm_ans_rpt_url)), download_append_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id))
 
       -#
         %table.table-bordered.day-pdt-table.w-100
@@ -149,7 +150,8 @@
                 %td.p-2.text-center{:colspan => 2}
                   = @mth_pdt_rpt.smonth_press.avg_val
 
-      .card.border-0.mb-3.rounded-0
+      -#
+        .card.border-0.mb-3.rounded-0
         .card-header.bg-transparent.border-primary
           %h5
             = Setting.smonth_sells.label

@@ -129,4 +129,23 @@ class ApplicationController < ActionController::Base
         f.json{ render :json => obj.to_json}
       end
     end
+
+    def yoy_mom_date(date)
+      year = date.year
+      month = date.month
+      day = date.day
+
+      yoy_year = year - 1
+      _yoy_start = Date.new(yoy_year, month, day)
+
+      mom_year = year
+      mom_month = month - 1
+      if mom_month == 0
+        mom_month = 12
+        mom_year = year - 1
+      end
+      _mom_start = Date.new(mom_year, mom_month, day)
+
+      [_yoy_start, _mom_start]
+    end
 end
