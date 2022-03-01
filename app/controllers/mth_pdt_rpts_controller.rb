@@ -1,7 +1,7 @@
 class MthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:download_append, :produce_report]
+  authorize_resource :except => [:download_append, :produce_report, :chemical_edit, :chemical_update, :mth_rpt_chemical_sync]
 
   include MathCube 
   include CreateMthPdtRpt 
@@ -151,9 +151,25 @@ class MthPdtRptsController < ApplicationController
   def edit
     @factory = my_factory 
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
-   
   end
    
+  def chemical_edit
+    @factory = my_factory 
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+  end
+   
+   
+  def chemical_update
+    @factory = my_factory 
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @mth_pdt_rpt.mth_chemicals = []
+    if @mth_pdt_rpt.update(mth_rpt_chemical_params)
+      cal_per_cost(@mth_pdt_rpt)
+      redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+    else
+      render :chemical_edit
+    end
+  end
 
    
   def update
@@ -161,21 +177,18 @@ class MthPdtRptsController < ApplicationController
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
    
     if @mth_pdt_rpt.update(mth_pdt_rpt_params)
-      cal_per_cost(@mth_pdt_rpt)
       redirect_to factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else
       render :edit
     end
   end
 
-  def mth_rpt_sync
+  def mth_rpt_chemical_sync
     @factory = my_factory 
     @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
     _start = @mth_pdt_rpt.start_date
     _end = @mth_pdt_rpt.end_date
     cmc_hash = chemicals_hash
-    result = update_mth_pdt_rpt(@mth_pdt_rpt)
-
 
     select_str = "
       chemicals.name chemical_id, 
@@ -200,9 +213,23 @@ class MthPdtRptsController < ApplicationController
     respond_to do |format|
       format.json{ render :json => 
         {
-          cms: result[:cms],
-          flow: result[:flow],
           chemicals: my_chemicals
+        }.to_json
+      }
+    end
+  end
+
+
+  def mth_rpt_sync
+    @factory = my_factory 
+    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    result = update_mth_pdt_rpt(@mth_pdt_rpt)
+
+    respond_to do |format|
+      format.json{ render :json => 
+        {
+          cms: result[:cms],
+          flow: result[:flow]
         }.to_json
       }
     end
@@ -277,11 +304,16 @@ class MthPdtRptsController < ApplicationController
   private
   
     def mth_pdt_rpt_params
-      params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, cmonth_cod_attributes: cmonth_cod_params, cmonth_tp_attributes: cmonth_tp_params, cmonth_tn_attributes: cmonth_tn_params, cmonth_nhn_attributes: cmonth_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, mth_chemicals_attributes: mth_chemical_params)
+      #params.require(:mth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, cmonth_cod_attributes: cmonth_cod_params, cmonth_tp_attributes: cmonth_tp_params, cmonth_tn_attributes: cmonth_tn_params, cmonth_nhn_attributes: cmonth_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params, mth_chemicals_attributes: mth_chemical_params)
+      params.require(:mth_pdt_rpt).permit( :ecm_ans_rpt, :outflow, :avg_outflow, :end_outflow, month_cod_attributes: month_cod_params, month_bod_attributes: month_bod_params, month_tp_attributes: month_tp_params, month_tn_attributes: month_tn_params, month_nhn_attributes: month_nhn_params, cmonth_cod_attributes: cmonth_cod_params, cmonth_tp_attributes: cmonth_tp_params, cmonth_tn_attributes: cmonth_tn_params, cmonth_nhn_attributes: cmonth_nhn_params, month_ss_attributes: month_ss_params, month_fecal_attributes: month_fecal_params, month_power_attributes: month_power_params, month_mud_attributes: month_mud_params, month_md_attributes: month_md_params)
+    end
+
+    def mth_rpt_chemical_params
+      params.require(:mth_pdt_rpt).permit( :cmc_bill, mth_chemicals_attributes: mth_chemical_params)
     end
 
     def mth_chemical_params
-      [:id, :name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage , :dosptc, :per_cost, :_destroy]
+      [:name, :unprice, :cmptc, :dosage , :avg_dosage , :act_dosage ]
     end
   
     def month_bod_params

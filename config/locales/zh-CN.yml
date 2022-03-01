@@ -833,6 +833,8 @@ zh-CN:
       title: 月报表-下载word
     mth_rpt_sync:
       title: 更新月报表
+    chemical_edit:
+      title: 编辑药剂信息 
   analyses:
     compare:
       title: 指标对比

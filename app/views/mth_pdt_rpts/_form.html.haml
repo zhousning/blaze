@@ -52,7 +52,8 @@
                       %p.append-url
                         = f.one_attachment("ecm_ans_rpt")
                       = f.file_field :ecm_ans_rpt, :accept => ".doc,.docx", :class => "select-file", :onchange => "readFileName(this);"
-            .card.border-0.mb-3.rounded-0
+            -#
+              .card.border-0.mb-3.rounded-0
               .card-header.bg-transparent.border-warning
                 %h5
                   = Setting.chemicals.label

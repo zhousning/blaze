@@ -69,6 +69,7 @@
                           .row.justify-content-center
                             - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing || mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected || mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_rejected
                               = link_to "编辑", edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-caution button-small mr-1" 
+                            = link_to "药剂", chemical_edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-inverse button-small mr-1" 
                             = link_to "查看",  factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(mth_pdt_rpt.id)), :class => "button button-primary button-small mr-1" 
                             -#
                               = link_to "删除",  mth_pdt_rpt_path(idencode(mth_pdt_rpt.id)), :method => :delete, :data => {:confirm => "确定删除吗?"}, :class => "button button-caution button-small" 

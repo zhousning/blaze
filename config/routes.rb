@@ -110,6 +110,7 @@ Rails.application.routes.draw do
     end
     resources :mth_pdt_rpts, :only => [:index, :edit, :update, :show] do
       get :mth_rpt_sync, :on => :member
+      get :mth_rpt_chemical_sync, :on => :member
       get :produce_report, :on => :member
       get :mth_rpt_create, :on => :collection
       get :download_report, :on => :member
@@ -127,6 +128,8 @@ Rails.application.routes.draw do
       get :xls_mth_download, :on => :member
       get :download_append, :on => :member
       get :mth_rpt_sync, :on => :member
+      get :chemical_edit, :on => :member
+      patch :chemical_update, :on => :member
     end
     resources :emp_infs, :only => [:index, :create]  do
       get :watercms_flow, :on => :collection

@@ -1,0 +1,78 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "wpforms", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+          -#
+            - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_rejected
+          %button#mth-pdt-sync-btn.button.button-small.pull-right.button-royal{:type => 'button', :'data-fct' => idencode(@factory.id), :'data-mth' => idencode(@mth_pdt_rpt.id)}
+            = fa_icon "refresh", text: '更新月度药剂数据', right: false 
+          -#
+            = link_to "#{request.url}".sub("edit", ""), :class => "button button-small pull-right button-primary" do
+          = link_to "/factories/#{idencode(@factory.id)}/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+
+      - content_for :card_body do
+        .container-fluid.p-0
+          .row
+            .col-md-12
+              .card-body
+                .container-fluid
+                  .row.justify-content-sm-center
+                    .col-sm-12
+                      = form_for @mth_pdt_rpt, :url => "/factories/#{idencode(@factory.id)}/mth_pdt_rpts/#{idencode(@mth_pdt_rpt.id)}/chemical_update", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+                        - if @mth_pdt_rpt.errors.any?
+                          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+                            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+                              %span{"aria-hidden" => "true"} x 
+                            %h2= "#{pluralize(@mth_pdt_rpt.errors.count, "error")} :"
+                            %ul
+                              - @mth_pdt_rpt.errors.full_messages.each do |msg|
+                                %li= msg
+                      
+                        = hidden_field_tag 'fct', idencode(@factory.id) 
+                        = hidden_field_tag 'mth', idencode(@mth_pdt_rpt.id) 
+                        .row
+                          .col-sm-12
+                            %h2.text-center
+                              = image_tag "gykg.jpg"
+                              = @mth_pdt_rpt.name
+                      
+                      
+                          .col-sm-8.offset-2.p-5.border
+                            -#
+                              .row
+                              .col-12
+                                .form-group.row
+                                  = f.label Setting.mth_pdt_rpts.ecm_ans_rpt + 'word文件(必上传)', :class => "col-sm-3 col-form-label text-right text-primary"
+                                  .col-sm-9
+                                    %label.newbutton.button.button-primary
+                                      %p.append-url
+                                        = f.one_attachment("ecm_ans_rpt")
+                                      = f.file_field :ecm_ans_rpt, :accept => ".doc,.docx", :class => "select-file", :onchange => "readFileName(this);"
+                            .card.border-0.mb-3.rounded-0
+                              .card-header.bg-transparent.border-warning
+                                %h5
+                                  = Setting.chemicals.label
+                                  %span.text-danger
+                                    (PAM药剂浓度为固体药剂溶解后浓度)
+                              .card-body
+                                = f.fields_for :mth_chemicals do |chemical|
+                                  = render 'chemical_fields', f: chemical
+                                #mth-chemical-ctn
+                                .form-group.row
+                                  = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传,图片大小小于500KB)', :class => "col-sm-3 col-form-label text-right text-danger"
+                                  .col-sm-9
+                                    %label.newbutton
+                                      = image_tag f.one_image("cmc_bill"), :class => "blah"
+                                      = f.file_field :cmc_bill, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"
+                      
+                        .form-group.row
+                          .col-3.offset-3
+                            = f.submit '保存', :class => "button  button-small button-action"
+
+      = render "layouts/bootstrap/card"

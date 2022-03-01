@@ -7,8 +7,9 @@
       - content_for :card_header do
         %h5
           = fa_icon "wpforms", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+          = link_to "药剂", chemical_edit_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), :class => "button button-inverse button-small mr-1 pull-right" 
           - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_rejected
-            %button#mth-pdt-sync-btn.button.button-small.pull-right.button-royal{:type => 'button', :'data-fct' => idencode(@factory.id), :'data-mth' => idencode(@mth_pdt_rpt.id)}
+            %button#mth-pdt-sync-btn.button.button-small.pull-right.button-royal.mr-1{:type => 'button', :'data-fct' => idencode(@factory.id), :'data-mth' => idencode(@mth_pdt_rpt.id)}
               = fa_icon "refresh", text: '更新月度数据', right: false 
           -#
             = link_to "#{request.url}".sub("edit", ""), :class => "button button-small pull-right button-primary" do
