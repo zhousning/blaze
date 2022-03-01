@@ -192,14 +192,11 @@ class SmthPdtRptsController < ApplicationController
     @factory = my_sfactory 
     @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
    
-    end_val = compute_power(@mth_pdt_rpt, mth_pdt_rpt_params[:smonth_power_attributes])[:end_val]
-    mth_pdt_rpt_params[:smonth_power_attributes][:end_val] = 
-    puts '.........'
-    puts end_val
-    puts mth_pdt_rpt_params
-    puts '.........'
+    safe_param = mth_pdt_rpt_params #一定要赋一个新对象 原对象更改不生效
+    powers = compute_power(@mth_pdt_rpt, mth_pdt_rpt_params[:smonth_power_attributes])
+    safe_param[:smonth_power_attributes] = powers
 
-    if @mth_pdt_rpt.update(mth_pdt_rpt_params)
+    if @mth_pdt_rpt.update(safe_param)
       redirect_to sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
     else
       render :edit
