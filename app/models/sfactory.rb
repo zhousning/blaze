@@ -3,6 +3,8 @@ class Sfactory < ActiveRecord::Base
   mount_uploader :logo, EnclosureUploader
 
   belongs_to :company
+  belongs_to :ccompany
+  belongs_to :ncompany
 
   has_many :user_sfcts, :dependent => :destroy
   has_many :users, :through => :user_sfcts

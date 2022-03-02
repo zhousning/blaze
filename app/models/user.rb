@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
 
   belongs_to :role
   belongs_to :company
+  belongs_to :ncompany
+  belongs_to :ccompany
 
   #has_many :users
   #belongs_to :parent,   :class_name => 'User'
