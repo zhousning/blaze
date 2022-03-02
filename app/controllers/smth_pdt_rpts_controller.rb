@@ -1,7 +1,7 @@
 class SmthPdtRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:download_append, :produce_report, :query_day_reports, :query_mth_reports]
+  authorize_resource :except => [:download_append, :produce_report, :query_day_reports, :query_mth_reports, :xls_mth_download]
 
   include SmathCube 
   include CreateSmthPdtRpt 
@@ -241,11 +241,11 @@ class SmthPdtRptsController < ApplicationController
   end
   
   def xls_mth_download
-    @factory = my_factory 
-    @mth_pdt_rpt = @factory.mth_pdt_rpts.find(iddecode(params[:id]))
+    @factory = my_sfactory 
+    @mth_pdt_rpt = @factory.smth_pdt_rpts.find(iddecode(params[:id]))
     obj = [@mth_pdt_rpt]
 
-    excel_tool = SpreadSheetTool.new
+    excel_tool = SspreadSheetTool.new
     target_excel = excel_tool.exportMthPdtRptToExcel(obj)
     send_file target_excel, :filename => @mth_pdt_rpt.name + ".xls", :type => "application/force-download", :x_sendfile=>true
   end
@@ -257,26 +257,26 @@ class SmthPdtRptsController < ApplicationController
       :name => @mth_pdt_rpt.name
     }
 
-    flow = flow_content(@mth_pdt_rpt) 
+    #flow = flow_content(@mth_pdt_rpt) 
     ipt = ipt_content(@mth_pdt_rpt) 
     opt = opt_content(@mth_pdt_rpt) 
     power = power_content(@mth_pdt_rpt) 
     press = press_content(@mth_pdt_rpt) 
-    sell = sell_content(@mth_pdt_rpt) 
-    cmcbill = @mth_pdt_rpt.cmc_bill_url
-    ecm_ans_rpt = @mth_pdt_rpt.ecm_ans_rpt_url
+    #sell = sell_content(@mth_pdt_rpt) 
+    #cmcbill = @mth_pdt_rpt.cmc_bill_url
+    #ecm_ans_rpt = @mth_pdt_rpt.ecm_ans_rpt_url
     respond_to do |format|
       format.json{ render :json => 
         {
-          :cmcbill => cmcbill,
-          :ecm_ans_rpt => ecm_ans_rpt,
+          #:cmcbill => cmcbill,
+          #:ecm_ans_rpt => ecm_ans_rpt,
           :fct_id => idencode(@factory.id),
           :mth_rpt_id => idencode(@mth_pdt_rpt.id),
           :header => header,
           :ipt   => ipt, 
-          :flow   => flow, 
+          #:flow   => flow, 
+          #:sell   => sell, 
           :opt   => opt, 
-          :sell   => sell, 
           :power   => power, 
           :press   => press 
         }.to_json}
