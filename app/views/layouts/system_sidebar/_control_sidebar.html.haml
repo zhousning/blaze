@@ -1,8 +1,8 @@
+- if current_user.has_role?(Setting.roles.role_sfct)
+  = render 'layouts/system_sidebar/sfct_sidebar'
 - if current_user.has_role?(Setting.roles.role_fct)
   = render 'layouts/system_sidebar/fct_sidebar'
-- elsif current_user.has_role?(Setting.roles.role_grp)
+- if current_user.has_role?(Setting.roles.role_grp)
   = render 'layouts/system_sidebar/grp_sidebar'
-- elsif current_user.has_role?(Setting.roles.super_admin)
+- if current_user.has_role?(Setting.roles.super_admin)
   = render 'layouts/system_sidebar/admin_sidebar'
-- elsif current_user.has_role?(Setting.roles.role_sfct)
-  = render 'layouts/system_sidebar/sfct_sidebar'

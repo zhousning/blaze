@@ -88,26 +88,33 @@ namespace 'db' do
     end
       
     chash.each_pair do |k, v|
-      number = Faker::Number.within(range: 100000..1000000).to_s
-      glz = 'glz' + number
-      password = 'glz' + number[2..-1]
       sfactories = (cfhash[k] || []) + (nfhash[k] || [])
-      User.create!(:phone => glz, :password => password, :password_confirmation => password, :name => k + "管理者", :roles => @sfct_mgn, :ccompany => v, :ncompany => nhash[k], :sfactories => sfactories)
-      @log.error k + "管理者: 账户" + glz + ' 密码' + password   
+      if k != '梁山水务'
+        name = k.gsub('水务', '污水管理者')
+        user = User.where(:name => name).first
+        user.roles << @sfct_mgn
+        user.update_attributes(:ccompany => v, :ncompany => nhash[k], :sfactories => sfactories)
+      else
+        number = Faker::Number.within(range: 100000..1000000).to_s
+        glz = 'glz' + number
+        password = 'glz' + number[2..-1]
+        User.create!(:phone => glz, :password => password, :password_confirmation => password, :name => k + "管理者", :roles => @sfct_mgn, :ccompany => v, :ncompany => nhash[k], :sfactories => sfactories)
+        @log.error k + "管理者: 账户" + glz + ' 密码' + password
+      end
     end
 
     all_sfactories = Sfactory.all
     
-    ##集团运营
-    #@grp_sopt = [@role_sdata_compare ,@role_sdata_cube, @role_sarea_time, @role_sreport] 
-    #grp_sopt = User.where(:phone => "15763703588").first 
-    #grp_sopt.sfactories << all_sfactories
-    #grp_sopt.roles << @grp_sopt
-    #
-    ##集团管理者
-    #@grp_smgn = [@role_sdata_compare ,@role_sdata_cube, @role_sarea_time, @role_sreport] 
-    #grp_smgn = User.where(:phone => "1236688").first 
-    #grp_smgn.sfactories << all_sfactories
-    #grp_smgn.roles << @grp_smgn
+    #集团运营
+    @grp_sopt = [@role_sdata_compare ,@role_sdata_cube, @role_sarea_time, @role_sreport] 
+    grp_sopt = User.where(:phone => "15763703588").first 
+    grp_sopt.sfactories << all_sfactories
+    grp_sopt.roles << @grp_sopt
+    
+    #集团管理者
+    @grp_smgn = [@role_sdata_compare ,@role_sdata_cube, @role_sarea_time, @role_sreport] 
+    grp_smgn = User.where(:phone => "1236688").first 
+    grp_smgn.sfactories << all_sfactories
+    grp_smgn.roles << @grp_smgn
   end
 end
