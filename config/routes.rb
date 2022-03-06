@@ -90,6 +90,7 @@ Rails.application.routes.draw do
     get :bigscreen, :on => :member
     resources :day_pdts, :only => [:index, :show, :edit, :update] do
       get :upreport, :on => :member
+      get :upreport_update, :on => :member
       get :verifying, :on => :member
       get :rejected, :on => :member
       get :verify_index, :on => :collection
