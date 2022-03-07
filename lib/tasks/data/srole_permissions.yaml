@@ -23,6 +23,13 @@
     -
       controller: smth_pdt_rpts_controller
       actions: [smth_rpt_create, index, show, edit, update, verifying, smth_rpt_sync]
+- 
+  role_name: 供水公司月报表填报 
+  level: 1
+  permissions: 
+    -
+      controller: cmpy_mth_rpts_controller
+      actions: [smth_rpt_create, index, show, edit, update, verifying, smth_rpt_sync]
 -
   role_name: 供水厂区生产运营数据审核
   level: 1
@@ -67,6 +74,13 @@
       actions: [smth_report_finish_index, smth_report_finish_show, xls_smth_download, download_report]
 
 - 
+  role_name: 供水公司月报表查看 
+  level: 1
+  permissions: 
+    -
+      controller: cmpy_mth_rpts_controller
+      actions: [smth_report_finish_index, smth_report_finish_show, xls_smth_download, download_report]
+- 
   role_name: 集团供水报表管理
   level: 1
   permissions: 
@@ -75,6 +89,9 @@
       actions: [index, mth_report_show, day_report, mth_report, uday_report, umth_report, xls_day_download, xls_mth_download]
     -
       controller: smth_pdt_rpts_controller
+      actions: [xls_mth_download, download_report]
+    -
+      controller: cmpy_mth_rpts_controller
       actions: [xls_mth_download, download_report]
 
 - 

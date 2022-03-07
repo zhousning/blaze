@@ -1,0 +1,61 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text:  t(controller_name + "." + action_name + '.title')
+          %span.text-danger
+            = fa_icon 'question-circle-o', text: '系统每月3号前自动生成上月月报表'
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      = Setting.mth_pdt_rpts.name
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.ipt
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.opt
+                    %th{:scope => "col"}
+                      = Setting.sday_pdts.power
+                    %th{:scope => "col"}
+                      进度
+                    %th{:scope => "col"}
+                      设置
+                %tbody
+                  - @mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = mth_pdt_rpt.name
+                      %td
+                        = mth_pdt_rpt.cmpy_mth_ipt.val
+                      %td
+                        = mth_pdt_rpt.cmpy_mth_opt.val
+                      %td
+                        = mth_pdt_rpt.cmpy_mth_power.val
+                      %td
+                        = render 'mth_pdt_rpts/state', :mth_pdt_rpt => mth_pdt_rpt
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            - if mth_pdt_rpt.category == Setting.cmpy_mth_rpts.ncategory 
+                              - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
+                                = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ncategory ), :class => "button button-caution button-small mr-1" 
+                              = link_to "查看", cmpy_mth_rpt_path(idencode(mth_pdt_rpt.sfactory.id), :category => Setting.cmpy_mth_rpts.ncategory ), :class => "button button-primary button-small mr-1" 
+                            - elsif mth_pdt_rpt.category == Setting.cmpy_mth_rpts.ccategory 
+                              - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
+                                = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ccategory ), :class => "button button-caution button-small mr-1" 
+                              = link_to "查看", cmpy_mth_rpt_path(idencode(mth_pdt_rpt.sfactory.id), :category => Setting.cmpy_mth_rpts.ccategory ), :class => "button button-primary button-small mr-1" 
+      = render "layouts/bootstrap/card"

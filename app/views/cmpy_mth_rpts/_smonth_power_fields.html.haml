@@ -1,0 +1,54 @@
+.card.border-0.mb-3.rounded-0
+  .card-header.bg-transparent.border-dark
+    %h5
+      = Setting.smonth_powers.label
+  .card-body
+    %table.w-100.table-bordered.day-pdt-table
+      %tbody
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.new_val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :new_val, :class => "form-control", :step => "any"  , :required => true
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.end_val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :end_val, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :val, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.avg_val, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :avg_val, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.yoy, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :yoy, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.mom, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :mom, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.bom, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :bom, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.end_bom, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :end_bom, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          
+        %tr
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.yoy_bom, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :yoy_bom, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 
+          %td.p-2.text-center
+            = f.label Setting.smonth_powers.mom_bom, :class => "text-center"
+          %td.p-2.text-center
+            = f.number_field :mom_bom, :class => "form-control", :step => "any"  , :required => true, :readonly => 'readonly' 

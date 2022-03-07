@@ -16,6 +16,8 @@ class CreateCmpyMthRpts < ActiveRecord::Migration
 
       t.float :leakage,  null: false, default: Setting.systems.default_num 
 
+      t.integer category
+
       t.references :ccompany
       t.references :ncompany
     

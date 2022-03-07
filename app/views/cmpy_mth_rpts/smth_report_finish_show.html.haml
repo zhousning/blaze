@@ -1,0 +1,26 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        - if @mth_pdt_rpt.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true, :disabled => true"} x 
+            %h2= "#{pluralize(@mth_pdt_rpt.errors.count, "个错误")}"
+            %ul
+              - @mth_pdt_rpt.errors.full_messages.each do |msg|
+                %li= msg
+        %h5
+          = fa_icon "newspaper-o", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
+          = link_to '下载word', download_report_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), {:class => "button button-inverse button-small pull-right mr-1"} 
+          = link_to '下载excel', xls_mth_download_factory_mth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)), {:class => "button button-action button-small pull-right mr-1"} 
+            
+          = link_to mth_report_finish_index_factory_mth_pdt_rpts_path(idencode(@factory.id)), :class => "button button-small  pull-right button-primary mr-1" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        = render "show_table"
+                  
+      = render "layouts/bootstrap/card"

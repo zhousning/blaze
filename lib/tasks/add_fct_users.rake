@@ -19,10 +19,13 @@ namespace 'db' do
     @role_sdata_cube      = Role.where(:name => Setting.roles.sdata_cube).first
     @role_sdata_compare   = Role.where(:name => Setting.roles.sdata_compare).first
     @role_sarea_time      = Role.where(:name => Setting.roles.sarea_time).first
+
+    @role_smth_rpt_filler = Role.where(:name => Setting.roles.cmpy_mth_rpt).first
+    @role_smth_rpt_index  = Role.where(:name => Setting.roles.cmpy_mth_rpt_index).first
     
     @sdata_filler  = [@role_sfct, @role_sday_pdt, @role_sday_rpt, @role_smth_rpt_filler, @role_smth_rpt_index, @role_sdata_compare ,@role_sdata_cube, @role_sarea_time]
     @sdata_verifer = [@role_sfct, @role_sday_rpt, @role_sday_pdt_verify, @role_smth_rpt_verify, @role_smth_rpt_index, @role_sdata_compare ,@role_sdata_cube, @role_sarea_time]
-    @sfct_mgn  = [@role_sfct, @role_sday_rpt, @role_sday_pdt_cmp_verify, @role_smth_pdt_rpt_cmp_verify, @role_smth_rpt_index, @role_sdata_compare ,@role_sdata_cube, @role_sarea_time]
+    @sfct_mgn  = [@role_sfct, @role_sday_rpt, @role_sday_pdt_cmp_verify, @role_smth_pdt_rpt_cmp_verify, @role_smth_rpt_index, @role_sdata_compare ,@role_sdata_cube, @role_sarea_time, @role_smth_rpt_filler, @role_smth_rpt_index]
     @sfct_leader  = [@role_sfct, @role_sday_rpt, @role_smth_rpt_index, @role_sdata_compare ,@role_sdata_cube, @role_sarea_time]
 
     cfcts = YAML.load_file("lib/tasks/data/cfct_users.yaml")

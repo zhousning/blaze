@@ -993,43 +993,82 @@ zh-CN:
       title: 日报表-下载excel 
   smth_pdt_rpts:
     smth_rpt_create:
-      title: 月报表填报
+      title: 供水厂区月报表填报
     index:
-      title: 月报表填报-列表
+      title: 供水厂区月报表填报-列表
     edit:
-      title: 月报表填报-编辑
+      title: 供水厂区月报表填报-编辑
     update:        
-      title: 月报表填报-编辑
+      title: 供水厂区月报表填报-编辑
     show:          
-      title: 月报表填报-查看
+      title: 供水厂区月报表填报-查看
     verifying:
-      title: 月报表填报-提交审核
+      title: 供水厂区月报表填报-提交审核
     verify_index:
-      title: 月报表审核-列表
+      title: 供水厂区月报表审核-列表
     verify_show:
-      title: 月报表审核-查看
+      title: 供水厂区月报表审核-查看
     rejected:
-      title: 月报表审核-驳回
+      title: 供水厂区月报表审核-驳回
     cmp_verifying:
-      title: 月报表提交管理者审核
+      title: 供水厂区月报表提交管理者审核
     cmp_verify_index:
-      title: 管理者月报表审核-列表
+      title: 管理者供水厂区月报表审核-列表
     cmp_verify_show:
-      title: 管理者月报表审核-查看
+      title: 管理者供水厂区月报表审核-查看
     cmp_rejected:
-      title: 管理者月报表审核-驳回
+      title: 管理者供水厂区月报表审核-驳回
     upreport:
-      title: 月报表审核-上报
+      title: 供水厂区月报表审核-上报
     smth_report_finish_index:
-      title: 月报表-列表
+      title: 供水厂区月报表-列表
     smth_report_finish_show:
-      title: 月报表-明细
+      title: 供水厂区月报表-明细
     xls_smth_download:
-      title: 月报表-下载excel
+      title: 供水厂区月报表-下载excel
     download_report:
-      title: 月报表-下载word
+      title: 供水厂区月报表-下载word
     smth_rpt_sync:
-      title: 更新月报表
+      title: 更新供水厂区月报表
+  cmpy_mth_rpts:
+    smth_rpt_create:
+      title: 供水公司级月报表填报
+    index:
+      title: 供水公司级月报表填报-列表
+    edit:
+      title: 供水公司级月报表填报-编辑
+    update:        
+      title: 供水公司级月报表填报-编辑
+    show:          
+      title: 供水公司级月报表填报-查看
+    verifying:
+      title: 供水公司级月报表填报-提交审核
+    verify_index:
+      title: 供水公司级月报表审核-列表
+    verify_show:
+      title: 供水公司级月报表审核-查看
+    rejected:
+      title: 供水公司级月报表审核-驳回
+    cmp_verifying:
+      title: 供水公司级月报表提交管理者审核
+    cmp_verify_index:
+      title: 管理者供水公司级月报表审核-列表
+    cmp_verify_show:
+      title: 管理者供水公司级月报表审核-查看
+    cmp_rejected:
+      title: 管理者供水公司级月报表审核-驳回
+    upreport:
+      title: 供水公司级月报表审核-上报
+    smth_report_finish_index:
+      title: 供水公司级月报表-列表
+    smth_report_finish_show:
+      title: 供水公司级月报表-明细
+    xls_smth_download:
+      title: 供水公司级月报表-下载excel
+    download_report:
+      title: 供水公司级月报表-下载word
+    smth_rpt_sync:
+      title: 更新供水公司级月报表
   sanalyses:
     compare:
       title: 指标对比

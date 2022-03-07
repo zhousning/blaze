@@ -1,0 +1,231 @@
+.container-fluid
+  .row
+    .col-sm-12
+      %h2.text-center
+        = image_tag "gykg.jpg"
+        = @mth_pdt_rpt.name
+    .col-sm-8.offset-2.p-5.border
+      .col-sm-5.offset-7
+        %h2
+          = render 'mth_pdt_rpts/state', :mth_pdt_rpt => @mth_pdt_rpt
+      -#
+        .row
+        .col-12
+          .form-group.row
+            = Setting.mth_pdt_rpts.ecm_ans_rpt
+            .col-sm-9
+              - unless @mth_pdt_rpt.ecm_ans_rpt.blank?
+                = link_to URI.decode(File.basename(@mth_pdt_rpt.ecm_ans_rpt_url)), download_append_sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id))
+
+      -#
+        %table.table-bordered.day-pdt-table.w-100
+        %caption.text-center
+          = Setting.smth_pdt_rpts.label
+        %tbody
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-primary
+          %h5
+            = Setting.smonth_ipts.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.val
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.end_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.end_val
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.avg_val
+                %td.p-2.text-center{:colspan => 2}
+                  = @mth_pdt_rpt.smonth_ipt.avg_val
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.yoy
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.mom
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.max_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.max_val
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.max_date
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.max_date
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.min_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.min_val
+                %td.p-2.text-center
+                  = Setting.smonth_ipts.min_date
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_ipt.min_date
+
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-primary
+          %h5
+            = Setting.smonth_opts.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_opts.val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.val
+                %td.p-2.text-center
+                  = Setting.smonth_opts.end_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.end_val
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_opts.avg_val
+                %td.p-2.text-center{:colspan => 2}
+                  = @mth_pdt_rpt.smonth_opt.avg_val
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_opts.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.yoy
+                %td.p-2.text-center
+                  = Setting.smonth_opts.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.mom
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_opts.max_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.max_val
+                %td.p-2.text-center
+                  = Setting.smonth_opts.max_date
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.max_date
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_opts.min_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.min_val
+                %td.p-2.text-center
+                  = Setting.smonth_opts.min_date
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_opt.min_date
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-primary
+          %h5
+            = Setting.smonth_presses.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_presses.max_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_press.max_val
+                %td.p-2.text-center
+                  = Setting.smonth_presses.max_date
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_press.max_date
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_presses.min_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_press.min_val
+                %td.p-2.text-center
+                  = Setting.smonth_presses.min_date
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_press.min_date
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_presses.avg_val
+                %td.p-2.text-center{:colspan => 2}
+                  = @mth_pdt_rpt.smonth_press.avg_val
+
+      -#
+        .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-primary
+          %h5
+            = Setting.smonth_sells.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_sells.val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_sell.val
+                %td.p-2.text-center
+                  = Setting.smonth_sells.end_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_sell.end_val
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_sells.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_sell.yoy
+                %td.p-2.text-center
+                  = Setting.smonth_sells.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_sell.mom
+
+      .card.border-0.mb-3.rounded-0
+        .card-header.bg-transparent.border-primary
+          %h5
+            = Setting.smonth_powers.label
+        .card-body
+          %table.table-bordered.day-pdt-table.w-100
+            %tbody
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_powers.new_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.new_val
+                %td.p-2.text-center
+                  = Setting.smonth_powers.end_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.end_val
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_powers.val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.val
+                %td.p-2.text-center
+                  = Setting.smonth_powers.avg_val
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.avg_val
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_powers.yoy
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.yoy
+                %td.p-2.text-center
+                  = Setting.smonth_powers.mom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.mom
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_powers.bom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.bom
+                %td.p-2.text-center
+                  = Setting.smonth_powers.end_bom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.end_bom
+              %tr
+                %td.p-2.text-center
+                  = Setting.smonth_powers.yoy_bom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.yoy_bom
+                %td.p-2.text-center
+                  = Setting.smonth_powers.mom_bom
+                %td.p-2.text-center
+                  = @mth_pdt_rpt.smonth_power.mom_bom

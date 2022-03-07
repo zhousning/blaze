@@ -1010,6 +1010,8 @@ defaults:
     sdata_compare: 供水数据对比
     sarea_time: 供水厂间分析
     sreport: 集团供水报表管理
+    cmpy_mth_rpt: 供水公司月报表填报
+    cmpy_mth_rpt_index: 供水公司月报表查看
   permissions: &107
     super_admin: 管理系统所有资源
     label: 权限管理
@@ -2070,6 +2072,9 @@ development:
     bom: 千吨水耗电量(千瓦时/dam3)
   smth_pdt_rpts:
     leakage: 漏损率
+  cmpy_mth_rpts:
+    ccategory: 0
+    ncategory: 1 
   smonth_sells:
     label: 月度售水
     name: 名称

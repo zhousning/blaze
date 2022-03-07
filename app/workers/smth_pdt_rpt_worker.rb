@@ -15,7 +15,7 @@ class SmthPdtRptWorker
       _start = Date.new(year, month, 1)
       _end = Date.new(year, month, -1)
       @smth_pdt_rpts_cache = factory.smth_pdt_rpts.where(["start_date = ? and end_date = ?", _start, _end])
-      next unless @mth_pdt_rpts_cache.blank?
+      next unless @smth_pdt_rpts_cache.blank?
 
       state = Setting.mth_pdt_rpts.ongoing
       create_smth_pdt_rpt(factory, year, month, state)

@@ -14,6 +14,9 @@
 -
   controller: smth_pdt_rpts_controller
   actions: [smth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, cmp_verifying, cmp_verify_index, cmp_verify_show, cmp_rejected, upreport, smth_report_finish_index, smth_report_finish_show, xls_smth_download, smth_rpt_sync]
+-
+  controller: cmpy_mth_rpts_controller
+  actions: [smth_rpt_create, index, show, edit, update, verifying, download_report, verify_index, verify_show, rejected, cmp_verifying, cmp_verify_index, cmp_verify_show, cmp_rejected, upreport, smth_report_finish_index, smth_report_finish_show, xls_smth_download, smth_rpt_sync]
 
 -
   controller: sanalyses_controller

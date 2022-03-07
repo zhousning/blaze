@@ -231,6 +231,15 @@ Rails.application.routes.draw do
     get :smth_report_finish_index, :on => :collection
     get :query_mth_reports, :on => :collection
   end
+  resources :cmpy_mth_rpts, :only => [:index, :edit, :update, :show] do
+    get :smth_rpt_sync, :on => :member
+    get :produce_report, :on => :member
+    get :download_report, :on => :member
+    get :upreport, :on => :member
+    get :mth_report_finish_show, :on => :member
+    get :xls_mth_download, :on => :member
+    get :download_append, :on => :member
+  end
   resources :sfactories, :only => [:edit, :update] do
     resources :sday_pdts, :only => [:show, :edit, :update] do
       get :upreport, :on => :member
