@@ -38,7 +38,7 @@ class SmthPdtRpt < ActiveRecord::Base
     end
   end
 
-  def onging 
+  def ongoing 
     update_attribute :state, Setting.mth_pdt_rpts.ongoing
   end
 
@@ -70,10 +70,6 @@ class SmthPdtRpt < ActiveRecord::Base
     if cmp_verifying?
       update_attribute :state, Setting.mth_pdt_rpts.complete
     end
-  end
-
-  def update_per_cost(per_cost)
-    self.update_attribute :per_cost, per_cost 
   end
 end
 

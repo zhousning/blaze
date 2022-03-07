@@ -64,7 +64,7 @@ ActiveAdmin.register DayPdtRpt  do
   member_action :reject do
     day_pdt_rpt = DayPdtRpt.find(params[:id])
     day_pdt = day_pdt_rpt.day_pdt
-    day_pdt.onging
+    day_pdt.ongoing
     redirect_to jackadmin_day_pdt_rpts_path
   end
 

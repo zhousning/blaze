@@ -108,6 +108,11 @@ zh-CN:
       site_title: "山东公用水务集团生产运营智能平台"
     application_no_header:
       site_title: "山东公用水务集团生产运营智能平台"
+    components:
+      mth_reports:
+        title: '月报表'
+      sday_rpt_reports:
+        title: '日报表'
   views:
       pagination:
         first: "首页"

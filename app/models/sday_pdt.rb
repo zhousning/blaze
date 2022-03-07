@@ -24,7 +24,7 @@ class SdayPdt < ActiveRecord::Base
     end
   end
 
-  def onging 
+  def ongoing 
     update_attribute :state, Setting.day_pdts.ongoing
   end
 

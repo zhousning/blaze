@@ -55,7 +55,7 @@ ActiveAdmin.register MthPdtRpt  do
 
   member_action :reject_mth do
     mth_pdt_rpt = MthPdtRpt.find(params[:id])
-    mth_pdt_rpt.onging
+    mth_pdt_rpt.ongoing
     redirect_to jackadmin_mth_pdt_rpts_path
   end
 

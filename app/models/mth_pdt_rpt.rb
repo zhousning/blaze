@@ -85,7 +85,7 @@ class MthPdtRpt < ActiveRecord::Base
     end
   end
 
-  def onging 
+  def ongoing 
     update_attribute :state, Setting.mth_pdt_rpts.ongoing
   end
 
