@@ -30,8 +30,8 @@
               - if current_user.has_role?(Setting.roles.smth_pdt_rpt_cmp_verify)
                 = link_to cmp_verify_index_smth_pdt_rpts_path, :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
                   = fa_icon "object-group", text: "月报表审核"
-                = link_to smonth_sells_path, :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
-                  = fa_icon "object-group", text: "月售水数据填报"
+                = link_to cmpy_mth_sells_path, :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
+                  = fa_icon "object-group", text: "公司月售水数据填报"
                 = link_to cmpy_mth_rpts_path, :class => "list-group-item list-group-item-action border-0 text-left sidebar-text-font px-0" do
                   = fa_icon "object-group", text: "公司月报表填报"
               - if current_user.has_role?(Setting.roles.sday_pdt_rpt)

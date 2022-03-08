@@ -30,16 +30,14 @@ class CreateCmpyMthSells < ActiveRecord::Migration
 
       t.string :name,  null: false, default: Setting.systems.default_str
 
+      t.references :ccompany
 
-
-    
-
-    
-
+      t.references :ncompany
     
       t.references :cmpy_mth_rpt
     
 
+      t.integer :category
     
       t.timestamps null: false
     end

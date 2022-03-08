@@ -1,0 +1,92 @@
+- provide(:title, t('.title'))
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "newspaper-o", text: t(controller_name + "." + action_name + '.title')
+          - if @cmpy_mth_sell.state == Setting.mth_pdt_rpts.ongoing
+            = link_to "上报水务集团",  upreport_cmpy_mth_sell_path(idencode(@cmpy_mth_sell.id)), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "上报后不允许修改，确定上报吗?"}
+            = link_to "编辑", edit_cmpy_mth_sell_path(idencode(@cmpy_mth_sell.id)), :class => "button button-caution button-small pull-right mr-1" 
+          = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
+            = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-sm-12
+              %h2.text-center
+                = image_tag "gykg.jpg"
+                = @cmpy_mth_sell.name
+            .col-md-8.offset-2.p-5.border
+              .col-sm-5.offset-7
+                %h2
+                  - if @cmpy_mth_sell.state == Setting.smonth_sells.complete
+                    %span.p-1.text-success.border.border-success
+                      = Setting.mth_pdt_rpts.complete_t
+                  - elsif @cmpy_mth_sell.state == Setting.smonth_sells.ongoing
+                    %span.p-1.text-primary.border.border-primary
+                      = Setting.mth_pdt_rpts.ongoing_t
+              .card.border-0.mb-3.rounded-0
+                .card-body
+                  %table.table-bordered.day-pdt-table.w-100.mb-3
+                    %tbody
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.smonth_sells.val
+                        %td.p-2.text-center
+                          = @cmpy_mth_sell.val
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_sells.end_val
+                        %td.p-2.text-center
+                          = @cmpy_mth_sell.end_val
+                    
+                    
+                      %tr
+                        %td.p-2.text-center
+                          = Setting.smonth_sells.yoy
+                        %td.p-2.text-center
+                          = @cmpy_mth_sell.yoy
+                    
+                      
+                        %td.p-2.text-center
+                          = Setting.smonth_sells.mom
+                        %td.p-2.text-center
+                          = @cmpy_mth_sell.mom
+                    
+              
+      = render "layouts/bootstrap/card"
+  
+-#
+  %tr
+    %td.p-2.text-center
+      = Setting.smonth_sells.min_val
+    %td.p-2.text-center
+      = @cmpy_mth_sell.min_val
+    %td.p-2.text-center
+      = Setting.smonth_sells.max_val
+    %td.p-2.text-center
+      = @cmpy_mth_sell.max_val
+ 
+ 
+  
+    %td.p-2.text-center
+      = Setting.smonth_sells.avg_val
+    %td.p-2.text-center
+      = @cmpy_mth_sell.avg_val
+ 
+  
+    %td.p-2.text-center
+      = Setting.smonth_sells.max_date
+    %td.p-2.text-center
+      = @cmpy_mth_sell.max_date
+ 
+  %tr
+    %td.p-2.text-center
+      = Setting.smonth_sells.min_date
+    %td.p-2.text-center
+      = @cmpy_mth_sell.min_date

@@ -1,0 +1,35 @@
+.container-fluid
+  .row.justify-content-sm-center
+    .col-sm-12
+      = form_for @cmpy_mth_sell, :url => "/cmpy_mth_sells/#{@cmpy_mth_sell.id ? idencode(@cmpy_mth_sell.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+        - if @cmpy_mth_sell.errors.any?
+          #error_explanation.alert.alert-danger.alert-dismissible.fade.show
+            %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+              %span{"aria-hidden" => "true"} x 
+            %h2= "#{pluralize(@cmpy_mth_sell.errors.count, "错误")}:"
+            %ul
+              - @cmpy_mth_sell.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .col-sm-12
+            %h2.text-center
+              = image_tag "gykg.jpg"
+              = @cmpy_mth_sell.name
+          .col-md-8.offset-md-2.p-5.border
+            #flash_explanation
+            .card.border-0.mb-3.rounded-0
+              .card-body
+                %table.w-100.table-bordered.day-pdt-table
+                  %tbody
+                    
+                    %tr
+                      %td.p-2.text-center
+                        = f.label Setting.smonth_sells.val, :class => "text-center"
+                      %td.p-2.text-center
+                        = f.number_field :val, :class => "form-control", :step => "any"  , :required => true
+                      
+                    
+          
+            .form-group.row
+              .col-3.offset-3
+                = f.submit '保存', :class => "button  button-small button-action"

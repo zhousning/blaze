@@ -1,0 +1,58 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        %h5
+          = fa_icon "list", text: t(controller_name + "." + action_name + '.title')
+
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-md-12
+              %table.text-center.table-sm{:'data-toggle' => "table", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true"}
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                  
+                    %th{:scope => "col"}
+                      = Setting.smonth_sells.name
+                    %th{:scope => "col"}
+                      = Setting.smonth_sells.val
+                    %th{:scope => "col"}
+                      = Setting.smonth_sells.end_val
+                    %th{:scope => "col"}
+                      进度
+                    %th{:scope => "col"}
+                      设置
+                %tbody
+                  - @cmpy_mth_sells.each_with_index do |cmpy_mth_sell, index|
+                    %tr
+                      %td{:scope => "row"}
+                        = index+1
+                    
+                      %td
+                        = cmpy_mth_sell.name
+                      %td
+                        = cmpy_mth_sell.val
+                      %td
+                        = cmpy_mth_sell.end_val
+                      %td
+                        - if cmpy_mth_sell.state == Setting.mth_pdt_rpts.complete
+                          %span.p-1.text-success.border.border-success
+                            = Setting.day_pdts.complete_t
+                        - elsif cmpy_mth_sell.state == Setting.mth_pdt_rpts.ongoing
+                          %span.p-1.text-primary.border.border-primary
+                            = Setting.day_pdts.ongoing_t
+                      %td
+                        .container-fluid
+                          .row.justify-content-center
+                            - if cmpy_mth_sell.state == Setting.mth_pdt_rpts.ongoing
+                              = link_to "编辑", edit_cmpy_mth_sell_path(idencode(cmpy_mth_sell.id)), :class => "button button-royal button-small mr-1" 
+                            = link_to "查看",  cmpy_mth_sell_path(idencode(cmpy_mth_sell.id)), :class => "button button-primary button-small mr-1" 
+      = render "layouts/bootstrap/card"
+
+

@@ -7,6 +7,10 @@ class Ccompany < ActiveRecord::Base
 
   has_many :cmpy_mth_rpts, :dependent => :destroy
   accepts_nested_attributes_for :cmpy_mth_rpts, reject_if: :all_blank, allow_destroy: true
+
+  has_many :cmpy_mth_sells, :dependent => :destroy
+  accepts_nested_attributes_for :cmpy_mth_sells, reject_if: :all_blank, allow_destroy: true
+
 end
 
 # == Schema Information

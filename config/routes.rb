@@ -282,9 +282,12 @@ Rails.application.routes.draw do
   #    get :download_append, :on => :member
   #  end
   #end
-  resources :smonth_sells, :only => [:index, :show, :edit, :update] do
+  resources :cmpy_mth_sells, :only => [:index, :show, :edit, :update] do
     get :upreport, :on => :member
   end
+  #resources :smonth_sells, :only => [:index, :show, :edit, :update] do
+  #  get :upreport, :on => :member
+  #end
   resources :flower
 
 end

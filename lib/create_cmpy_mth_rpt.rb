@@ -46,8 +46,15 @@ module CreateCmpyMthRpt
         mthpower.cmpy_mth_rpt = rpt
         mthpower.save!
 
-        mthsell = CmpyMthSell.new(:start_date => rpt.start_date, :end_date => rpt.end_date, :name => rpt.name + '-售水量数据报表')
+        mthsell = CmpyMthSell.new(:start_date => rpt.start_date, :end_date => rpt.end_date, :name => rpt.name + '-售水量数据报表', :category => rpt.category)
         mthsell.cmpy_mth_rpt = rpt
+        if rpt.category == Setting.cmpy_mth_rpts.ccategory
+          company = rpt.ccompany
+          mthsell.ccompany = company
+        else
+          company = rpt.ncompany
+          mthsell.ncompany = company
+        end
         mthsell.save!
 
         process_result = 'success'
