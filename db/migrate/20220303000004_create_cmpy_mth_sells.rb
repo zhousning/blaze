@@ -11,6 +11,10 @@ class CreateCmpyMthSells < ActiveRecord::Migration
       t.float :min_val,  null: false, default: Setting.systems.default_num 
     
       t.float :avg_val,  null: false, default: Setting.systems.default_num 
+      t.date :start_date
+
+      t.date :end_date
+
     
       t.date :max_date
     
@@ -22,6 +26,11 @@ class CreateCmpyMthSells < ActiveRecord::Migration
     
       t.float :ypdr,  null: false, default: Setting.systems.default_num 
     
+      t.integer :state,  null: false, default: Setting.systems.default_num 
+
+      t.string :name,  null: false, default: Setting.systems.default_str
+
+
 
     
 

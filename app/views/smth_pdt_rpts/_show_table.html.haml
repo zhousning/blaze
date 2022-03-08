@@ -119,36 +119,6 @@
                   = Setting.smonth_opts.min_date
                 %td.p-2.text-center
                   = @mth_pdt_rpt.smonth_opt.min_date
-      .card.border-0.mb-3.rounded-0
-        .card-header.bg-transparent.border-primary
-          %h5
-            = Setting.smonth_presses.label
-        .card-body
-          %table.table-bordered.day-pdt-table.w-100
-            %tbody
-              %tr
-                %td.p-2.text-center
-                  = Setting.smonth_presses.max_val
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.smonth_press.max_val
-                %td.p-2.text-center
-                  = Setting.smonth_presses.max_date
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.smonth_press.max_date
-              %tr
-                %td.p-2.text-center
-                  = Setting.smonth_presses.min_val
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.smonth_press.min_val
-                %td.p-2.text-center
-                  = Setting.smonth_presses.min_date
-                %td.p-2.text-center
-                  = @mth_pdt_rpt.smonth_press.min_date
-              %tr
-                %td.p-2.text-center
-                  = Setting.smonth_presses.avg_val
-                %td.p-2.text-center{:colspan => 2}
-                  = @mth_pdt_rpt.smonth_press.avg_val
 
       -#
         .card.border-0.mb-3.rounded-0
