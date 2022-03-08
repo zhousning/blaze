@@ -3,6 +3,7 @@ class CreateCmpyMthPowers < ActiveRecord::Migration
     create_table :cmpy_mth_powers do |t|
     
       t.float :val,  null: false, default: Setting.systems.default_num 
+      t.float :new_val,  null: false, default: Setting.systems.default_num 
     
       t.float :end_val,  null: false, default: Setting.systems.default_num 
     

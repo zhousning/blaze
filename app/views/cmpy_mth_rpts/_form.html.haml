@@ -1,7 +1,7 @@
 .container-fluid
   .row.justify-content-sm-center
     .col-sm-12
-      = form_for @mth_pdt_rpt, :url => "/sfactories/#{idencode(@factory.id)}/smth_pdt_rpts/#{@mth_pdt_rpt.id ? idencode(@mth_pdt_rpt.id) : ''}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
+      = form_for @mth_pdt_rpt, :url => "/cmpy_mth_rpts/#{idencode(@mth_pdt_rpt.id)}?category=#{@mth_pdt_rpt.category}", :builder => WebsiteFormBuilder, :html => {:'data-parsley-validate' => true} do |f|
         - if @mth_pdt_rpt.errors.any?
           #error_explanation.alert.alert-danger.alert-dismissible.fade.show
             %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
@@ -11,7 +11,7 @@
               - @mth_pdt_rpt.errors.full_messages.each do |msg|
                 %li= msg
       
-        = hidden_field_tag 'fct', idencode(@factory.id) 
+        //= hidden_field_tag 'fct', idencode(@factory.id) 
         = hidden_field_tag 'mth', idencode(@mth_pdt_rpt.id) 
         .row
           .col-sm-12
@@ -21,8 +21,7 @@
       
       
           .col-sm-8.offset-2.p-5.border
-            -#
-              .row
+            .row
               .col-12
                 .form-group.row
                   = f.label Setting.mth_pdt_rpts.ecm_ans_rpt + 'word文件(必上传)', :class => "col-sm-3 col-form-label text-right text-primary"
@@ -32,13 +31,11 @@
                         = f.one_attachment("ecm_ans_rpt")
                       = f.file_field :ecm_ans_rpt, :accept => ".doc,.docx", :class => "select-file", :onchange => "readFileName(this);"
       
-            = f.fields_for :smonth_ipt do |smth_ipt|
+            = f.fields_for :cmpy_mth_ipt do |smth_ipt|
               = render 'smonth_ipt_fields', f: smth_ipt
-            = f.fields_for :smonth_opt do |smth_opt|
+            = f.fields_for :cmpy_mth_opt do |smth_opt|
               = render 'smonth_opt_fields', f: smth_opt
-            = f.fields_for :smonth_press do |smth_press|
-              = render 'smonth_press_fields', f: smth_press
-            = f.fields_for :smonth_power do |smth_power|
+            = f.fields_for :cmpy_mth_power do |smth_power|
               = render 'smonth_power_fields', f: smth_power
             -#
               = f.fields_for :smonth_sell do |smth_sell|
@@ -48,23 +45,3 @@
         .form-group.row
           .col-3.offset-3
             = f.submit '保存', :class => "button  button-small button-action"
--#
-  .col-3.offset-1
-    = link_to '返回', mth_pdt_rpts_path, :class => "button button-small  button-caution"
--#
-  .card.border-0.mb-3.rounded-0
-    .card-header.bg-transparent.border-warning
-      %h5
-        = Setting.chemicals.label
-        %span.text-danger
-          (PAM药剂浓度为固体药剂溶解后浓度)
-    .card-body
-      = f.fields_for :mth_chemicals do |chemical|
-        = render 'chemical_fields', f: chemical
-      #mth-chemical-ctn
-      .form-group.row
-        = f.label Setting.mth_pdt_rpts.cmc_bill + '(必上传,图片大小小于500KB)', :class => "col-sm-3 col-form-label text-right text-danger"
-        .col-sm-9
-          %label.newbutton
-            = image_tag f.one_image("cmc_bill"), :class => "blah"
-            = f.file_field :cmc_bill, :accept => "image/png, image/jpeg, image/gif", :class => "select-file", :onchange => "readURL(this);"

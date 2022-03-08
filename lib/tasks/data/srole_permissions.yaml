@@ -29,7 +29,7 @@
   permissions: 
     -
       controller: cmpy_mth_rpts_controller
-      actions: [smth_rpt_create, index, show, edit, update, verifying, smth_rpt_sync]
+      actions: [index, show, edit, update, upreport, smth_rpt_sync]
 -
   role_name: 供水厂区生产运营数据审核
   level: 1

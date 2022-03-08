@@ -6,9 +6,9 @@
     %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
       - content_for :card_header do
         %h5
-          = fa_icon "wpforms", text:  @factory.name + "-" + t(controller_name + "." + action_name + '.title')
-          - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.rejected || @mth_pdt_rpt.state == Setting.mth_pdt_rpts.cmp_rejected
-            %button#mth-pdt-sync-btn.button.button-small.pull-right.button-royal{:type => 'button', :'data-fct' => idencode(@factory.id), :'data-mth' => idencode(@mth_pdt_rpt.id)}
+          = fa_icon "wpforms", text:  t(controller_name + "." + action_name + '.title')
+          - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
+            %button#mth-pdt-sync-btn.button.button-small.pull-right.button-royal{:type => 'button', :'data-mth' => idencode(@mth_pdt_rpt.id)}
               = fa_icon "refresh", text: '更新月度数据', right: false 
           -#
             = link_to "#{request.url}".sub("edit", ""), :class => "button button-small pull-right button-primary" do

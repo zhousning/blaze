@@ -50,7 +50,7 @@ class CmpyMthRptsController < ApplicationController
 
   def upreport
     @mth_pdt_rpt.complete
-    redirect_to cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => category) 
+    redirect_to cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => @mth_pdt_rpt.category) 
   end
 
   def smth_report_finish_index
@@ -71,11 +71,12 @@ class CmpyMthRptsController < ApplicationController
    
   def update
     safe_param = mth_pdt_rpt_params #一定要赋一个新对象 原对象更改不生效
-    powers = compute_power(@mth_pdt_rpt, mth_pdt_rpt_params[:smonth_power_attributes])
-    safe_param[:smonth_power_attributes] = powers
+    powers = compute_power(@mth_pdt_rpt, mth_pdt_rpt_params[:cmpy_mth_power_attributes])
+    safe_param[:cmpy_mth_power_attributes] = powers
 
     if @mth_pdt_rpt.update(safe_param)
-      redirect_to sfactory_smth_pdt_rpt_path(idencode(@factory.id), idencode(@mth_pdt_rpt.id)) 
+      #redirect_to edit_cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => @mth_pdt_rpt.category) 
+      redirect_to cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => @mth_pdt_rpt.category) 
     else
       render :edit
     end
@@ -158,55 +159,57 @@ class CmpyMthRptsController < ApplicationController
   private
   
     def mth_pdt_rpt_params
-      params.require(:smth_pdt_rpt).permit( :cmc_bill , :ecm_ans_rpt, smonth_ipt_attributes: smonth_val_params, smonth_opt_attributes: smonth_val_params, smonth_power_attributes: smonth_power_params, smonth_sell_attributes: smonth_val_params, smonth_press_attributes: smonth_press_params )
+      params.require(:cmpy_mth_rpt).permit( :cmc_bill , :ecm_ans_rpt, cmpy_mth_ipt_attributes: cmpy_mth_val_params, cmpy_mth_opt_attributes: cmpy_mth_val_params, cmpy_mth_power_attributes: cmpy_mth_power_params, cmpy_mth_sell_attributes: cmpy_mth_val_params )
     end
     
-    def smonth_val_params
+    def cmpy_mth_val_params
       [:id, :val, :end_val, :max_val, :min_val, :avg_val, :max_date, :min_date, :yoy, :mom, :ypdr ,:_destroy]
     end
   
-    def smonth_power_params
+    def cmpy_mth_power_params
       #[:id, :val, :new_val, :end_val, :bom, :end_bom, :avg_val, :yoy_bom, :mom_bom, :yoy, :mom, :mbom, :end_mbom, :yoy_mbom, :mom_mbom, :_destroy]
       [:id, :val, :new_val, :end_val, :bom, :end_bom, :avg_val, :yoy_bom, :mom_bom, :yoy, :mom, :_destroy]
-      #[:id, :val, :new_val, :_destroy]
-    end
-
-    def smonth_press_params
-      [:id, :max_val, :min_val, :avg_val, :max_date, :min_date, :_destroy]
     end
 
     def compute_power(rpt, input_params)
       output_params = input_params
       new_val = input_params[:new_val].to_f
-      smonth_power = rpt.smonth_power
-      smonth_opt_val = rpt.smonth_opt.val
-      factory = rpt.sfactory
+      cmpy_mth_power = rpt.cmpy_mth_power
+      cmpy_mth_opt_val = rpt.cmpy_mth_opt.val
 
       start_date, end_date = rpt.start_date, rpt.end_date
       count = (start_date..end_date).count
       _yoy_start, _mom_start = yoy_mom_date(start_date)
 
-      yoy_mth = SmthPdtRpt.where(:start_date => _yoy_start, :sfactory => factory).first
-      mom_mth = SmthPdtRpt.where(:start_date => _mom_start, :sfactory => factory).first
+      yoy_mth, mom_mth = nil, nil
+      if rpt.category == Setting.cmpy_mth_rpts.ncategory 
+        company = rpt.ncompany
+        yoy_mth = CmpyMthRpt.where(:start_date => _yoy_start, :ncompany => company).first
+        mom_mth = CmpyMthRpt.where(:start_date => _mom_start, :ncompany => company).first
+      elsif rpt.category == Setting.cmpy_mth_rpts.ccategory 
+        company = rpt.ccompany
+        yoy_mth = CmpyMthRpt.where(:start_date => _yoy_start, :ccompany => company).first
+        mom_mth = CmpyMthRpt.where(:start_date => _mom_start, :ccompany => company).first
+      end
 
       avg_val = FormulaLib.ratio(new_val.to_f, count)
-      bom = FormulaLib.kbom(new_val, smonth_opt_val)
+      bom = FormulaLib.kbom(new_val, cmpy_mth_opt_val)
 
       end_val, yoy, mom, bom_yoy, bom_mom = new_val, 0, 0, 0, 0
       if !yoy_mth.nil?
-        yoy_power = yoy_mth.smonth_power
+        yoy_power = yoy_mth.cmpy_mth_power
         yoy = FormulaLib.yoy(new_val, yoy_power.new_val)
         bom_yoy = FormulaLib.yoy(bom, yoy_power.bom)
       end
 
       if !mom_mth.nil?
-        mom_power = mom_mth.smonth_power
+        mom_power = mom_mth.cmpy_mth_power
         end_val += mom_power.end_val
         mom = FormulaLib.mom(new_val, mom_power.new_val)
         bom_mom = FormulaLib.mom(bom, mom_power.bom)
       end
 
-      end_bom = FormulaLib.kbom(end_val, smonth_opt_val)
+      end_bom = FormulaLib.kbom(end_val, cmpy_mth_opt_val)
 
       output_params[:end_val] = end_val
       output_params[:bom] = bom
@@ -340,13 +343,14 @@ class CmpyMthRptsController < ApplicationController
 
   
     def get_cmpy_mth_rpt
-      category = params[:category]
-      - if category == Setting.cmpy_mth_rpts.ncategory 
+      category = params[:category].to_i
+      if category == Setting.cmpy_mth_rpts.ncategory 
         ncmpy = current_user.ncompany
         @mth_pdt_rpt = ncmpy.cmpy_mth_rpts.find(iddecode(params[:id]))
-      - elsif category == Setting.cmpy_mth_rpts.ccategory 
+      elsif category == Setting.cmpy_mth_rpts.ccategory 
         ccmpy = current_user.ccompany
         @mth_pdt_rpt = ccmpy.cmpy_mth_rpts.find(iddecode(params[:id]))
+      end
     end
 
 end

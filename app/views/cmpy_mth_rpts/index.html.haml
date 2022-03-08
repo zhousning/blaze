@@ -53,9 +53,9 @@
                             - if mth_pdt_rpt.category == Setting.cmpy_mth_rpts.ncategory 
                               - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
                                 = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ncategory ), :class => "button button-caution button-small mr-1" 
-                              = link_to "查看", cmpy_mth_rpt_path(idencode(mth_pdt_rpt.sfactory.id), :category => Setting.cmpy_mth_rpts.ncategory ), :class => "button button-primary button-small mr-1" 
+                              = link_to "查看", cmpy_mth_rpt_path(idencode(mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ncategory ), :class => "button button-primary button-small mr-1" 
                             - elsif mth_pdt_rpt.category == Setting.cmpy_mth_rpts.ccategory 
                               - if mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
                                 = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ccategory ), :class => "button button-caution button-small mr-1" 
-                              = link_to "查看", cmpy_mth_rpt_path(idencode(mth_pdt_rpt.sfactory.id), :category => Setting.cmpy_mth_rpts.ccategory ), :class => "button button-primary button-small mr-1" 
+                              = link_to "查看", cmpy_mth_rpt_path(idencode(mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ccategory ), :class => "button button-primary button-small mr-1" 
       = render "layouts/bootstrap/card"

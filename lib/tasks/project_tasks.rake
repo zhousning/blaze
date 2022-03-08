@@ -10,7 +10,7 @@ namespace :project do
     Rake::Task["db:add_permissions"].invoke
     Rake::Task["db:add_roles_permissions"].invoke #在data/role_permissions中设置默认角色和对应权限,这一步要在add_permission之后
     Rake::Task["db:seed"].invoke
-    
+
     ##导入历史化验数据和在线数据
     #Rake::Task["db:import_lishicms"].invoke
     #Rake::Task["db:update_lishionline"].invoke

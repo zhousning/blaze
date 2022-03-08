@@ -9,12 +9,12 @@
           = fa_icon "newspaper-o", text:  t(controller_name + "." + action_name + '.title')
           - if @mth_pdt_rpt.category == Setting.cmpy_mth_rpts.ncategory 
             - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
-              = link_to "上报水务集团",  upreport_cmpy_mth_rpt_path(idencode(@smonth_sell.id), :category => Setting.cmpy_mth_rpts.ncategory), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "上报后不允许修改，确定上报吗?"}
-            = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ncategory ), :class => "button button-caution button-small mr-1" 
+              = link_to "上报水务集团",  upreport_cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ncategory), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "上报后不允许修改，确定上报吗?"}
+            = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ncategory ), :class => "button button-caution button-small pull-right mr-1" 
           - elsif @mth_pdt_rpt.category == Setting.cmpy_mth_rpts.ccategory 
             - if @mth_pdt_rpt.state == Setting.mth_pdt_rpts.ongoing
-              = link_to "上报水务集团",  upreport_cmpy_mth_rpt_path(idencode(@smonth_sell.id), :category => Setting.cmpy_mth_rpts.ccategory), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "上报后不允许修改，确定上报吗?"}
-            = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ccategory ), :class => "button button-caution button-small mr-1" 
+              = link_to "上报水务集团",  upreport_cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ccategory), :class => "button button-royal button-small pull-right mr-1" , :data => {:confirm => "上报后不允许修改，确定上报吗?"}
+            = link_to "编辑", edit_cmpy_mth_rpt_path(idencode(@mth_pdt_rpt.id), :category => Setting.cmpy_mth_rpts.ccategory ), :class => "button button-caution button-small pull-right mr-1" 
           = link_to "/#{controller_name}", :class => "button button-small  pull-right button-primary mr-1" do
             = fa_icon " chevron-left", text: Setting.systems.btn_back, right: false 
       - content_for :card_body do

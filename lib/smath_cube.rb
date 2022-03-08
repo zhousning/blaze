@@ -13,9 +13,9 @@ module SmathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    ipt  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:ipt][:sum], last_year_result[:ipt][:sum])
-    opt  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:opt][:sum], last_year_result[:opt][:sum])
-    #power  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:power][:sum], last_year_result[:power][:sum])
+    ipt  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:ipt][:sum], last_year_result[:ipt][:sum])
+    opt  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:opt][:sum], last_year_result[:opt][:sum])
+    #power  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:power][:sum], last_year_result[:power][:sum])
 
     #power = 0
     #bom = 0
@@ -24,8 +24,8 @@ module SmathCube
     #  power = result[:power][:sum]
     #  power_w = FormulaLib.format_num(power/10000)
     #  last_year_power = last_year_mth_rpt.month_power
-    #  power   = last_year_power.blank? ? 0 : FormulaLib.mom(power_w, last_year_power.power)     
-    #  bom     = last_year_power.blank? ? 0 : FormulaLib.mom(result[:power][:bom], last_year_power.bom)     
+    #  power   = last_year_power.blank? ? 0 : FormulaLib.yoy(power_w, last_year_power.power)     
+    #  bom     = last_year_power.blank? ? 0 : FormulaLib.yoy(result[:power][:bom], last_year_power.bom)     
     #end
 
     {

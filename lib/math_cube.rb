@@ -44,22 +44,22 @@ module MathCube
     result = static_sum(factory_id, _start, _end)
     last_year_result = static_sum(factory_id, _last_start, _last_end)
 
-    inflow  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:inflow][:sum],    last_year_result[:inflow][:sum])
-    emq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tn],        last_year_result[:emq][:tn])        
-    emq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:tp],        last_year_result[:emq][:tp])        
-    emq_bod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:bod],       last_year_result[:emq][:bod])       
-    emq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:cod],       last_year_result[:emq][:cod])       
-    emq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:nhn],       last_year_result[:emq][:nhn])       
-    emq_ss  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:emq][:ss],        last_year_result[:emq][:ss])        
-    cemq_tn  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:tn],        last_year_result[:cemq][:tn])        
-    cemq_tp  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:tp],        last_year_result[:cemq][:tp])        
-    cemq_cod = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:cod],       last_year_result[:cemq][:cod])       
-    cemq_nhn = last_year_result.blank? ? 0 : FormulaLib.mom(result[:cemq][:nhn],       last_year_result[:cemq][:nhn])       
-    fecal   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
+    inflow  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:inflow][:sum],    last_year_result[:inflow][:sum])
+    emq_tn  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:emq][:tn],        last_year_result[:emq][:tn])        
+    emq_tp  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:emq][:tp],        last_year_result[:emq][:tp])        
+    emq_bod = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:emq][:bod],       last_year_result[:emq][:bod])       
+    emq_cod = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:emq][:cod],       last_year_result[:emq][:cod])       
+    emq_nhn = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:emq][:nhn],       last_year_result[:emq][:nhn])       
+    emq_ss  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:emq][:ss],        last_year_result[:emq][:ss])        
+    cemq_tn  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:cemq][:tn],        last_year_result[:cemq][:tn])        
+    cemq_tp  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:cemq][:tp],        last_year_result[:cemq][:tp])        
+    cemq_cod = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:cemq][:cod],       last_year_result[:cemq][:cod])       
+    cemq_nhn = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:cemq][:nhn],       last_year_result[:cemq][:nhn])       
+    fecal   = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:eff_fecal][:sum], last_year_result[:eff_fecal][:sum]) 
 
-    mud     = last_year_result.blank? ? 0 : FormulaLib.mom(result[:outmud][:sum],    last_year_result[:outmud][:sum])    
-    mdrcy   = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     
-    mdsell  = last_year_result.blank? ? 0 : FormulaLib.mom(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    
+    mud     = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:outmud][:sum],    last_year_result[:outmud][:sum])    
+    mdrcy   = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:mdrcy][:sum],     last_year_result[:mdrcy][:sum])     
+    mdsell  = last_year_result.blank? ? 0 : FormulaLib.yoy(result[:mdsell][:sum],    last_year_result[:mdsell][:sum])    
 
     power = 0
     bom = 0
@@ -68,8 +68,8 @@ module MathCube
       power = result[:power][:sum]
       power_w = FormulaLib.format_num(power/10000)
       last_year_power = last_year_mth_rpt.month_power
-      power   = last_year_power.blank? ? 0 : FormulaLib.mom(power_w, last_year_power.power)     
-      bom     = last_year_power.blank? ? 0 : FormulaLib.mom(result[:power][:bom], last_year_power.bom)     
+      power   = last_year_power.blank? ? 0 : FormulaLib.yoy(power_w, last_year_power.power)     
+      bom     = last_year_power.blank? ? 0 : FormulaLib.yoy(result[:power][:bom], last_year_power.bom)     
     end
 
     {
