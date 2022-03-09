@@ -112,8 +112,9 @@ Rails.application.routes.draw do
     resources :mth_pdt_rpts, :only => [:index, :edit, :update, :show] do
       get :mth_rpt_sync, :on => :member
       get :mth_rpt_chemical_sync, :on => :member
+      get :chemical_edit, :on => :member
+      patch :chemical_update, :on => :member
       get :produce_report, :on => :member
-      get :mth_rpt_create, :on => :collection
       get :download_report, :on => :member
       get :upreport, :on => :member
       get :verifying, :on => :member

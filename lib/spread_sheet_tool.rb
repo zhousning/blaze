@@ -292,11 +292,12 @@ class SpreadSheetTool
     mingxi_start = 1
     obj.each_with_index do |mth_pdt_rpt, row|
       name = mth_pdt_rpt.factory.name
-      cod = mth_pdt_rpt.month_cod
-      tp = mth_pdt_rpt.month_tp
-      tn = mth_pdt_rpt.month_tn
+      cod = mth_pdt_rpt.cmonth_cod
+      tp = mth_pdt_rpt.cmonth_tp
+      tn = mth_pdt_rpt.cmonth_tn
+      nhn = mth_pdt_rpt.cmonth_nhn
       ss = mth_pdt_rpt.month_ss
-      nhn = mth_pdt_rpt.month_nhn
+      bod = mth_pdt_rpt.month_bod
       power = mth_pdt_rpt.month_power
       mud = mth_pdt_rpt.month_mud
       md = mth_pdt_rpt.month_md
@@ -304,9 +305,17 @@ class SpreadSheetTool
       #device = mth_pdt_rpt.month_device
       #stuff = mth_pdt_rpt.month_stuff
 
-      arr = [name, mth_pdt_rpt.outflow, md.mdrcy, power.power, power.bom, cod.avg_inf, cod.avg_eff,nhn.avg_inf, nhn.avg_eff, tn.avg_inf, tn.avg_eff, tp.avg_inf, tp.avg_eff] 
+      arr = [
+        name, mth_pdt_rpt.outflow.to_s, mth_pdt_rpt.end_outflow.to_s, md.mdsell.to_s, md.end_mdsell.to_s, md.mdrcy.to_s, md.end_mdrcy.to_s, power.power.to_s, power.end_power.to_s, power.bom.to_s, 
+        cod.avg_inf.to_s, cod.avg_eff.to_s, cod.emq.to_s, cod.emr.to_s, cod.yoy.to_s, cod.mom.to_s,
+        bod.avg_inf.to_s, bod.avg_eff.to_s, bod.emq.to_s, bod.emr.to_s, bod.yoy.to_s, bod.mom.to_s,
+        nhn.avg_inf.to_s, nhn.avg_eff.to_s, nhn.emq.to_s, nhn.emr.to_s, nhn.yoy.to_s, nhn.mom.to_s,
+        tn.avg_inf.to_s, tn.avg_eff.to_s, tn.emq.to_s, tn.emr.to_s, tn.yoy.to_s, tn.mom.to_s,
+        tp.avg_inf.to_s, tp.avg_eff.to_s, tp.emq.to_s, tp.emr.to_s, tp.yoy.to_s, tp.mom.to_s,
+        ss.avg_inf.to_s, ss.avg_eff.to_s, ss.emq.to_s, ss.emr.to_s, ss.yoy.to_s, ss.mom.to_s
+      ] 
       arr.each_with_index do |item, col|
-        yuehuizong.rows[row + 4][col] = item 
+        yuehuizong.rows[row + 5][col] = item 
       end
 
       _start = mth_pdt_rpt.start_date

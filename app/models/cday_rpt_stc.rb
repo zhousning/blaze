@@ -1,7 +1,7 @@
 class CdayRptStc < ActiveRecord::Base
   belongs_to :day_pdt_rpt
 
-  before_save :calculate_attrs
+  #before_save :calculate_attrs
 
   def calculate_attrs
     day_pdt_rpt = self.day_pdt_rpt

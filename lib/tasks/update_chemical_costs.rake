@@ -8,10 +8,10 @@ namespace 'db' do
     @update_chemical_cost_log = Logger.new(@log_dir + '更新化学药剂成本数据.log')
 
     factories = Factory.all
-    years = [2021]
+    years = [2022]
     factories.each do |factory|
       years.each do |year|
-        (Date.new(2021, 1, 10)..Date.new(2022, 2, 4)).each do |day|
+        (Date.new(2022, 1, 1)..Date.new(2022, 2, 6)).each do |day|
           day_rpt = factory.day_pdt_rpts.where(:pdt_date => day).first
           if day_rpt
             day_rpt_stc = day_rpt.day_rpt_stc

@@ -1,7 +1,7 @@
 class DayPdtsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  authorize_resource :except => [:emp_sync,:only_emp_sync]
+  authorize_resource :except => [:emp_sync,:only_emp_sync, :upreport_update]
 
   include FormulaLib
 
@@ -50,6 +50,7 @@ class DayPdtsController < ApplicationController
   def cmp_verify_show
     @factory = my_factory
     @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+    @day_pdt_rpt = @day_pdt.day_pdt_rpt
   end
 
   def cmp_verifying
@@ -77,9 +78,16 @@ class DayPdtsController < ApplicationController
       @chemicals = @day_pdt.chemicals
       @pdt_sum = @day_pdt.pdt_sum
 
+      day_rpt_stc_params = calculate_stcs(@pdt_sum.inflow, @pdt_sum.power, @chemicals, @inf.cod, @inf.bod, @inf.tn, @inf.tp, @inf.nhn, @inf.ss, @eff.cod, @eff.bod, @eff.tn, @eff.tp, @eff.nhn, @eff.ss)
+      cday_rpt_stc_params =calculate_stcs(@pdt_sum.inflow, @pdt_sum.power, @chemicals, @inf.asy_cod, @inf.bod, @inf.asy_tn, @inf.asy_tp, @inf.asy_nhn, @inf.ss, @eff.asy_cod, @eff.bod, @eff.asy_tn, @eff.asy_tp, @eff.asy_nhn, @eff.ss)
+      @day_rpt_stc = DayRptStc.new(day_rpt_stc_params)
+      @cday_rpt_stc = CdayRptStc.new(cday_rpt_stc_params)
+
       params = {
         :factory => @factory,
         :day_pdt => @day_pdt,
+        :day_rpt_stc  => @day_rpt_stc, 
+        :cday_rpt_stc => @cday_rpt_stc,
         :tspmuds => @tspmuds,
         :chemicals => @chemicals,
         :name => @day_pdt.name, :pdt_date => @day_pdt.pdt_date, :weather => @day_pdt.weather, :min_temper => @day_pdt.min_temper,  :max_temper => @day_pdt.max_temper,
@@ -92,20 +100,50 @@ class DayPdtsController < ApplicationController
         :sed_asy_cod => @sed.asy_cod, :sed_asy_nhn => @sed.asy_nhn, :sed_asy_tp => @sed.asy_tp, :sed_asy_tn => @sed.asy_tn
       }
 
-      @day_pdt_rpt = @day_pdt.day_pdt_rpt
+      @day_pdt_rpt = DayPdtRpt.new(params)
+      if @day_pdt_rpt.save!
+        @day_pdt.complete
+      end
+    end
+    redirect_to cmp_verify_show_factory_day_pdt_path(idencode(@factory.id), idencode(@day_pdt.id)) 
+  end
 
-      if !@day_pdt_rpt
-        @day_pdt_rpt = DayPdtRpt.new(params)
-        if @day_pdt_rpt.save
+  def upreport_update
+    @factory = my_factory
+    @day_pdt = @factory.day_pdts.find(iddecode(params[:id]))
+    if @day_pdt.state == Setting.day_pdts.cmp_verifying
+      @eff = @day_pdt.eff_qlty
+      @inf = @day_pdt.inf_qlty
+      @sed = @day_pdt.sed_qlty
+      @tspmuds = @day_pdt.tspmuds
+      @chemicals = @day_pdt.chemicals
+      @pdt_sum = @day_pdt.pdt_sum
+
+      day_rpt_stc_params = calculate_stcs(@pdt_sum.inflow, @pdt_sum.power, @chemicals, @inf.cod, @inf.bod, @inf.tn, @inf.tp, @inf.nhn, @inf.ss, @eff.cod, @eff.bod, @eff.tn, @eff.tp, @eff.nhn, @eff.ss)
+      cday_rpt_stc_params =calculate_stcs(@pdt_sum.inflow, @pdt_sum.power, @chemicals, @inf.asy_cod, @inf.bod, @inf.asy_tn, @inf.asy_tp, @inf.asy_nhn, @inf.ss, @eff.asy_cod, @eff.bod, @eff.asy_tn, @eff.asy_tp, @eff.asy_nhn, @eff.ss)
+
+      params = {
+        :tspmuds => @tspmuds,
+        :chemicals => @chemicals,
+        :name => @day_pdt.name, :pdt_date => @day_pdt.pdt_date, :weather => @day_pdt.weather, :min_temper => @day_pdt.min_temper,  :max_temper => @day_pdt.max_temper,
+        :inf_qlty_bod => @inf.bod, :inf_qlty_cod => @inf.cod, :inf_qlty_ss => @inf.ss, :inf_qlty_nhn => @inf.nhn, :inf_qlty_tn => @inf.tn, :inf_qlty_tp => @inf.tp, :inf_qlty_ph => @inf.ph, 
+        :eff_qlty_bod => @eff.bod, :eff_qlty_cod => @eff.cod, :eff_qlty_ss => @eff.ss, :eff_qlty_nhn => @eff.nhn, :eff_qlty_tn => @eff.tn, :eff_qlty_tp => @eff.tp, :eff_qlty_ph => @eff.ph, :eff_qlty_fecal => @eff.fecal,
+        :sed_qlty_bod => @sed.bod, :sed_qlty_cod => @sed.cod, :sed_qlty_ss => @sed.ss, :sed_qlty_nhn => @sed.nhn, :sed_qlty_tn => @sed.tn, :sed_qlty_tp => @sed.tp, :sed_qlty_ph => @sed.ph, 
+        :inflow => @pdt_sum.inflow, :outflow => @pdt_sum.outflow, :inmud => @pdt_sum.inmud, :outmud => @pdt_sum.outmud, :mst => @pdt_sum.mst, :power => @pdt_sum.power, :mdflow => @pdt_sum.mdflow, :mdrcy => @pdt_sum.mdrcy, :mdsell => @pdt_sum.mdsell, :per_cost => @pdt_sum.per_cost,
+        :inf_asy_cod => @inf.asy_cod, :inf_asy_nhn => @inf.asy_nhn, :inf_asy_tp => @inf.asy_tp, :inf_asy_tn => @inf.asy_tn,
+        :eff_asy_cod => @eff.asy_cod, :eff_asy_nhn => @eff.asy_nhn, :eff_asy_tp => @eff.asy_tp, :eff_asy_tn => @eff.asy_tn,
+        :sed_asy_cod => @sed.asy_cod, :sed_asy_nhn => @sed.asy_nhn, :sed_asy_tp => @sed.asy_tp, :sed_asy_tn => @sed.asy_tn
+      }
+
+      DayPdtRpt.transaction do
+        @day_pdt_rpt = @day_pdt.day_pdt_rpt
+        @day_rpt_stc = @day_pdt_rpt.day_rpt_stc
+        @cday_rpt_stc = @day_pdt_rpt.cday_rpt_stc
+        @day_rpt_stc.update_attributes!(day_rpt_stc_params)
+        @cday_rpt_stc.update_attributes!(cday_rpt_stc_params)
+
+        if @day_pdt_rpt.update_attributes!(params)
           @day_pdt.complete
-          DayRptStcWorker.perform_async(@day_pdt_rpt.id)
-          CdayRptStcWorker.perform_async(@day_pdt_rpt.id)
-        end
-      else
-        if @day_pdt_rpt.update_attributes(params)
-          @day_pdt.complete
-          DayRptStcWorker.perform_async(@day_pdt_rpt.id)
-          CdayRptStcWorker.perform_async(@day_pdt_rpt.id)
         end
       end
     end
@@ -389,6 +427,109 @@ class DayPdtsController < ApplicationController
   
     def chemical_params
       [:id, :name, :unprice, :cmptc, :dosage , :dosptc, :per_cost, :_destroy]
+    end
+
+    def calculate_stcs(inflow, power, chemicals, inf_cod, inf_bod, inf_tn, inf_tp, inf_nhn, inf_ss, eff_cod, eff_bod, eff_tn, eff_tp, eff_nhn, eff_ss)
+
+      clyjcb, tuodancb, qctpcb, qctncb = chemical_cost(chemicals, inflow, inf_tp, inf_tn, eff_tp, eff_tn)
+
+      bcr     = FormulaLib.ratio(inf_bod, inf_cod)
+      bnr     = FormulaLib.ratio(inf_bod, inf_tn)
+      bpr     = FormulaLib.ratio(inf_bod, inf_tp)
+      bom     = FormulaLib.bom(power, inflow) 
+
+      cod_bom = FormulaLib.em_bom(power, inf_cod, eff_cod, inflow ) 
+      bod_bom = FormulaLib.em_bom(power, inf_bod, eff_bod, inflow ) 
+      nhn_bom = FormulaLib.em_bom(power, inf_nhn, eff_nhn, inflow ) 
+      tp_bom  = FormulaLib.em_bom(power, inf_tp,  eff_tp,  inflow ) 
+      tn_bom  = FormulaLib.em_bom(power, inf_tn,  eff_tn,  inflow ) 
+      ss_bom  = FormulaLib.em_bom(power, inf_ss,  eff_ss,  inflow ) 
+
+      cod_emq = FormulaLib.emq(inf_cod, eff_cod,  inflow ) 
+      bod_emq = FormulaLib.emq(inf_bod, eff_bod,  inflow ) 
+      nhn_emq = FormulaLib.emq(inf_nhn, eff_nhn,  inflow ) 
+      tp_emq  = FormulaLib.emq(inf_tp,  eff_tp,   inflow ) 
+      tn_emq  = FormulaLib.emq(inf_tn,  eff_tn,   inflow ) 
+      ss_emq  = FormulaLib.emq(inf_ss,  eff_ss,   inflow ) 
+
+      cod_emr = FormulaLib.emr(inf_cod, eff_cod ) 
+      bod_emr = FormulaLib.emr(inf_bod, eff_bod ) 
+      nhn_emr = FormulaLib.emr(inf_nhn, eff_nhn ) 
+      tp_emr  = FormulaLib.emr(inf_tp,  eff_tp  ) 
+      tn_emr  = FormulaLib.emr(inf_tn,  eff_tn  ) 
+      ss_emr  = FormulaLib.emr(inf_ss,  eff_ss  )
+
+      cod_inflow = FormulaLib.multiply(inf_cod, inflow ) 
+      bod_inflow = FormulaLib.multiply(inf_bod, inflow ) 
+      nhn_inflow = FormulaLib.multiply(inf_nhn, inflow ) 
+      tp_inflow  = FormulaLib.multiply(inf_tp,  inflow ) 
+      tn_inflow  = FormulaLib.multiply(inf_tn,  inflow ) 
+      ss_inflow  = FormulaLib.multiply(inf_ss,  inflow )
+
+      tp_cost = clyjcb
+      tn_cost = tuodancb 
+      tp_utcost = qctpcb 
+      tn_utcost = qctncb
+
+      {
+        :bcr         => bcr    ,   
+        :bnr         => bnr    ,   
+        :bpr         => bpr    ,   
+        :bom         => bom    ,   
+        :cod_bom     => cod_bom,   
+        :bod_bom     => bod_bom,   
+        :nhn_bom     => nhn_bom,   
+        :tp_bom      => tp_bom ,   
+        :tn_bom      => tn_bom ,   
+        :ss_bom      => ss_bom ,   
+        :cod_emq     => cod_emq,   
+        :bod_emq     => bod_emq,   
+        :nhn_emq     => nhn_emq,   
+        :tp_emq      => tp_emq ,   
+        :tn_emq      => tn_emq ,   
+        :ss_emq      => ss_emq ,   
+        :cod_emr     => cod_emr,   
+        :bod_emr     => bod_emr,   
+        :nhn_emr     => nhn_emr,   
+        :tp_emr      => tp_emr ,   
+        :tn_emr      => tn_emr ,   
+        :ss_emr      => ss_emr ,   
+        :cod_inflow  => cod_inflow, 
+        :bod_inflow  => bod_inflow,
+        :nhn_inflow  => nhn_inflow,
+        :tp_inflow   => tp_inflow ,
+        :tn_inflow   => tn_inflow ,
+        :ss_inflow   => ss_inflow ,
+        :tp_cost     => tp_cost   ,
+        :tn_cost     => tn_cost   ,
+        :tp_utcost   => tp_utcost ,
+        :tn_utcost   => tn_utcost 
+      }
+    end
+
+    def chemical_cost(chemicals, inflow, inf_tp, inf_tn, eff_tp, eff_tn)
+      clyj_cost = 0
+      tuodan_cost = 0
+      chemicals.each do |cmc|
+        tanyuan = [Setting.chemical_ctgs.csn, Setting.chemical_ctgs.jc, Setting.chemical_ctgs.xxty]
+        clyj = [Setting.chemical_ctgs.pac, Setting.chemical_ctgs.slht, Setting.chemical_ctgs.jhlst]
+        if clyj.include?(cmc.name)
+          clyj_cost += cmc.unprice*cmc.dosage 
+        end
+        if tanyuan.include?(cmc.name)
+          tuodan_cost += cmc.unprice*cmc.dosage
+        end
+      end
+
+      tp_emq = FormulaLib.emq(inf_tp, eff_tp, inflow )
+      tn_emq = FormulaLib.emq(inf_tn, eff_tn, inflow )
+
+      clyjcb = FormulaLib.format_num(clyj_cost/inflow)
+      tuodancb = FormulaLib.format_num(tuodan_cost/inflow)
+      qctpcb = FormulaLib.format_num(clyj_cost/tp_emq)
+      qctncb = FormulaLib.format_num(tuodan_cost/tn_emq)
+
+      [clyjcb, tuodancb, qctpcb, qctncb]
     end
 
 end
