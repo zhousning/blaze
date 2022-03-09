@@ -2,7 +2,7 @@ class CmpyMthSellsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
   before_filter :validate_state, :only => [:edit, :update]
-  #authorize_resource
+  authorize_resource
 
   include FormulaLib
 

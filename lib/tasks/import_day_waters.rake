@@ -8,7 +8,8 @@ namespace 'db' do
   desc "import day waters"
   task(:import_day_waters => :environment) do
     include FormulaLib
-    base_dir = "lib/tasks/data/cwaters/days/" 
+    #base_dir = "lib/tasks/data/cwaters/days/" 
+    base_dir = "lib/tasks/data/nwaters/days/" 
     @log_dir = "lib/tasks/data/cwaters/logs/" 
     @log = Logger.new(@log_dir + '创建城镇供水日运营数据错误.log')
 

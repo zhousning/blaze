@@ -17,9 +17,9 @@ namespace 'db' do
           status = create_cmpy_mth_rpt(company, year, month, Setting.mth_pdt_rpts.complete, Setting.cmpy_mth_rpts.ncategory)
           title = company.name + year.to_s + '年' + month.to_s
           if status == 'success'
-            puts title + "月报表生成成功"
+            puts title + "农供月报表生成成功"
           elsif status == 'fail'
-            @mthcreatelog.error title + "月报表生成失败"
+            @mthcreatelog.error title + "农供月报表生成失败"
           elsif status == 'zero'
             @mthcreatelog.error title + "暂无数据"
           end
@@ -33,9 +33,9 @@ namespace 'db' do
           status = create_cmpy_mth_rpt(company, year, month, Setting.mth_pdt_rpts.complete, Setting.cmpy_mth_rpts.ccategory)
           title = company.name + year.to_s + '年' + month.to_s
           if status == 'success'
-            puts title + "月报表生成成功"
+            puts title + "城镇月报表生成成功"
           elsif status == 'fail'
-            @mthcreatelog.error title + "月报表生成失败"
+            @mthcreatelog.error title + "城镇月报表生成失败"
           elsif status == 'zero'
             @mthcreatelog.error title + "暂无数据"
           end

@@ -113,6 +113,8 @@ zh-CN:
         title: '月报表'
       sday_rpt_reports:
         title: '日报表'
+      cmpy_mth_reports:
+        title: '公司月报表'
   views:
       pagination:
         first: "首页"

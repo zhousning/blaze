@@ -18,11 +18,12 @@ module CreateCmpyMthRpt
     mom_result = static_mom(company.id, year, month, category)
     yoy_result = static_yoy(company.id, year, month, category)
 
-    name = year.to_s + "年" + month.to_s + "月" + company.name + "生产运营报告"
     rpt = nil 
     if category == Setting.cmpy_mth_rpts.ccategory
+      name = year.to_s + "年" + month.to_s + "月" + company.name + "城镇供水生产运营报告"
       rpt = cmth_pdt_rpt(_start, _end, company.id, name, state, category)
     else category == Setting.cmpy_mth_rpts.ncategory
+      name = year.to_s + "年" + month.to_s + "月" + company.name + "农村供水生产运营报告"
       rpt = nmth_pdt_rpt(_start, _end, company.id, name, state, category)
     end
 

@@ -1,7 +1,7 @@
 class CmpyMthRptsController < ApplicationController
   layout "application_control"
   before_filter :authenticate_user!
-  before_filter :get_cmpy_mth_rpt, :only => [:edit, :update, :show, :upreport]
+  before_filter :get_cmpy_mth_rpt, :only => [:edit, :update, :show, :upreport, :produce_report]
   authorize_resource :except => [:download_append, :produce_report, :query_day_reports, :query_mth_reports, :xls_mth_download]
 
   include SmathCube 
@@ -25,17 +25,24 @@ class CmpyMthRptsController < ApplicationController
       iddecode(fct)
     end
 
-    mth_pdt_rpts = SmthPdtRpt.where(['start_date between ? and ? and sfactory_id in (?) and state = ?', _start, _end, fcts, Setting.mth_pdt_rpts.complete]).order('start_date DESC')
+    ncompany = current_user.ncompany
+    ccompany = current_user.ccompany
+    mth_pdt_rpts = []
+    if fcts.include?(Setting.cmpy_mth_rpts.ccategory)
+      mth_pdt_rpts += ncompany.cmpy_mth_rpts.where(['start_date between ? and ?', _start, _end]).order('start_date DESC')
+    elsif fcts.include?(Setting.cmpy_mth_rpts.ccategory)
+      mth_pdt_rpts += ccompany.cmpy_mth_rpts.where(['start_date between ? and ?', _start, _end]).order('start_date DESC')
+    end
 
     obj = []
     mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|
-      button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + idencode(mth_pdt_rpt.id).to_s + "' data-fct = '" + idencode(mth_pdt_rpt.sfactory.id).to_s + "'>查看</button>"
+      button = "<button id='info-btn' class = 'button button-primary button-small' type = 'button' data-rpt ='" + idencode(mth_pdt_rpt.id).to_s + "' data-fct = '" + mth_pdt_rpt.category.to_s + "'>查看</button>"
       obj << { 
         :id          => (index + 1).to_s,
         :name        => mth_pdt_rpt.name,
-        :ipt     => mth_pdt_rpt.smonth_ipt.val,
-        :opt     => mth_pdt_rpt.smonth_opt.val,
-        :power     => mth_pdt_rpt.smonth_power.new_val,
+        :ipt     => mth_pdt_rpt.cmpy_mth_ipt.val,
+        :opt     => mth_pdt_rpt.cmpy_mth_opt.val,
+        :power     => mth_pdt_rpt.cmpy_mth_power.new_val,
         :state       => mth_state(mth_pdt_rpt.state),
         :button => button
       }
@@ -54,10 +61,12 @@ class CmpyMthRptsController < ApplicationController
   end
 
   def smth_report_finish_index
-    @factories = current_user.sfactories.all
+    c1 = Factory.new({id: Setting.cmpy_mth_rpts.ccategory, name: '城镇供水'})
+    c2 = Factory.new({id: Setting.cmpy_mth_rpts.ncategory, name: '农村供水'})
+    @factories = [c1, c2] 
     gon.fct = ""
     @factories.each do |fct|
-      gon.fct += idencode(fct.id).to_s + ","
+      gon.fct += idencode(fct[:id]).to_s + ","
     end
   end
 
@@ -130,28 +139,26 @@ class CmpyMthRptsController < ApplicationController
       :name => @mth_pdt_rpt.name
     }
 
-    #flow = flow_content(@mth_pdt_rpt) 
+    flow = flow_content(@mth_pdt_rpt) 
     ipt = ipt_content(@mth_pdt_rpt) 
     opt = opt_content(@mth_pdt_rpt) 
     power = power_content(@mth_pdt_rpt) 
-    press = press_content(@mth_pdt_rpt) 
-    #sell = sell_content(@mth_pdt_rpt) 
+    sell = sell_content(@mth_pdt_rpt) 
     #cmcbill = @mth_pdt_rpt.cmc_bill_url
-    #ecm_ans_rpt = @mth_pdt_rpt.ecm_ans_rpt_url
+    ecm_ans_rpt = @mth_pdt_rpt.ecm_ans_rpt_url
     respond_to do |format|
       format.json{ render :json => 
         {
           #:cmcbill => cmcbill,
-          #:ecm_ans_rpt => ecm_ans_rpt,
-          :fct_id => idencode(@factory.id),
+          :flow   => flow, 
+          :ecm_ans_rpt => ecm_ans_rpt,
+          :fct_id => idencode(@mth_pdt_rpt.category),
           :mth_rpt_id => idencode(@mth_pdt_rpt.id),
           :header => header,
           :ipt   => ipt, 
-          #:flow   => flow, 
-          #:sell   => sell, 
+          :sell   => sell, 
           :opt   => opt, 
-          :power   => power, 
-          :press   => press 
+          :power   => power
         }.to_json}
     end
   end
@@ -242,7 +249,7 @@ class CmpyMthRptsController < ApplicationController
     end
 
     def ipt_content(mth_pdt_rpt)
-      ipt = mth_pdt_rpt.smonth_ipt
+      ipt = mth_pdt_rpt.cmpy_mth_ipt
       targets = ['val', 'end_val', 'avg_val', '', 'yoy', 'mom', 'max_val', 'max_date', 'min_val', 'min_date']
       arr = []
       title = []
@@ -261,7 +268,7 @@ class CmpyMthRptsController < ApplicationController
     end
 
     def opt_content(mth_pdt_rpt)
-      opt = mth_pdt_rpt.smonth_opt
+      opt = mth_pdt_rpt.cmpy_mth_opt
       targets = ['val', 'end_val', 'avg_val', '', 'yoy', 'mom', 'max_val', 'max_date', 'min_val', 'min_date']
       arr = []
       title = []
@@ -279,27 +286,8 @@ class CmpyMthRptsController < ApplicationController
       arr
     end
 
-    def press_content(mth_pdt_rpt)
-      press = mth_pdt_rpt.smonth_press
-      targets = ['max_val', 'max_date', 'min_val', 'min_date', 'avg_val', '']
-      arr = []
-      title = []
-      targets.each_with_index do |t, index|
-        if !t.blank?
-          title += [Setting.smonth_presses[t], press[t]]
-        else
-          title += ['', '']
-        end
-        if (index+1)%2 == 0
-          arr << title
-          title = []
-        end
-      end
-      arr
-    end
-
     def sell_content(mth_pdt_rpt)
-      sell = mth_pdt_rpt.smonth_sell
+      sell = mth_pdt_rpt.cmpy_mth_sell
       targets = ['val', 'end_val', 'avg_val', 'yoy', 'mom']
       arr = []
       title = []
@@ -314,7 +302,7 @@ class CmpyMthRptsController < ApplicationController
     end
 
     def power_content(mth_pdt_rpt)
-      power = mth_pdt_rpt.smonth_power
+      power = mth_pdt_rpt.cmpy_mth_power
       targets = ['new_val', 'end_val', 'val', 'avg_val', 'yoy', 'mom', 'bom', 'end_bom', 'yoy_bom', 'mom_bom']
       arr = []
       title = []

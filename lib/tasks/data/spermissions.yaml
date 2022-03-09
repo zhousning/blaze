@@ -17,6 +17,9 @@
 -
   controller: cmpy_mth_rpts_controller
   actions: [index, show, edit, update, download_report, upreport, smth_report_finish_index, smth_report_finish_show, xls_smth_download, smth_rpt_sync]
+-
+  controller: cmpy_mth_sells_controller
+  actions: [index, show, edit, update, upreport]
 
 -
   controller: sanalyses_controller

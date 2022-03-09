@@ -41,7 +41,7 @@ class SmthPdtRptsController < ApplicationController
       iddecode(fct)
     end
 
-    mth_pdt_rpts = SmthPdtRpt.where(['start_date between ? and ? and sfactory_id in (?) and state = ?', _start, _end, fcts, Setting.mth_pdt_rpts.complete]).order('start_date DESC')
+    mth_pdt_rpts = SmthPdtRpt.where(['start_date between ? and ? and sfactory_id in (?)', _start, _end, fcts]).order('start_date DESC')
 
     obj = []
     mth_pdt_rpts.each_with_index do |mth_pdt_rpt, index|

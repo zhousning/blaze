@@ -239,6 +239,8 @@ Rails.application.routes.draw do
     get :mth_report_finish_show, :on => :member
     get :xls_mth_download, :on => :member
     get :download_append, :on => :member
+    get :smth_report_finish_index, :on => :collection
+    get :query_mth_reports, :on => :collection
   end
   resources :sfactories, :only => [:edit, :update] do
     resources :sday_pdts, :only => [:show, :edit, :update] do
