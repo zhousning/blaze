@@ -1030,6 +1030,15 @@ zh-CN:
       title: 供水厂区月报表-下载word
     smth_rpt_sync:
       title: 更新供水厂区月报表
+  cmpy_mth_sells:
+    index:
+      title: 供水公司级月售水数据填报-列表
+    edit:
+      title: 供水公司级月售水数据填报-编辑
+    update:        
+      title: 供水公司级月售水数据填报-编辑
+    show:          
+      title: 供水公司级月售水数据填报-查看
   cmpy_mth_rpts:
     smth_rpt_create:
       title: 供水公司级月报表填报

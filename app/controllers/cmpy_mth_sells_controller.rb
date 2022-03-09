@@ -66,9 +66,14 @@ class CmpyMthSellsController < ApplicationController
       date = cmpy_mth_sell.start_date
       year = date.year
       month = date.month
-      now_val = cmpy_mth_sell.val
+      now_val = input_params[:val].to_f
+      end_val = now_val
 
-      end_val = company.cmpy_mth_sells.where(["start_date between ? and ?", Date.new(year, 1, 1), date]).sum(:val)
+      last_month = month - 1
+      if last_month != 0 
+        sum = company.cmpy_mth_sells.where(["start_date between ? and ?", Date.new(year, 1, 1), Date.new(year, last_month, 1)]).sum(:val)
+        end_val += sum 
+      end
 
       yoy_year = year - 1
       _yoy_start = Date.new(yoy_year, month, 1)
