@@ -43,8 +43,8 @@
                         .container-fluid
                           .row.justify-content-center
                             - if sday_pdt.state == Setting.day_pdts.ongoing || sday_pdt.state == Setting.day_pdts.rejected || sday_pdt.state == Setting.day_pdts.cmp_rejected
-                              = link_to "编辑", edit_sfactory_sday_pdt_path(idencode(sday_pdt.sfactory.id), idencode(sday_pdt.sfactory.id)), :class => "button button-caution button-small mr-1" 
-                            = link_to "查看", sfactory_sday_pdt_path(idencode(sday_pdt.sfactory.id), idencode(sday_pdt.sfactory.id)), :class => "button button-primary button-small mr-1" 
+                              = link_to "编辑", edit_sfactory_sday_pdt_path(idencode(sday_pdt.sfactory.id), idencode(sday_pdt.id)), :class => "button button-caution button-small mr-1" 
+                            = link_to "查看", sfactory_sday_pdt_path(idencode(sday_pdt.sfactory.id), idencode(sday_pdt.id)), :class => "button button-primary button-small mr-1" 
             -#
               .col-md-12.site-theme-paginate-wrapper.d-flex.justify-content-center.mt-3
               = paginate @sday_pdts, window: 2, left: 1, right: 1 

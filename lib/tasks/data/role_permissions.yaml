@@ -163,4 +163,126 @@
     -
       controller: analyses_controller
       actions: [area_time, area_time_compare]
+#供水数据
+- 
+  role_name: 供水厂区用户
+  level: 1
+- 
+  role_name: 供水厂区基本信息设置 
+  level: 1
+  permissions: 
+    -
+      controller: sfactories_controller
+      actions: [edit, update]
+- 
+  role_name: 供水厂区生产运营数据填报 
+  level: 1
+  permissions: 
+    -
+      controller: sday_pdts_controller
+      actions: [index, show, new, create, edit, update, verifying]
+- 
+  role_name: 供水厂区月报表填报 
+  level: 1
+  permissions: 
+    -
+      controller: smth_pdt_rpts_controller
+      actions: [smth_rpt_create, index, show, edit, update, verifying, smth_rpt_sync]
+- 
+  role_name: 供水公司月报表填报 
+  level: 1
+  permissions: 
+    -
+      controller: cmpy_mth_rpts_controller
+      actions: [index, show, edit, update, upreport, smth_rpt_sync]
+    -
+      controller: cmpy_mth_sells_controller
+      actions: [index, show, edit, update, upreport]
+
+-
+  role_name: 供水厂区生产运营数据审核
+  level: 1
+  permissions: 
+    -
+      controller: sday_pdts_controller
+      actions: [verify_index, verify_show, rejected, cmp_verifying]
+- 
+  role_name: 供水公司生产运营数据审核
+  level: 1
+  permissions: 
+    -
+      controller: sday_pdts_controller
+      actions: [cmp_verify_index, cmp_verify_show, cmp_rejected, upreport]
+- 
+  role_name: 供水厂区月报表审核 
+  level: 1
+  permissions: 
+    -
+      controller: smth_pdt_rpts_controller
+      actions: [verify_index, verify_show, rejected, cmp_verifying, download_report]
+- 
+  role_name: 供水公司月报表审核
+  level: 1
+  permissions: 
+    -
+      controller: smth_pdt_rpts_controller
+      actions: [cmp_verify_index, cmp_verify_show, cmp_rejected, upreport]
+- 
+  role_name: 供水厂区日报表查看 
+  level: 1
+  permissions: 
+    -
+      controller: sday_pdt_rpts_controller
+      actions: [index, show, static_pool, produce_report, xls_sday_download]
+- 
+  role_name: 供水厂区月报表查看 
+  level: 1
+  permissions: 
+    -
+      controller: smth_pdt_rpts_controller
+      actions: [smth_report_finish_index, smth_report_finish_show, xls_smth_download, download_report]
+
+- 
+  role_name: 供水公司月报表查看 
+  level: 1
+  permissions: 
+    -
+      controller: cmpy_mth_rpts_controller
+      actions: [smth_report_finish_index, smth_report_finish_show, xls_smth_download, download_report]
+- 
+  role_name: 集团供水报表管理
+  level: 1
+  permissions: 
+    -
+      controller: sreports_controller
+      actions: [index, mth_report_show, day_report, mth_report, uday_report, umth_report, xls_day_download, xls_mth_download]
+    -
+      controller: smth_pdt_rpts_controller
+      actions: [xls_mth_download, download_report]
+    -
+      controller: cmpy_mth_rpts_controller
+      actions: [xls_mth_download, download_report]
+
+- 
+  role_name: 供水数据立方
+  level: 1
+  permissions: 
+    -
+      controller: sday_pdt_rpts_controller
+      actions: [sglfct_statistic, sglfct_stc_cau, emq_cau, emr_cau, bom_cau, power_cau, radar_chart, new_quota_chart, static_pool, produce_report, xls_day_download]
+
+- 
+  role_name: 供水数据对比
+  level: 1
+  permissions: 
+    -
+      controller: sanalyses_controller
+      actions: [compare, month_compare]
+- 
+  role_name: 供水厂间分析
+  level: 1
+  permissions: 
+    -
+      controller: sanalyses_controller
+      actions: [area_time, area_time_compare]
 

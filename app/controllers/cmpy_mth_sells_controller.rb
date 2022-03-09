@@ -11,8 +11,8 @@ class CmpyMthSellsController < ApplicationController
     ccmpy = current_user.ccompany
     ncmpy = current_user.ncompany
     @cmpy_mth_sells = [] 
-    @cmpy_mth_sells += ccmpy.cmpy_mth_sells.where(:state => Setting.mth_pdt_rpts.ongoing) if ccmpy 
-    @cmpy_mth_sells += ncmpy.cmpy_mth_sells.where(:state => Setting.mth_pdt_rpts.ongoing) if ncmpy
+    @cmpy_mth_sells += ccmpy.cmpy_mth_sells.where(:state => Setting.mth_pdt_rpts.ongoing).order('start_date DESC') if ccmpy 
+    @cmpy_mth_sells += ncmpy.cmpy_mth_sells.where(:state => Setting.mth_pdt_rpts.ongoing).order('start_date DESC') if ncmpy
   end
    
   def show

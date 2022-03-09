@@ -2,8 +2,7 @@ namespace 'db' do
   desc "Loading all models and their methods in roles table."
   task(:add_roles_permissions => :environment) do
 
-    data = YAML.load_file("lib/tasks/data/srole_permissions.yaml")
-    #data = YAML.load_file("lib/tasks/data/role_permissions.yaml")
+    data = YAML.load_file("lib/tasks/data/role_permissions.yaml")
     data.each do |r|
       permission_arr = []
       lists = r['permissions'] || []

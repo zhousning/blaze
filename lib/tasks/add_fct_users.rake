@@ -48,7 +48,7 @@ namespace 'db' do
 
       cfactories = []
       fct[1].each do |c|
-        @cfactory = Sfactory.create!(:name => c.to_s, :ccompany => @ccompany, :category => Setting.sfactories.city )
+        @cfactory = Sfactory.create!(:name => c.to_s + '(城镇)', :ccompany => @ccompany, :category => Setting.sfactories.city )
         cfactories << @cfactory
       end
       cfhash[cpmy] = cfactories
@@ -74,7 +74,7 @@ namespace 'db' do
 
       nfactories = []
       fct[1].each do |c|
-        @nfactory  = Sfactory.create!(:name => c.to_s, :ncompany => @ncompany, :category => Setting.sfactories.country )
+        @nfactory  = Sfactory.create!(:name => c.to_s + '(农供)', :ncompany => @ncompany, :category => Setting.sfactories.country )
         nfactories << @nfactory
       end
       nfhash[cpmy] = nfactories

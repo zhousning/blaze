@@ -28,9 +28,10 @@ class CmpyMthRptsController < ApplicationController
     ncompany = current_user.ncompany
     ccompany = current_user.ccompany
     mth_pdt_rpts = []
-    if fcts.include?(Setting.cmpy_mth_rpts.ccategory)
+    if fcts.include?(Setting.cmpy_mth_rpts.ncategory)
       mth_pdt_rpts += ncompany.cmpy_mth_rpts.where(['start_date between ? and ?', _start, _end]).order('start_date DESC')
-    elsif fcts.include?(Setting.cmpy_mth_rpts.ccategory)
+    end
+    if fcts.include?(Setting.cmpy_mth_rpts.ccategory)
       mth_pdt_rpts += ccompany.cmpy_mth_rpts.where(['start_date between ? and ?', _start, _end]).order('start_date DESC')
     end
 
@@ -42,7 +43,7 @@ class CmpyMthRptsController < ApplicationController
         :name        => mth_pdt_rpt.name,
         :ipt     => mth_pdt_rpt.cmpy_mth_ipt.val,
         :opt     => mth_pdt_rpt.cmpy_mth_opt.val,
-        :power     => mth_pdt_rpt.cmpy_mth_power.new_val,
+        :power     => mth_pdt_rpt.cmpy_mth_power.val,
         :state       => mth_state(mth_pdt_rpt.state),
         :button => button
       }
