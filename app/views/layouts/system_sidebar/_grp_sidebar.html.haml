@@ -58,3 +58,9 @@
             = fa_icon "sign-in", text: "进水口"
           = link_to grp_index_emp_effs_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
             = fa_icon "sign-out", text: "出水口"
+      .card.border-0.rounded-0
+        .card-header.text-left.pl-2.pr-0.py-3.border.border-left-0.border-top-0.border-bottom-0.border-success
+          设备管理
+        .card-body.py-0
+          = link_to equipments_path, :class => "list-group-item list-group-item-action border-0 sidebar-text-font px-0 #{(/ocr/ =~ request.path).nil? ? '' : 'sidebar-text-active' }" do
+            设备档案

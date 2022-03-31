@@ -291,6 +291,10 @@ Rails.application.routes.draw do
   #resources :smonth_sells, :only => [:index, :show, :edit, :update] do
   #  get :upreport, :on => :member
   #end
+  resources :equipments, :only => [:index] do
+    get :query_all, :on => :collection
+    get :upholds, :on => :collection
+  end
   resources :flower
 
 end

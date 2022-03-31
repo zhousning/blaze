@@ -1,0 +1,53 @@
+- provide(:title, t('.title'))
+
+
+.container-fluid
+  .row
+    = render "layouts/control_sidebar"
+    %main.col-md-11.ml-sm-auto.col-lg-11.p-3{:role => "main"}
+      - content_for :card_header do
+        .row.ml-1.my-3.pl-0
+          .col-1.pl-0
+            = select_tag "fct", raw(@fcts), :include_blank=>false, :class=>"form-control"
+          .col-1
+            %button#report-search.button.button-royal.button-small{:type => "button"}
+              查询
+
+      - content_for :card_body do
+        .container-fluid
+          .row
+            .col-12
+              .card.w-100
+                .card-body
+                  .tab-content.text-center
+                    #home.tab-pane.active{:role => "tabpanel"}
+                      .row
+                        .col-12
+                          %table#day-pdt-rpt-table.text-center.table-sm{:'data-toggle' => "table", :"data-pagination"=>"true", :'data-id-table'=>"advancedTable", :"data-search" => "true",:'data-advanced-search'=>"true", :'data-height' => "600", :'data-virtual-scroll' => "true", :'data-show-columns' => "true", :'data-page-size' => "15"}
+                            %thead
+                              %tr
+                                %th{:scope => "col", :'data-field' => "id"} #
+                              
+                                %th{:scope => "col", :'data-field' => "idno"}
+                                  = Setting.devices.idno
+                                %th{:scope => "col", :'data-field' => "name"}
+                                  = Setting.devices.name
+                                %th{:scope => "col", :'data-field' => "mdno"}
+                                  = Setting.devices.mdno
+                                %th{:scope => "col", :'data-field' => "unit"}
+                                  = Setting.devices.unit
+                                %th{:scope => "col", :'data-field' => "pos"}
+                                  = Setting.devices.pos
+                                %th{:scope => "col", :'data-field' => "state"}
+                                  = Setting.devices.state
+                                %th{:scope => "col", :'data-field' => "search"}
+
+      = render "layouts/bootstrap/card"
+
+#newModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newModalLabel", :tabindex => "-1"}
+  .modal-dialog.modal-xl.modal-dialog-centered.modal-dialog-scrollable
+    .modal-content
+      .modal-header
+        维保记录
+      .modal-body
+        %table#mth-flow-ctn.table.table-bordered.bg-flow

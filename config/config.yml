@@ -1109,6 +1109,7 @@ defaults: &defaults
     commision: 0.1
     authc_pay: 1
     host: www.cygangsta.com
+    equip_host: 'localhost:3000/' 
     status_en_yes: true
     status_en_no: false
     status_yes: 是
@@ -1966,6 +1967,25 @@ defaults: &defaults
     avg_val: 平均压力
     max_date: 最高日期
     min_date: 最低日期
+  devices: 
+    label: 设备档案
+    idno: 设备编号
+    name: 设备名称
+    mdno: 规格型号
+    unit: 计量单位
+    out_date: 出厂日期
+    mount_date: 安装日期
+    supplier: 供应商
+    mfcture: 制造商
+    pos: 安装位置
+    pos_no: 安装位置编号
+    life: 使用年限
+    qrcode: 二维码
+    state: 状态
+    desc: 备注
+    state_normal: 正常
+    state_repair: 检修
+    state_stop: 停用
 development:
   <<: *mysetting
   <<: *defaults
