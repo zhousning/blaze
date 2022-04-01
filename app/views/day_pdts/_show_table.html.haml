@@ -213,6 +213,12 @@
                   = Setting.pdt_sums.power
                 %td.p-3.text-center
                   = @day_pdt.pdt_sum.power
+              %tr
+                %td.p-3.text-center
+                  = Setting.day_rpt_stcs.bom
+                %td.p-3.text-center
+                  = FormulaLib.bom(@day_pdt.pdt_sum.power, @day_pdt.pdt_sum.inflow) 
+                %td.p-3.text-center{:colspan => 6}
                   
               %tr
                 %td.p-3.text-center
